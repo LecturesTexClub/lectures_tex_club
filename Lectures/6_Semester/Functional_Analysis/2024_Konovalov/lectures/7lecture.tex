@@ -63,6 +63,10 @@
 	\]
 \end{exercise}
 
+\begin{corollary}
+	Любое замкнутое ограниченное множество на комплексной плоскости является спектром какого-то оператора.
+\end{corollary}
+
 \section{Самосопряжённые операторы}
 
 \begin{note}
@@ -118,7 +122,7 @@
 	Мы получили, что $\sigma_p(A) \subseteq \R$. Можно высказать вполне законную гипотезу (которая скоро окажется верной), что $\sigma(A) \subseteq \R$
 \end{note}
 
-\begin{theorem}
+\begin{theorem} \label{sao_fred_th}
 	При всех условиях параграфа, верно равенство
 	\[
 		\forall \lambda \in \Cm\ \ \cl(\im A_\lambda) \oplus \ker A_\lambda = H
@@ -148,13 +152,13 @@
 
 \begin{proof}~
 	\begin{itemize}
-		\item[$\Ra$] Раз $\lambda \in \rho(A)$, то $A_\lambda$ обратим, а значит биективен. По теореме \ref{reverse_op_crit} всё доказано сразу
+		\item[$\Ra$] Раз $\lambda \in \rho(A)$, то $A_\lambda$ обратим, а значит биективен. По теореме \ref{reverse_op_crit} всё сразу доказано.
 		
 		\item[$\La$] По той же теореме, $A_\lambda$ должен быть непрерывно обратим. Более того, $\ker A_\lambda = \{0\}$, а в силу разложения пространства имеем следующее:
 		\[
 			\cl(\im A_\lambda) \oplus \ker A_\lambda = H = \cl(\im A_\lambda)
 		\]
-		А в силу леммы \ref{conj_op_bot_bounded_lemma} имеем $\im A_\lambda = \cl(\im A_\lambda) = H$
+		А в силу леммы \ref{conj_op_bot_bounded_lemma} имеем $\im A_\lambda = \cl(\im A_\lambda) = H$.
 	\end{itemize}
 \end{proof}
 
