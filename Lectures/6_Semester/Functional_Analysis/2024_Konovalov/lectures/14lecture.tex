@@ -45,7 +45,7 @@
 \end{reminder}
 
 \begin{proposition}
-	Преобразование Фурье продолжается на $L_2$. Более того, $F[L_1] \subseteq S$.
+	Преобразование Фурье продолжается на $L_2(\R)$. Более того, \\ $F[L_2(\R)] \subseteq S$.
 \end{proposition}
 
 \begin{proof}
@@ -69,12 +69,16 @@
 		
 		\item Распишем скалярное произведение с использованием \textit{формулы обращения} (она идёт без доказательства):
 		\begin{multline*}
-			(f, g) = \int_\R f(x)\ole{g(x)}d\mu(x) = \int_\R f(x)\ole{\ps{\frac{1}{\sqrt{2\pi}}\int_\R \wdh{g}(y)e^{ixy}d\mu(y)}}d\mu(x) =
+			(f, g) = \int_\R f(x)\ole{g(x)}d\mu(x) = \int_\R f(x)\ole{\ps{\int_\R \wdh{g}(y)e^{ixy}d\mu(y)}}d\mu(x) =
 			\\
-			\frac{1}{\sqrt{2\pi}} \int_\R \int_\R f(x)\ole{\wdh{g}(y)}e^{-ixy}d\mu(x)d\mu(y) = \frac{1}{\sqrt{2\pi}} \int_\R \ole{\wdh{g}(y)} \int_\R f(x)e^{-ixy}d\mu(x)d\mu(y) = (\wdh{f}, \wdh{g})
+			\int_\R \int_\R f(x)\ole{\wdh{g}(y)}e^{-ixy}d\mu(x)d\mu(y) = \int_\R \ole{\wdh{g}(y)} \int_\R f(x)e^{-ixy}d\mu(x)d\mu(y) = (\wdh{f}, \wdh{g})
 		\end{multline*}
 		
-		\item Докажем именно ту часть, что $F^2f(x) = f(-x)$. \textcolor{red}{Доказать?}
+		\item Докажем именно ту часть, что $F^2f(x) = f(-x)$. Заметим связь между прямым и обратным преобразованием Фурье:
+		\[
+			F[f]y = \wdh{f}(y) = \int_\R f(x)e^{-ixy}d\mu(x) = \int_\R f(x)e^{ix(-y)}d\mu(x) = \check{f}(-y)
+		\]
+		Так как преобразование Фурье биективно, можно применить его к полученному равенству и получить требуемое.
 	\end{enumerate}
 \end{proof}
 
@@ -94,12 +98,11 @@
 		
 		\item Если бы это было так, то у преобразования Фурье точечный спектр лежал бы на вещественной прямой. Однако из уравнения следует, что $\sigma_p(F) \supseteq \{\pm 1, \pm i\}$.
 	\end{enumerate}
-	Тривиальное следствие из $F^4 = I$.
 \end{proof}
 
 \begin{proposition} (Теорема Планшереля, 1910г.)
 	\begin{enumerate}
-		\item Преобразовние Фурье осуществляет биекцию на $L_2(\R)$ и даже изометрию. В частности, $\|f\|_2^2 = \|\wdh{f}\|_2^2$
+		\item Преобразование Фурье осуществляет биекцию на $L_2(\R)$ и даже изометрию. В частности, $\|f\|_2^2 = \|\wdh{f}\|_2^2$
 		
 		\item Определим $g_N(y)$ как своего рода \textit{срезку преобразования Фурье}:
 		\[

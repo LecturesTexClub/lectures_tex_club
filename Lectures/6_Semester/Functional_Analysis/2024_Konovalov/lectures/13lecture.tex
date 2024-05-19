@@ -53,7 +53,7 @@
 	\]
 \end{proposition}
 
-\begin{reminder} (следствие)
+\begin{reminder} (следствие теоремы Фубини)
 	Пусть $f \colon \R \to \R$ --- измеримая функция, причём конечен хотя бы один из интегралов
 	\[
 		\int_\R \int_\R |f(x, y)|d\mu(y)d\mu(x) < \infty \vee \int_\R \int_\R |f(x, y)|d\mu(x)d\mu(y) < \infty
@@ -68,7 +68,7 @@
 	\]
 	Покажем, что мы можем переставить интегралы (по следствию теоремы Фубини). Для этого оценим повторный интеграл:
 	\begin{multline*}
-		\int_Y \int_\R |f(y)g(x)e^{-xy}|d\mu(x)d\mu(y) = \int_Y \int_\R |f(y)g(x)|d\mu(x)d\mu(y) \le
+		\int_Y \int_\R |f(y)g(x)e^{-ixy}|d\mu(x)d\mu(y) = \int_Y \int_\R |f(y)g(x)|d\mu(x)d\mu(y) \le
 		\\
 		\|g\|_1\int_Y |f(y)|d\mu(y) \le \|f\|_1\|g\|_1
 	\end{multline*}

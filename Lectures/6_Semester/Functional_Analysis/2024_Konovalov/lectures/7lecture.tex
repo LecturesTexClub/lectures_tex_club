@@ -41,6 +41,12 @@
 	В конечномерном случае, $\sigma(A) = \sigma_p(A)$, причём $\exists \lambda \in \sigma_p(A) \Lra \ker A_\lambda \neq \{0\}$. В бесконечномерном случае этим уже не ограничиться.
 \end{note}
 
+\begin{note}
+	Если $\ker A_\lambda = \{0\}$ и  $\im A_\lambda = E$, то $A_\lambda \in \cL(E)$ является биекцией, а значит по теореме Банаха $A_\lambda^{-1} \in \cL(E)$, то есть $\lambda \in \rho(A) = \Cm \bs \sigma(A)$.
+	
+	Это также значит, что можно классифицировать спектр, исходя из того, какая часть биективности ломается у $A_\lambda$.
+\end{note}
+
 \begin{definition}
 	Рассмотрим оператор $A \in \cL(E)$. Тогда
 	\begin{itemize}
@@ -51,10 +57,6 @@
 		\item $\sigma_r(A) := \{\lambda \in \sigma(A) \colon \ker A_\lambda = \{0\} \wedge \cl (\im A_\lambda) \neq E\}$ --- \textit{остаточный спектр}
 	\end{itemize}
 \end{definition}
-
-\begin{note}
-	Если $\ker A_\lambda = \{0\}$ и  $\im A_\lambda = E$, то $A_\lambda \in \cL(E)$ является биекцией, а значит по теореме Банаха $A_\lambda^{-1} \in \cL(E)$, то есть $\lambda \in \rho(A) = \Cm \bs \sigma(A)$.
-\end{note}
 	
 \begin{exercise}
 	Пусть дано пространство $\ell_2(\Cm)$, $\{\lambda_n\}_{n = 1}^\infty$ --- ограниченная последовательность, $(Ax)_n = \lambda_nx_n$. Доказать, что
