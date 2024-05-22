@@ -56,7 +56,7 @@
 \begin{proposition} (формула умножения)
 	Пусть $f, g \in L_1(\R)$, тогда
 	\[
-		\int_Y f(y)\wdh{g}(y)d\mu(y) = \int_Y \wdh{f}(y)g(y)d\mu(y)
+		\int_\R f(y)\wdh{g}(y)d\mu(y) = \int_\R \wdh{f}(y)g(y)d\mu(y)
 	\]
 \end{proposition}
 
@@ -71,13 +71,13 @@
 \begin{proof}
 	Распишем преобразование Фурье по определению:
 	\[
-		\int_Y f(y)\wdh{g}(y)d\mu(y) = \int_Y \int_\R f(y)g(x)e^{-ixy}d\mu(x)d\mu(y)
+		\int_\R f(y)\wdh{g}(y)d\mu(y) = \int_\R \int_\R f(y)g(x)e^{-ixy}d\mu(x)d\mu(y)
 	\]
 	Покажем, что мы можем переставить интегралы (по следствию теоремы Фубини). Для этого оценим повторный интеграл:
 	\begin{multline*}
-		\int_Y \int_\R |f(y)g(x)e^{-ixy}|d\mu(x)d\mu(y) = \int_Y \int_\R |f(y)g(x)|d\mu(x)d\mu(y) \le
+		\int_\R \int_\R |f(y)g(x)e^{-ixy}|d\mu(x)d\mu(y) = \int_\R \int_\R |f(y)g(x)|d\mu(x)d\mu(y) \le
 		\\
-		\|g\|_1\int_Y |f(y)|d\mu(y) \le \|f\|_1\|g\|_1
+		\|g\|_1\int_\R |f(y)|d\mu(y) \le \|f\|_1\|g\|_1
 	\end{multline*}
 	Дальнейшие рассуждения тривиальны --- собрать внутренний интеграл в преобразование Фурье $f$.
 \end{proof}

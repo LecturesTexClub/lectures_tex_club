@@ -32,7 +32,7 @@
 	\]
 	В силу последнего доказанного утверждения, мы можем связать $r(A)$ с $r(A^n)$ следующим образом:
 	\[
-		r(A^n) = \sup_{\mu \in \sigma(A^n)} |\mu| \ge \sup_{\lambda \in \sigma(A)} |\lambda^n| \ge r(A)^n
+		r(A^n) = \sup_{\mu \in \sigma(A^n)} |\mu| \ge \sup_{\lambda \in \sigma(A)} |\lambda^n| = r(A)^n
 	\]
 	Стало быть, $r(A) \le \sqrt[n]{r(A^n)}$. При этом, по утверждению \ref{prop10_for_radius} имеем $r(A^n) \le \|A^n\|$. Получилось, что верхний предел не превосходит любого элемента последовательности $\sqrt[n]{\|A^n\|}$, а это означает, что он не превосходит их  нижнего предела. Такое возможно только тогда, когда существует просто предел.
 \end{proof}
@@ -140,19 +140,15 @@
 \end{proof}
 
 \begin{theorem} (Критерий принадлежности спектру самосопряжённого оператора)
-	\[
-		\lambda \in \rho(A) \Lra A_\lambda \text{ --- ограниченный снизу, то есть } \exists m > 0\ \forall x \in H \colon \|A_\lambda x\| \ge m\|x\|
-	\]
+	\begin{enumerate}
+		\item $\lambda \in \rho(A) \Lra A_\lambda \text{ --- ограниченный снизу, то есть } \exists m > 0\ \forall x \in H \colon \|A_\lambda x\| \ge m\|x\|$
+		
+		\item $\lambda \in \sigma(A) \Lra \exists x_n \in H \such \|x_n\| = 1 \wedge \lim_{n \to \infty} \|A_\lambda x_n\| = 0$
+	\end{enumerate}
 \end{theorem}
 
-\begin{note}
-	У теоремы есть эквивалентная формулировка:
-	\[
-		\lambda \in \sigma(A) \Lra \exists \{x_n\}_{n = 1}^\infty \colon \|x_n\| = 1 \wedge \|A_\lambda x_n\| \xrightarrow[n \to \infty]{} 0
-	\]
-\end{note}
-
-\begin{proof}~
+\begin{proof}
+	Второй пункт --- тривиальное отрицание обеих частей первого. Поэтому, доказывать будем только первую эквивалентность:
 	\begin{itemize}
 		\item[$\Ra$] Раз $\lambda \in \rho(A)$, то $A_\lambda$ обратим, а значит биективен. По теореме \ref{reverse_op_crit} всё сразу доказано.
 		
@@ -160,7 +156,7 @@
 		\[
 			\cl(\im A_\lambda) \oplus \ker A_\lambda = H = \cl(\im A_\lambda)
 		\]
-		А в силу леммы \ref{conj_op_bot_bounded_lemma} имеем $\im A_\lambda = \cl(\im A_\lambda) = H$.
+		Также по лемме \ref{op_bot_bounded_im} имеем $\im A_\lambda = \cl(\im A_\lambda) = H$.
 	\end{itemize}
 \end{proof}
 
