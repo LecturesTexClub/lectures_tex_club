@@ -1,0 +1,92 @@
+%!PS
+%%BoundingBox: -14 -17 222 120 
+%%HiResBoundingBox: -13.914 -16.758 221.11143 119.63348 
+%%Creator: MetaPost 2.02
+%%CreationDate: 2024.09.16:2201
+%%Pages: 1
+%*Font: cmmi10 12.95146 9.96265 15:800000000000000000080014004
+%*Font: cmsy7 10.46077 6.97385 30:8
+%*Font: cmr10 14.94397 9.96265 28:d000000000000000000002
+%*Font: cmmi7 9.06601 6.97385 62:80000008
+%*Font: cmmi10 14.94397 9.96265 41:8002000040000004
+%%BeginProlog
+%%EndProlog
+%%Page: 1 1
+ 0 0 0 setrgbcolor 0 0.99626 dtransform truncate idtransform setlinewidth pop [] 0 setdash 1 setlinecap
+ 1 setlinejoin 10 setmiterlimit
+newpath 97.4518 66.99571 moveto
+99.21242 70.86601 lineto
+94.98032 70.45575 lineto stroke
+newpath 0 0 moveto
+99.21242 70.86601 lineto stroke
+newpath 212.59804 0 moveto
+0 0 lineto
+99.21242 70.86601 lineto
+148.81906 106.29893 lineto stroke
+newpath 147.05844 102.42863 moveto
+148.81906 106.29893 lineto
+144.58696 105.88867 lineto stroke
+newpath 99.21242 70.86601 moveto
+148.81906 106.29893 lineto stroke
+newpath 208.91568 -2.12611 moveto
+212.59804 0 lineto
+208.91568 2.12611 lineto stroke
+newpath 0 0 moveto
+212.59804 0 lineto stroke
+ 0.99626 0 dtransform exch truncate exch idtransform pop setlinewidth [3 3 ] 0 setdash
+newpath 99.21242 70.86601 moveto
+99.21242 0 lineto stroke
+newpath 148.81906 106.29893 moveto
+148.81906 0 lineto stroke
+39.84949 37.53297 moveto
+(~) cmmi10 12.95146 fshow
+40.66042 37.53297 moveto
+(a) cmmi10 12.95146 fshow
+110.48128 94.1003 moveto
+(~) cmmi10 12.95146 fshow
+107.51468 90.68259 moveto
+(\025a) cmmi10 12.95146 fshow
+62.20552 7.44745 moveto
+(pr) cmmi10 12.95146 fshow
+73.49162 5.39253 moveto
+(~) cmmi7 9.06601 fshow
+74.56491 3.00002 moveto
+(b) cmmi7 9.06601 fshow
+78.95605 7.44745 moveto
+(~) cmmi10 12.95146 fshow
+79.76701 7.44745 moveto
+(a) cmmi10 12.95146 fshow
+108.03447 7.44745 moveto
+(pr) cmmi10 12.95146 fshow
+119.32057 5.39253 moveto
+(~) cmmi7 9.06601 fshow
+120.39386 3.00002 moveto
+(b) cmmi7 9.06601 fshow
+128.56256 10.86516 moveto
+(~) cmmi10 12.95146 fshow
+125.59596 7.44745 moveto
+(\025a) cmmi10 12.95146 fshow
+131.3184 108.39893 moveto
+(A) cmmi10 14.94397 fshow
+142.52641 113.82204 moveto
+(0) cmsy7 10.46077 fshow
+85.90442 72.966 moveto
+(A) cmmi10 14.94397 fshow
+213.01938 6.04349 moveto
+(~) cmmi10 14.94397 fshow
+214.69803 2.09999 moveto
+(b) cmmi10 14.94397 fshow
+-13.914 -12.31169 moveto
+(O) cmmi10 14.94397 fshow
+97.55208 -12.98055 moveto
+(~) cmr10 14.94397 fshow
+93.60841 -16.758 moveto
+(A) cmmi10 14.94397 fshow
+145.08308 -12.98055 moveto
+(~) cmr10 14.94397 fshow
+141.11873 -16.758 moveto
+(A) cmmi10 14.94397 fshow
+152.32674 -12.44084 moveto
+(0) cmsy7 10.46077 fshow
+showpage
+%%EOF

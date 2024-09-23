@@ -1,0 +1,257 @@
+\section{Выражение скалярного произведения в ОНБ и произвольном базисе}
+\begin{proposition}
+	\(\mathfrak{E}\) - ОНБ, \(\vec{a}\underset{\mathfrak{E}}{\longleftrightarrow}\alpha\). Тогда \(\alpha_i = (\vec{a}, \vec{e}_i)\)
+\end{proposition}
+\begin{proof}
+	\(\vec{a} = \sum_{i = 1}^{n}\alpha_i\vec{e_i}\) \\[5mm]
+	\((\vec{a}, \vec{e_i}) = \sum_{s = 1}^{n}(\alpha_s\vec{e_s}, \vec{e_i}) = \sum_{s = 1}^{n}\alpha_s(\vec{e_s}, \vec{e_i}) = \alpha_i|\vec{e_i}|^2 = \alpha_i\)
+\end{proof}
+\begin{theorem}
+	(выражение скалярного произведения в ОНБ). 
+	\(\mathfrak{E}\) - ОНБ, \(\vec{a}\underset{\mathfrak{E}}{\longleftrightarrow}\alpha\), 
+	\(\vec{b}\underset{\mathfrak{E}}{\longleftrightarrow}\beta\). Тогда \((\vec{a}, \vec{b}) = \sum_{i = 1}^{n}\alpha_i\beta_i = \alpha^T\cdot\beta\)
+\end{theorem}
+\begin{proof}
+	\(\vec{a} = \sum_{i = 1}^{n}\alpha_i\vec{e_i}, \vec{b} = \sum_{i = 1}^{n}\beta_i\vec{e_i}\). \\[5mm]
+	\((\vec{a}, \vec{b}) = (\sum_{i = 1}^{n}\alpha_i\vec{e_i}, \sum_{j = 1}^{n}\beta_i\vec{e_i}) = \sum_{i = 1}^{n}\sum_{j = 1}^{n}\alpha_i\beta_i(\vec{e_i}, \vec{e_j}) = \sum_{i = 1}^{n}\alpha_i\beta_i\)
+\end{proof}
+\begin{definition}
+	Пусть V - линейное пространство, а \(\mathfrak{E} = (\vec{e_1}, \vec{e_2}, \ldots, \vec{e_n})\) - базис в V. Матрица Грама базиса \(\mathfrak{E}\) называется матрица 
+	\[ 
+	\text{Г} = 
+	\begin{pmatrix}
+	(\vec{e_1}, \vec{e_1}) & (\vec{e_1}, \vec{e_2}) & \ldots & (\vec{e_1}, \vec{e_n}) \\
+	\ldots & \ldots & \ldots & \ldots \\
+	(\vec{e_n}, \vec{e_1}) & (\vec{e_n}, \vec{e_2}) & \ldots & (\vec{e_n}, \vec{e_n})
+	\end{pmatrix}
+	\]
+\end{definition}
+
+\begin{theorem}
+		Пусть V - линейное пространство, а \(\mathfrak{E} = (\vec{e_1}, \vec{e_2}, \ldots, \vec{e_n})\) - базис в V с матрицей Грама Г. Тогда, если \(\vec{a}\underset{\mathfrak{E}}{\longleftrightarrow}\alpha\), 
+		\(\vec{b}\underset{\mathfrak{E}}{\longleftrightarrow}\beta\), то \((\vec{a}, \vec{b}) = \alpha^T\cdot\text{Г}\cdot\beta\)
+\end{theorem}
+\begin{proof}
+	\(\vec{a} = \sum_{i = 1}^{n}\alpha_i\vec{e_i}, \vec{b} = \sum_{i = 1}^{n}\beta_i\vec{e_i}\). \\[5mm]
+	\((\vec{a}, \vec{b}) = (\sum_{i = 1}^{n}\alpha_i\vec{e_i}, \sum_{j = 1}^{n}\beta_i\vec{e_i}) = \sum_{i = 1}^{n}\sum_{j = 1}^{n}\alpha_i\beta_i(\vec{e_i}, \vec{e_j}) = \sum_{i = 1}^{n}\alpha_i\sum_{j = 1}^{n}[\text{Г}]_{ij}\beta_i = \alpha^T\cdot\text{Г}\cdot\beta\)
+\end{proof}
+\begin{definition}
+	Матрица \(S_{n\times n} \) называется ортогональной, если \(S^T\cdot S = E\)
+\end{definition}
+\begin{proposition}
+	Пусть в \(V_i\) \(\mathfrak{E}\) - ОНБ, \(\mathfrak{F}\) - произвольный базис. Пусть матрица \(S = S_{\mathfrak{E}\to\mathfrak{F}}\), тогда \(\mathfrak{F}\) - ОНБ \(\Longleftarrow\) S - ортогональная матрица
+\end{proposition}
+\begin{proof}
+	\(S = \begin{pmatrix}
+		\vec{f_1^{\uparrow}} & \vec{f_2^{\uparrow}} & \ldots & \vec{f_n^{\uparrow}}
+	\end{pmatrix}\). \\[5mm]
+	\(S^T\cdot S = \text{Г}_{\mathfrak{F}}.\qquad \mathfrak{F}\text{ - ОНБ} \Longleftrightarrow \text{Г}_{\mathfrak{F}} = E \Longleftrightarrow S^T\cdot S = E \Longleftrightarrow S\text{ - ортогональная}\)
+\end{proof}
+\begin{exercise}
+	Доказать, что если \(\text{Г}_{\mathfrak{E}}, \text{F}_{\mathfrak{F}}\) - матрицы Грама двух произвольный базисов в \(V_i\) и \(S = S_{\mathfrak{E}\to\mathfrak{F}}\), то \(\text{Г}_{\mathfrak{F}} = S^T\cdot\text{Г}_{\mathfrak{E}}\cdot S\)
+\end{exercise}
+\begin{proposition}
+	пусть в \(V_i\) \(\mathfrak{E}\) - ОНБ. Тогда 
+	\begin{enumerate}
+		\item \(|\vec{a}| = \sqrt{(\vec{a}, \vec{a})} = \sqrt{\alpha^t\cdot\alpha} = \sqrt{\sum_{i = 1}^{n}\alpha_i^2}\)
+		\item Если $\vec{a}\ne\vec{0}, \vec{b}\ne\vec{0}$, тогда \(\cos\phi = \dfrac{(\vec{a}, \vec{b})}{|\vec{a||\vec{b}}|} = \dfrac{\alpha^T\beta}{\sqrt{\alpha^t\alpha}\sqrt{\beta^t\beta}} = \dfrac{\sum_{i = 1}^{n}\alpha_i\beta_i}{\sqrt{\sum_{i = 1}^{n}\alpha_i^2}\sqrt{\sum_{j = 1}^{n}\beta_j^2}}\)
+	\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+	А - матрица размера \(2\times2\).
+	\[A = \begin{pmatrix}
+		a & b \\ c & d
+	\end{pmatrix}, \text{ тогда определитель это такое число } \det A = |A| = a\cdot d - b\cdot c\]
+\end{definition}
+\begin{definition}
+	А - матрица размера \(3\times3\)
+	\[A = \begin{pmatrix}
+		a_{11} & a_{12} & a_{13} \\
+		a_{21} & a_{22} & a_{23} \\
+		a_{31} & a_{32} & a_{33}
+	\end{pmatrix}, \text{определителем такой матрицы называется число}\]
+	\(|A| = \det A = a_{11}\cdot a_{22}\cdot a_{33} + a_{12}\cdot a_{23}\cdot a_{31} + a_{13}\cdot a_{21}\cdot a_{32} - (a_{13}\cdot a_{22}\cdot a_{31} + a_{12}\cdot a_{21}\cdot a_{33} + a_{11}\cdot a_{23}\cdot a_{32})\)
+\end{definition}
+\begin{note}
+	Определителем матрицы n-ого порядка, называется число, сумма произведений матрицы, взятой ровно по одному разу из каждого столбца и каждой строки со знаком +(если параллельна главное диагонали) и со знаком - (параллельна побочной диагонали)
+\end{note}
+\begin{proposition}
+	Пусть \(\mathfrak{E} \) - базис в \(V_3\), \(\vec{a}\underset{\mathfrak{E}}{\longleftrightarrow}\alpha, \vec{b}\underset{\mathfrak{E}}{\longleftrightarrow}\beta,
+	\vec{c}\underset{\mathfrak{E}}{\longleftrightarrow}\gamma \). Тогда \newline \(V_{a,b,c} = \begin{vmatrix}
+		\alpha_1 & \beta_1 & \gamma_1 \\
+		\alpha_2 & \beta_2 & \gamma_2 \\
+		\alpha_3 & \beta_3 & \gamma_3
+	\end{vmatrix}V_{\vec{e_1}, \vec{e_2}, \vec{e_3}}\)
+\end{proposition}
+\begin{proof} 
+	\(V(\sum_i\alpha_i\vec{e_i}, \sum_j\beta_j\vec{e_j}, \sum_k\gamma_k\vec{e_k}) = \newline \sum_i\sum_j\sum_k \alpha_i\beta_j\gamma_k V(\vec{e_i}, \vec{e_j}, \vec{e_k}) = 
+	= (\alpha_1\cdot \beta_2\cdot \gamma_3 + \beta_1\cdot \beta_3\cdot \gamma_2 + \gamma_1\cdot \beta_1\cdot \gamma_2 - (\gamma_1\cdot \beta_2\cdot \gamma_2 + \beta_1\cdot \beta_1\cdot \gamma_3 + \alpha_1\cdot \beta_3\cdot \gamma_2))V(\vec{e_1}, \vec{e_2}, \vec{e_3}) = \det(\alpha^{\uparrow}, \beta^{\uparrow}, \gamma^{\uparrow})V(\vec{e_1}, \vec{e_2}, \vec{e_3})\)	
+\end{proof}
+\begin{corollary}
+	Если \(\mathfrak{E}\) - правый ОНБ, то \(V(\vec{a}, \vec{b}, \vec{c}) = |\alpha^{\uparrow} \quad \beta^{\uparrow} \quad \gamma^{\uparrow}|, S(\vec{a}, \vec{b}) = |\alpha^{\uparrow} \quad \beta^{\uparrow}|\)
+\end{corollary}
+\begin{corollary}
+	В произвольном базсе \(V_2\) \(\vec{a} || \vec{b} \Longleftrightarrow S(\vec{a}, \vec{b}) = 0 \Longleftrightarrow \begin{vmatrix}
+		\alpha_1 & \beta_1 \\
+		\alpha_2 & \beta_2
+	\end{vmatrix} = 0\). \newline
+	\(\vec{a}, \vec{b}, \vec{c}\) - Компланарны \(\Longleftrightarrow V(\vec{a}, \vec{b}, \vec{c}) = 0 \Longleftrightarrow |\alpha^{\uparrow} \quad \beta^{\uparrow} \quad \gamma^{\uparrow}| = 0\)
+\end{corollary}
+\begin{theorem}
+	(Крамера 1750 г). Пусть дана система линейных уравнений с 3 неизвестными.
+	\[
+	\left\{
+	\begin{gathered}
+		a_{11}x + a_{12}y + a_{13}z = b_1 \\
+		a_{21}x + a_{22}y + a_{23}z = b_2 \\
+		a_{31}x + a_{32}y + a_{33}z = b_3 
+	\end{gathered}
+	\right.
+	\]
+	\begin{definition}
+		Если система линейных уравнений не имеет ний одного решения, то она называется несовместной
+	\end{definition}
+	\begin{definition}
+		СЛУ называется совместной, если имеет хотя бы одно решения. При этом если она имеет ровно одно решение, то система называется определенной, иначе неопределенной
+	\end{definition}
+	\begin{note}
+		Систему уравнений можно записать в матричном виде: \(A\mathbb{X} = b, \mathbb{X} = \begin{pmatrix}
+			x \\ y \\ z
+		\end{pmatrix}, b = \begin{pmatrix}
+			b_1 \\ b_2 \\ b_3
+		\end{pmatrix}, A = \begin{pmatrix}
+		a_{11} & a_{12} & a_{13} \\
+		a_{21} & a_{22} & a_{23} \\
+		a_{31} & a_{32} & a_{33}
+		\end{pmatrix}\) \newline
+		\(V_3\) выбран ОНБ \(\mathfrak{E}, \vec{a_1} \underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+			a_{11} \\ a_{12} \\ a_{13}
+		\end{pmatrix}
+		\vec{a_2} \underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+			a_{21} \\ a_{22} \\ a_{23}
+		\end{pmatrix}
+		\vec{a_3} \underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+			a_{31} \\ a_{32} \\ a_{33}
+		\end{pmatrix}
+		\vec{b} \underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+			b_{1} \\ b_{2} \\ b_{3}
+		\end{pmatrix}
+		\)
+	\end{note}
+	(Продолжение теоремы) СЛУ называется определенной, тогда и только тогда, когда \(\det A = \triangle \ne0\). Тогда единственное решение \(x = \dfrac{\triangle_x}{\triangle}, y = \dfrac{\triangle_y}{\triangle}, z = \dfrac{\triangle_z}{\triangle}, \triangle_x, \triangle_y, \triangle_z\) - замена соответствующий столбцов на столбец b. \newline
+	СЛУ в векторном виде: \(x\cdot \vec{a_1} + y\cdot \vec{a_2} + z\cdot\vec{a_3} = \vec{b}\).
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Необходимость. Пусть система определеная $\Longrightarrow x_0\vec{a_1}+y_0\vec{a_2}+z_0\vec{a_3} = \vec{b}$ - единственное решение. \\
+		Докажем, что $\det A\ne 0$. Пусть \(\det A = 0 \Longrightarrow \vec{a_1}, \vec{a_2}, \vec{a_3}\) - компланарны. $\Longrightarrow \exists$ нетривитальная линейная комбинация \(\lambda_1\vec{a_1}+\lambda_2\vec{a_2}+\lambda_3\vec{a_3}=\vec{0}\). Тогда прибавив её к нашему решение получаем заведомо новое решение, но по условие система имеет единственное решение. Противоречие. $\Longrightarrow \det A\ne0$
+		\item Достаточность. $\det A\ne0\Longrightarrow \vec{a_1}, \vec{a_2}, \vec{a_3}$ - некомпланарны. \(\Longrightarrow \vec{a_1}, \vec{a_2}, \vec{a_3}\) - базис. Тогда \(\forall b x\cdot\vec{a_1}+y\cdot\vec{a_2} + z\cdot\vec{a_3} = \vec{b}\) раскладывается единственным образом. Тогда рассмотрим \newline
+		\(V(\vec{a_1}, \vec{a_2}, \vec{b}) = V(\vec{a_1}, \vec{a_2}, x\cdot\vec{a_1}+y\cdot\vec{a_2}+z\cdot\vec{a_3}) = xV(\vec{a_1}, \vec{a_2}, \vec{a_1}) + yV(\vec{a_1}, \vec{a_2}, \vec{a_2}) + zV(\vec{a_1}, \vec{a_2}, \vec{a_3}) = zV(\vec{a_1}, \vec{a_2}, \vec{a_3})\Longrightarrow z = \dfrac{\triangle_z}{\triangle}\), аналогично для x, y. 
+	\end{enumerate}
+	
+\end{proof}
+\section{Векторное произведение векторов}
+\(V_3(\text{фиксированная ориентация}), \vec{a}, \vec{b} \in V_3\).
+\begin{definition}
+	Векторное произведение векторов $\vec{a}, \vec{b}$ называется вектор $\vec{c}$, такой что 
+	\begin{enumerate}
+		\item $\vec{c}\perp\vec{a}, \vec{c}\perp\vec{b}$
+		\item \(|\vec{c}| = |S(\vec{a}, \vec{b})|\)
+		\item Тройка $\vec{a}, \vec{b}, \vec{c}$ - правая тройка
+	\end{enumerate}
+\end{definition}
+\begin{note}
+	Если $\vec{a} || \vec{b} \Longrightarrow \vec{c} = \vec{0}$
+\end{note}
+\begin{theorem}
+	(О связи векторного произведения с ориентированным объемом). \(V(\vec{a}, \vec{b}, \vec{c}) \overset{1}{=} ([a, b], c) \overset{2}{=} (a, [b, c])\)
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item $\vec{a} || \vec{b}, 0 = 0$ - верно 
+		\item \(\vec{a}\not||\vec{b}\). пусть $\vec{n}$ - вектор нормали к $\alpha$, $\vec{n}\perp \vec{a}, \vec{n}\perp \vec{b}, |n| = 1, (\vec{a}, \vec{b}, \vec{n})$ - правая тройка. Тогда \(V(\vec{a}, \vec{b}, \vec{c}) = S(\vec{a}, \vec{b})\cdot(\vec{n}, \vec{c}) = (S(\vec{a}, \vec{b})\cdot\vec{n}, \vec{c}) = ([a,b],c)\). 2 следует из 1.
+	\end{enumerate}
+\end{proof}
+\begin{note}
+	\((\vec{a}, \vec{b}, \vec{c}) \overset{def}{\equiv}([\vec a,\vec b], \vec c)\)
+\end{note}
+\begin{lemma}
+	\(\forall\vec c\in V, \text{ если } (\vec{a}, \vec{c}) = (\vec{b}, \vec{c})\), то $\vec{a} = \vec{b}$.
+\end{lemma}
+\begin{proof}
+	\((\vec{a} - \vec{b}, \vec{c}) = \vec{0} \overset{\forall c}{\Longrightarrow} (\vec{a} - \vec{b}, \vec{a} - \vec{b}) = 0 \Longrightarrow \vec{a} = \vec{b}\)
+\end{proof}
+\begin{theorem}
+	(О свойствах векторного произведения). 
+	\begin{enumerate}
+		\item  \([\vec a, \vec b] = - [\vec b, \vec a]\)
+		\item \([\vec a, \vec b_1 + \vec b_2] = [\vec a, \vec b_1] + [\vec a, \vec b_2]\)
+		\item \([\vec a, \lambda\vec b] = \lambda [\vec a, \vec b]\)
+	\end{enumerate}
+\end{theorem}
+\begin{note}
+	Векторное произведение - билинейная функция.
+\end{note}
+\begin{proof}
+	\begin{enumerate}
+		\item \([\vec a, \vec b], [\vec b, \vec a], \vec a \not||\vec b, |[a, b]| = |[b, a]|, (\vec a, \vec b, [\vec a, \vec b])\) - правая тройка, \((\vec a, \vec b, [\vec b, \vec a])\) - левая тройка $\Longrightarrow [\vec a, \vec b] = [\vec b, \vec a]$
+		\item \(([\vec a, \vec b_1 + \vec b_2], \vec c) = (\vec a, \vec b_1 + \vec b_2, \vec c) = (\vec a, \vec b_1, \vec c) + (\vec a, \vec b_2, \vec c) = ([\vec a, \vec b_1], c_1) + ([\vec{a}, \vec b_2], c) = ([\vec a, \vec b_1] + [\vec a, \vec b_2], c) \Longrightarrow [\vec a, \vec b_1 + \vec b_2] = [\vec a, \vec b_1] + [\vec a, \vec b_2]\)
+		\item \(([\vec a, \lambda \vec b], \vec c) = ([\vec a, \lambda\vec b], \vec c) = \lambda (\vec a, \vec b, \vec c) = \lambda ([\vec a, \vec b], \vec c) = (\lambda [\vec a, \vec b], \vec c) \Longrightarrow [\vec a, \lambda \vec b] = \lambda [\vec a, \vec b]\)
+	\end{enumerate}
+\end{proof}
+\section{БиОртогональный базис}
+\subsection{Запись векторного произведения в произвольном базисе}
+\begin{theorem}
+	Пусть \(\mathfrak{E}\) - базис в \(V_3\). \(\vec a \underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+		\alpha_1 \\ \alpha_2 \\ \alpha_3 
+	\end{pmatrix}, 
+	\vec b \underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+		\beta_1 \\ \beta_2 \\ \beta_3 
+	\end{pmatrix}
+	\) \newline
+	\([\vec a, \vec b] = \begin{vmatrix}
+		[\vec e_2, \vec e_3] & [\vec e_3, \vec e_1] & [\vec e_1, \vec e_2] \\
+		\alpha_1 & \alpha_2 & \alpha_3 \\
+		\beta_1 & \beta_2 & \beta_3 \\
+	\end{vmatrix} = \det A\)
+\end{theorem}
+\begin{proof}
+	\([\vec a, \vec b] = [\sum_i \alpha_i\vec e_i, \sum_j \beta_j\vec e_j] = (\alpha_2\beta_3 - \alpha3\beta_2)[\vec e_2, \vec e_3] + (\alpha_3\beta_1 -\alpha_1\beta_3)[\vec e_3, \vec e_1] + (\alpha_1\beta_2 - \beta_1\alpha_2)[\vec e_1, \vec e_2] = \det A\)
+\end{proof}
+\begin{corollary}
+	В правом ОНБ \(\mathfrak{E}\) \newline
+	\([\vec a, \vec b] = \begin{vmatrix}
+		\vec e_1 & \vec e_2 & \vec e_3 \\
+		\alpha_1 & \alpha_2 & \alpha_3 \\
+		\beta_1 & \beta_2 & \beta_3
+	\end{vmatrix}\)
+\end{corollary}
+\begin{definition}
+	\(V_3\) - с фиксированной ориентацией. \(\mathfrak{E}(\vec e_1, \vec e_2, \vec e_3)\) - базис.\newline Вектора \(\mathfrak{F_1} = \dfrac{[\vec e_2, \vec e_3]}{(\vec e_1, \vec e_2, \vec e_3)}, \mathfrak{F_2} = \dfrac{[\vec e_3, \vec e_1]}{(\vec e_1, \vec e_2, \vec e_3)}, 
+	\mathfrak{F_3} = \dfrac{[\vec e_1, \vec e_2]}{(\vec e_1, \vec e_2, \vec e_3)}\) -  вектора биортогонального базиса
+\end{definition}
+\begin{theorem}
+	(О свойствах биортогонального базиса). 
+	\begin{enumerate}
+		\item \((\vec{\mathfrak{F_1}},\vec{\mathfrak{F_2}},\vec{\mathfrak{F_3}})\) - базис
+		\item \((\vec{\mathfrak{F_i}}, \vec{e_j}) = \left\{
+		\begin{gathered}
+			1, if i = j \\
+			0, if i \ne j
+		\end{gathered}
+		\right.\)
+		\item Если \(\vec v\underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+			\alpha \\ \beta \\ \gamma
+		\end{pmatrix}, \) то \(\alpha = (\vec v, \vec{\mathfrak{F_1}}),
+		\beta = (\vec v, \vec{\mathfrak{F_2}}),
+		\gamma = (\vec v, \vec{\mathfrak{F_3}})\)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Сначала докажем 2 пункт. \((\vec{\mathfrak{F_1}}, \vec e_1) = \dfrac{(\vec e_2, \vec e_3, \vec e_1)}{\vec e_1, \vec e_2, \vec e_3} = 1,
+		\vec{\mathfrak{F_1}}, \vec e_2) = \dfrac{(\vec e_2, \vec e_3, \vec e_2)}{\vec e_1, \vec e_2, \vec e_3} = 0,\)
+		\item Положим, что \(\lambda_1\mathfrak{F_1}+\lambda_2\mathfrak{F_2}+\lambda_3\mathfrak{F_3}=\vec 0.\) Умножим скалярно на $\vec{e_1}$. Все занулисятся, кроме первого члена, от которого останется только \(\lambda_1 = 0\). Аналогично получаем, что все $\lambda = 0$, тогда вектора $\mathfrak{F}$ действительно образуют базис в \(V_3\). 
+	\end{enumerate}
+\end{proof}

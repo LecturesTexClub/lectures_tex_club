@@ -1,0 +1,42 @@
+%!PS
+%%BoundingBox: -21 -18 194 60 
+%%HiResBoundingBox: -20.171 -17.07939 193.7642 59.599 
+%%Creator: MetaPost 2.02
+%%CreationDate: 2024.09.16:2201
+%%Pages: 1
+%*Font: cmmi10 19.9253 9.96265 58:c
+%*Font: cmsy7 13.9477 6.97385 30:8
+%%BeginProlog
+%%EndProlog
+%%Page: 1 1
+ 0 0 0 setrgbcolor 0 0.99626 dtransform truncate idtransform setlinewidth pop [] 0 setdash 1 setlinecap
+ 1 setlinejoin 10 setmiterlimit
+newpath 68.80219 38.802 moveto
+70.86601 42.5196 lineto
+66.61465 42.44803 lineto stroke
+newpath 0 0 moveto
+70.86601 42.5196 lineto stroke
+newpath 0 0 moveto
+70.86601 42.5196 lineto
+170.07843 42.5196 lineto
+99.21242 0 lineto
+ closepath stroke
+newpath 168.0146 38.802 moveto
+170.07843 42.5196 lineto
+165.82707 42.44803 lineto stroke
+newpath 99.21242 0 moveto
+170.07843 42.5196 lineto stroke
+52.77042 44.6196 moveto
+(Y) cmmi10 19.9253 fshow
+-20.171 -15.71559 moveto
+(X) cmmi10 19.9253 fshow
+172.17842 44.6196 moveto
+(Y) cmmi10 19.9253 fshow
+188.17403 51.8504 moveto
+(0) cmsy7 13.9477 fshow
+101.31241 -17.07939 moveto
+(X) cmmi10 19.9253 fshow
+119.38342 -9.84859 moveto
+(0) cmsy7 13.9477 fshow
+showpage
+%%EOF

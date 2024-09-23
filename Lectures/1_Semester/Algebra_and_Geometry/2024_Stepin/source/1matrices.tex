@@ -1,0 +1,600 @@
+
+	Вадим Владимирович Штепин
+	\section{Алгебра Матрицы}
+	\begin{definition}
+		Матрица - прямоугольная таблица чисел. Пусть будет m строк и n столбцов. \\
+		Обозначения для матриц - A, B, C ... \\
+		Для элементов: \(a_{ij}, b_{ij}, c_{ij}\)
+	\end{definition}
+	\[A = \begin{pmatrix}
+		a_{11} & a_{12} & \ldots & a_{1n} \\
+		a_{21} & a_{22} & \ldots & a_{2n} \\
+		\ldots & \ldots & \ldots & \ldots \\
+		a_{m1} & a_{m2} & \ldots & a_{mn} \\
+	\end{pmatrix}\]
+	Где \(a_{ij}\) означает i-ую строку и j столбец.
+	\subsection{Операции}
+	\(M_{m\times n}\) - множество всех матриц \(m\times n\).
+	\begin{itemize}
+		\item Операции сложения \\
+		Складывать можно только матрица одного и того же размера. \(A, B \in M_{m\times n}, A + B \in M_{m\times n}\)\\
+		\([A+B]_{ij} = [A]_{ij}+ [B]_{ij}\)\\
+		Сложение матриц определено поэлементно
+		\item Умножение матрицы на вещественное число \(\in\mathbb{R}\). \(A\in M_{m\times n}, \lambda \in \mathbb{R}, \lambda A\in M_{m\times n}\). Определено также поэлементно \\
+		\([\lambda A]_{ij} = \lambda[A]_{ij}\)
+		\begin{theorem}
+			Операции сложения матриц и умножения на число удовлетворяют следующим свойствам: (\(A, B \in M_{m\times n}\))
+			\begin{enumerate}
+				\item Коммутативность сложения A + B = B + A
+				\item Ассоциативность сложения (A+B)+C = A+(B+C)
+				\item \(\exists\) нулевой матриц 0 + A = A + 0 = A
+				\item \(\exists\) противоположной матриц (-А): A + (-A) = (-A) + A = 0
+				\item Унитарность 1 * A = A * 1 = A
+				\item Ассоциативность \((\lambda\nu)A = \lambda(\nu A)\)
+				\item Дистрибутивность 1. \(\lambda(A+B) = \lambda A + \lambda B\)
+				\item Дистрибутивность 2. (\(\lambda + \mu\)) A = $\lambda$ A + $\mu$ A
+			\end{enumerate}
+		\end{theorem}
+		\begin{proof}
+			Докажем пункт 7. \(A, B \in M_{m\times n}. [\lambda (A+B)_{ij}] = \lambda [A+B]_{ij} = \lambda(a_{ij} + b_{ij}) = \lambda a_{ij} + \lambda b_{ij} = \lambda [A]_{ij} + \lambda [B]_{ij} = [\lambda A +\lambda B]_{ij}\)
+		\end{proof}
+		\begin{definition}
+			Линейное пространство над \(\mathbb{R}\). V - произвольное множество над которым определены операции сложения двух элементов из него и умножения на вещественное число, удовлетворяющие свойствам (1-8)
+		\end{definition}
+		\item Транспонирование матрицы. \(A\in M_{m\times n}, A^T\in M_{n\times m}. [A^T]_{ij}\overset{def}{\equiv} [A]_{ji}\)
+		В транспонированной матрице по строкам стоят столбцы исходной матриц, а по столбцам - строки.
+		\item Умножение матриц. Частный случай. \(A\in M_{1\times n}, B \in M_{n\times 1}\).
+		A = \(\begin{pmatrix}
+			a_1 & a_2 & \ldots & a_n
+		\end{pmatrix}\), B = \(\begin{pmatrix}
+			b_1 \\ b_2 \\ \ldots \\ b_n
+		\end{pmatrix}\)
+		\[A\cdot B \overset{def}{\equiv} a_1b_1 + a_2b_2 + \ldots a_nb_n \in M{1\times 1}\]
+		Общий случай. \(A\cdot B\) имеет смысл, если \(A\in M_{m\times n}, B \in M_{n\times k}, C = A\cdot B\in M_{m\times k} \). \\
+		\([C]_{ij} = \sum_{s = 1}^{n} a_{is}b_{sj}\). То есть если умножить i-ую строку A(обозначается как \(A_{i*}\)) и j-ый столбец B(обозначается как \(B_{*j}\)) по частному случаю, то получается \(c_{ij}\).\\ Всего необходимо \(m\cdot n\cdot k\) операций.
+	\end{itemize}
+	\begin{proposition}
+		(О свойствах операции транспонирования). Операции транспонирования имеют следующие свойства 
+		\begin{enumerate}
+			\item \((A^T)^T = A\) 
+			\item \((\lambda A)^T = \lambda A^T\)
+			\item \((A+B)^T = A^T = B^T\)
+			\item \((A\cdot B)^T = B^T\cdot A^T\)
+		\end{enumerate}
+	\end{proposition}
+	\begin{proof}
+		Пусть \(A\in M_{m\times n}, B\in M_{n\times k}, A\cdot B \in M_{m\times k} \Longrightarrow (A\cdot B)^T\in M_{k\times m}, B^T\in M_{k\times n}, A^T\in M_{n\times m}, (B^T\cdot A ^T)\in M_{k\times m}\) - размеры матриц в левой и правой части совпадают. \\
+		\([(A\cdot B)^T]_{ij} = [A\cdot B]_{ji} = \sum_{s = 1}^{n}a_{js}b_{si} = \sum_{s=1}^{n}b_{si}a_{js} = \sum_{s=1}^{n}[B^T]_{is}[A^T]_{sj} = [B^T\cdot A^T]_{ij}\). ч.т.д.
+	\end{proof}
+	\begin{theorem}
+		(свойства операции умножения и сложения матриц)
+		\begin{enumerate}
+			\item Ассоциативность \((A\cdot B)\cdot C = A\cdot(b\cdot C)\)
+			\item Левая дистрибутивность \(A\cdot(B+C) = A\cdot B + A\cdot C\)
+			\item Правая дистрибутивность \((A+B)\cdot C = A\cdot C + B\cdot C\)
+		\end{enumerate}
+		\begin{proof}
+			Пусть \(A\in M_{m\times n}, B\in M_{n\times k}, C\in M_{k\times r}, A\cdot B\in M_{m\times k}, B\cdot C \in M_{n\times r}, (A\cdot B)\cdot C\in M_{m\times r}, A\cdot (B\cdot C)\in M_{m\times r}\) - размеры левой и правой частей совпадают. \\
+			\([(A\cdot B)\cdot C]_{ij} = \sum_{s=1}^{k}[A\cdot B]_{is}[C]_{sj} = \sum_{s=1}^{n}(\sum_{t=1}^{n}a_{it}b_{ts})c_{sj} = \sum_{t=1}^{n}\sum_{s=1}^{k}a_{it}b_{ts}c_{sj} = \sum_{t=1}^{n}a_{it}\sum_{s=1}^{k}b_{ts}c_{sj} = \sum_{t=1}^{n}a_{it}[B\cdot C]_{tj} = [A\cdot(B\cdot C)]_{ij}\)
+		\end{proof}
+	\end{theorem}
+	\begin{note}
+		В алгебре матриц коммутативности умножения нет.
+	\end{note}
+	\begin{definition}
+		Матриц \(\Delta \in M_{n\times n}\) называется диагональной, если имеет следующий вид \\
+		\[\Delta = 
+		\begin{pmatrix}
+			\alpha_1 & 0 & 0 & \ldots & 0 \\
+			0 & \alpha_2 & 0 & \ldots & 0 \\
+			0 & 0 & \alpha_3 & \ldots & 0 \\
+			\ldots & \ldots & \ldots & \ldots & \ldots \\
+			0 & 0 & 0 & \ldots & \alpha_n 
+			
+		\end{pmatrix}\]
+		То есть заполнена везде нулями, кроме главной диагонали
+	\end{definition}
+	\begin{proposition}
+		\begin{enumerate}
+			\item Умножение матрицы A слева на \(\Delta\), если умножение возможно равносильно умножению строк в матрице А на соответствующие числа из главной диагонали \(\Delta\).
+			\item Умножение матрицы A на \(\Delta\) справа равносильно умножению столбцов матрицы А на соответствующие числа из главной диагонали \(\Delta\).
+		\end{enumerate}
+		
+	\end{proposition}
+	\begin{definition}
+		Линейной комбинацией (или Л. К.) строк \(A_{1*}, A_{2*},\ldots, A_{m*}\) называется формой алгебраического выражения 
+		\[\alpha_1 A_{1*}+\alpha_2 A_{2*} +\ldots \alpha_m A_{m*}\in M_{1\times n}\]
+	\end{definition}
+	\begin{proposition}
+		Пусть \(A\in M_{m\times n}, B\in M_{n\times k}\).
+		\begin{enumerate}
+			\item Тогда строки матрицы AB являются Л. К. строк матрицы B с коэффициентами из соответствующей строки А.
+			\item Столбцы матрицы AB являются Л. К. столбцов матрицы А с коэффициентами соответствующего столбца матрицы B.
+		\end{enumerate} 
+		\begin{proof}
+			Пусть \(С = A\cdot B\in M_{m\times k}\). 
+			\[C_{*j} = \begin{pmatrix}
+				c_{1j} \\ c_{2j} \\ \ldots \\ c_{mj}
+			\end{pmatrix} = \sum_{s=1}^{n}b_{sj}\cdot\begin{pmatrix}
+				a_{1s} \\ a_{2s} \\ \ldots \\ a_{ms}
+			\end{pmatrix} = \sum_{s=1}^{n}b_{sj}A_{*s}\]
+		\end{proof}
+	\end{proposition}
+	\newpage
+	\section{Векторная алгебра}
+	Понятие прямой, плоскости и пространства считаются известными и обозначаются \(V_i(i = 1, 2, 3)\) соответственно.
+	\(X, Y\in V_i\). 2 точки определяют направленный отрезок, если известно, какая из этих точек первая, а какая вторая. Если X = Y будем считать, что это нулевой отрезок, имеющий нулевую длину. Ну а соответственно XY - длина направленного отрезка \(\overline{XY}\). Направленные отрезки \(\overline{XY}, \overline{X'Y'}\) называются равными, если 
+	\begin{wrapfigure}{r}{0.4\textwidth}
+		\centering
+		\includegraphics[scale=.7]{images/vector-0.pdf}
+		\caption{Равные вектора}
+		\label{Vector0}
+	\end{wrapfigure}
+	
+	\begin{enumerate}
+		\item \(XY = X'Y'\)
+		\item \(\overline{XY}, \overline{X'Y'}\) - коллинеарны
+		\item \(\overline{XY}, \overline{X'Y'}\) - сонаправлены
+	\end{enumerate}
+	
+	\begin{definition}
+		Вектором называются класс направленных отрезков, равным некоторому фиксированному направленному отрезку.
+	\end{definition}
+	\begin{proposition}
+		Два направленных отрезка \(\overline{XY}, \overline{X'Y'}\) определяют один и тот же вектор, тогда и только тогда, когда они равны.
+	\end{proposition}
+	\begin{proof}
+		Пусть \(\overline{XY}, \overline{X'Y'}\) определяют один и тот же вектор. То есть они равны из-за транзитивность равенств \(\overline{XY} = \overline{X'Y'}\). \\
+		Пусть \(\overline{XY} = \overline{X'Y'} \Longrightarrow \) они содержатся в одном классе \(\vec{a} \Longrightarrow \) они определяют один и тот же вектор. 
+	\end{proof}
+	\begin{definition}
+		Направленный отрезок $XY$ равен вектору, если он порождает его.
+	\end{definition}
+	\subsection{Линейные операции над векторами}
+
+	\begin{enumerate}
+		\item Сложение \(\vec{a}, \vec{b}\) \\
+		\begin{figure}[h]
+			\begin{subfigure}[b]{0.6\linewidth}
+				\begin{note}
+					\(\forall \vec{a} \) и $X$, то \(\exists \overline{XY},\) равный вектору \(\vec{a}\). 
+					Или всякий вектор можно отложить от любой точке(в данном случае он называется свободным вектором, в отличие от физического вектора, который нельзя двигать).
+				\end{note}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.45\linewidth}
+					\centering
+					\includegraphics[scale=.7]{images/vector-1.pdf}
+					\caption*{Существование вектора}
+					\label{Vector1}
+			\end{subfigure}
+		\end{figure}
+		
+		
+		\begin{figure}[h]
+			\begin{subfigure}[b]{0.6\linewidth}
+				Пусть направленный отрезок \(\overline{XY}\) определяет \(\vec{a}\), а \(\overline{YZ}\) определяет вектор \(\vec{b}\). Тогда \(\vec{a}+\vec{b}\) называется вектор, порождаемый направленным вектором \(\overline{XZ}\) \\
+				Проверим, что данные определения корректны(не зависят от выбора т. X). Пусть есть X' и Y' $\vec{X'Y'}$ порождает $\vec{a}$ (\(\overline{XY} = \overline{X'Y'}\)), Y'Z' порождает вектор $\vec{b}$ (\(\overline{YZ}, \overline{Y'Z'}\)). Тогда \(\overline{XZ} = \overline{X'Z'}\) порождают один вектор \(\vec{a}+\vec{b}\) (из равенств треугольников)
+			\end{subfigure}
+			\begin{subfigure}[b]{0.4\linewidth}
+				\centering
+				\includegraphics[scale=.4]{images/vector-2.pdf}
+				\caption*{Сумма векторов}
+				\label{Vector2}
+			\end{subfigure}
+		\end{figure}
+		\item \begin{figure}[h]
+			\begin{subfigure}[b]{0.6\linewidth}
+				Умножение вектора на $\lambda\in\mathbb{R}$ \\
+				Рассмотрим направленный отрезок $\overline{XZ}$, такой что \begin{itemize}
+					\item XZ = $|\lambda|\cdot$ XY.
+					\item $\overline{XZ}$ коллинеарен $\overline{XY}$
+					\item Если $\lambda > 0$, то  $\overline{XY}$ сонаправлен с $\overline{XZ}$, если $\lambda < 0$, то противоположнонаправлены.
+				\end{itemize}
+				Тогда вектор b, порожденный направленным отрезком \(\overline{XZ}\) называется вектором \(\lambda \cdot \vec{a}\)
+			\end{subfigure}
+			\begin{subfigure}[b]{0.4\linewidth}
+				\centering
+				\includegraphics[scale=1]{images/vector-3.pdf}
+				\caption*{Умножение вектора на число}
+				\label{Vector3}
+			\end{subfigure}
+		\end{figure}
+	\end{enumerate}
+	\begin{theorem}
+		Операции сложения векторов и умножения на скаляр.
+		\begin{enumerate}
+			\item \(\vec{a}+\vec{b} = \vec{b} + \vec{a}\)
+			\item \(\vec{a}+(\vec{b} + \vec{c}) = (\vec{a}+\vec{b}) + \vec{c}\)
+			\item \(\exists \vec{0}+\vec{a} = \vec{a}+\vec{0} = \vec{0}\)
+			\item \(\exists (-\vec{a}) \in V_i: \vec{a} + (-\vec{a}) = \vec{0}\)
+			\item Унитарность. \(1\cdot \vec{a} = \vec{a}\)
+			\item Ассоциативность относительно скаляра. (\(\lambda\mu\))$\vec{a}$ = \(\lambda\cdot(\mu\vec{a})\)
+			\item Дистрибутивность относительно скалярного множителя \((\lambda + \mu)\vec{a} = \lambda\vec{a}+\mu\vec{b}\)
+			\item Дистрибутивность относительно векторного множителя \(\lambda(\vec{a} + \vec{b}) = \lambda \vec{a} + \lambda \vec{b}\)
+		\end{enumerate}			
+		ВЫВОД. Множество всех свободных векторов b в пространстве \(V_i\) является действительным линейным пространством (синоним: векторным пространством) \\
+	\end{theorem}
+	\section{Системы вектором в пространстве }
+	\begin{definition}
+		\(v_1, v_2,\ldots, v_n\in V_i \), тогда \(\sum_{i=1}^{n}\alpha_1\vec{v_i}\) называется Л. К. \(v_1, v_2, \ldots, v_n\) с коэффициентами $\alpha_1, \alpha_2, \ldots, \alpha_n$
+	\end{definition}
+	Л. К. называется тривиальной, если все коэффициенты равны 0. Если хотя бы один из коэффициентов не равен 0, то Л. К. называется нетривиальной.
+	\begin{figure}[h]
+		\begin{subfigure}[t!]{0.6\linewidth}
+				\begin{definition}
+				Линейно независимая система векторов. Система векторов называется Л. З.(линейно зависимой), если $\exists$ нетривиальная линейная комбинация этих векторов, равная $\vec{0}$, то есть не все коэффициенты равны 0, так что \(\sum_{i=1}^{n}\alpha_i\vec{v_i} = \vec{0}\).
+			\end{definition}
+		\end{subfigure}
+		\begin{subfigure}[b!]{0.4\linewidth}
+			\centering
+			\includegraphics[scale=.9]{images/vector-4.pdf}
+			\caption*{Существование Л. З.}
+			\label{Vector4}
+		\end{subfigure}
+	\end{figure}
+
+	\begin{definition}
+		Система векторов называется ЛнЗ(линейно независимой), если не существует нетривиальной Л. К., равная $\vec{0}$.
+	\end{definition}
+	\begin{proposition}
+		Система векторов Л. З. тогда и только тогда, когда хотя бы 1 из них представим в виде линейной комбинации остальных.
+\end{proposition}
+\begin{proof}
+		Пусть система векторов \(\vec{v_1}, \vec{v_2}, \ldots, \vec{v_n}\) - Л. З. То есть \(\exists \sum_{i=1}^{n}\alpha_i\vec{v_i} = 0\) не тривиальная Л. К. \\
+		Без ограничений общности пусть $\alpha_1\ne0$, то разделим равенство на $\alpha_i$, тогда \(\dfrac{\alpha_1}{\alpha_1}\vec{v_1}+\dfrac{\alpha_2}{\alpha_1}\vec{v_2}+
+		\ldots+\dfrac{\alpha_n}{\alpha_1}\vec{v_n} = \vec{0}\). То есть \(\vec{v_1} = - (\dfrac{\alpha_2}{\alpha_1}\vec{v_2}+\ldots+\dfrac{\alpha_n}{\alpha_1}\vec{v_n})\). \\
+		Пусть один из векторов($\vec{v_i}$) линейно выражается через другие. Тогда перенесем все вектора в одну сторону, слева получится нетривиальная Л. К.(так как как минимум коэффициент при i$\ne$0), равная 0.
+\end{proof}
+\begin{note}
+		Неверно: Если заменить в предыдущем утверждении выражение хотя бы одного вектора через другие на каждый каждый вектор через каждый, то утверждение будет неверным. 
+\end{note}
+\begin{proposition}
+		1. Если система векторов Л. З., то вся её надсистема также Л. З. \\
+		2. Если система векторов ЛнЗ, то всякая её подсистема также ЛнЗ.
+\end{proposition}
+\begin{proof}
+		1. Пусть существует нетривиальная Л. К., что \(\sum_{i=1}^{n}\alpha_iv_i = \vec{0}\). Тогда если все коэффициенты при надсистеме будут равны 0, то получится та же нетривиальная Л. К., равная 0: \(\sum_{i=1}^{n+k}\alpha_iv_i = \sum_{i=1}^{n}\alpha_iv_i + \sum_{i=n+1}^{n+k}\alpha_iv_i = 0 + 0 = 0\), Где \(\alpha_{n+1}, \ldots, \alpha_{n+k} = 0\), а среди первых n коэффициентов хотя бы 1 не 0. \\
+		2. Пусть подсистема ЛнЗ векторов Л. З., тогда по первому пункту ЛнЗ система векторов является Л. З. Противоречие, то есть любая подсистема ЛнЗ векторов ЛнЗ.
+\end{proof}
+\begin{proposition}
+	пусть \(\vec{v_1}, \vec{v_2}, \ldots, \vec{v_n}\) - ЛнЗ система векторов. Тогда каждый вектор \(\vec{\omega}\in V_i\) линейно выражается через систему не более, чем одним способом.
+\end{proposition}
+\begin{proof}
+	Пусть \(\vec{\omega} = \sum_{i=1}^{n}\alpha_iv_i, \vec{\omega} = \sum_{i=1}^{n}\beta_iv_i\). Вычтем одно из равенств на другое, тогда получаем, что \(\vec{0} = \sum_{i=1}^{n}(\alpha_i-\beta_i)\vec{v_i}\). Так как система ЛнЗ, то из этого следует, что \(\alpha_i = \beta_i\). \\
+	Другая запись: $\vec{\omega} = (\vec{v_1}, \ldots, \vec{v_n})\begin{pmatrix}
+			\alpha_1 \\ \ldots \\ \alpha_n
+		\end{pmatrix} = \vec{V}\cdot\alpha$ и $\vec{\omega} =\vec{V}\cdot\beta$. Тогда $\vec{0} = \vec{V}(\alpha-\beta)$. Так как $\vec{V}$ ЛнЗ, то $\alpha$ = $\beta$.
+\end{proof}
+\subsection{Понятие базиса линейного пространства в $V_i$}
+\begin{proposition}
+	\begin{enumerate}
+		\item Пусть $\vec{a}\ne\vec{0}$ и $\vec{b}$ сонаправлен с $\vec{a}$.
+		Тогда $\vec{b} = \lambda \vec{a}$
+		\item Пусть $\vec{a_1}, \vec{a_2}$ не коллинеарны и $\vec{b}$ им компланарен. Тогда $\vec{b} = \lambda_1\vec{a_1} + \lambda_2\vec{a_2}$
+		\item Пусть $\vec{a_1}, \vec{a_2}, \vec{a_3}$ - не компланарны. Тогда всякий вектор $\vec{b}$ в пространстве $\vec{b} = \lambda_1\vec{a_1} + \lambda_2\vec{a_2}+\lambda_3\vec{a_3}$
+	\end{enumerate}
+\end{proposition}
+\newpage
+	\begin{proof}
+		 1. $\lambda = \dfrac{XZ}{XY}$, если Z, Y по одну сторону от X, и $\lambda = - \dfrac{XZ}{XY}$, если Z, Y лежат по разные стороны от X. Тогда $\vec{b} = |\lambda||\vec{a}|, \vec{b}\uparrow\uparrow \lambda\vec{a}$
+		
+		\vspace{.7cm}
+		\begin{center}
+		\includegraphics[scale=.7]{images/vector-5.pdf}
+		\label{Vector5}
+		\end{center}
+		\vspace{.7cm}
+			
+		2. Оба вектора ненулевые, так как не коллинеарны.
+		$\vec{b} = \vec{b_1}+\vec{b_2} = \lambda_1\vec{a_1} + \lambda_2\vec{a_2}$, где $\vec{b_1}$ порожден $\overline{XZ_1}$, а $\vec{b_2}$ порожден $\overline{XZ_2}$
+			
+		 \vspace{.7cm}
+		 \hspace{.5cm}\includegraphics*[scale = .7]{images/vector-6.pdf} \hfil	\includegraphics*[scale = .5]{images/vector-7.pdf}
+		 \vspace{.7cm}
+		 
+		 3. $\vec{a_1}, \vec{a_2}, \vec{a_3}$ порождены направленными отрезками $\overline{XY_1}, \overline{XY2}, \overline{XY_3}, $ a $\vec{b} - \overline{XZ}$. $\vec{a_1}, \vec{a_2}$ - не коллинеарны. \(Z' = l\cap(XY_1Y_2), l \uparrow\uparrow \vec{a_3}\). $\vec{b} = \vec{b_1}+\vec{b_2} = \lambda_1 \vec{a_1} + \lambda_2\vec{a_2}+\lambda_3\vec{a_3}$, так как $\vec{b_1}$ порожден $\overline{XZ'}$, $\vec{b_2}$ порожден $\overline{ZZ'}$.
+			
+	\end{proof}
+	\begin{proposition}
+		Следствие. 
+		\begin{enumerate}
+			\item Система, состоящая из одного $\vec{0}$ - Л. З. 
+			\item Система, состоящая из 2 коллинеарных векторов Л. З.
+			\item Система, состоящая из 3 компланарных векторов Л. З.
+			\item Любая система, состоящая из 4-х векторов пространства Л. З.
+		\end{enumerate}
+	\end{proposition}
+	\begin{proof}
+		\begin{enumerate}
+			\item $\vec{0}\cdot\lambda = \vec{0}$
+			\item $\vec{a}, \vec{b}$ коллинеарны. Если один из векторов нулевой, то из первого пункта система Л. З. Если $\vec{a}$ не нулевой, то $\vec{b} = \lambda\vec{a}$. - Л. З.
+			\item $\vec{a_1}, \vec{a_2}, \vec{a_3}$ - компланарны. Если 2 вектора коллинеарны, то система Л. З. по 2 утверждению. Если не коллинеарны, то верно, что $\vec{a_3} = \lambda_1\vec{a_1} + \lambda_2\vec{a_2}$. - Л. З.
+			\item Любые 4 вектора образуют Л. З. Так как если три из них компланарны, то по 3 утверждению они образуют Л. З. Если они некомпланарны, то любой 4 вектор выражает через 3 некомпланарных. То есть система из 4 векторов Л. З.
+		\end{enumerate}
+	\end{proof}
+	\begin{proposition}
+		Пусть ($\vec{a_1}, \vec{a_2}, \vec{a_3}, \ldots, \vec{a_n}$) - ЛнЗ система векторов и $(\vec{a_1}, \vec{a_2}, \vec{a_3}, \ldots, \vec{a_n}, \vec{b})$ - Л. З. Тогда $\vec{b} = \sum_{i=1}^{n}\alpha_i\vec{a_i}$.
+	\end{proposition}
+	\begin{proof}
+		$\exists$ нетривиальная Л. К. \(\alpha_1\vec{a_1}+\ldots+\alpha_n\vec{a_n}+\beta\vec{b} = \vec{0}\). Если $\beta = 0$, то получается ЛнЗ(то есть образуется только 1 тривиальная последовательность коэффициентов). То есть $\beta\ne0$, а значит $\beta$ линейно выражается $\vec{b} = -\sum_{i=1}^{n}\dfrac{\alpha_i}{\beta}a_i$
+	\end{proof}
+	\begin{definition}
+		Базис. V - линейное пространство (над $\mathbb{R}$) \\
+		Система векторов \((\vec{e_1}, \vec{e_2}, \vec{e_3},\ldots, \vec{e_n})\) называется базисом в V, если 
+		\begin{enumerate}
+			\item \((\vec{e_1}, \vec{e_2}, \vec{e_3},\ldots, \vec{e_n})\) - ЛнЗ
+			\item каждый $\vec{v}\in V$ представим в виде Л. К. \((\vec{e_1}, \vec{e_2}, \vec{e_3},\ldots, \vec{e_n})\)
+		\end{enumerate}
+		\begin{note}
+			$\vec{v} = \underset{\mathfrak{E}}{(\vec{e_1}, \vec{e_2}, \vec{e_3},\ldots, \vec{e_n})}\underset{\text{координатный столбец } \alpha}{\begin{pmatrix}
+					\alpha_1 \\ \alpha_2 \\ \ldots \\\alpha_n
+			\end{pmatrix}} $
+		\end{note}
+	\end{definition}
+	\begin{proposition}
+		Если в пространстве V зафиксирован базис $\mathfrak{E} =(\vec{e_1}, \vec{e_2}, \vec{e_3},\ldots, \vec{e_n})$, то вектор $\vec{v}\in V$ однозначно раскладывается по базису(имеет однозначно определенный столбец коэффициентов). Доказательство смотри в прошлой лекции
+	\end{proposition}
+	\begin{proposition}
+		Пусть в V фиксированный базис $\mathfrak{E}$, $\vec{v}\underset{\mathfrak{E}}{\longleftrightarrow}\alpha$, $\vec{\omega}\underset{\mathfrak{E}}{\longleftrightarrow}\beta$, тогда $\vec{v}+\vec{\omega}\underset{\mathfrak{E}}{\longleftrightarrow}\alpha+\beta$, \(\lambda \vec{v}\underset{\mathfrak{E}}{\longleftrightarrow}\lambda \alpha\)
+	\end{proposition}
+	\begin{proof}
+		$\left\{\begin{gathered}
+			\vec{v} = \mathfrak{E}\cdot\alpha \\
+			\vec{\omega} = \mathfrak{E}\cdot \beta
+		\end{gathered}\right. \Longrightarrow \vec{v}+\vec{\omega} = \mathfrak{E}(\alpha+\beta)$ \\
+		$\lambda \vec{v} = \lambda\cdot\mathfrak{E}\cdot\alpha = \mathfrak{E}\cdot(\lambda\cdot\alpha)$
+	\end{proof}
+	\begin{theorem}
+		(О ЛнЗ системах векторов)
+		\begin{enumerate}
+			\item Система, состоящая из одного ненулевого вектора ЛнЗ
+			\item Система, состоящая из 2 неколлинеарных векторов ЛнЗ
+			\item Система, состоящая из 3 некомпланарных векторов ЛнЗ
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}
+		\begin{enumerate}
+			\item От противного. $\lambda\ne 0$ и $\lambda\vec{a}=0$. Длина нулевого вектора 0, но
+			$|\lambda||a|\ne0$. Противоречие - ЛнЗ
+			\item От противного. $\vec{a_1}, \vec{a_2}$ - Л. З. Тогда Б. О. О. $\vec{a_2} = \lambda \vec{a_1}$, но тогда они коллинеарны. Противоречие - ЛнЗ.
+			\item От противного. Пусть \((\vec{a_1}, \vec{a_2}, \vec{a_3})\) - Л. З. Б. О. О. $\vec{a_3} = \lambda_1\vec{a_1} + \lambda_2\vec{a_2}$, но это система некомпланарных векторов. Противрочение. ЛнЗ.
+		\end{enumerate}
+	\end{proof}
+	\begin{theorem}
+		(Об описании базисов в $V_i$) Система векторов является 
+		\begin{enumerate}
+			\item базисом в $V_1$ тогда и только тогда, когда она состоит из одного ненулевого вектора.
+			\item базисом в $V_2$ тогда и только тогда, когда она состоит из двух неколлинеарных векторов.
+			\item базисом в $V_3$ тогда и только тогда, когда она состоит из 3 некомпланарных векторов
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}
+		\begin{enumerate}
+			\item \(V_1\) $\vec{e_1}\ne\vec{0}$(ЛнЗ система). Тогда $\forall b \in V_1$ представимо в виде $\vec{b} = \lambda \vec{e}$. То есть $\vec{e}$ образует базис. При этом если взять 2 вектора в $V_1$, то они будут коллинеарны, то есть образуют Л. З. систему. А нулевой вектор образует Л. З. систему.
+			\item $(\vec{e_1}, \vec{e_2}) \in V_2$ - не коллинеарные. Значит ЛнЗ система. И $\forall b\in V_2 b = \lambda_1\vec{e_1}+\lambda_2\vec{e_2}$. Проверим другие: Система из 3 векторов в $V_2$ - компланарна, то есть Л. З. Система из 2 коллинеарных векторов - Л. З.
+			\item $V_3$ - фиксируем \((\vec{e_1}, \vec{e_2}, \vec{e_3})\) - некомпланарные вектора. То есть система ЛнЗ и $\forall b \in V_3: b = \lambda_1\vec{e_1}+\lambda_2\vec{e_2}+\lambda_3\vec{e_3}$. Тогда эти вектора образуют базис. Система из 4 векторов в $V_3$ уже будет Л. З. 3 компланарных вектора также образуют Л. З. систему, а система из 2 векторов покрывает не более, чем плоскость.
+		\end{enumerate}
+	\end{proof}
+	\subsection{Матрицы перехода от одного базиса к другому}
+	в V 2 базиса \(\mathfrak{E} = (\vec{e_1},\ldots,\vec{e_n}), \mathfrak{E}' = (\vec{e'_1}, \ldots, \vec{e'_n})\)\\
+	\(\begin{gathered}
+		\vec{e'_1} = s_{11}\vec{e_1}+\ldots+s_{n1}\vec{e_n} \\
+		\vec{e'_2} = s_{12}\vec{e_1}+\ldots+s_{n2}\vec{e_n} \\
+		\ldots \\
+		\vec{e'_n} = s_{1n}\vec{e_1}+\ldots+s_{nn}\vec{e_n} 
+	\end{gathered}\)\\ Тогда матрицей перехода будет матрица вида 
+	\[S = S_{\mathfrak{E}\to\mathfrak{E}'} = \begin{pmatrix}
+		s_{11} & s_{12} & \ldots & s_{1n} \\
+		s_{21} & s_{22} & \ldots & s_{2n} \\
+		\ldots & \ldots & \ldots & \ldots \\
+		s_{n1} & s_{n2} & \ldots & s_{nn}
+	\end{pmatrix} - \text{Матрица перехода из $\mathfrak{E}$ в $\mathfrak{E}'$}\]
+	В матрице перехода по столбцам расположены коэффициенты разложения коэффициентов для $\vec{e'}$
+	\[\begin{pmatrix}
+		\vec{e'_1} \\ \ldots \\ \vec{e'_n}
+	\end{pmatrix}^T = \left(S^T\begin{pmatrix}
+	\vec{e_1} \\ \ldots \\ \vec{e_n}
+	\end{pmatrix}\right)^T\] 
+	\((\vec{e_1'}, \ldots, \vec{e_n'}) = (\vec{e_1}, \ldots, \vec{e_n})\cdot S\), то есть \(\mathfrak{E'} = \mathfrak{E}\cdot S\)
+	\subsubsection{Связь координат одного и того же вектора относительно \(\mathfrak{E}\) и \(\mathfrak{E'}\)}
+	\begin{proposition}
+		Пусть в V фиксированы базисы $\mathfrak{E}, \mathfrak{E'}$ и \(\mathfrak{E'} = \mathfrak{E}\cdot S\), пусть $\vec{a}\underset{\mathfrak{E}}{\longleftrightarrow}\alpha$ и 
+		$\vec{a}\underset{\mathfrak{E'}}{\longleftrightarrow}\beta$, тогда \(\alpha = S\cdot \alpha'\)
+	\end{proposition}
+	\begin{proof}
+		$\vec{a} = \mathfrak{E}\alpha = \mathfrak{E'}\alpha' = \mathfrak{E}\cdot S\cdot \alpha' = \mathfrak{E} \Longrightarrow S\cdot \alpha' = \alpha$
+	\end{proof}
+	\begin{definition}
+		2 Вектора называются ортогональными, если они перпендикулярны друг другу
+	\end{definition}
+	\begin{definition}
+		Базис $\mathfrak{E}$ называется ортогональным, когда все базис векторы попарно ортогональны.
+	\end{definition}
+	\begin{definition}
+		Базис $\mathfrak{E}$ называется ортонормированным (ОНБ), если он ортогонален и нормирован, то есть длины всех базис векторов равны 1.
+	\end{definition}
+	\section{Декартова система координат}
+	
+	\(\mathfrak{E} = (\vec{e_1}, \vec{e_2})\) - ОНБ, \(\mathfrak{E'} = (\vec{e_1}, \vec{e_2})\) - ОНБ. \\
+	\(\begin{gathered}
+		\vec{e_1'} = \cos\alpha\cdot\vec{e_1} + \sin\alpha\cdot\vec{e_2} \\
+		\vec{e_2'} = -\sin\alpha\cdot\vec{e_1} + \cos \vec{e_2} 
+	\end{gathered}\), тогда матрица поворота будет \\ S = \(\begin{pmatrix}
+	\cos\alpha  & -\sin\alpha \\
+	\sin \alpha & \cos \alpha
+	\end{pmatrix} = R(\alpha) - rotation\)
+
+\begin{proposition}
+	Пусть S = \(S_{\mathfrak{E}\to\mathfrak{E'}}\), T = \(S_{\mathfrak{E'}\to\mathfrak{E''}}\), тогда \(S\cdot T = S_{\mathfrak{E}\to\mathfrak{E''}}\).
+\end{proposition}
+\begin{proof}
+	\(\mathfrak{E'} = \mathfrak{E}\cdot S, \mathfrak{E''} = \mathfrak{E'}\cdot T = \mathfrak{E}\cdot S\cdot T\)
+\end{proof}
+\begin{proposition}
+	Пусть S - матрица перехода от \(\mathfrak{E}\) к \(\mathfrak{E'}\), T - матрицы перехода от \(\mathfrak{E'}\) к \(\mathfrak{E}\). Тогда \(S\cdot T = T\cdot S = E\) - единичная матрица.
+\end{proposition}
+\begin{definition}
+	Диагональная матрица, у которой по главной диагонали стоят все единицы называется единичной(E)
+\end{definition}
+\begin{proof}	
+		\(\mathfrak{E''} = \mathfrak{E}\), тогда \(S\cdot T\) - матрица перехода от \(\mathfrak{E}\) к \(\mathfrak{E}\Longrightarrow S\cdot T = E\), a T$\cdot$S - матрица перехода из \(\mathfrak{E'}\) к \(\mathfrak{E'}\), то есть единичная.
+\end{proof}
+\begin{definition}
+	Если выполняется равенство для квадратных матриц S, T и E: \(S\cdot T = T\cdot S = E\), то T - называется обратной к S.
+\end{definition}
+\begin{definition}
+	Матрица называется обратимой, если она имеет обратную.
+\end{definition}
+\begin{proposition}
+	Если обратная матрица существует, то она единственная
+\end{proposition}
+\begin{proof}
+	Пусть существует несколько обратных матриц к A: \(A_1^{-1}, A_2^{-1}\). Тогда \(A_1^{-1} = E\cdot A^{-1} = A_2^{-1}\cdot A\cdot A_1^{-1} = A_2^{-1}\cdot E = A_2^{-1}\). То есть обратные матрицы совпадают.
+\end{proof}
+\begin{exercise}
+	Доказать, что матрица перехода обладает следующими свойствами:
+	\begin{enumerate}
+		\item \(R(\alpha)\cdot R(\beta) = R(\alpha+\beta)\)
+		\item \(R(\alpha)^{-1} = R(-\alpha)=R(\alpha)^T\)
+	\end{enumerate}
+\end{exercise}
+\begin{exercise}
+	Пусть $\vec{a} = \begin{pmatrix}
+		\alpha_1 \\
+		\alpha_2
+	\end{pmatrix}$ - вектор выходит из начала координат в базисе \(\mathfrak{E}\) $\vec{b} = R(\alpha)\cdot\vec{a} = R(\alpha) \cdot\begin{pmatrix}
+		\alpha_1 \\
+		\alpha_2
+	\end{pmatrix}$
+\end{exercise}
+\(V_i\) - зафиксируем O - начало координат. \(\mathfrak{E}\) - Базис в $V_i$ (O, $\mathfrak{E}$) - декартова система координат(ДСК) \\
+ДСК называется прямоугольной, если базис \(\mathfrak{E}\) - ортонормированный
+\begin{definition}
+	Координата вектора $\overline{OA}$ называется координатой т. А в ДСК(О, $\mathfrak{E}$) \\
+	\(A\underset{(O, \mathfrak{E})}{\alpha}\Longleftrightarrow \overline{OA} = \mathfrak{E}\cdot\alpha\)
+\end{definition}
+
+\vspace{3mm}
+ \begin{figure}[h]
+	\begin{subfigure}[t!]{0.6\linewidth}
+		\begin{proposition}
+			Пусть \(A\underset{(O, \mathfrak{E})}{\alpha}\), \(B\underset{(O, \mathfrak{E})}{\beta}\) \\
+			$\overline{AB} = \overline{OB} - \overline{OA} = \mathfrak{E}\cdot \beta - \mathfrak{E}\alpha = \mathfrak{E}(\beta - \alpha)$. Чтобы найти координаты вектора, нужно из координат конца вычесть координаты начала.
+		\end{proposition}
+	\end{subfigure}
+	\begin{subfigure}[b!]{0.4\linewidth}
+		\centering
+		\includegraphics[scale=1]{images/vector-8.pdf}
+		\caption*{Координаты вектора}
+		\label{Vector8}
+	\end{subfigure}
+\end{figure}
+\begin{figure}[h]
+	\begin{subfigure}[t!]{0.6\linewidth}
+		\begin{proposition}
+			(О делении отрезка в данном отношении) \\
+			\(A\underset{(O, \mathfrak{E})}{\alpha}\), \(B\underset{(O, \mathfrak{E})}{\beta}\). Пусть С делит [A;B] в отношении \(\lambda \\ \mu\), тогда \(C\underset{(O,\mathfrak{E})}{\dfrac{\mu\alpha+\lambda\beta}{\lambda + \beta}}\Longleftrightarrow \vec{c} = \dfrac{\mu}{\lambda+\mu}\vec{a}+\dfrac{\lambda}{\lambda+\mu}\vec{b}\). Комбинация таких коэффициентов называется выпуклой линейной комбинацией, так как их сумма равна 1.
+		\end{proposition}
+	\end{subfigure}
+	\begin{subfigure}[b!]{0.4\linewidth}
+		\centering
+		\includegraphics[scale=1]{images/vector-9.pdf}
+		\caption*{Деление отрезка в заданном отношении}
+		\label{Vector9}
+	\end{subfigure}
+\end{figure}
+\begin{proof}
+	$\overline{OC} = \overline{OA}+\overline{AC}, \overline{AC} = \dfrac{\lambda}{\lambda+\mu}\overline{AB}=\dfrac{\lambda}{\lambda+\mu}(\vec{b} - \vec{a})$
+	\(\overline{OC} = \vec{a}+\dfrac{\lambda}{\lambda+\mu}(\vec{b} - \vec{a}) = \dfrac{\mu}{\lambda+\mu}\vec{a} + \dfrac{\lambda}{\lambda+\mu}\vec{b}\)
+\end{proof}
+\begin{figure}[h]
+	\begin{subfigure}[t!]{0.6\linewidth}
+	\begin{theorem}
+		(Об изменении координаты точки при изменении ДСК) \\
+		Пусть В \(V_i\) фиксировано ДСК (\(O, \mathfrak{E}\)) и ДСК (\(O', \mathfrak{E'}\)) и пусть т. \(A\underset{O, \mathfrak{E}}{\longleftrightarrow}\alpha, A\underset{O', \mathfrak{E'}}{\longleftrightarrow}\alpha', A\underset{O, \mathfrak{E}}{\longleftrightarrow}\gamma\), S = \(S_{\mathfrak{E}\to\mathfrak{E'}}\), тогда \(\alpha = S\cdot\alpha'+\gamma\). $\overline{OA} = \overline{OO'}+\overline{O'A} = \mathfrak{E}\cdot\alpha. \overline{OO'} + \overline{O'A} = \mathfrak{E}\cdot\gamma+\mathfrak{E'}\alpha' = \mathfrak{E}\cdot\gamma + \mathfrak{E}\cdot S\cdot \alpha' = \mathfrak{E}(\gamma+S\cdot\alpha')\Longrightarrow \alpha = \gamma+ S\cdot \alpha'.$
+	\end{theorem}
+	\end{subfigure}
+	\begin{subfigure}[b!]{0.4\linewidth}
+		\centering
+		\includegraphics[scale=1]{images/vector-10.pdf}
+		\caption*{Изменение ДСК}
+		\label{Vector10}
+	\end{subfigure}
+\end{figure}
+
+\subsection{Скалярное произведение векторов}
+\(V_i \) - скалярное произведение векторов $\vec{a}, \vec{b}$ обозначаются ($\vec{a}, \vec{b}$)(В физике $\vec{a}\cdot \vec{b}$) называется число, равное ($\vec{a}, \vec{b}$) = |$\vec{a}$||$\vec{b}$|$\cos\alpha$, где $\alpha = (\hat{a, b})$. Если хотя бы один из векторов равен 0, то скалярное произведение равно 0. \((\vec{a}, \vec{a})=|a|^2\) - скалярный квадрат вектора \\
+Скалярное произведение для $(\vec{a}, \vec{b}) = \vec{0}$, тогда и только тогда, когда они образуют прямой угол. \\
+Векторная проекция вектора $\vec{b}\ne\vec{0}$
+\begin{figure}[h]
+	\begin{subfigure}[t!]{0.6\linewidth}
+		Вектор, порожденный направленным отрезком $\overline{OA}$ называется проекцией(векторной) вектора на $\vec{b}$. \(\pr_{\vec{b}}\vec{a} = \overline{O\tilde{A}}(\pr_{\vec{b}}\vec{a} = \vec{0}, \text{ тогда и только тогда, когда }(\vec{a}, \vec{b})=0)\).
+	\end{subfigure}
+	\begin{subfigure}[b!]{0.4\linewidth}
+		\centering
+		\includegraphics[scale=1]{images/vector-11.pdf}
+		\caption*{Проекция вектора на другой вектор}
+		\label{Vector11}
+	\end{subfigure}
+\end{figure}
+\begin{proposition}
+	(Линейность векторной проекции) \\
+	\begin{enumerate}
+		\item \(\pr_{\vec{b}}(\vec{a_1}+\vec{a_2})=\pr_{\vec{b}}(\vec{a_1})+\pr_{\vec{b}}(\vec{a_2})\) - аддитивность
+		\item \(\forall \lambda\in\mathbb{R} \pr_{\vec{b}}(\lambda \vec{a}) = \lambda\cdot\pr_{\vec{b}}(\vec{a})\) - однородность
+	\end{enumerate}
+\end{proposition}
+Линейность - выполнение этих двух условий
+\begin{proof}
+	\begin{enumerate}
+		\item \(\pr_{\vec{b}}(\vec{a_1}+\vec{a_2})=\overline{O\tilde{A_2}} = \overline{O\tilde{A_1}}+\overline{\tilde{A_1}\tilde{A_2}}.\) Ч. Т. Д.
+		
+		\vspace{.7cm}
+		\hspace{.5cm}\includegraphics*[scale = .7]{images/vector-12.pdf} \hfil	\includegraphics*[scale = 1]{images/vector-13.pdf}
+		\vspace{.7cm}
+		
+		\item (При $\lambda = -1$ очевидно). Тогда докажем для $\lambda>0$.\(\pr_{\vec{b}}(\lambda \vec{a}) = \overline{OA'} = \lambda \cdot \overline{O\tilde{A}} = \lambda \pr_{\vec{b}}\vec{a}\)
+	\end{enumerate}
+\end{proof}
+\begin{proposition}
+	Пусть $\vec{b}\ne\vec{0}$, тогда \((\pr_{\vec{b}}\vec{a}, \vec{b}) = (\vec{a}, \vec{b})\)
+\end{proposition}
+\begin{proof}
+	\(\hat{a, b} = \phi\). Если $\phi = \dfrac{\pi}{2}$ верно. $\vec{a} = \vec{0}$ тоже верно. Иначе получаем \(
+	|\pr_{\vec{b}}\vec{a}| = |a|\cos(\phi) = \left\{
+	\begin{gathered}
+		|a|\cos\phi, \pr_{\vec{b}}\vec{a} \uparrow\uparrow \vec{b} \\
+		-|a|\cos\phi, \pr_{\vec{b}}\vec{a} \uparrow\downarrow \vec{b} \\
+	\end{gathered}
+	\right.
+	\). Тогда \((\pr_{\vec{b}}\vec{a}, \vec{b}) = \left\{
+	\begin{gathered}
+		|a|\cos\phi, \pr_{\vec{b}}\vec{a}\cos(0) \\
+		-|a|\cos\phi, \pr_{\vec{b}}\vec{a}\cos(\pi) \\
+	\end{gathered}
+	\right. = \\|a||b|\cos\phi = (\vec{a},\vec{b})\)
+\end{proof}
+\begin{theorem}
+	(Свойства скалярного произведения)
+	\begin{enumerate}
+		\item Симметричность: \((\vec{a}, \vec{b}) = (\vec{b}, \vec{a})\)
+		\item Аддитивность по первому аргументу: \((\vec{a_1}+\vec{a_2}, \vec{b}) = (\vec{a_1}, \vec{b}) + (\vec{a_2}, \vec{b})\)
+		\item Однородность по первому аргументу($\lambda\in \mathbb{R}$) \(\lambda \vec{a}, \vec{b} = \lambda (\vec{a}, \vec{b})\).
+		\item Положительная определенность \((\vec{a}, \vec{a})\ge 0\), \((\vec{a}, \vec{a})= 0\Longleftrightarrow \vec{a} = \vec{0}\)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\(\cos\phi = \dfrac{(\vec{a}, \vec{b})}{|\vec{a}||\vec{b}|}, |\vec{a}| = \sqrt{(\vec{a}, \vec{a})}\) - для произвольный пространств.
+	1, 4 - очевидны.
+	3. При $\lambda = 0, \lambda = -1$ - очевидно. Докажем при $\lambda > 0: \hat{\lambda a, b} = \hat{a, b}$ \\
+	\((\lambda \vec{a}, \vec{b}) \overset{def}{\equiv}|\lambda||\vec{a}||\vec{b}|\cos(\vec{a}, \vec{b}) = \lambda (\vec{a}, \vec{b})\)
+	2. \((\vec{a_1}+\vec{a_2}, \vec{b}) = (\pr_{\vec{b}}(\vec{a_1}+\vec{a_2}), \vec{b}) = (\pr_{\vec{b}}(\vec{a_1})+(\pr_{\vec{b}}(\vec{a_2}), \vec{b}) = (\lambda_1 + \lambda_2)b, b) = (\lambda_1 + \lambda_2)(\vec{b}, \vec{b}) = \lambda_1(\vec{b}, \vec{b}) + \lambda_2(\vec{b}, \vec{b}) = (\pr_{\vec{b}}\vec{a_1}, \vec{b}) + (\pr_{\vec{b}}\vec{a_2}, \vec{b}) = (\vec{a_1}, \vec{b}) + (\vec{a_2}, \vec{b})\)
+\end{proof}
+\begin{proposition}
+	Пусть \(\vec{b}\ne0\). Тогда \(\pr_{\vec{b}}\vec{a} = \dfrac{(\vec{a}, \vec{b})}{|\vec{b}|^2}\vec{b}\)
+\end{proposition}
+\begin{proof}
+	\(\pr_{\vec{b}}\vec{a} = \lambda \vec{b}\). Умножим скалярно на b и получим, что 
+	\((\pr_{\vec{b}}\vec{a}, \vec{b}) = (\lambda \vec{b}, \vec{b})\Longleftrightarrow (\vec{a}, \vec{b}) = \lambda (\vec{b}, \vec{b})\Longleftrightarrow \lambda = \dfrac{(\vec{a},\vec{b})}{|\vec{b}|^2}\)
+\end{proof}
+

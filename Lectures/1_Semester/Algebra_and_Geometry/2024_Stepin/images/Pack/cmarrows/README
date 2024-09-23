@@ -1,0 +1,23 @@
+CMARROWS
+========
+
+This MetaPost package contains macros to draw arrows and braces in the
+Computer Modern style.
+
+See the documentation file cmarrows.pdf for more information on how to
+use the package.
+
+The files of this package consists of
+
+  README       cmarrows.mp  cmarrows.pdf rgbx0009.mp  rgbx0016.mp
+  rgbx0020.mp  rgbx0025.mp  sgbx0008.mp  sgbx0010.mp  sgbx0011.mp
+  sgbx0012.mp  sgbx0013.mp  sgbx0014.mp  sgbx0015.mp  sgbx0017.mp
+  sgbx0018.mp  sgbx0019.mp  sgbx0021.mp  sgbx0022.mp  sgbx0023.mp
+  sgbx0024.mp  tgbx0000.mp  tgbx0001.mp  tgbx0002.mp  tgbx0003.mp
+  tgbx0004.mp  tgbx0005.mp  tgbx0006.mp  tgbx0007.mp  tgbx0027.mp
+
+This material is subject to the LaTeX Project Public License. See
+http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html for
+the details of that license.
+
+/Tommy Ekola <tek@kth.se>

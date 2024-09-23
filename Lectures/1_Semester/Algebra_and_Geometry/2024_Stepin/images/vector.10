@@ -1,0 +1,86 @@
+%!PS
+%%BoundingBox: -15 -13 149 93 
+%%HiResBoundingBox: -14.84068 -12.31169 148.8081 92.1153 
+%%Creator: MetaPost 2.02
+%%CreationDate: 2024.09.16:2201
+%%Pages: 1
+%*Font: cmmi10 12.95146 9.96265 41:e002000008000004
+%*Font: cmsy7 9.06601 6.97385 30:8
+%*Font: cmr7 9.06601 6.97385 31:c
+%*Font: cmmi10 14.94397 9.96265 41:8002
+%*Font: cmsy7 10.46077 6.97385 30:8
+%%BeginProlog
+%%EndProlog
+%%Page: 1 1
+ 0 0 0 setrgbcolor 0 0.99626 dtransform truncate idtransform setlinewidth pop [] 0 setdash 1 setlinecap
+ 1 setlinejoin 10 setmiterlimit
+newpath 53.01045 -2.12611 moveto
+56.69281 0 lineto
+53.01045 2.12611 lineto stroke
+newpath 0 0 moveto
+56.69281 0 lineto stroke
+newpath 144.05797 14.1732 moveto
+148.30997 14.1732 lineto
+146.18385 17.85556 lineto stroke
+newpath 99.21242 42.5196 moveto
+148.30997 14.1732 lineto stroke
+newpath 127.55882 87.36516 moveto
+127.55882 91.61716 lineto
+123.87646 89.49104 lineto stroke
+newpath 99.21242 42.5196 moveto
+127.55882 91.61716 lineto stroke
+newpath 2.12611 53.01045 moveto
+0 56.69281 lineto
+-2.12611 53.01045 lineto stroke
+ 0.99626 0 dtransform exch truncate exch idtransform pop setlinewidth
+newpath 0 0 moveto
+0 56.69281 lineto stroke
+ 0 0.69739 dtransform truncate idtransform setlinewidth pop
+newpath 42.44803 66.61465 moveto
+42.5196 70.86601 lineto
+38.802 68.80219 lineto stroke
+newpath 0 0 moveto
+42.5196 70.86601 lineto stroke
+newpath 46.76404 71.12077 moveto
+42.5196 70.86601 lineto
+44.86241 67.31773 lineto stroke
+newpath 99.21242 42.5196 moveto
+42.5196 70.86601 lineto stroke
+-13.15433 24.69124 moveto
+(~) cmmi10 12.95146 fshow
+-14.84068 24.69124 moveto
+(e) cmmi10 12.95146 fshow
+-8.8101 22.74852 moveto
+(2) cmr7 9.06601 fshow
+24.11241 4.94272 moveto
+(~) cmmi10 12.95146 fshow
+22.42606 4.94272 moveto
+(e) cmmi10 12.95146 fshow
+28.45663 3 moveto
+(1) cmr7 9.06601 fshow
+127.54759 37.8214 moveto
+(~) cmmi10 12.95146 fshow
+125.86124 33.89995 moveto
+(e) cmmi10 12.95146 fshow
+131.89182 38.36104 moveto
+(0) cmsy7 9.06601 fshow
+131.89182 30.44637 moveto
+(1) cmr7 9.06601 fshow
+101.13133 76.54346 moveto
+(~) cmmi10 12.95146 fshow
+99.44498 72.62201 moveto
+(e) cmmi10 12.95146 fshow
+105.47556 77.0831 moveto
+(0) cmsy7 9.06601 fshow
+105.47556 69.16843 moveto
+(2) cmr7 9.06601 fshow
+36.9156 73.86601 moveto
+(A) cmmi10 14.94397 fshow
+81.10577 29.18506 moveto
+(O) cmmi10 14.94397 fshow
+92.91978 34.60817 moveto
+(0) cmsy7 10.46077 fshow
+-13.914 -12.31169 moveto
+(O) cmmi10 14.94397 fshow
+showpage
+%%EOF
