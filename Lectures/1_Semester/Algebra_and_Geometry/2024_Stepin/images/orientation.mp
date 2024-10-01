@@ -341,5 +341,7 @@ label.ulft(TEX("$\vec{b}$") scaled 2, A + dir(angle(B-A))*(arclength(A--Y)/2));
 label.top(TEX("$\vec{a}$") scaled 2, A + dir(angle(D-A))*(arclength(A--X)*1.5/2));
 
 endfig;
+
+
 end;
 
