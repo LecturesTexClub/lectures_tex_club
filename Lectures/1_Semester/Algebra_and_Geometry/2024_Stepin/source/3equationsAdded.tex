@@ -1,6 +1,5 @@
-\section{Преамбула к 7 лекции}
 \begin{definition}
-	Пусть $\vec{a}, \vec{b}, \vec{c}\in V_3$, тогда двойное векторное произведение:
+	Пусть $\vec{a}, \vec{b}, \vec{c}\in V_3$, тогда двойное векторное произвденение:
 	\([\vec{a}, [\vec{b}, \vec{c}]]\)
 \end{definition}
 \begin{theorem}
@@ -8,8 +7,8 @@
 \end{theorem}
 
 \begin{proof}
-	Выделим правый ОНБ так, что \(\vec a || \vec e_1, \vec e_2: (\vec a, \vec b, \vec e_2)\) - компланарная система, \(\vec e_3 = [\vec e_1, \vec e_2]\), тогда \(\vec a\underset{\mathfrak{E}}{\Longleftrightarrow} \begin{pmatrix}
-		\alpha \\ 0 \\ 0
+	Выделим правый ОНБ так, что \(\vec a || \vec e_1, \vec e_2: (\vec a, \vec b, \vec e_2)\) - компаларная система, \(\vec e_3 = [\vec e_1, \vec e_2]\), тогда \(\vec a\underset{\mathfrak{E}}{\Longleftrightarrow} \begin{pmatrix}
+	\alpha \\ 0 \\ 0
 	\end{pmatrix}, 
 	b\underset{\mathfrak{E}}{\Longleftrightarrow} \begin{pmatrix}
 		\beta_1 \\ \beta_2 \\ 0
@@ -20,8 +19,8 @@
 	\). \newline Тогда \([\vec a, [\vec b, \vec c]] = \begin{pmatrix}
 		0 \\ -\alpha(\beta_1\gamma_2-\beta_2\gamma_1) \\ -\alpha\beta_2\gamma_3
 	\end{pmatrix}\). Также убеждаемся, что \(\vec b(\vec a, \vec c) - \vec c(\vec a, \vec b) = \begin{pmatrix}
-		0 \\ -\alpha(\beta_1\gamma_2-\beta_2\gamma_1) \\ -\alpha\beta_2\gamma_3
-	\end{pmatrix}\). Тогда получаем, что левая и правая части дают один и тот же вектор. А так как вектора не зависят от выбранного базиса, то получаем верное утверждение для всех троек векторов.
+	0 \\ -\alpha(\beta_1\gamma_2-\beta_2\gamma_1) \\ -\alpha\beta_2\gamma_3
+\end{pmatrix}\). Тогда получаем, что левая и правая части дают один и тот же вектор. А так как вектора не зависят от выбранного базиса, то получаем верное утверждение для всех троек векторов.
 \end{proof}
 \begin{corollary}
 	\([\vec a, [\vec b, \vec c]] + [\vec b, [\vec a, \vec c]] + [\vec c, [\vec a, \vec b]] = 0\)
@@ -30,12 +29,7 @@
 \begin{definition}
 	Уравнение множества \(M\subset V_i\) называется высказывание, верное $\forall x\in M$ и неверно, что $\forall x\in V_i \\ M$ 
 \end{definition}
-
-\vspace{.7cm}
-\hfill \includegraphics*[scale = .5]{images/decarts-1.pdf} \hfill	\includegraphics*[scale = 2]{images/decarts-2.pdf} \hfill 
-\vspace{.7cm}
-
-\(V_2\) с фиксированным ДСК. \(l || \vec a\), \(\vec a\) - направляющий вектор прямой. \(\vec{OX} = \vec{OX_0}+\vec{X_0X} = \vec{OX_0} + \lambda \vec{a}\). Тогда \(\vec{r} = \vec{r_0} + t\cdot\vec{a}, t\in \mathbb{R}\) - векторное уравнение прямой.(в физике называется уравнение равномерного прямолинейного движения).
+\(V_2\) с фиксированным ДСК. \(l || \vec a\), \(\vec a\) - направляющий вектор прямой. \(\vec{OX} = \vec{OX_0}+\vec{X_0X} = \vec{OX_0} + \lambda \vec{a}\). Тогда \(\vec{r} = \vec{r_0} + t\cdot\vec{a}, t\in \mathbb{R}\) - векторное уравнение прямой.(в физике наызвается уравнение равномерного прямолинейного движения).
 \(\vec r \longleftrightarrow \begin{pmatrix}
 	x \\ y
 \end{pmatrix}, 
@@ -45,11 +39,11 @@
 \vec a\longleftrightarrow \begin{pmatrix}
 	\alpha_1 \\ \alpha_2
 \end{pmatrix} \Longleftrightarrow \left\{\begin{gathered}
-	x = x_0 + \alpha_1t \\
-	y = y_0 + \alpha_2t
+x = x_0 + \alpha_1t \\
+y = y_0 + \alpha_2t
 \end{gathered}\right.
-\) - параметрическое уравнение прямой в плоскости. \newline
-Если выразить t в данной системе, то получим каноническое уравнение прямой:\newline \(\dfrac{x - x_0}{\alpha_1} = \dfrac{y - y_0}{\alpha_2}\). Аналогично каноническое уравнение прямой в пространстве\newline\(\dfrac{x - x_0}{\alpha_1} = \dfrac{y - y_0}{\alpha_2} = \dfrac{z - z_0}{\alpha_3}\)
+\) - параметрическое уравнение прямой в плоскоти. \newline
+Если выразить t в данной системе, то получим каноническое уравение прямой:\newline \(\dfrac{x - x_0}{\alpha_1} = \dfrac{y - y_0}{\alpha_2}\). Аналогично каноническое уравнение прямой в пространстве\newline\(\dfrac{x - x_0}{\alpha_1} = \dfrac{y - y_0}{\alpha_2} = \dfrac{z - z_0}{\alpha_3}\)
 \begin{note}
 	Если $\alpha_2 = 0$, то считаем, что числитель приравнивается к нулю.
 \end{note}
@@ -60,7 +54,7 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	Пусть l задано общим уравнением \(X_0\begin{pmatrix}
 		x_0 \\ y_0
 	\end{pmatrix} \in l, X_1\begin{pmatrix}
-		x_1 \\ y_1
+	x_1 \\ y_1
 	\end{pmatrix} \in l\Longleftrightarrow A(x_1-x_0) + B(y_1-y_0) = 0\)
 \end{proposition}
 \begin{proof}
@@ -71,27 +65,16 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	\end{gathered}
 	\right. \Longrightarrow A(x_1 - x_0) + B(y_1 - y_0 ) = 0\). Наоборот аналогично верно.
 \end{proof}
-
-\begin{figure}[h]
-	\begin{subfigure}[t!]{0.6\linewidth}
-		\begin{corollary}
-			Вектор \(\vec b\begin{pmatrix}
-				\beta_1 \\ \beta_2
-			\end{pmatrix}\) является направляющим вектором прямой \(Ax + By + C = 0\), тогда и только тогда, когда \(A\beta_1+B\beta_2 = 0\), это вытекает из того, что если отложить вектор $\vec{b}$ от точки \(X_0 \in l\), то конец \(X_1\) также лежит на прямой.
-		\end{corollary}
-	\end{subfigure}
-	\begin{subfigure}[b!]{0.4\linewidth}
-		\centering
-		\includegraphics[scale=1]{images/decarts-3.pdf}
-		\caption*{Направляющий вектор}
-		\label{Decart3}
-	\end{subfigure}
-\end{figure}
+\begin{corollary}
+	Вектор \(\vec b\begin{pmatrix}
+		\beta_1 \\ \beta_2
+	\end{pmatrix}\) является направляющим вектором прямой \(Ax + By + C = 0\), тогда и только тогда, когда \(A\beta_1+B\beta_2 = 0\), это вытекает из того, что если отложить вектор $\vec{b}$ от точки \(X_0 \in l\), то конец \(X_1\) также лежит на прямой.
+\end{corollary}
 \begin{theorem}
 	Пусть \(l: Ax+By+C = 0\), тогда любой направляющий вектор коллинеарен вектору \(\begin{pmatrix}
 		-B \\ A
 	\end{pmatrix}\), а в качестве начальной точки можно взять \(X_0\begin{pmatrix}
-		-\dfrac{AC}{A^2+B^2} \\ -\dfrac{BC}{A^2+B^2}
+	-\dfrac{AC}{A^2+B^2} \\ -\dfrac{BC}{A^2+B^2}
 	\end{pmatrix}\)
 \end{theorem}
 \begin{proof}
@@ -110,30 +93,19 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	\(l: Ax+By+C = 0\). Тогда вектор \(\vec b\begin{pmatrix}
 		A \\ B
 	\end{pmatrix}\perp l \Longrightarrow \vec{a}\begin{pmatrix}
-		-B \\ A
+	-B \\ A
 	\end{pmatrix}: (\vec n, \vec a) = -AB + AB = 0\Longleftrightarrow \vec a\perp \vec n\)
 \end{proposition}
 \begin{definition}
 	Вектор \(\vec n \begin{pmatrix}
 		A \\ B
-	\end{pmatrix}\) называется вектором нормали к прямой
+		\end{pmatrix}\) называется вектором нормали к прямой
 \end{definition}
 \subsection{Уравнение прямой с угловым коэффициентом}
-\begin{figure}[h]
-	\begin{subfigure}[t!]{0.6\linewidth}
-		
-		\(Ax+By+C = 0 \overset{B\ne0}{\Longleftrightarrow} y = -\dfrac{A}{B}x - \dfrac{C}{B}\) 
-		Пусть \(l \not|| Oy X \begin{pmatrix}
-			x \\ y
-		\end{pmatrix}\) лежит на прямой \(\Longleftrightarrow \tg \phi = \dfrac{y - b}{x}\Longleftrightarrow y = \underbrace{\tg\phi}_{k} x + b\) \newline
-	\end{subfigure}
-	\begin{subfigure}[b!]{0.4\linewidth}
-		\centering
-		\includegraphics[scale=.5]{images/decarts-5.pdf}
-		\caption*{Случай-исключение}
-		\label{Decart5}
-	\end{subfigure}
-\end{figure}
+Пусть \(l \not|| Oy X \begin{pmatrix}
+	x \\ y
+\end{pmatrix}\) лежит на прямой \(\Longleftrightarrow \tg \phi = \dfrac{y - b}{x}\Longleftrightarrow y = \underbrace{\tg\phi}_{k} x + b\) \newline
+\(Ax+By+C = 0 \overset{B\ne0}{\Longleftrightarrow} y = -\dfrac{A}{B}x - \dfrac{C}{B}\) 
 \begin{proposition}
 	\(y_1, y_2 \) - прямые с угловым коэффициентами \(k_1, k_2\) параллельны тогда и только тогда, когда \(k_1 = k_2\) \newline
 	прямые \(l_1, l_2\) - прямые, заданные общим уравнением прямой \(A_1x+B_1y+C_1 = 0, A_2x+B_2y+C_2 = 0\) соответственно параллельны \(\Longleftrightarrow \begin{vmatrix}
@@ -161,24 +133,14 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	\end{enumerate}
 \end{proposition}
 \begin{proof}
-	\begin{figure}[h]
-		\begin{subfigure}[t!]{0.6\linewidth}
-			\begin{enumerate}
-				\item \(\phi_1 = \phi_2 + \dfrac{\pi}{2}, \tg\phi_1 = \tg(\phi_2 + \dfrac{\pi}{2}) = -\ctg(\phi_2)\Longleftrightarrow k_1 = -\dfrac{1}{k_2}\Longleftrightarrow k_1k_2 = -1\)
-				\item \(l_1 \perp l_2 \Longleftrightarrow \vec n_1 \perp \vec n_2, \vec n_1\begin{pmatrix}
-					A_1 \\ B_1
-				\end{pmatrix}, \vec n_2 \begin{pmatrix}
-					A_2 \\ B_2
-				\end{pmatrix}. (\vec n_1, \vec n_2) = A_1A_+B_1B_2 = 0 \Longleftrightarrow \vec n_1 \perp \vec n_2\)
-			\end{enumerate}
-		\end{subfigure}
-		\begin{subfigure}[b!]{0.4\linewidth}
-			\centering
-			\includegraphics[scale=.7]{images/decarts-4.pdf}
-			\caption*{Перпендикулярные прямые}
-			\label{Decart4}
-		\end{subfigure}
-	\end{figure}
+	\begin{enumerate}
+		\item \(\phi_1 = \phi_2 + \dfrac{\pi}{2}, \tg\phi_1 = \tg(\phi_2 + \dfrac{\pi}{2}) = -\ctg(\phi_2)\Longleftrightarrow k_1 = -\dfrac{1}{k_2}\Longleftrightarrow k_1k_2 = -1\)
+		\item \(l_1 \perp l_2 \Longleftrightarrow \vec n_1 \perp \vec n_2, \vec n_1\begin{pmatrix}
+			A_1 \\ B_1
+		\end{pmatrix}, \vec n_2 \begin{pmatrix}
+		A_2 \\ B_2
+		\end{pmatrix}. (\vec n_1, \vec n_2) = A_1A_+B_1B_2 = 0 \Longleftrightarrow \vec n_1 \perp \vec n_2\)
+	\end{enumerate}
 \end{proof}
 \begin{proposition}
 	\(\left\{
@@ -209,20 +171,9 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 		\item Очевидно, что прямые совпадают, так как одно можно получить умножением другого на коэффициент.
 	\end{enumerate}
 \end{proof}
-
-\begin{figure}[h]
-	\begin{subfigure}[t!]{0.6\linewidth}
-		\begin{definition}
-			Полуплоскостью, определяемой прямой \(l\) и нормалью \(\vec n\) называется множества точек X плоскости, так что вектор \(\vec{X_0X}\) образует с вектором $\vec{n}$ угол \(\phi\le \dfrac{\pi}{2}\), то есть \((\vec{X_0X}, \vec n)\ge0\Longleftrightarrow A(x-x_0)+B(y-y_0)\ge 0 \Longleftrightarrow Ax+By+C\ge 0\) 
-		\end{definition}
-	\end{subfigure}
-	\begin{subfigure}[b!]{0.4\linewidth}
-		\centering
-		\includegraphics[scale=1]{images/decarts-6.pdf}
-		\caption*{Полуплоскость}
-		\label{Decart6}
-	\end{subfigure}
-\end{figure}
+\begin{definition}
+	Полуплоскостью, определяемой прямой \(l\) и нормалью \(\vec n\) называется множества точек X плоскости, так что вектор \(\vec{X_0X}\) образует с вектором $\vec{n}$ угол \(\phi\le \dfrac{\pi}{2}\), то есть \((\vec{X_0X}, \vec n)\ge0\Longleftrightarrow A(x-x_0)+B(y-y_0)\ge 0 \Longleftrightarrow Ax+By+C\ge 0\) 
+\end{definition}
 \subsection{Пучок прямых на плоскости}
 \(V_2\) в фиксированной ДСК
 \begin{definition}
@@ -259,21 +210,11 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 			x \\ y
 		\end{pmatrix}\), тогда \(\rho(X, l) = \dfrac{|Ax+By+C|}{\sqrt{A^2+B^2}}\)
 	\end{proposition}
-	\begin{figure}[h]
-		\begin{subfigure}[t!]{0.6\linewidth}
-			\begin{proof}
-				Пусть вектор \(\vec a\begin{pmatrix}
-					-B \\ A
-				\end{pmatrix}\) направляющий вектор, тогда \(\rho(X, l) = h = \dfrac{S(\vec a, \vec{X_0X})}{|a|} = \dfrac{{A(x-x_0)+B(y-y_0)}}{\sqrt{A^2+B^2}} = \dfrac{|Ax+By+C|}{\sqrt{A^2+B^2}}\)
-			\end{proof}
-		\end{subfigure}
-		\begin{subfigure}[b!]{0.4\linewidth}
-			\centering
-			\includegraphics[scale=1]{images/decarts-7.pdf}
-			\caption*{Расстояние от точки до прямой}
-			\label{Decart7}
-		\end{subfigure}
-	\end{figure}
+	\begin{proof}
+		Пусть вектор \(\vec a\begin{pmatrix}
+			-B \\ A
+		\end{pmatrix}\) направляющий вектор, тогда \(\rho(X, l) = h = \dfrac{S(\vec a, \vec{X_0X})}{|a|} = \dfrac{{A(x-x_0)+B(y-y_0)}}{\sqrt{A^2+B^2}} = \dfrac{|Ax+By+C|}{\sqrt{A^2+B^2}}\)
+	\end{proof}
 	\item Угол между пересекающимися прямыми
 	\begin{definition}
 		Углом между 2 пересекающимися прямыми называется наименьший из двух смежных углов, порожденных двумя прямыми \(l_i: A_ix+B_iy+C_i = 0, i= 1,2\)
@@ -281,49 +222,37 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	\begin{proposition}
 		Угол между этими двумя пересекающимися прямыми может быть вычислен как \(\dfrac{|A_1A_2+B_1B_2|}{\sqrt{A_1^2+B_1^2}\sqrt{A_2^2+B_2^2}}\)
 	\end{proposition}
-	\begin{figure}[h]
-		\begin{subfigure}[t!]{0.6\linewidth}
-			\begin{proof}
-				Возьмем нормали \(\vec n_1\begin{pmatrix}
-					A_1 \\ B_1
-				\end{pmatrix}, \vec n_2\begin{pmatrix}
-					A_2 \\ B_2
-				\end{pmatrix},
-				\psi = \angle(\vec n_1  \vec n_2), \phi + \psi + \pi = 2\pi \Longrightarrow \phi = \pi - \psi\). 
-				Тогда получаем, что \(\cos\phi = |\cos\phi| = |\cos\psi| = \dfrac{|(\vec n_1, \vec n_2)|}{|\vec n_1||\vec n_2|} =
-				\dfrac{|A_1A_2+B_1B_2|}{\sqrt{A_1^2+B_1^2}\sqrt{A_2^2+B_2^2}}\)
-			\end{proof}
-		\end{subfigure}
-		\begin{subfigure}[b!]{0.4\linewidth}
-			\centering
-			\includegraphics[scale=1]{images/decarts-8.pdf}
-			\caption*{Угол между прямыми}
-			\label{Decart8}
-		\end{subfigure}
-	\end{figure}
-	\begin{corollary}
-		\(l_1 \perp l_2\Longleftrightarrow A_1A_2+B_1B_2 = 0\)
-	\end{corollary}
+	Возьмем нормали \(\vec n_1\begin{pmatrix}
+		A_1 \\ B_1
+	\end{pmatrix}, \vec n_2\begin{pmatrix}
+		A_2 \\ B_2
+	\end{pmatrix},
+	 \psi = \angle(\vec n_1  \vec n_2), \phi + \psi + \pi = 2\pi \Longrightarrow \phi = \pi - \psi\). 
+	 Тогда получаем, что \(\cos\phi = |\cos\phi| = |\cos\psi| = \dfrac{|(\vec n_1, \vec n_2)|}{|\vec n_1||\vec n_2|} =
+	  \dfrac{|A_1A_2+B_1B_2|}{\sqrt{A_1^2+B_1^2}\sqrt{A_2^2+B_2^2}}\)
+	  \begin{corollary}
+	  	\(l_1 \perp l_2\Longleftrightarrow A_1A_2+B_1B_2 = 0\)
+	  \end{corollary}
 \end{enumerate}
 \section{Плоскость в пространстве}
 \(V_3\) В ДСК \((O, \mathfrak{E})\). Пусть есть точка \(X_0\begin{pmatrix}
 	x_0 \\ y_0 \\ z_0
 \end{pmatrix}\) и направляющие векторы плоскости \(\vec a, \vec b\) - то есть векторы, коллинеарные плоскости, но не коллинеарные между собой. Тогда уравнение плоскости \((\vec r - \vec r_0, \vec a, \vec b) = 0 \Longleftrightarrow \vec r - \vec r_0 - \overline{X_0X}\) - лежит в плоскости. Тогда \newline\(\overline{X_0X} = s\cdot\vec a + t\cdot\vec b, s, t \in \mathbb{R}\), \newline\(\vec r = \vec r_0 + s\cdot\vec a + t\cdot\vec b, s, t \in \mathbb{R}\) - векторное параметрическое уравнение. \newline
-\(\vec a \underset{(O, \mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
-	a_1 \\ a_2 \\ a_3
-\end{pmatrix},
-\vec b \underset{(O, \mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
-	b_1 \\ b_2 \\ b_3
-\end{pmatrix},
-\vec X \underset{(O, \mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
-	x \\ y \\ z
-\end{pmatrix} \Longrightarrow \left\{
-\begin{gathered}
-	x = x_0 +sa_1 + tb_1 \\
-	y = y_0 +sa_2+tb_2 \\
-	z = z_0 +sa_3+tb_3
-\end{gathered}
-\right.\)
+ \(\vec a \underset{(O, \mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
+ 	a_1 \\ a_2 \\ a_3
+ \end{pmatrix},
+ \vec b \underset{(O, \mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
+ 	b_1 \\ b_2 \\ b_3
+ \end{pmatrix},
+ \vec X \underset{(O, \mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
+ 	x \\ y \\ z
+ \end{pmatrix} \Longrightarrow \left\{
+ \begin{gathered}
+ 	x = x_0 +sa_1 + tb_1 \\
+ 	y = y_0 +sa_2+tb_2 \\
+ 	z = z_0 +sa_3+tb_3
+ \end{gathered}
+ \right.\)
 \newline
 \((\vec r - \vec r_0, \vec a, \vec b) = 0 \Longleftrightarrow \begin{vmatrix}
 	x-x_0 & y-y_0 & z-z_0 \\
@@ -334,7 +263,7 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	Пусть \(X_0\begin{pmatrix}
 		x_0 \\ y_0 \\ z_0
 	\end{pmatrix}\in \alpha\) - плоскости: \(Ax+By+Cz+D=0\) и \(X_1\begin{pmatrix}
-		x_1 \\ y_1 \\ z_1
+	x_1 \\ y_1 \\ z_1
 	\end{pmatrix}\in \alpha\), тогда \(A(x_1-x_0)+B(y_1-y_0)+C(z_1-z_0) = 0\)
 \end{proposition}
 \begin{proof}
@@ -353,9 +282,9 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	Пусть для определенности в \(Ax+By+Cz+D=0, A\ne0 \Longrightarrow \text{ вектора }\begin{pmatrix}
 		-B \\ A \\ 0
 	\end{pmatrix}, \begin{pmatrix}
-		-C \\ 0 \\ A
+	-C \\ 0 \\ A
 	\end{pmatrix}\) - ненулевые, неколлинеарные и параллельные \(\alpha\). То есть они могут быть выбраны в качестве направляющих векторов, а как начальную можно взять \(X_0\begin{pmatrix}
-		-\dfrac{D}{A} \\ 0 \\ 0
+	-\dfrac{D}{A} \\ 0 \\ 0
 	\end{pmatrix}\)
 \end{corollary}
 \begin{corollary}
@@ -365,28 +294,17 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 \(A\alpha+B\beta+C\gamma = 0 \Longleftrightarrow (\alpha, \beta, \gamma)\begin{pmatrix}
 	A \\ B \\ C
 \end{pmatrix} = (\vec c, \vec n), \text{ где } \vec n \underset{(O, \mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
-	A \\ B \\ C
+A \\ B \\ C
 \end{pmatrix}\)
-
-\begin{figure}[h]
-	\begin{subfigure}[t!]{0.6\linewidth}
-		\begin{definition}
-			Вектор $\vec{n}$ называется вектором нормали к плоскости $\alpha$
-		\end{definition}
-		\begin{proposition}
-			В ПДСК вектор нормали $\vec{n}$ к $\alpha$ ортогонален любому вектору || $\alpha$ \newline
-			Пусть теперь мы находим в ДСК. Тогда вектор с координатами $\begin{pmatrix}
-				A \\ B\\ C
-			\end{pmatrix}$ называется сопутствующим вектором плоскости.
-		\end{proposition}
-	\end{subfigure}
-	\begin{subfigure}[b!]{0.4\linewidth}
-		\centering
-		\includegraphics[scale=.4]{images/decarts-9.pdf}
-		\caption*{Вектор нормали к плоскости}
-		\label{Decart9}
-	\end{subfigure}
-\end{figure}
+\begin{definition}
+	Вектор $\vec{n}$ называется вектором нормали к плоскости $\alpha$
+\end{definition}
+\begin{proposition}
+	В ПДСК вектор нормали $\vec{n}$ к $\alpha$ ортогонален любому вектору || $\alpha$ \newline
+	Пусть теерь мы находим в ДСК. Тогда векторс координатами $\begin{pmatrix}
+		A \\ B\\ C
+	\end{pmatrix}$ называется сопутствующим вектором плоскости.
+\end{proposition}
 \begin{proposition}
 	Плоскости \(\alpha_i: A_ix+B_iy+C_iz+D = 0, i= 1,2;\) с сопутствующими векторами \(\vec{n_1}, \vec{n_2}\) соответственно параллельны, если их сопутствующие векторы параллельны. Плоскости совпадают, если уравнения пропорциональны
 \end{proposition}
@@ -412,13 +330,13 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 		\end{vmatrix}\ne 0,$ так как $\vec{n_1}\not||\vec{n_2}$. А значит существует единственная точка \(x_0, y_0, z_0\) удовлетворяющая системе и плоскости при этом не совпадают. Если же плоскости совпадают, то будут одинаковые сечения плоскостей \(z = 0\)
 	\end{enumerate}
 \end{proof}
-
+%Added From Here
 \begin{proposition}
 	(ДСК). \(\pi_i: A_ix+B_iy+C_iz+D_i = 0, i = 1,2;\quad \vec n_i = 
 	\begin{pmatrix}
 		A_i \\ B_i \\ C_i
 	\end{pmatrix}\) - сопутствующие вектора. Пусть \(\pi_1 \cap \pi_2 = l.\) Тогда за направляющий вектор прямой l можно взять вектор \(\vec u \underset{\mathfrak{E}}{\longleftrightarrow} (\begin{vmatrix}
-		B_1 & C_1 \\ B_2 & C_2
+	B_1 & C_1 \\ B_2 & C_2
 	\end{vmatrix}, 
 	\begin{vmatrix}
 		C_1 & A_1 \\ C_2 & A_2
@@ -431,7 +349,7 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	Вектор \(\vec u \ne \vec 0\) по утверждению из предыдущей лекции \(\vec n_1 \ne||\vec n_2\).(\(\vec n_1 || \vec n_2\Longleftrightarrow \begin{pmatrix}
 		A_1 \\ B_1 \\ C_1
 	\end{pmatrix}= \lambda \begin{pmatrix}
-		A_2 \\ B_2 \\ C_2
+	A_2 \\ B_2 \\ C_2
 	\end{pmatrix}\)). Покажем, что \(\vec u || \vec \pi_i, \forall i = 1, 2;\)\newline
 	\(A_i\begin{vmatrix}
 		B_1 & C_1 \\ B_2 & C_2
@@ -439,9 +357,9 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	\begin{vmatrix}
 		C_1 & A_1 \\ C_2 & A_2
 	\end{vmatrix}+C_i\begin{vmatrix}
-		A_1 & B_1 \\ A_2 & B_2
+	A_1 & B_1 \\ A_2 & B_2
 	\end{vmatrix}\overset{?}{=} 0 \Longleftrightarrow \begin{vmatrix}
-		A_i & B_i & C_i \\ A_1 & B_1 & C_1 \\ A_2 & B_2 & C_2
+	A_i & B_i & C_i \\ A_1 & B_1 & C_1 \\ A_2 & B_2 & C_2
 	\end{vmatrix} = 0\Longleftrightarrow V(\vec n_1, \vec n_2, \vec n_3) = 0.\) Верно, то есть вектор подходит.
 \end{proof}
 \begin{note}
@@ -465,97 +383,57 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 	\end{equation}
 \end{theorem}
 
-\vspace{.7cm}
-\hfill \includegraphics*[scale = 1]{images/apps-1.pdf} \hfill	\includegraphics*[scale = 1]{images/apps-2.pdf} \hfill 
-\vspace{.7cm}
 
 \begin{proof}
 	\begin{enumerate}
 		\item Пусть $\pi$ задается уравнением \ref{1} с \(\alpha^2+\beta^2\ne0\). \newline Пусть плоскости пересекаются по прямой l. Заметим, что \(f_1(l) = f_2(l) = 0\). Тогда $\alpha f_1(l) + \beta f_2(l) = 0$, то есть $\pi$ принадлежит пучку плоскостей. \newline
 		Пусть плоскости параллельны, тогда \(\vec n_\pi = \alpha\vec n_1 + \beta\vec n_2 || n_1 || n_2\Longleftrightarrow \pi || \pi_1 || \pi_2\), то есть $\pi$ принадлежит пучку параллельных плоскостей.
 		\item Пусть $\pi$ принадлежит пучку плоскостей, порожденному $\pi_1, \pi_2$. Тогда покажем, что $\pi$ можно задать через уравнение \ref{1}. Пусть \(X\ne\in l\in \pi, \not\in \pi_1,\not\in\pi_2\). Возьмем \(\alpha=f_2(X), \beta = -f_1(X)\). Тогда покажем, что \(f_2(X)f_1(x,y,z) -f_1(X)f_2(x,y,z) = 0\) - уравнение плоскости $\pi$. Действительно, если подставить X и l, то мы получим верное равенство. При этом если есть $\pi'$, удовлетворяющее этому равенству, то оно тоже проходит через X и l, то есть совпадает с $\pi$.
-	\end{enumerate}
+ 	\end{enumerate}
 \end{proof}
 \subsection{Связка плоскостей}
 \begin{definition}
-	Множество всех плоскостей в пространстве \(V_3\), проходящих через фиксированную точку называется связкой плоскостей, а сама фиксированная точка - центром связки.\newline
-	Связку можно задать с помощью фиксированной точки или через 3 плоскости в пространстве \(V_3\), не находящиеся в одном пучке.
+	Множество всех плоскостей в пространстве \(V_3\), проходящих через фиксированную точку наызвается связкой плоскостей, а сама фиксированная точка - центром связки.\newline
+	Связку можно задать с помощью фиксированой точки или через 3 плоскости в пространстве \(V_3\), не находящиеся в одном пучке.
 \end{definition}
 \begin{theorem}
 	Пусть связка плоскостей в пространстве задается 3 плоскостями \(\pi_i: A_ix+B_iy+C_iz+D_i = f_i(x,y,z) = 0, i = 1,2,3\), пересекающиеся в одной точке \(X_0\). Тогда связка плоскостей состоит из тех и только тех плоскостей, координаты точек которых удовлетворяют уравнению \(\alpha f_1(x,y,z) + \beta f_2(x,y,z)+\gamma f_3(x,y,z) = 0\).
 \end{theorem}
 \begin{proof}
 	Здесь будет приведена идея доказательства, так как данная тема не входит в программу курса. Составим систему из 3 уравнений плоскости, которая имеет единственное решение(так как они пересекаются в одной точке). Тогда определитель \(\begin{vmatrix}
-		A_1 & A_2 & A_3 \\ B_1 & B_2 & B_3 \\ C_1 & C_2 & C_3
+	A_1 & A_2 & A_3 \\ B_1 & B_2 & B_3 \\ C_1 & C_2 & C_3
 	\end{vmatrix} \ne 0 \Longleftrightarrow (\vec n_1, \vec n_2, \vec n_3) \ne 0\longrightarrow\) система этих векторов некомпланарна в пространстве \(V_3\) образует базис в нем. Тогда \(\vec n = \alpha \vec n_1 + \beta \vec n_2 + \gamma \vec n_3\Longrightarrow \alpha f_1(x,y,z) + \beta f_2(x,y,z) + \gamma f_3(x,y,z) = 0\). Дальше можно довести самостоятельно.
 \end{proof}
-\subsection{Приложения к стереометрии}
-\begin{enumerate}
 
-	\begin{figure}[h]
-		\begin{subfigure}[t!]{0.6\linewidth}
-			\item (Формула расстояния от точки до плоскости в ПДСК). \((\vec r - \vec r_0, \vec n) = 0. \rho(X,\pi) = |\pr_{\vec n}(\overline{X_0X})| = |\dfrac{(\overline{X_0X}, \vec n)}{(\vec n, \vec n)}\vec n| = \dfrac{(|\overline{X_0X}, \vec n)|}{|\vec{n}|} = \dfrac{|(\vec r_x - \vec r_0, n)|}{|\vec n|}\)
-		\end{subfigure}
-		\begin{subfigure}[b!]{0.4\linewidth}
-			\centering
-			\includegraphics[scale=.5]{images/apps-3.pdf}
-			\caption*{Расстояние от точки до плоскости}
-			\label{Apps1}
-		\end{subfigure}
-	\end{figure}
-	
+\begin{enumerate}
+	\item (Формула расстояния от точки до плоскости в ПДСК). \((\vec r - \vec r_0, \vec n) = 0. \rho(X,\pi) = |\pr_{\vec n}(\overline{X_0X})| = |\dfrac{(\overline{X_0X}, \vec n)}{(\vec n, \vec n)}\vec n| = \dfrac{(|\overline{X_0X}, \vec n)|}{|\vec{n}|} = \dfrac{|(\vec r_x - \vec r_0, n)|}{|\vec n|}\)
 	\item Пусть \(\pi: Ax+By+Cz+D = 0\), тогда \(X_0\underset{(O,\mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
-		x_0 \\ y_0 \\ z_0
+	x_0 \\ y_0 \\ z_0
 	\end{pmatrix}, 
 	X\underset{(O,\mathfrak{E})}{\longleftrightarrow}\begin{pmatrix}
 		x \\ y \\ z
 	\end{pmatrix}\). \(\vec r_x - \vec r_0 \begin{pmatrix}
-		x- x_0 \\ y - y_0 \\ z-z_0
+	x- x_0 \\ y - y_0 \\ z-z_0
 	\end{pmatrix}: \rho = \dfrac{|A(x-x_0)+B(y-y_0)+C(z-z_0)|}{\sqrt{A^2+B^2+C^2}} = \dfrac{||Ax+By+Cz+D}{\sqrt{A^2+B^2+C^2}}\)
-	
-	
-		\begin{figure}[h]
-			\begin{subfigure}[b!]{0.4\linewidth}
-				\centering
-				\includegraphics[scale=1]{images/apps-4.pdf}
-				\caption*{Угол между плоскостями}
-				\label{Apps2}
-			\end{subfigure}
-		\begin{subfigure}[t!]{0.6\linewidth}
-			\item Формула угла между двумя плоскостями\\
-			\(\pi_i: A_ix+B_iy+C_iz+D_i = 0, i = 1, 2; \vec n_i\begin{pmatrix}
-				A_i \\ B_i \\ C_i
-			\end{pmatrix}\)
-			\begin{definition}
-				За угол между двумя плоскостями принимается линейный угол между двумя прямыми, который образуется при пересечении $\pi_1, \pi_2$ плоскостью \(\pi\), перпендикулярной прямой пересечения \(\pi_1\cap \pi_2 = l\). Тогда \(\cos \phi = |\cos\angle(\vec n_1, \vec n_2)| = \dfrac{|(\vec n_1, \vec n_2)|}{|\vec n_1||\vec n_2|}\)
-			\end{definition}
-		\end{subfigure}
-	\end{figure}
-	
+	\item Формула угла между двумя плоскостями
+	\(\pi_i: A_ix+B_iy+C_iz+D_i = 0, i = 1, 2; \vec n_i\begin{pmatrix}
+		A_i \\ B_i \\ C_i
+	\end{pmatrix}\)
+	\begin{definition}
+		За угол между двумя плоскостями принимается линейный угол между двумя прямыми, который образуется при пересечении $\pi_1, \pi_2$ плоскостью \(\pi\), перпендикулярной прямой пересечения \(\pi_1\cap \pi_2 = l\). Тогда \(\cos \phi = |\cos\angle(\vec n_1, \vec n_2)| = \dfrac{|(\vec n_1, \vec n_2)|}{|\vec n_1||\vec n_2|}\)
+	\end{definition}
 \end{enumerate}
 \section{Прямая в пространстве}
-
-\vspace{.7cm}
-\begin{figure}[h]
-	\begin{subfigure}[t!]{0.6\linewidth}
-	\(\vec a\) - направляющий вектор(\(\vec a\begin{pmatrix}
-		\alpha_1 \\ \alpha_2 \\ \alpha_3
-	\end{pmatrix}\)), если $\vec{a}\ne0, \vec a || l, \overline{X_0X} = \vec at \Longrightarrow \vec r = \vec r_0 + \vec at$.\newline В ДСК \(\left\{
-	\begin{gathered}
-		x = x_0 + \alpha_1t \\
-		y = y_0 + \alpha_2t\\
-		z = z_0 + \alpha_3t
-	\end{gathered}
-	\right.\) - координатное параметрическое уравнение.
-	Исключим t и получим \(t = \dfrac{x-x_0}{\alpha_1} = \dfrac{y - y_0}{\alpha_2} = \dfrac{z - z_0}{\alpha_3}\) - каноническое уравнение прямой в пространстве.
-	\end{subfigure}
-	\begin{subfigure}[b!]{0.4\linewidth}
-		\centering
-		\includegraphics[scale=2]{images/apps-5.pdf}
-		\caption*{Прямая в пространстве}
-		\label{Apps3}
-	\end{subfigure}
-\end{figure}
+\(\vec a\) - направляющий вектор(\(\vec a\begin{pmatrix}
+	\alpha_1 \\ \alpha_2 \\ \alpha_3
+\end{pmatrix}\)), если $\vec{a}\ne0, \vec a || l, \overline{X_0X} = \vec at \Longrightarrow \vec r = \vec r_0 + \vec at$.\newline В ДСК \(\left\{
+\begin{gathered}
+	x = x_0 + \alpha_1t \\
+	y = y_0 + \alpha_2t\\
+	z = z_0 + \alpha_3t
+\end{gathered}
+\right.\) - координатное параметрическое уравнение.
+Исключим t и получим \(t = \dfrac{x-x_0}{\alpha_1} = \dfrac{y - y_0}{\alpha_2} = \dfrac{z - z_0}{\alpha_3}\) - каноническое уравнение прямой в пространстве.
 \begin{note}
 	Если \(\alpha_i\) = 0, то соответствующий ей числитель тоже должен быть равен 0.
 \end{note}
@@ -587,8 +465,8 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 		(\vec a_1, \vec a_2, \vec r_2 - \vec r_1) = 0 \\
 		\vec a_1 \not||\vec a_2
 	\end{gathered}\right.\Longleftrightarrow\newline \left\{\begin{gathered}
-		(\vec a_1, \vec a_2, \vec r_2 - \vec r_1) = 0 \\
-		[\vec a_1, \vec a-2]\ne0
+	(\vec a_1, \vec a_2, \vec r_2 - \vec r_1) = 0 \\
+	[\vec a_1, \vec a-2]\ne0
 	\end{gathered}\right.\)
 \end{corollary}
 \begin{corollary}
@@ -599,27 +477,12 @@ $\alpha_2(x - x_0) - \alpha_1(y - y_0) = 0 \Longleftrightarrow Ax+By+C = 0, A = 
 \end{corollary}
 
 \begin{enumerate}
-	\begin{figure}[h]
-		\begin{subfigure}[t!]{0.6\linewidth}
-			\item Формула угла между прямыми
-			\begin{definition}
-				Углом между \(l_1, l_2\) называется наименьший из смежных углов, образованный \(\Tilde{l_1}, \Tilde{l_2}\) 
-			\end{definition}
-			\(\cos \phi = |\cos(\vec a_1, \vec a_2)| = \dfrac{|(\vec a_1, \vec a_2)}{|\vec a_1||\vec a_2|}\)
-		\end{subfigure}
-		\begin{subfigure}[b!]{0.4\linewidth}
-			\centering
-			\includegraphics[scale=1]{images/apps-6.pdf}
-			\caption*{Угол между прямыми}
-			\label{Apps4}
-		\end{subfigure}
-	\end{figure}
+	\item Формула угла между прямыми
+	\begin{definition}
+		Углом между \(l_1, l_2\) называется наименьший из смежных углов, образованный \(\Tilde{l_1}, \Tilde{l_2}\) 
+	\end{definition}
+	\(\cos \phi = |\cos(\vec a_1, \vec a_2)| = \dfrac{|(\vec a_1, \vec a_2)}{|\vec a_1||\vec a_2|}\)
 	\item Расстояние от точки до прямой в пространстве. \(X(\vec r_X), l: \vec r = \vec r_0 + \vec at\). \(\rho(X, l) = h = \dfrac{S_{(\vec a, \overline{X_0X})}}{|\vec a|} = \dfrac{|[\vec r - \vec r_0, \vec a]|}{|\vec a|}\)
-	
-	\vspace{.7cm}
-	\hfill \includegraphics*[scale = 1]{images/apps-7.pdf} \hfill	\includegraphics*[scale = .5]{images/apps-8.pdf} \hfill 
-	\vspace{.7cm}
-	
 	\item Формула расстояния между двумя скрещивающимися прямыми. \(\vec r = \vec r_i +\vec a_it, t\in\mathbb{R}, i = 1, 2; \vec a_1 \ne || \vec a_2\). В этом случае всегда существуют \(\pi_1, \pi_2: \pi_1||\pi_2, l_1\subset\pi_1, l_2\subset\pi_2, \rho(l_1, l_2) \overset{def}{\equiv} \rho(\pi_1, \pi_2) = h = \dfrac{|V(\vec a_1, \vec a_2, \overline{X_0X})|}{|S(\vec a_1, \vec a_2)|} = \dfrac{|(\vec r- \vec r_0, \vec a_1, \vec a_2)|}{|[\vec a_1, \vec a_2]|}\).
 \end{enumerate}
 

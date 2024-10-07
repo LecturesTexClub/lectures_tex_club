@@ -1,1 +1,1 @@
-btex $\vec{n}$ etex
+btex $\vec{a_1}$ etex
