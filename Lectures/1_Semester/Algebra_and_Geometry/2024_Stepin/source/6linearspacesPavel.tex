@@ -1,0 +1,219 @@
+
+\section{Алгебраические структуры}
+
+\subsection{Алгебраические структуры: группы, кольца, поля}
+
+\subsubsection{Группа}
+\begin{definition}
+	Группой называется множество \(\mathbb{G}\) с определенной на ней бинарной алгебраической операцией "*"(то есть \(a,b \in \mathbb{G}\) сопоставляются \(a*b\in\mathbb{G}\)), причем эта операция удовлетворяет следующим свойствам
+	\begin{enumerate}
+		\item Ассоциативность \((a*b)*c = a*(b*c)\)
+		\item Существование нейтрального элемента: \(\exists e\in\mathbb{G}: a*e = e*a=a \: \forall a\in\mathbb{G}\)
+		\item Существование обратного элемента \(\: \forall a\in\mathbb{G} \exists a^{-1}\in\mathbb{G}: a*a^{-1} = a^{-1}*a = e\)
+	\end{enumerate}
+	Пишут \((\mathbb{G}, *)\)
+\end{definition}
+\begin{example}
+	\begin{enumerate}
+		\item \((\mathbb{Z}, +)\), \((\mathbb{Q}, +)\), \((\mathbb{R}, +)\)
+		Эти множества - группы, так как в них выполняется ассоциативность, существует обратный элемент (-a) и нейтральный: 0.
+		
+		\item \((\mathbb{R}\setminus\{0\}, \cdot)\). 1 - нейтральный. Существует обратный \(a^{-1} = \dfrac{1}{a}\in\mathbb{R}\). 
+		\begin{note} Само \(\mathbb{R}\) - не группа относительно умножения, так как к нулю нет обратного элемента.\end{note}
+		
+		\item Пусть \(X\) - произвольное множество, \(S(X)\) - множество всех взаимооднозначных отображений \(X\to X\). 
+		
+		Пусть \(\phi, \psi\) - взаимооднозначные отображения. \((\phi\circ\psi)(x) = \phi(\psi(x))\). 
+		
+		\((S(X), \circ)\) - группа. \((\phi\circ\psi)\circ X(x) = \phi\circ(\psi\circ X)(x)\). 
+		
+		\((\phi\circ\psi)(X(x)) = \phi((\psi\circ X)(x)) = \phi(\psi(X(x)))\). 
+		
+		Нейтральный элемент - \(e(x) = x: e\circ\phi = \phi\circ e = \phi \: \: \forall \phi\in S(x)\).
+		
+		А \(\phi^{-1}\) - обратное отображение.
+		
+		S(X) - группа преобразований множества X.
+
+		\begin{definition} 
+			Пусть X = \(\{1, 2,\ldots, n\}\). \(\phi:\{1,2,\ldots, n\}\to\{1,2,\ldots, n\}\) - подстановка. 
+			
+			\(S(\{1,2,\ldots, n\}) = S_n\) - симметрическая группа степени n. 
+		\end{definition}
+
+	\end{enumerate}
+\end{example}
+\begin{proposition}
+	Во всякой группе нейтральный элемент единственный
+\end{proposition}
+\begin{proof}
+	Пусть \(\exists e, e'\) - 2 нейтральных элемента. \(e = e*e' = e' \Longrightarrow e = e'\). То есть нейтральный элемент единственный.
+\end{proof}
+\begin{definition}
+	Пусть \(\mathbb{G}\) - Группа. Элемент b называется левым обратным к a, если \(b*a = e\). Элемент c называется правым обратным к a, если \(a*c = e\).
+\end{definition}
+\begin{proposition}
+	\(\: \forall a\in \mathbb{G}\) левый обратный к a совпадает с правым обратным и совпадает с \(a^{-1}\).
+\end{proposition}
+\begin{proof}
+	Пусть b - левый обратный к а, с - правый обратный к а. \(c = (b*a)*c = b*a*c = b*(a*c) = b\Longrightarrow b = c \text{ и }b*a=a*b=c\Longrightarrow b = a^{-1}\). Аналогично доказывается единственность обратного элемента.
+\end{proof}
+
+\subsubsection{Кольцо}
+\begin{definition}
+	Множество \(R\) с определенным на нем бинарными операциями "+" и \("\cdot"\) называется кольцом, если эти операции удовлетворяют свойствам 
+	\begin{enumerate}
+		\item Множество R относительно сложения(\(R, +\)) - абелева группа(т. е. группа, являющаяся коммутативной: 
+		\(\: \forall a,b\in\mathbb{G} \: a * b = b * a\)) с нейтральным элементом 0 (ноль кольца).
+		\item Ассоциативность умножения \((a\cdot b)\cdot c = a\cdot(b\cdot c)\)
+		\item Левая и правая дистрибутивности \(\left\{\begin{gathered}
+			(a+b)\cdot c = a\cdot c + b\cdot c \\
+			c\cdot(a+b) = c\cdot a + c\cdot b
+		\end{gathered}\right.\)
+	\end{enumerate}
+\end{definition}
+\begin{example}
+	\begin{enumerate}
+		\item \((\mathbb{Z},+,\cdot), (\mathbb{Q}, +, \cdot), (\mathbb{R}, +, *)\). 
+		\item \((M_n(\mathbb{R}), +, \cdot).\). 
+		
+		По сложению - абелева группа, левая и правая дистрибутивность выполняется, \\ 0 - нулевая матрица. 
+		
+		По умножению матриц \(M_n(\mathbb{R})\) - не коммутативна.
+	\end{enumerate}
+\end{example}
+\begin{definition}
+	Если в R \(\exists 1\in R: 1\cdot a = a\cdot1 = a \: \forall a\in R,\) то 1 называется единицей~кольца.
+\end{definition}
+
+\subsection{Сравнения и вычеты   (Работаем на \(\mathbb{Z}\))}
+
+\begin{definition}
+	Элементы \(a, b\in\mathbb{Z}\) назовем сравнимыми по модулю \(n\in \mathbb{N}, n>1\), если они дают одинаковые остатки при делении на n.(равноостаточны при делении на n). 
+	Пишут \(a\equiv b\: (\mod n)\Longleftrightarrow a - b = qn, q\in\mathbb{Z}\).
+\end{definition}
+\begin{note}
+	Сравнения по одному и тому же модулю можно почленно складывать, вычитать, умножать. \(\left\{\begin{gathered}
+		a_1 \equiv b_1 \: (~\mod n) \\
+		a_2 \equiv b_2 \: (~\mod n)
+	\end{gathered}\right.\Longrightarrow a_1\pm a_2 \equiv b_1\pm b_2 \: (\mod n), a_1\cdot a_2 \equiv b_1 \cdot b_2\: (\mod n)\).
+\end{note}
+\begin{proof}
+	\(a_1 - b_1 = q_1n, a_2 - b_2 = q_2n, q_1,q_2\in\mathbb{Z} \Longrightarrow \\ \Longrightarrow (a_1\pm a_2)-(b_1\pm b_2) = q_1n\pm q_2n = (q_1+q_2)n \vdots n\) \newline
+	\(a_1\cdot a_2 = (b_1+q_1n)(b_2+q_2n) = b_1b_2 + (q_1b_2+b_1q_2+q_1q_2n)n\Longrightarrow a_1\cdot a_2 - b_1\cdot b_2 \vdots n\).
+\end{proof}
+
+Рассмотрим класс всех чисел сравнимых с a по модулю n. \(\{a+n\cdot q\ | a\in\mathbb{Z} \} = \overline a\) 
+
+$\overline a$ - класс вычетов по модулю. Всего n классов вычетов по модулю n: \(\overline 0, \overline 1,\ldots, \overline{n-1}\). Множество всех вычетов называется \(Z_n\).\newline
+
+Введем операции :
+\(\left\{\begin{gathered}
+	\overline a + \overline b = \overline{a+b} \\
+	\overline a\cdot \overline b = \overline{ab}
+\end{gathered}\right.\). \newline
+
+Корректность. 
+\(\left\{\begin{gathered}
+	a\equiv a_1 \: (\mod n) \\
+	b\equiv b_1 \: (\mod n)
+\end{gathered}\right. \Longrightarrow \left\{\begin{gathered}
+	a+b\equiv a_1 + b_1 \\
+	a\cdot b\equiv a_1\cdot b_1
+\end{gathered}\right.\Longrightarrow \left\{\begin{gathered}
+	\overline a + \overline b = \overline{a+b} \\
+	\overline a \cdot \overline b = \overline{a\cdot b}
+\end{gathered}\right.\)
+
+\begin{proposition}
+	Множество \(Z_n\) классов вычетов по модулю n является кольцом, относительно \("+" \text{ и } "\cdot"\). 
+\end{proposition}
+\begin{proof}
+	Операции определены корректно. \(Z_n, +\). Класс 0 - нейтральный по сложению, есть обратный элемент  \(-\overline a = \overline{-a}\). 
+	Коммутативность, ассоциативность, дистрибутивность также выполняются за счет выполнения этих свойств у целых чисел 
+\end{proof}
+\begin{definition}
+	Пусть R - кольцо с 1. Элемент \(a\in R\) называется обратимым, если \(\exists b\in R: a\cdot b = b\cdot a = 1\). Тогда R* - множество всех обратимых элементов R с 1.
+\end{definition}
+\begin{proposition}
+	R* - группа с операцией умножения.
+\end{proposition}
+\begin{proof}
+	\(a\in R^*, b\in R^*\), b - обратный к а.
+	Покажем, что если a - обратим, то обратный к нему тоже обратим. Действительно, выражение \(a\cdot b = b\cdot a = 1\) - симметрично относительно a и b, 
+	то есть a - обратный к b. \(a\in R^*\Longrightarrow a^{-1}\in R^*\). \newline
+	\(a, b, a^{-1}, b^{-1}\in R^*\).
+	 Рассмотрим \(b^{-1} \cdot a^{-1}:\) \[ab \cdot a^{-1}b^{-1} = a\cdot1\cdot a^{-1} = 1, b^{-1}a^{-1}\cdot ab = b^{-1}\cdot1\cdot b = 1 \Longrightarrow a\cdot b\in R^*, 1\in R^*\].
+\end{proof}
+\begin{exercise}
+	\(Z_n^*\) - множество всех классов вычетов, взаимнопростых с n.
+\end{exercise}
+\begin{proposition}
+	В любом кольце \(0\cdot a = a\cdot 0 = 0 \: \forall a\in R\), где R - кольцо
+\end{proposition}
+\begin{proof}
+	\(0\cdot a + 0\cdot a = (0+0)\cdot a = 0\cdot a | +(-0\cdot a)\Longrightarrow 0\cdot a = 0\).
+\end{proof}
+\begin{corollary}
+	Если R - ненулевое кольцо с единицей. 	
+	Тогда \(0\ne1 \)
+\end{corollary}
+\begin{proof}
+	\(\: \forall a\in R\). Предположим, что \(0 = 1\), тогда \(a = a\cdot 1 = a\cdot 0 = 0\Longrightarrow R\) - нулевое кольцо.
+\end{proof}
+\begin{note} 
+	Нулевое кольцо - кольцо состоящее только из элемента 0
+\end{note}
+\begin{corollary}
+	Если R - ненулевое кольцо с 1, то \(0\not\in R^*\)
+\end{corollary}
+\begin{proof}
+	Пусть \(0\in R^*,\) тогда \(\exists 0^{-1} \in R^* \Longrightarrow 0 = 0\cdot 0^{-1} = 1\) - противоречие.
+\end{proof}
+\subsubsection{Поле}
+\begin{definition}
+ 	Множество F с определенными на нем бинарными алгебраические операции \("+" \text{ и } "\cdot"\) называется полем, если
+ 	\begin{enumerate}
+ 		\item \((F,+)\) - абелева группа с нейтральным элементом 0.
+ 		\item \((F\setminus\{0\}, \cdot)\) - абелева группа с нейтральным элементом 1.
+ 		\item Дистрибутивность: \((a+b)\cdot c = a\cdot c + b\cdot c\)
+ 	\end{enumerate}
+ 	\(F* = F\setminus\{0\}\) - мультипликативная группа поля.
+\end{definition}
+\begin{note}
+	В любом поле есть 0, 1. То есть \(|F|\ge2\).
+\end{note}
+\begin{note}
+	Поле - это коммутативное кольцо с единицей, в которой каждый ненулевой элемент обратим.
+\end{note}
+\begin{example}
+	\begin{enumerate}
+		\item \((\mathbb{Q}, +, \cdot)\) - поле рациональных чисел
+		\item \((\mathbb{R}, +, \cdot )\) - поле действительных чисел
+		\item \((\mathbb{C}, +, \cdot)\) - поле комплексных чисел.
+		\(\mathbb{C} = \{a+bi, a, b\in\mathbb{R}, i - \text{ мнимая единица}\}\). % Определим сложение и умножение так: \((a+bi)+(c+di) \overset{def}{\equiv} (a+c)+(b+d)i, (a+bi)\cdot(c+di)\overset{def}{\equiv} (ac-bd) + (ad+bc)i\), \(0 + 0i, 1 + 0i\) - ноль и единица соответственно. Несложно проверить, что это поле.
+		\item \((Boolean field): Z_2 = \{\overline 0, \overline 1\}\).
+	\end{enumerate}
+\end{example}
+\begin{proposition}
+	В поле нет делителей нуля. %Делители нуля: \(a\ne0, b\ne0, a,b\in R\) и \(a\cdot b = 0\)
+\end{proposition}
+\begin{proof}
+	От противного. Пусть \(a\ne0, b\ne 0 \Longrightarrow a\cdot b = 0, a = 0\cdot b^{-1} = 0\). Противоречие.
+\end{proof}
+% \begin{theorem}
+% 	Кольцо классов вычетов \(Z_n\) является полем тогда и только тогда, когда n - простое число.
+% \end{theorem}
+
+% \begin{proof}
+% 	\begin{enumerate}
+% 		\item Необходимость. Пусть n - составное, тогда \[\exists p,q: 1<p,q<n: n = p\cdot \qquad q\underset{\ne 0}{\overline p}\cdot\underset{\ne0}{\overline q} = \overline n = \overline 0.\] \hfill Противоречие.
+% 		\item Достаточность. Пусть n - простое. 
+		
+% 		Докажем, что \((Z_n\setminus\{0\}, 0)\) - группа. \\ Единственный нетривиальный факт: \(\: \forall \overline a\ne \overline 0\) найдется обратный, то есть \(\exists b \in (Z_n\setminus\{0\}):\overline a\cdot\overline b = 1\).
+		
+% 		Идея: 
+		
+% 		Доказать \(\overline 0\cdot \overline a, \overline 1\cdot\overline a, \ldots, (n-1)\cdot \overline a\) - попарно различны. Тогда среди них есть все классы вычетов.
+% 	\end{enumerate}
+% \end{proof}

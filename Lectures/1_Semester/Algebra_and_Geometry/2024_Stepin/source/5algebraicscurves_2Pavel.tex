@@ -1,0 +1,456 @@
+\section{Ортогональная классификация алгебраических кривых 2 порядка}
+\begin{definition}
+	Наименьшая из степеней многочленов, задающих кривую(поверхность) называется её порядком
+\end{definition}
+
+\begin{proposition}
+	Порядок алгебраической кривой не зависит от выбора ДСК
+\end{proposition}
+\begin{proof}
+	\(\mathfrak{E}(O, \vec e_1, \vec e_2), \mathfrak{E}'(O', \vec e'_1, \vec e'_2), S = S_{\mathfrak{E}\longrightarrow\mathfrak{E}'}\). Заметим, что если \(P(x,y) = 0\), то \(Q(x', y') = 0\). То есть порядок \(P(x,y) > Q(x', y')\). Но в то же время существует обратная матрица, которая переводит \(\alpha' = S^{-1}(\alpha-\gamma)\). То есть порядок \(Q(x', y') > P(x, y)\). А значит их порядки равны. ч. т. д.
+\end{proof}
+\[Ax^2+2Bxy+Cy^2+2Dx+2Ey+F = 0 \qquad A^2 + B^2 + C^2 = 0 \]
+Будем считать, что мы находимся в ПДСК. \newline
+Будем упрощать уравнение переходом из одной ПДСК в другую
+\begin{enumerate}
+	\item Можно избавиться от слагаемого \(2Bxy\), подставляя поворот ПДСК \(\mathfrak{E}' = \mathfrak{E}\cdot S = \mathfrak{E}\begin{pmatrix}
+	\cos\phi & -\sin\phi \\
+	\sin\phi & \cos\phi
+	\end{pmatrix}\Longleftrightarrow \begin{pmatrix}
+	x \\ y
+	\end{pmatrix} = \begin{pmatrix}
+	\cos\phi & -\sin\phi \\
+	\sin\phi & \cos\phi
+	\end{pmatrix} \begin{pmatrix}
+	x' \\ y'
+	\end{pmatrix}\) \newline
+	После перехода получаем 
+	\[A(x'\cos\phi-y'\sin\phi)^2+2B(x'\cos\phi-y'\sin\phi)(x'\sin\phi + y'\cos\phi) + C(x'\sin\phi+y'\cos\phi)^2 = A'x'^2+2Bx'y' + C'y'^2\]
+	Тогда  \(2B' = -A\sin\phi\cos\phi + 2B(\cos^2\phi - \sin^2\phi)+C\sin\phi\cos\phi = 2B\cos2\phi + (C-A)\sin2\phi = 0\)
+	\begin{enumerate}
+		\item \(A\ne0: B' = 0\Longleftrightarrow \tg2\phi = \dfrac{2B}{A-C}\)
+		\item \(A = 0: B' = -\Longleftrightarrow \cos2\phi= 0, \phi =\dfrac{\pi}{4}\)
+	\end{enumerate}
+	\(A'x'^2+C'y'^2+D'x'+E'y'+F' = 0\).
+	\begin{lemma}
+		Хотя бы 1 из коэффициентах при квадрате $(A', C')$ не равен 0.
+	\end{lemma}
+	Тогда параллельным переносом начало координат вдоль соответствующей оси можно избавиться от члена при соответствующей координате. Пусть \(A'\ne0\), тогда \(A'(x'+\dfrac{D'}{A'})^2+C'y'^2+2E'y'+F' - (\dfrac{D'}{A'})^2\).\(\left\{\begin{gathered}
+		x'' = x' + \dfrac{D'}{A'} \\
+		y'' = y'
+	\end{gathered}\right.\Longrightarrow A'x''^2+C'y'^2+2E'y'+F'' = 0 (II)\).
+	Применение леммы никак не изменяет коэффициенты при квадратной части
+	\begin{enumerate}
+		\item $A'C'$ > 0 - эллиптический тип кривой(E)
+		\item $A'C'$ < 0 - гиперболический тип кривой(H)
+		\item $A'C'$ = 0 - параболический тип кривой(P)
+	\end{enumerate}
+	(E). $A'C'$>0 Применим лемму и приведем к виду. При необходимости можно считать, что $А'C'$ > 0 и пользуясь леммой получить: \(A'x'^2 + C'y'^2 = -F\). \(\dfrac{x'^2}{a^2}+\dfrac{y'^2}{b^2} = \left\{\begin{gathered}
+		1 \quad (1)\\ -1 \quad (2) \\ 0 \quad (3) 
+	\end{gathered}\right.\). Будем считать, что \(a\ge b>0\). \newline
+	H) Гиперболический $A'C'$ < 0. Применив лемму получаем \(A'x''^2+C'y''^2 = -F''\).\newline
+	H1) \(F''\ne0, \sgn A' = \sgn(-F''). \sgn C' = -\sgn A' = \sgn F''\). Разделим на -F''. \newline
+	Разделим на $-F''$. (4) \(\dfrac{x''^2}{a'^2}-\dfrac{y''^2}{b^2} = 1\). \(a^2 = -\dfrac{F''}{A'}>0, a\ge b, b\ge a \) - не имеет значения.
+	\begin{definition}
+		Уравнение (4) называется каноническим уравнением гиперболы.
+	\end{definition}
+	H2) $F'' = 0$: (5) \(\dfrac{x''^2}{a^2} - \dfrac{y''^2}{b^2} = 0\)
+	\begin{definition}
+		Уравнение (5) называется каноническим уравнением пары пересекающихся действительных прямых
+	\end{definition}
+	P) $A' = 0$ или $C' = 0$. При необходимости применяя поворот \(R(\dfrac{\pi}{2})A'=0\). Применяя лемму аннулируем \(2E'y'\). \(C'y''^2 + 2D''x'' + F'' = 0\).\newline
+	P1) \(D''\ne0, C'y''^2+2D''(x''+\dfrac{F''}{2D''})\). Заменим \(\left\{\begin{gathered}
+		x'' + \dfrac{F''}{2D'} = x^{*} \\
+		y'' = y^{*}
+	\end{gathered}\right.\Longrightarrow C'y^{*2}+2D''x^{*} = 0\) \newline
+	6) \(y^{*2} = 2px, p = - \dfrac{D''}{C'}, -p > 0\). 
+	\begin{note}
+		Параметр $p$ можно считать положительным, иначе поворачивать на $\pi$.
+	\end{note}
+	\begin{definition}
+		Уравнение 6 называется каноническим уравнением параболы
+	\end{definition}
+	P2). D'' = 0. \(y'' = \left\{\begin{gathered}
+		a^2 (7)\\ -a^2 (8) \\ 0 (9)
+	\end{gathered}\right.\)
+	\begin{definition}
+		Уравнение 7 называется уравнением пары действительных параллельных прямых
+	\end{definition}
+	\begin{definition}
+		Уравнение 8 называется уравнением пары мнимых параллельных прямых
+	\end{definition}
+	\begin{definition}
+		Уравнение 9 называется уравнением пары совпадающих прямых
+	\end{definition}
+	\begin{note}
+		ПДСК->ПДСК и все преобразования сохраняют ориентацию плоскости
+	\end{note}
+\end{enumerate}
+\begin{theorem}
+	Всякую кривую 2 порядка подходящим выбором ПДСК и при необходимости домножения уравнения на число не равное 0 можно привести к одному из 9 типов.
+\end{theorem}
+\subsection{Инварианты кривой II порядка}
+\[Ax^2 + 2Bxy + Cy^2 + 2Dx+2Ey+F = 0\]
+\begin{definition}
+	Инвариантом данной кривой называется функция от коэффициентов, которая не меняется при переходе между ДСК.
+\end{definition}
+\begin{theorem}
+	Следующие 3 равенства являются инвариантами кривой 
+	\[\Delta = \begin{vmatrix}
+		A & B & D \\
+		B & C & E \\
+		D & E & F
+	\end{vmatrix}, \delta = \begin{vmatrix}
+	A & B \\ B & C
+	\end{vmatrix}, I = A + C\]
+\end{theorem}
+\begin{proof}
+	Запишем уравнение в матричном виде: 
+	\[(x,y,z)\begin{pmatrix}
+		A & B & D \\
+		B & C & E \\
+		D & E & F
+	\end{pmatrix}\begin{pmatrix}
+	x \\ y \\ z
+	\end{pmatrix}|_{z = 1} = 0\]
+	\[\begin{pmatrix}
+		x \\ y
+	\end{pmatrix} = \underbrace{\begin{pmatrix}
+	\cos\phi & -\sin\phi & \alpha \\
+	\sin\phi & \cos\phi & \beta \\
+	0 & 0 & 1
+	\end{pmatrix}}_{\Tilde{A}}\begin{pmatrix}
+	x' \\ y' \\ z'
+\end{pmatrix}\]
+В новой ПДСК 
+\[(x', y', z')\underbrace{\begin{pmatrix}
+	\cos\phi & \sin\phi & 0 \\
+	\sin\phi & \cos\phi & \beta \\
+	0 & 0 & 1
+\end{pmatrix}\begin{pmatrix}
+A & B & D \\ B & C & E \\ D & E & F
+\end{pmatrix}\begin{pmatrix}
+\cos\phi & -\sin\phi & \alpha \\
+\sin\phi & \cos\phi & \beta \\
+0 & 0 & 1
+\end{pmatrix}}_{\Tilde{A}'}\begin{pmatrix}
+x' \\ y' \\ z'
+\end{pmatrix}|_{z= 1} = 0\]
+\(\Tilde{A}' = S^T\Tilde{A}S, \Delta' = \det S^T\Delta\det S \Longrightarrow \Delta' = \Delta, \delta' = \det R(-\phi)S\det R(\phi)\Longrightarrow \delta' = \delta\). След квадратной матрицы - \(\tr A = \) сумма чисел главной диагонали. \(\tr (AB) = \tr(BA), I = A + C = \tr\begin{pmatrix}
+	A & B \\ B & C
+\end{pmatrix}, I' = \tr(R(-\phi)\Tilde{\delta}R(\phi))\).
+\end{proof}
+
+Эллиптический тип
+\begin{enumerate}
+	\item Эллипс \(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2} = 1, a\ge b>0(\delta>0, I\Delta<0)\).
+	\item Мнимый эллипс \(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2} = -1, a\ge b>0(\delta>0, I\Delta>0)\).
+	\item Пара пересекающихся мнимых прямых \(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2} = 0(\delta>0, \Delta=0)\). \newline
+	Гиперболический тип
+	\item Гипербола \(\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2} = 1, a>0, b>0(\delta<0, \Delta\ne0)\).
+	\item Пара пересекающихся действительных прямых \(\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2} = 0, a\ge b>0(\delta>0, I\Delta=0)\).
+	Параболический тип
+	\item Парабола \(y^2 = 2px. p>0 (\delta=0,\Delta\ne0)\)
+	\item Пара параллельных действительных прямых \(y^2 = a^2, a > 0\)
+	\item Пара параллельных мнимых прямых \(y^2 = -a^2, a>0\)
+	\item Пара действительных совпавших прямых \(y^2=0, k = 0\)\newline
+	Последние 3 пункта имеют один инвариант \(\delta = 0, \Delta = 0\)
+\end{enumerate}
+Семивариант возникает при \(\delta=0, \Delta = 0, K = \begin{pmatrix}
+	A & D \\ D & F
+\end{pmatrix} + \begin{pmatrix}
+C & E \\ E & F
+\end{pmatrix}\)
+\begin{exercise}
+	У 7, 8 \(k>0, k < 0\), определить у какого какой
+\end{exercise}
+\subsection{Центр многочлена(кривой)} 
+\(P(x,y) = Ax^2+2Bxy+Cy^2+2Dx+2Ey+F=0\)
+\begin{definition}
+	Точка \(O(x_0, y_0)\) называется центром кривой $\Gamma$(а также центром многочлена$ P$, который её задает), если \(\forall \vec S = (\alpha, \beta)\) выполнено равенство 
+	\(P(x_0+\alpha,y_0+\beta) = P(x_0-\alpha, y_0 - \beta)\).
+\end{definition}
+\begin{proposition}
+	Пусть \(O(x_0, y_0)\) - центр кривой $\Gamma$(и многочленом $P$), тогда $А$ принадлежит $\Gamma$ $\Longleftrightarrow A'\in$ $\Gamma$, где $A'$ - точка симметрии А относительно центра.
+\end{proposition}
+\begin{proof}
+	Пусть A = \(\begin{pmatrix}
+		x_0+\alpha \\ y_0 + \beta
+	\end{pmatrix}, A' = \begin{pmatrix}
+	x_0 -\alpha \\ y_0-\beta
+	\end{pmatrix}\). \(A\in \text{Г}\Longleftrightarrow P(x_0+\alpha, y_0+\beta)=0\Longleftrightarrow P(x_0-\alpha, y_0-\beta)=0\Longleftrightarrow A'\in\text{Г}\).
+\end{proof}
+\begin{note}
+	Центр кривой не обязан принадлежать $\Gamma$. Как найти центр кривой, которые задается уравнением?
+\end{note}
+\begin{proposition}
+	\(O(x_0, y_0)\) - центр Г(P)\(\Longleftrightarrow\left\{\begin{gathered}
+		Ax_0 + By_0+D =0 \\
+		Bx_0+Cy_0+E=0
+	\end{gathered}\right.\)
+\end{proposition}
+\begin{proof}
+	\(P(x_0+\alpha, y_0+\beta) = A(x_0+\alpha)^2+2B(x_0+\alpha)(y_0+\beta)+C(y_0+\beta)^2+2D(x_0+\alpha)+2E(y_0+\beta)+F\) \newline
+	\(
+	P(x_0-\alpha, y_0-\beta) = A(x_0-\alpha)^2+2B(x_0-\alpha)(y_0-\beta)+C(y_0-\beta)^2+2D(x_0-\alpha)+2E(y_0-\beta)+F
+	\). Тогда вычитая многочлены получаем 0 при всех \(\alpha, \beta\). То есть \(P(x_0+\alpha, y_0+\beta)-P(x_0-\alpha, y_0-\beta) \equiv 0 \equiv 4\alpha(Ax_0+by_0+D)+4\beta(Bx_0+Cy_0+E)\Longleftrightarrow\left\{\begin{gathered}
+		Ax_0+By_0+D = 0 \\
+		Bx_0+Cy_0+E = 0
+	\end{gathered}\right.\) 
+\end{proof}
+\section{Центральные кривые}
+\begin{definition}
+	Кривая второго порядка называется центральной, если имеет единственный центр.
+\end{definition}
+\begin{proposition}
+	\begin{enumerate}
+		\item Кривая Г является центральной \(\Longleftrightarrow \delta = \begin{pmatrix}
+			A & B \\ B & C
+		\end{pmatrix}\ne0\)
+		\item Свойство кривой $\Gamma$ быть центральной не зависит выбранной ПДСК
+		\item Пусть $\Gamma$ - центральная кривая, содержащая хотя бы одну точку, тогда $\Gamma$ содержит единственный центр симметрии \(O_0\), при этом \(O_0 = O(x_0, y_0)\)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\item По теореме Крамера \(O(x_0, y_0)\) - единственный центр $\Longleftrightarrow \delta = \begin{pmatrix}
+		A & B \\ B & C
+	\end{pmatrix}\ne0$
+	\item Так как $\delta$ не изменяется при изменении ПДСК, то свойство центральности не меняется
+	\item \(O(x_0, y_0)\) - центр и он единственный $\Longleftrightarrow \delta\ne0$. Г или эллиптического типа, т. е. \(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}-c=0\) или гиперболического \(\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}-c = 0\). \(x_0 = 0, y_0 = 0, O(0, 0)\) - центр.\newline
+	\((x,y)\in\text{Г}\Longleftrightarrow (-x,-y)\in\text{Г}\Longrightarrow\text{Г}\) - симметрична относительно $O(0, 0)$ - центра симметрии. Пусть \(\Tilde{x}_0, \Tilde{y}_0\) - центр симметрии. Тогда \(A\begin{pmatrix}
+		\Tilde{x}_0+\alpha \\ \Tilde{y}_0+\beta
+	\end{pmatrix}\in\text{Г}\Longleftrightarrow \Tilde{A}\begin{pmatrix}
+	\Tilde{x}_0-\alpha \\ \Tilde{y}_0-\beta
+	\end{pmatrix}\). Тогда \(P(A)=P(\Tilde{A})\). Тогда \((\Tilde{x}_0, \Tilde{y}_0)\) - центр, но он единственный, совпадающий с центром симметрии.
+\end{proof}
+\section{Эллипс и его свойства}
+\(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2} = 1, c = \sqrt{a^2-b^2}<a\) - фокусное расстояние. \(F_1(c, 0), F_2(-c,0)\). \(\epsilon = \dfrac{c}{a}\) - эксцентриситет \(c<a: 0\le\epsilon<1, \epsilon=0\) - окружность. Директрисы \(d_1: x= \dfrac{a}{\epsilon} = \dfrac{a^2}{c}, d_2: x = -\dfrac{a}{\epsilon}\).
+\begin{proposition}
+	\(A\begin{pmatrix}
+		x \\ y
+	\end{pmatrix}\in\) эллипсу \(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\Longleftrightarrow AF_1=|a-\epsilon x|, AF_2 = |a+\epsilon x|, |x|\le a, \epsilon<1, a\pm\epsilon x>0\)
+\end{proposition}
+\begin{proof}
+	\(0 = AF_1^2-(a-\epsilon x)^2 = (x-c)^2+y^2-a^2+2a\epsilon x - \epsilon^2x^2=(1-\epsilon^2)x^2+2x(-c+a\epsilon)+c^2+y^2-a^2 = 0\Longleftrightarrow \dfrac{x^2}{a^2}+\dfrac{x^2}{b^2}=1\Longleftrightarrow (x,y)\in\text{Г}\) 
+\end{proof}
+
+\begin{figure}[h]
+	\begin{subfigure}[t!]{0.6\linewidth}
+		\begin{corollary}
+			\(\dfrac{AF_i}{\rho(A,d_i)}=\epsilon\)
+		\end{corollary}
+		\begin{proof}
+			\(\epsilon\rho(A,d_1) = \epsilon(x-\dfrac{a}{\epsilon})=|\epsilon x - a| =~AF_1\)
+		\end{proof}
+		\begin{theorem}
+			(Характеристическое свойство \\ эллипса) т. \(A\begin{pmatrix}
+				x \\ y
+			\end{pmatrix}\in\) эллипсу \(\Longleftrightarrow AF_1+AF_2 = 2a\)
+		\end{theorem}
+		\begin{proof}
+			\begin{enumerate}
+				\item Необходимость. \(AF_1+AF_2 = a- \epsilon x + a + \epsilon x = 2a\)
+				\item Достаточность. Пусть \(AF_1 + AF_2 = 2a\Longleftrightarrow x\le a\). Если это не так, то \(|x|>a: AF_1 + AF_2 \ge |x-~c| + |x+c|\ge|(x-c)+(x+c)|\ge|2x|>2a\).
+				Если \(|x| = a\), то \(AF_1 + AF_2 = x - c + x + c = 2x = 2a\). Если \(y\ne0,\) то \((\pm a, y)\not\in\) эллипсу. Если \(x = c\), то если точка \(A\) ниже \(B_1\), то \(AF_1 + AF_2 < 2a\), если выше, то \(AF_1+AF_2>2a\). 
+			\end{enumerate}
+		\end{proof}
+	\end{subfigure}
+	\begin{subfigure}[b!]{0.4\linewidth}
+		\centering
+		\includegraphics[scale=.4]{images/curves-2.pdf}
+		\caption*{Эллипс}
+		\label{Curve1}
+	\end{subfigure}
+\end{figure}
+
+\section{Гипербола и её свойства}
+\(\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2} = 1, c= \sqrt{a^2+b^2}, F_1(c, 0), F_2(-c, 0), \epsilon = \dfrac{c}{a}>1, d_i: x_i = \pm\dfrac{a}{\epsilon}\)
+\begin{proposition}
+	т. A\(\begin{pmatrix}
+		x \\ y
+	\end{pmatrix}\in\text{ эллипсу }\Longleftrightarrow AF_1 = |\epsilon x -a|, AF_2 = |\epsilon x + a|, x\ge a, \epsilon x > a\)
+\end{proposition}
+\begin{proof}
+	0 = \(AF_1^2-(\epsilon x - a)^2 = (1-\epsilon^2)x^2 + 2x(-c+c\epsilon)+c^2+y^2-a^2 \Longleftrightarrow \dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1\)
+\end{proof}
+\begin{corollary}
+	\(\dfrac{AF_i}{\rho(A, d_i)} = \epsilon\)
+\end{corollary}
+\begin{proof}
+	\(\epsilon\rho(A, d_1) = \epsilon|x - \dfrac{a}{\epsilon}| = AF_1\)
+\end{proof}
+
+\begin{theorem}
+	(Характеристическое свойство гиперболы) \(A\begin{pmatrix}
+		x \\ y
+	\end{pmatrix}\in\text{ гипербола}\Longleftrightarrow |AF_1-AF_2|=2a\)
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Необходимость. \(|AF_2 - AF_1| = AF_2 - AF_1 = \epsilon x + a -(\epsilon x - a) = 2a\)
+		\item Достаточность. \(2a = AF_2 - AF_1 \Longleftrightarrow \sqrt{(x+c)^2+y^2} = \sqrt{(x-c)^2+y^2} + 2a\uparrow^2\) \newline
+		\(xc - a^2 = a\sqrt{(x-c)^2+y^2}\uparrow^2\) \newline
+		\(b^2x^2-a^2y^2-a^2b^2 = 0\Longleftrightarrow \dfrac{x^2}{a^2} - \dfrac{y^2}{b^2} = 1\)
+	\end{enumerate}
+\end{proof}
+
+\begin{figure}[h]
+	\begin{subfigure}[t!]{0.6\linewidth}
+	\begin{definition}
+		Асимптотами гиперболы называются прямые \(\dfrac{x}{a}\pm\dfrac{y}{b}=0\)
+	\end{definition}
+	\begin{proposition}
+		Пусть \(A\begin{pmatrix}
+			x \\ y
+		\end{pmatrix}\) - удовлетворяет каноническому уравнению гиперболы. Тогда произведение расстояний от A до асимптот уравнения - константа.
+	\end{proposition}
+	\begin{proof}
+		Тогда по построению \(\rho(A, l_1) = \dfrac{|\dfrac{x}{a} - \dfrac{y}{b}|}{\sqrt{\dfrac{1}{a^2}+\dfrac{1}{b^2}}}\),
+		\(\rho(A, l_2) = \dfrac{|\dfrac{x}{a} + \dfrac{y}{b}|}{\sqrt{\dfrac{1}{a^2}+\dfrac{1}{b^2}}}\). Тогда \(\rho_1\rho_2 = \dfrac{|\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}|}{\dfrac{1}{a^2}+\dfrac{1}{b^2}} = \dfrac{a^2b^2}{a^2+b^2}=const\).
+	\end{proof}
+	\end{subfigure}
+	\begin{subfigure}[b!]{0.4\linewidth}
+		\centering
+		\includegraphics[scale=.4]{images/curves-1.pdf}
+		\caption*{Гипербола}
+		\label{Curve2}
+	\end{subfigure}
+\end{figure}
+
+\begin{corollary}
+	Пусть a движется по одной из полуветвей гиперболы, так что \(\rho(A,0)\to\infty\), тогда \(\rho(A, l_1)\to\infty, \rho(A, l_2)\to0\)
+\end{corollary}
+\begin{proof}
+	Для верхней полуветви рассмотрим параметрическое задание координаты точки А \(\left\{\begin{gathered}
+		x = a\ch t \\ y = b\sh t
+	\end{gathered}\right.\). Так как \(\dfrac{a^2\ch^2t}{a^2}+\dfrac{b^2\sh^2t}{b^2} = 1 = \ch^2t-\sh^2t.\). Заметим, что если стремится t к бесконечности, то \(\rho(A, l_2) = \dfrac{|\dfrac{x(t)}{a}+
+	\dfrac{y(t)}{b}|}{\sqrt{\dfrac{1}{a^2}+\dfrac{1}{b^2}}}\to\infty\), поскольку \(x(t)\to\infty, y(t)\to\infty\). Так как \(\rho(A, l_1)\rho(A, l_2)=const\Longrightarrow \rho(A, l_1) = \dfrac{1}{\rho(A, l_2)}\to0\).
+\end{proof}
+\subsection{Свойства параболы}
+Каноническое уравнение \(y^2=2px, p>0, F(\dfrac{p}{2};0), d(-\dfrac{p}{2},0)\)
+\begin{proposition}
+	\(A(x,y)\in\text{парабола}\Longleftrightarrow AF = |x+\dfrac{p}{2}|\)
+\end{proposition}
+\begin{proof}
+	\(0 = AF^2 - (x+\dfrac{p}{2})^2 =(x-\dfrac{p}{2})^2+y^2-x^2-xp-\dfrac{p^2}{4} = y^2-2xp = 0\Longleftrightarrow A\in\text{Парабола}\)
+\end{proof}
+\begin{corollary}
+	Парабоа - ГМТ A, таких что \(\dfrac{\rho(A, F)}{A, d} = 1\).
+\end{corollary}
+\begin{proof}
+	\(\rho(A,d) = |x+\dfrac{p}{2}| = AF\Longleftrightarrow \dfrac{\rho(A,F)}{\rho(A, d)} = 1\)
+\end{proof}
+\begin{definition}
+	Будем считать, что \(\epsilon_{\text{параболы}} = 1\)
+\end{definition}
+
+\begin{theorem}
+	(об эксцентриситетах) \(\forall \) невырожденной кривой (\(\Delta\ne0\)) 2 порядка \(\forall A\in\text{кривой:}\dfrac{\rho(A,F)}{\rho(A, d)} = \epsilon\)
+\end{theorem}
+\begin{proposition}
+	Для всякой невырожденной кривой 2 порядка подобны \(\Longleftrightarrow\) они имеют одинаковые эксцентриситеты.
+	\begin{enumerate}
+		\item Эллипс \(0\le\epsilon<1\) 
+		\item Гипербола \(\epsilon>1\)
+		\item Парабола \(\epsilon=1\)
+	\end{enumerate}
+\end{proposition}
+\subsection{Диаметры}
+Гипербола. Пусть \(A(x_0, y_0)\) - центр хорды гиперболы, || некоторому направлению \(\vec v = \begin{pmatrix}
+\alpha \\ \beta
+\end{pmatrix}, \left\{\begin{gathered}
+x = x_0 + \alpha t \\ y = y_0 + \beta t
+\end{gathered}\right.\). Подставим в каноническое уравнение гиперболы \((\dfrac{\alpha^2}{a^2} - \dfrac{\beta^2}{b^2})t^2+2(\dfrac{x_0\alpha}{a^2}-\dfrac{y_0\beta}{b^2})t+\dfrac{x_0^2}{a^2} - \dfrac{y_0^2}{b^2} - 1 =0\). \(A(x_0, y_0)\) - середина хорды $\Longleftrightarrow$ квадратный трехчлен имеет 2 симметричных относительно $t = 0$ корня. $\Longrightarrow \dfrac{x_0\alpha}{a^2}-\dfrac{y_0\beta}{b^2} = 0$ - диаметр гиперболы. Аналогично диаметр эллипса \(\dfrac{\alpha}{a^2}x+\dfrac{\beta}{b^2}y=0\). Диаметр параболы \(y^2=2px, A(x_0, y_0)\) - середины хорды с направляющим вектором \(\vec v = \begin{pmatrix}
+\alpha \\ \beta
+\end{pmatrix} \Longrightarrow (y_0+\beta t)^2 = 2p(x_0+\alpha t)\Longleftrightarrow \beta^2 t+2(y_0\beta - p\alpha)t+y_0^2-2px_0\). Аналогично доказательству для гиперболы, получаем, что прямая, проходящая через середины хорд, параллельных вектору \(\vec v\):\(y\beta = p\alpha\Longrightarrow y =\dfrac{\alpha}{\beta}p=const || Ox, \beta\ne0,\) иначе хорда пересекает параболу единожды.
+\begin{definition}
+	Диаметр гиперболы (сопряженный направлению \(\begin{pmatrix}
+	\alpha \\ \beta		
+	\end{pmatrix}\)) \(\dfrac{\alpha}{a^2}x-\dfrac{\beta}{b^2}y=0\)
+\end{definition}
+\begin{definition}
+	Диаметр параболы (сопряженный направлению \(\begin{pmatrix}
+		\alpha \\ \beta		
+	\end{pmatrix}\)) \(\dfrac{\alpha}{a^2}x+\dfrac{\beta}{b^2}y=0\)
+\end{definition}
+\begin{definition}
+	Диаметр параболы сопряженный направлению \(\begin{pmatrix}
+		\alpha \\ \beta		
+	\end{pmatrix}\)) \(y = \dfrac{\alpha}{\beta}p\)
+\end{definition}
+\begin{theorem}
+	Множество всех середин хорд данного \(\vec v\) невырожденной кривой 2 порядка всегда лежит на одной прямой, которая называется диаметром, сопряженным направлению $\vec{v}$
+\end{theorem}
+У эллипса и гиперболы проходят через центр кривой, а у параболы диаметр параллелен её оси.
+\subsection{Сопряженный диаметр}
+\begin{theorem}
+	Пусть Г - эллипс или гипербола. \(\vec v = \begin{pmatrix}
+		\alpha \\ \beta
+	\end{pmatrix}\) задает направление на плоскости. Пусть d - диаметр сопряженный $\vec{v}$. Пусть тогда \(\omega\) - направляющий вектор диаметра d. Пусть d' - диаметр, сопряженный с направлением \(\omega\). Тогда \(d'||\vec v\).
+\end{theorem}
+\begin{proof}
+	Для гиперболы(для эллипса аналогично). Пусть $AB$ - хорда $\vec{v}, C = Sym_O(A), D = Sym_O(B), ABCD - $ параллелограмм. По построению $d, d'$ проходят через середины ребер $AD$ и $BC$. $d'||AB||CD||\vec{v}$
+\end{proof}
+\begin{definition}
+	Построенная пара диаметров $(d, d')$ называются взаимосопряженными(то есть каждые из них делят пополам хорду, || их диаметру)
+\end{definition}
+\begin{exercise}
+	У эллипса \(k_1k_2 = -\dfrac{b^2}{a^2}y\). У гиперболы \(k_1k_2 = \dfrac{b^2}{a^2}\)
+\end{exercise}
+\section{Касательные к кривой 2 порядка}
+\(F(x,y) = Ax^2+2Bxy+ Cy^2+2Dx+2Ey+F = 0 \)
+\begin{definition}
+	Особая точка кривой второго порядка - это центр, принадлежащий кривой 
+	\begin{enumerate}
+		\item точка пересечения пары пересекающихся действительных прямых
+		\item точка пересечения пары пересекающихся мнимых прямых
+		\item каждая точка пары совпадающих действительных прямых 
+	\end{enumerate}
+\end{definition}
+Считается, что в особой точке касательные к кривой не определены. M\(\begin{pmatrix}
+	\alpha \\ \beta
+\end{pmatrix}\) - не особая точка кривой $\Gamma$. Исключаем из рассмотрения не особые точки, лежащие на прямой, принадлежащей прямой\(\subset\) $\Gamma$. Остаются только невырожденные случаи.
+\begin{definition}
+	Касательная кривой $\Gamma$ в точке \(M\begin{pmatrix}
+		x_0 \\ y_0
+	\end{pmatrix}\) называется положение секущей, когда хорда секущей $\to 0$.
+\end{definition}
+\(F_1(x,y) = Ax+By+D, F_2(x,y) = Bx+Cy+E\). Секущая через точку $M, l$:\(\left\{\begin{gathered}
+	x = x_0 +\alpha t \\ y = y_0 + \beta t
+\end{gathered}\right.\). \newline
+\(F(x(t), y(t)) = A(x_0+\alpha t)^2+2B(x_0+\alpha t)(y_0+\beta t) + C(y_0+\beta t)^2 + 2D(x_0+\alpha t)+2E(y_0+\beta t)+F = 0\Longleftrightarrow Pt^2+2Qt+R = 0, P = \alpha^2A+2B\alpha\beta+C\beta^2 = (\alpha\quad \beta)\begin{pmatrix}
+	A & B \\ B & C
+\end{pmatrix}\begin{pmatrix}
+\alpha \\ \beta
+\end{pmatrix}, Q = (Ax_0+By_0+D)\alpha + (Bx_0 + Cy_0 + E)\beta, R = F(x_0, y_0) = 0 \Longrightarrow t(Pt+2Q) = 0\). Если $P=0$, то $l $проходит через т. $М\in$ $\Gamma$ и далее с ней нигде не пересекается.
+\begin{definition}
+	Направление \(\begin{pmatrix}
+		\alpha \\ \beta
+	\end{pmatrix}\), такое что \((\alpha\quad \beta)\begin{pmatrix}
+	A & B \\ B & C
+	\end{pmatrix}\begin{pmatrix}
+	\alpha \\ \beta
+	\end{pmatrix}=0\) называется асимптотическими направлениями. То есть 
+	\(\begin{pmatrix}
+		\alpha \\ \beta
+	\end{pmatrix}\overset{\text{гипербола}}{=}\begin{pmatrix}
+	a \\ b
+	\end{pmatrix} \text{ или } \begin{pmatrix}
+	a \\ -b
+	\end{pmatrix}\)
+\end{definition}
+\begin{proposition}
+	\begin{enumerate}
+		\item $\delta < 0$, $\Gamma$ - имеет 2 асимптотических направления
+		\item $\delta=0$, $\Gamma$ - имеет 1 асимптотическое направление
+		\item $\delta>0$ у $\Gamma$ нет асимптотических направлений
+	\end{enumerate}
+\end{proposition}
+Пусть \(\begin{pmatrix}
+	\alpha \\ \beta
+\end{pmatrix}\) - не асимптотическое направление. Тогда корни $\left[\begin{gathered}
+t_0 = 0 \\ t_1 = -\dfrac{2Q}{P}
+\end{gathered}\right.$. Предельное положение секущей возникает тогда и только тогда, когда \(t_0 = t_1\), то есть \(2Q=0\Longleftrightarrow Q =0 \Longleftrightarrow F_1(x_0, y_0)\alpha+F_2(x_0, y_0)\beta = 0\Longleftrightarrow \dfrac{\alpha}{\beta} = - \dfrac{F_2(x_0, y_0)}{F_1(x_0, y_0)}\). Уравнение прямой в точке $M$: \(\dfrac{x-x_0}{-F_2(x_0, y_0)} = \dfrac{y - y_0}{F_1(x_0,y_0)}\) \newline
+\(F_1(x_0, y_0)(x-x_0)+F_2(x_0, y_0)(y-y_0) = 0\). \(\vec n(Ax_0+By_0+D; Bx_0+Cy_0+E)\). C точки зрения анализа \(grad F_{(x_0,y_0)}=\begin{pmatrix}
+\dfrac{dF}{dx}(x_0,y_0) \\ \dfrac{dF}{dy}(x_0,y_0)
+\end{pmatrix} = (2Ax+2By+2D; 2Bx+2Cy+2E)\)

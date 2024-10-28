@@ -1,0 +1,173 @@
+\begin{theorem}
+	Кольцо классов вычетов \(Z_n\) является полем тогда и только тогда, когда n - простое число.
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Необходимость. Пусть n - составное, тогда \[\exists p,q: 1<p,q<n: n = p\cdot q \qquad \underset{\ne 0}{\overline p}\cdot\underset{\ne0}{\overline q} = \overline n = \overline 0\] \hfill Противоречие.
+		\item Достаточность. Пусть n - простое.
+		Достаточно доказать, что если \(\overline a\ne 0\), то у него есть обратный, то есть \(\exists \overline{b}: \overline{a}\cdot\overline{b}=\overline{1}\).
+		Возьмем \(\overline 0\cdot \overline a, \overline 1\cdot\overline a, \ldots, (n-1)\cdot \overline a\). Покажем, что эти классы - различны.
+		Пусть \(\overline{k}\cdot\overline{a} = \overline{l}\cdot\overline{a}\), где Б.О.О \(0\le k<l\le n-1\). 
+		Тогда \((\overline{l}-\overline{k})\cdot\overline{a}=\overline{0}\Longleftrightarrow \overline{(l-k)\cdot a}=\overline{0}\Longleftrightarrow (l-k)\cdot a\vdots n,
+		\text{ но } a\not\vdots n \Longrightarrow l-k\vdots n, \text{ но }n-1\ge l-k>0\) - противоречие. \(\Longrightarrow \exists \overline{b}: \overline{b}\cdot\overline{a} = \overline{a}\cdot\overline{b}=\overline{1}, \overline{b}\ne0\).
+	\end{enumerate}
+\end{proof}
+
+\subsection{Характеристика поля}
+
+Пусть \(F\) - поле. \(\exists 0,1\in F, \text{ так что } 0\ne1\). 
+Рассмотрим сумму \(\underbrace{1+1+\ldots+1}_{n} = n_F\) - (n-ное кратное единицы). 
+Положим \(0_F = 0, (-n)_F = -n_F, n\in \mathbb{N}\). 
+
+\begin{proposition}
+	Имеет место тождество \((n+m)_F = n_F+m_F, (n\cdot m)_F = n_F\cdot m_F\).
+\end{proposition}
+\begin{proof}
+	\(n>0, m >0: (\underbrace{1+1+\ldots+1}_n)(\underbrace{1+1+\ldots+1}_m) = \underbrace{1+1+\ldots+1}_{n\cdot m}\)
+\end{proof}
+\begin{definition}
+	Характеристикой поля F называется наименьшее натуральное число \(n\in \mathbb{N}\), так что \(n_F = 0\). Если же \(\forall n\in\mathbb{N} \text{ выполняется } n_F\ne0\), то говорят, что характеристика равна 0
+\end{definition}
+\begin{example}
+	\begin{enumerate}
+			\item\(\mathbb{Z}_p: \underbrace{\overline 1 + \ldots + \overline 1}_{p} = \overline 0\), так как \(p\equiv 0(\mod p)\).
+			\item Поля \(\mathbb{Q}, \mathbb{R}, \mathbb{C}\) имеют нулевые характеристики.
+	\end{enumerate}
+	Характеристика обозначается \(char F\)
+\end{example}
+\begin{proposition}
+	Если поле имеет ненулевую характеристику (\(char F\ne0\)), то эта характеристика - простое число  (\(char F = p, \text{ где $p$ - простое число}\))
+\end{proposition}
+\begin{proof}
+	Допустим \(char F = n\) - не простое число, тогда \[\exists p, q \in \mathbb{N}, \> 1 < p, q < n  n = p\cdot q \Longrightarrow n_F = p_F\cdot q_F.\] 
+	При этом \(p_F\ne 0, q_F\ne 0(\text{так как $n_F$ - характеристика}), n_F = 0\) - противоречие с тем, что в поле нет делителей нуля. А значит \(char F \) - простое.
+ \end{proof}
+
+\subsection{Подгруппа, подкольцо, подполе}
+\begin{definition}
+	Пусть G - группа/кольцо/поле. Непустое подмножество H в G называется подгруппой/подкольцом/подполем, если оно само является группой/кольцом/полем, относительно операций определенных в G.
+\end{definition}
+\begin{proposition}
+	Если H - подгруппа G, то нейтральные элементы H и G совпадают.
+\end{proposition}
+\begin{proof}
+	Пусть они не совпадают: 
+	
+	\(e_H \text{ - нейтральный в }H, e_G \text{ - нейтральный в }G\). \(e_H*e_H = e_H\). В G для \(e_H\) есть обратный \(e_H^{-1}\). Умножим равенство на \(e_H^{-1}\) справа. Тогда \(e_H = e_H*e_G = e_G\)
+\end{proof}
+\begin{corollary}
+	У подкольца 0 совпадает с нулем кольца, а у всякого подполя 0, 1 совпадают с 0, 1 поля. \newline
+	\((F, +)\) - абелева группа с нейтральным элементом 0. \((F^*, \cdot)\) - абелева группа с нейтральным элементом 1. То есть Это следствие предыдущего утверждения.
+\end{corollary}
+
+\subsubsection{Критерий подгруппы}
+\begin{proposition}
+	Непустое подмножество H в группе G является подгруппой в ней тогда и только тогда, когда
+	\begin{enumerate}
+		\item H - замкнуто относительно групповой операции G (*). \(\forall a,b\in H\longrightarrow a*b\in H\)
+		\item H - замкнуто относительно взятия обратного элемента, то есть \(\forall a\in H \longrightarrow a^{-1}\in H\)
+	\end{enumerate} 
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item Необходимость. Пусть H - подгруппы группы G(\(H\le G\)). Так как H - группа, то все очевидно по определению группы.
+		\item Пусть \(H\ne\emptyset\) и выполнены пункты утверждения(1, 2)
+		\begin{enumerate}
+			\item\(\Longleftrightarrow *\) определена на H
+			\item \(\forall a\in H \overset{2}{\Longrightarrow} \exists a^{-1}\in H \overset{1}{\Longrightarrow} a*a^{-1} = e\in H\). 
+			То есть \(\forall a\in H\) в \(H\quad \exists\) нейтральный элемент в $H$. 
+			Ассоциативность выполняется постольку, поскольку $H$ - подмножество $G$
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+\begin{proposition}
+	Пусть G - группа/кольцо/поле. Пусть \(G_i\) - подгруппа/подкольцо/подполе G. Тогда \(\bigcap_{i} G_i\) - подгруппа/подкольцо/подполе в G.
+\end{proposition}
+\begin{proof}
+	Для поля F \(F_i\le F\). \(\bigcap_{i} F_i\le F?\) \((F, +)\) - абелева группа. \\ 
+	Тогда \(\forall i, a, b\in F_i\Longrightarrow a+b\in F_i, \forall a\in F_i\Longrightarrow (-a)\in F_i \overset{\text{критерий}}{\Longrightarrow} (\bigcap_{i} F_i, +)\) - абелева группа.\\
+	Аналогично доказывается, что \((\bigcap_{i} F_i, \cdot)\) - абелева группа.
+\end{proof}
+
+\subsection{Гомоморфизмы и изоморфизмы}
+
+\begin{definition}
+	Пусть \((G_1, \circ), (G_2, *)\) - группы. Отображение \(\phi: G_1\to G_2\) называется гомоморфизмом, если $\phi$ сохраняет определенные в этих группах операции. \(\forall a,b\in G_1 \longrightarrow \phi(a\circ b) = \phi(a)*\phi(b)\)
+\end{definition}
+\begin{definition}
+	Отображения $\phi: X\to Y$ называется инъективным, если оно не склеивает точки, то есть  \(\forall a, b\in X, a\ne b\longrightarrow \phi(a)\ne\phi(b)\).
+\end{definition}
+\begin{definition}
+	Отображение $\phi:X\to Y$ называется сюръективным, если \(\phi(X) = Y\) или \(\forall y\in Y \exists x\in X: \phi(x) = y\).
+\end{definition}
+Инъективные гомоморфизмы называют вложениями, а сюръективные гомоморфизмы называют накрытиями.
+\begin{definition}
+	Отображение \(\phi: X\to Y\) называется биективным(биекцией), если оно и инъективно, и сюръективно.
+\end{definition}
+\begin{exercise}
+	Проверить, что $\phi$ биективно $\Longleftrightarrow \phi$ взаимная однозначность.
+\end{exercise}
+\begin{definition}
+	Гомоморфизм \(\phi: G_1\to G_2\) называется изоморфизмом, если $\phi$ биективно.
+\end{definition}
+Все перечисленное для групп переносится на кольца и поля.
+
+\begin{proposition}
+	При гомоморфизме группы $\phi:G_1\to G_2$
+	\begin{enumerate}
+		\item Нейтральный элемент переходит в нейтральный, то есть $\phi(e_1) = e_2$
+		\item $\phi$ коммутативно со взятием обратного элемента: \(\phi(a^{-1}) = \phi(a)^{-1}\)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item Пусть будет операция *. \(e_1* e_1 = e_1 \Longrightarrow \phi(e_1)*\phi(e_1) = \phi(e_1)\in G_2 \quad|* \phi(e_1)^{-1} \Longrightarrow \phi(e_1) = \phi(e_1)* e_2 = e_2\)
+		\item \(a*a^{-1} = a^{-1}*a = e_1 \Longrightarrow \phi(a)*\phi(a^{-1}) = \phi(a^{-1})*\phi(a) = \phi(e_1) = e_2 \Longrightarrow \phi(a^{-1}) = \phi(a)^{-1}\), так как мы получили, что \(\phi(a^{-1})\) обратен \(\phi(a)\)
+	\end{enumerate}
+\end{proof}
+\begin{corollary}
+	При гомоморфизме колец 0 всегда переходит в 0. В полях 0, 1 переходят в 0, 1 второго.
+\end{corollary}
+\subsection{Простое подполе}
+\begin{definition}
+	Поле F называется простым, если оно не имеет подполей, отличных от его самого.
+\end{definition}
+\begin{example}
+	Поле \(\mathbb{Q}, \mathbb{Z}_p\) - простые поля
+\end{example}
+\begin{proof}
+	$0, 1 \in \mathbb{Q}$. Значит и все кратные 1 тоже принадлежат полю: \(\underbrace{1+1+\ldots+1}_{n\in\mathbb{N}} = n\in \mathbb{Q}\Longrightarrow \dfrac{1}{n}\in\mathbb{Q}\). 
+	Возьмем подполе \(M\le \mathbb{Q}, 0, 1\in M \Longrightarrow\) $0, 1 \in \mathbb{Q}$. 
+	Значит и все кратные 1 тоже принадлежат полю: \(\underbrace{1+1+\ldots+1}_{n\in\mathbb{N}} = n\in \mathbb{M}\Longrightarrow \dfrac{1}{n}\in\mathbb{M}\). 
+	Тогда любое \(\dfrac{m}{n}\in M \Longrightarrow \mathbb{Q}\subset M\). 
+	То есть M совпадает с \(\mathbb{Q}\)\newline
+
+	\[M\le \mathbb{Z}_p.\> \> \overline 0, \overline 1\in M\Longrightarrow p\cdot\overline 1 = \underbrace{\overline 1+\ldots + \overline 1}_{p} = \overline 0\in M \Longrightarrow M = \mathbb{Z}_p.\] 
+	(Поле $\mathbb{Z}_p$ соостоит только из кратных $\overline{1}$, но и в любом его подполе тоже должны быть все кратные $\overleftarrow{1}$, для определения операции "+")
+\end{proof}
+\begin{theorem}
+	Всякое поле F содержит простое подполе, причем это простое подполе единственное
+\end{theorem}
+\begin{proof}
+	F содержит подполе \(F\le F\). Пусть \(D = \bigcap_{F_i\le F} F_i\Longrightarrow D\le F,\) причем D содержится в любом другом подполе F.
+	Покажем, что D - простое подполе. Пусть \(M\le D\le F, M\ne D\Longrightarrow M\le F\), но \(D\not\subset M\).
+	Противоречие с тем, что D содержится во всех подполях. Значит D - простое подполе. \newline
+	Докажем единственность. Пусть \(D, D'\) - 2 простых подполя. Тогда \(D\cap D'\le F\) - подполе. 
+	$D\cap D'\subset D, D\cap D'\subset D'$ $\Longrightarrow D\cap D' = D, D\cap D' = D'\Longrightarrow D = D'$, так как D, D' - простые подполя.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

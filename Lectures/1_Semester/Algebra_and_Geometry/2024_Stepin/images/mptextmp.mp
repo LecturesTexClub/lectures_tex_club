@@ -1,1 +1,1 @@
-btex $\vec{a_1}$ etex
+btex $A$ etex

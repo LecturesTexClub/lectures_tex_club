@@ -1,0 +1,195 @@
+\begin{theorem}
+	(Об описании простых подполей) \newline
+	\begin{enumerate}
+		\item Если \(char F = 0\), то есть простое подполе \(D_F\) изоморфно \(\mathbb{Q}\)
+		\item Если \(char F = p,\) p - простое, то простое подполе \(D_F\) изоморфно \(\mathbb{Z}_p\)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item \(0,1\in D\). Если \(n_F = 0 \Longrightarrow n = 0. \Longrightarrow \underbrace{1+1+\ldots+1}_{n} = n_F\in D\), тогда \(\exists \text{ вложение }\mathbb{Z} \text{ в }F(n_F)\). 
+		Это соответствует инъективному гомоморфизму колец, так как \((n+m)_F = n_F + m_F, (n\cdot m)_F = n_F\cdot m_F\). 
+		Пусть \(n_F = m_F: (n-m)_F = 0 \Longrightarrow n - m = 0 \Longrightarrow n = m\) - инъекция. Кольцо \(\mathbb{Z}\) может быть изморофно вложено в F \(n\to n_F\). 
+		Покажем, что и поле \(\mathbb{Q}\) может быть изоморфно вложено в F($D_F$). Построим инъективный гомоморфизм. \(\dfrac{m}{n}\in \mathbb{Q}, m\in\mathbb{Z}, n\in\mathbb{N}\), 
+		сопоставим решение уравнения \(n_F\cdot x = m_F(x = n_F^{-1}m_F)\). Сохранение операций: 
+		\begin{enumerate}
+			\item Сохранение сложения \(\frac{m_1}{n_1}+\frac{m_2}{n_2} = \frac{m_1n_2+m_2n_1}{n_1n_2}\in\mathbb{Q}\to n_{1F}\cdot n_{2F}\cdot y = m_{1F}n_{2F} + m_{2F}n_{1F}\). 
+			При этом \(\frac{m_1}{n_1}\to \text{ решение }n_{1F}x_1 = m_{1F}, \frac{m_2}{n_2}\to\text{ решение } n_{2F}x_2=m_{2F}\). Проверим, что \(x_1+x_2 = y\). 
+			Домножим уравнения с \(x\) на \(xn_{2F}, xn_{1F}\). Тогда сложив, получим \(n_{1F}n_{2F} (x_1+x_2) = m_{1F}n_{2F}+m_{2F}n_{1F}\).
+			\item сохранение умножения. \(\frac{m_1}{n_1}\cdot\frac{m_2}{n_2}\to \text{решение }n_{1F}n_{2F}y = m_{1F}m_{2F}\).
+			 Необходимо проверить, что \(y = x_1\cdot x_2\)(\(x_1, x_2\) - из прошлого пункта). \(\begin{gathered}
+			n_{1F}x_1 = m_{1F} \\
+			n_{2F}x_2 = m_{2F}
+			\end{gathered}\Longrightarrow n_{1F}n_{2F}(x_1\cdot x_2) = m_{1F}m_{2F}\Longrightarrow x_1x_2 = y\). 
+		\end{enumerate}
+		То есть данное отображение сохраняет сложение и умножение. Проверим инъективность. \newline
+		Пусть \(\frac{m_1}{n_1}\to\text{ решению }n_{1F}x = m_{2F}, \frac{m_2}{n_2}\to\text{ решению }n_{2F}x = m_{2F}\newline\Longrightarrow \begin{gathered}
+		x = n_{1F}^{-1}m_{1F} \quad|n_{1F}n_{2F}\\
+		x = n_{2F}^{-1}m_{2F} \quad|n_{1F}n_{2F}
+		\end{gathered}\Longrightarrow n_{2F}m_{1F} = n_{1F}m_{2F} \Longrightarrow (n_2m_1-n_1m_2)_F = 0 \Longrightarrow n_2m_1 = n_1m_2 \Longrightarrow \frac{m_1}{n_1} = \frac{m_2}{n_2}\). 
+		То есть если совпадают образы, то совпадают и прообразы. \(\exists \) в F подполе, изоморфное $\mathbb{Q}$, в \(D_F \exists\) подполе, изоморфное \(\mathbb{Q} \Longrightarrow D_F \cong \mathbb{Q}\), так как \(D_F\) - просто подполе
+		\item Пусть \(char F = p, 0, 1\in F\Longrightarrow\) все элементы вида \(n_F\) принадлежат полю F. \newline
+		\(\underbrace{0_F, 1_F, \ldots, (p-1)_F}_{\cong \mathbb{Z}_p}. p_F = 0_F\). 
+		Тогда в \(D_F\) тоже существует простое подполе, изоморфное \(\mathbb{Z}_p\), так как в простом подполе нет подполей, то \(D_F\cong\mathbb{Z}_p\)
+	\end{enumerate}
+\end{proof}
+
+\begin{note}(Неформальный комментарий от авторов коспекта) 
+
+	В первом пункте мы доказали, что все кратные 1, вложены как в $F$, так и в $D_F$, поэтому последующие рассуждения верны в обоих полях 
+	в силу определенности на них операций умножения и взятия обратного элемента.В последнем переходе мы пользуемся тем, что $\mathbb{Q}$ - поле, 
+	которое мы смогли вложить в простое подполе $F - D_F$, что означает их изоморфность. 
+\end{note}
+
+\section{Линейные пространства}
+
+Пусть F - поле.
+\begin{definition}
+	Линейный пространством над полем F называется множество V, на котором определены операции:
+	\begin{enumerate}
+		\item Сложение элементов из V, то есть \(\forall a,b\in V a+b\in V\)
+		\item Умножение элементов из V на числа(скаляры) из F. \(\forall \lambda\in F, \forall a\in V \lambda a\in V\).
+		
+		И эти операции удовлетворяют свойствам
+		\begin{enumerate}
+			\item \((V, +)\) - абелева группа. Нейтральный элемент называется нулевым вектором \(\vec 0\).
+			\item Унитарность. \(1\cdot a = a \> \forall a\in V\).
+			\item Ассоциативность относительно скалярного множителя. \((\lambda\cdot\mu)\cdot a = \lambda\cdot(\mu\cdot a)\)
+			\item Дистрибутивность относительно скалярного множителя. \((\lambda+\mu)\cdot a = \lambda\cdot a+\mu\cdot a\)
+			\item Дистрибутивность относительно векторного множителя \(\lambda\cdot(a+b) = \lambda\cdot a + \lambda\cdot b\)
+		\end{enumerate}
+	\end{enumerate}
+	Элементы любого линейного пространства вне зависимости от его природы принято называть векторами.
+\end{definition}
+\begin{example}
+	\begin{enumerate}
+		\item Нулевое пространство \(\{\vec 0\}, \vec 0 + \vec 0 = \vec 0, \lambda\cdot \vec 0 = \vec 0\).
+		\item Множество матриц \(M_{m\times n}(F)\) - линейное пространство относительно естественных операций.
+		\item \(M_{m\times 1}(F) = \left\{\begin{pmatrix}
+			a_1 \\ a_2 \\ \ldots \\ a_n
+		\end{pmatrix}\right\} = F^m\) - арифметическое пространство над F размерности M.
+		\item \(V_i, i = 1, 2, 3\) над \(F = \mathbb{R}\).
+		\item \(F[x]\) - пространство многочленов с коэффициентами из поля F.
+		\item \(F_n[x] = \{f(x) = F[x] \: |\: degf\le n\}\) - многочлены не выше степени n.
+	\end{enumerate}
+\end{example}
+\subsection{Подпространства линейного пространства}
+Пусть \(V\) - линейное пространство над полем F
+\begin{definition}
+	Непустое подмножества \(W\subset V\) называется подпространством в V, если оно само является линейным пространством относительно операций, определенных в V. Обозначается \(W\le V\).
+\end{definition}
+\begin{proposition}
+	Если \(W\le V\), то \(\vec 0_W = \vec 0_V\), и если для вектора \(w W, - w\text{ противоположный в } W\), то он противоположный в пространстве в V.
+\end{proposition}
+\begin{proof}
+	Было в доказано в терминах подгрупп
+\end{proof}
+\begin{proposition}
+	(Критерий подпространства). \newline
+	Непустое подмножество W линейного пространства V над F является подпространством \(\Longleftrightarrow\) \begin{enumerate}
+		\item W замкнуто относительно сложения, то есть \(\forall a,b\in W\to a+b\in W\)
+		\item W замкнуто относительно операции умножения на скаляр \(\forall a\in W, \forall \lambda\in F: \lambda a\in~W\).
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item Необходимость очевидна
+		\item Пусть условия замкнутости выполняются. Докажем, что \(W\le V\).\(a\in W, (-1)a\in W\), покажем, что \((-1)a = -a: (-1)a + 1\cdot a = (-1+1)a = 0\cdot a=\vec 0\). Тогда \(a+(-a) =\vec 0\in W\). 
+		Все остальные аксиомы выполняются для W поскольку они выполняются в V.
+	\end{enumerate}
+\end{proof}
+\begin{corollary}
+	Пересечения любого числа линейных подпространств линейного пространства V само является подпространством. \(\bigcap W_i\le V\).
+\end{corollary}
+\subsection{Понятие линейной оболочки системы векторов}
+Пусть S - произвольная система векторов из любого V, возможно бесконечная.
+\begin{definition}
+	Линейной оболочкой системы S называется наименьшее по включению подпространство в V, содержащее S. Обозначается \(<S> = \bigcap_{W\le V, S\subset W} W\).
+\end{definition}
+\begin{proposition}
+	\(<S> = \{\sum_{i=1}^{n}\alpha_is_i \: |\: s_i\in S, \alpha_i\in F, n\in \mathbb{Z+}\}\). При \(n=0\) считается, что сумма это нулевой вектор
+\end{proposition}
+\begin{proof}
+	\(L = \{\sum_{i=1}^{n}\alpha_iS_i|s_i\in S, d_i\in F, n\in \mathbb{Z+}\}, s_i\in S, 1\cdot s_i(n = 1)\in L\Longrightarrow \forall s\in S, s\in L. \Longrightarrow S \subset L\)\\
+	Теперь покажем, что L - подпространство в V, содержащее S. \(\sum_{i}\alpha_is_i\in L, \sum_{i} \beta_is_i\in L\Longrightarrow \sum_i(\alpha_i+\beta_i)s_i\in L\), аналогично с умножением на скаляр:
+	 \(\lambda(\sum_i \alpha_is_i) = \sum_i(\alpha_i\lambda)s_i\). Значит \(L\le V\Longrightarrow <S> \subset L\). \newline
+	Покажем, что \(L\subset <S>\). \(s_i\in S\Longrightarrow s_i\in <S>,\) но \(<S>\) - подпространство в V по определению, а значит содержит \(\sum_i\alpha_is_i\in<S>\Longrightarrow L\subset<S>\).
+\end{proof}
+\begin{definition}
+	Если линейное пространство \(V = <S>\), то говорят, что пространство V порождается системой вектором S. Сама система S называется порождающим множеством.
+\end{definition}
+\begin{definition}
+	Линейное пространство в V называется конечно порожденным, если оно имеет конечное порождающее множество.
+\end{definition}
+
+\subsection{Базис}
+
+\begin{definition}
+	Пусть V - линейное пространство над F. Базисом в V называется упорядоченная система векторов \(\mathfrak{E}= (e_1, e_2,\ldots, e_n)\), если выполняются следующие условия 
+	\begin{enumerate}
+		\item \(\mathfrak{E}\) - ЛнЗ над F.(не существует нетривиальной линейной комбинации \(\sum_i\alpha_ie_i=\vec 0, \alpha_i\in F\))
+		\item каждый вектор пространства V представим в виде линейной комбинации \((e_1, e_2, \ldots, e_n)\).
+	\end{enumerate}
+\end{definition}
+\begin{note}
+	Условие 2 равносильно следующему: \(<e_1, e_2, \ldots, e_n> = V\). Пространство V порождается такой линейной оболочкой.
+\end{note}
+\begin{example}
+	\begin{enumerate}
+			\item \(F^n\) с базисом \(e_1 =\begin{pmatrix}
+				1 \\ 0 \\ 0 \\ \ldots \\ 0
+			\end{pmatrix}, e_2 = \begin{pmatrix}
+			 0 \\ 1\\ 0 \\ \ldots \\ 0
+			\end{pmatrix}, e_n = \begin{pmatrix}
+			0 \\ 0 \\ 0 \\ \ldots \\ 1
+			\end{pmatrix}\Longrightarrow \begin{pmatrix}
+			\alpha_1 \\ \alpha_2\\\ldots\\\alpha_n
+			\end{pmatrix} = \sum_i\alpha_ie_i\).
+			\item \(F_n[x]\), базисы: \(1, x, x^2, \ldots, x^n\)
+	\end{enumerate}
+\end{example}
+\begin{proposition}
+	Всякое конечно порожденное линейное пространство обладает конечным базисом.
+\end{proposition}
+\begin{proof}
+	Среди всех конечных множеств S, порождающих V выберем множество наименьшей мощности \(S_0\)(мощность конечное множества - число его элементов). Проверим, что \(S_0\) - базис. 
+	Условие 2 точно выполняется, так как оно порождает V. Проверим ЛнЗ. От противного. Пусть \(S_0\) - ЛЗ система.
+	 Тогда \(\exists s_0\in S_0: s_0\) представим в виде линейной комбинации \(S_0\setminus\{s_0\}\), 
+	 тогда \(s_0\in<S>\setminus\{s_0\}\Longrightarrow <S_0>\setminus\{s_0\}=V\), но мы взяли наименьшую по мощности конечную линейную оболочку. 
+	 Противоречие. Значит \(S_0\) - ЛнЗ, являющийся базисом.
+\end{proof}
+\begin{lemma}
+	(Основная лемма теории линейных пространств) \newline
+	V - линейное пространство над F. \(U = (u_1, u_2,\ldots, u_n), W = (w_1, w_2,\ldots, w_m).\) Известно, что каждый вектор \(w_i\in W\) представим в виде ЛК векторов \(u_1, \ldots, u_m\). Тогда, если m>n, то система \(W\) - ЛЗ.
+\end{lemma}
+\begin{proof}
+	Докажем индукцией по n. 
+	\begin{enumerate}
+		\item База. n = 1. \(U = (u)\). По условию \(w_1 = \lambda_1u, \ldots, w_n = \lambda_nu\). Если \(\exists \lambda_i = 0\), то \(w_i = \vec 0\Longrightarrow W\) - ЛЗ. 
+		Пусть все \(\lambda_i\ne0: \lambda_2w_1-\lambda_1w_2 + 0w_3 + \ldots + 0w_n = \lambda_1\lambda_2u - \lambda_1\lambda_2u = 0\Longrightarrow W\) - ЛЗ.
+		\item Переход индукции. Пусть утверждение справедливо для системы  \(U: |U| = n -1\). Докажем для \(U: |U| = n\). \(\left\{\begin{gathered}
+			w_1 = \lambda_{11}u_1 + \ldots + \lambda_{n1}u_n \\
+			w_2 = \lambda_{12}u_1 + \ldots + \lambda_{n2}u_n \\
+			\ldots \\
+			w_m = \lambda_{1m}u_1 + \ldots + \lambda_{nm}u_n
+		\end{gathered}\right.\). \newline
+		Случай 1. Если \(\lambda_{1j} = 0 \: \forall j\), тогда W - ЛЗ по предположению индукции. \newline
+		Случай 2. \(\lambda_{11}\ne 0\). Последовательно умножим верхнее равенство на \(-\frac{\lambda_{13}}{\lambda_{11}}\) и сложим с каждой из последующих, 
+		тогда \(\Tilde U = (u_2, \ldots, u_n), \Tilde W = (w_1, w_2 - \dfrac{\lambda_{12}}{\lambda_{11}}, w_m - \dfrac{\lambda_{1m}}{\lambda_{11}}w_m)\)
+	\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
