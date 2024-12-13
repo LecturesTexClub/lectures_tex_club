@@ -1,0 +1,320 @@
+\begin{theorem}
+	Пусть \(A,B \in M_{n}(F)\). Тогда \(\det (A\cdot B) = \det A \cdot \det B\)
+\end{theorem}
+\begin{proof}
+	Запишем A как столбец строк. 
+	
+	Тогда \(A\cdot B = \begin{pmatrix}
+	a_1 \\ \ldots \\ a_n
+	\end{pmatrix}B = \begin{pmatrix}
+	a_1 B \\ 
+	\ldots \\ a_n B
+	\end{pmatrix}\). 
+	
+	Пусть тогда \(\det(A\cdot B) = f_B(A)\) - зафиксируем B. \(f_B:M_n(F)\to F\). 
+	Если мы переставляем строки, то у нас меняется знак, то есть \(f_B(A)\) - кососимметричная функция относительно строк A. 
+	
+	Пусть \(a_1 = a_1' + a_1'' \Longrightarrow f_B(A) = \begin{vmatrix}
+	(a_1'+a_1'')B \\ \ldots \\ a_nB
+	\end{vmatrix} = \begin{vmatrix}
+	a_1'B \\ \ldots \\ a_nB
+\end{vmatrix} + \begin{vmatrix}
+a_1'' B \\ \ldots \\ a_nB
+\end{vmatrix} = f_B(\begin{pmatrix}
+a_1' \\ \ldots \\ a_n
+\end{pmatrix})+f_B(\begin{pmatrix}
+a_1'' \\ \ldots \\ a_n
+\end{pmatrix})\). Получили, что $f_B$ аддитивна. Однородность доказывается аналогично. Тогда данная функция полилинейная кососимметричная. Тогда \(f_B(A) = |A|f_B(E) = |A||B|\).
+\end{proof}
+\begin{theorem}
+	Пусть A = \(\left(\begin{array}{c | c}
+		B & C \\\hline 
+		0 & D
+	\end{array}\right), B \in M_k(F), D\in M_{n-k}(F), C \in M_{k\times (n-k)}\). Тогда \(\det A = \det B \det D\)
+\end{theorem}
+\begin{proof}
+	\(f_{C, D}(B) = \left|\begin{array}{c | c}
+		B & C \\\hline 
+		0 & D
+	\end{array}\right|:M_{k}(F)\to F\). Полилинейность и кососимметричность столбцов очевидны. Тогда \(f_{C,D}(B) = \det B f_{C,D}(E_k)\). Пусть \(g_C(D) = \left|\begin{array}{c | c}
+		E_k & C \\\hline 
+		0 & D
+	\end{array}\right|\) - полилинейная кососимметричная функция, то есть \(g_C(D) = \det D g_C(E_{n-k})\), а \(g_C(E_{n-k})\) - определитель верхнетреугольной матрицы, тогда получаем, что \(\det A = \det B\det D\).
+\end{proof}
+Операция определителя - гомоморфизм \(|\ldots|: \GL_n(F)\to F^*\). 
+\subsection{Формула разложения определителя по строке(столбце)}
+\begin{proposition}
+	Возьмем матрицу A, у которой элемент j-ого столбца и i-ой строки равен \(a_{ij}\), остальные элементы i-ой строки равны 0. Тогда \(\det A = (-1)^{i+j}a_{ij}M_{ij}\)
+\end{proposition}
+\begin{proof}
+	\(\begin{vmatrix}
+		a_{11} & \ldots & a_{ij} & \ldots & a_{1n} \\
+		\ldots \\
+		0 & \ldots & a_{ij} & \ldots & 0 \\
+		\ldots
+	\end{vmatrix} = (-1)^{i-1}\begin{vmatrix}
+	
+	0 & \ldots & a_{ij} & \ldots & 0 \\
+	\ldots \\
+	
+	a_{11} & \ldots & a_{ij} & \ldots & a_{1n} \\
+	\ldots
+	\end{vmatrix} = \) \newline \( = (-1)^{i+j}\begin{vmatrix}
+	
+	a_{ij} & \ldots & 0 &\ldots & 0 \\
+	\ldots \\
+	
+	a_{11} & \ldots & a_{ij} & \ldots & a_{1n} \\
+	\ldots
+	\end{vmatrix}\overset{\text{пред. теорема}}{=}(-1)^{i+j}a_{ij}M_{ij}\). 
+	
+	Элемент \((-1)^{i+j}M_{ij}\) называется алгебраическим дополнением \(A_{ij}\). А \(M_{ij}\) - дополняющий минор.
+\end{proof}
+\begin{theorem}
+	(Разложение определителя по строке/столбцу) \newline
+	\(|\det A| = \sum_{j=1}^{n}a_{ij}A_{ij} = \sum_{i=1}^{n}a_{ij}A_{ij}\).
+\end{theorem}
+\begin{proof}
+	Представим \(a_i = (a_{i1} \ldots 0) + (0 \quad a_{i2} \ldots 0) + \ldots \). Тогда \(\det A = \sum_{j=1}^{n}a_{ij}A_{ij}\) из полилинейности определителя.
+\end{proof}
+\begin{proposition}
+	(определитель Вардемонда) \newline
+	\(\det(x_1, \ldots, x_n) = \begin{vmatrix}
+		1 & 1 & \ldots & 1 \\
+		x_1 & x_2 & \ldots & x_n \\
+		\ldots \\
+		x_1^{n-1} & x_2^{n-1} \ldots & x_n^{n-1} 
+	\end{vmatrix}\)
+\end{proposition}
+\begin{proof}
+	Давайте вычитать из i-ой строчки i-1 -ую, умноженную на \(x_1\): \newline
+	\( \begin{vmatrix}
+		1 & 1 & \ldots & 1 \\
+		0 & (x_2-x_1) & \ldots & (x_n-x_1) \\
+		\ldots \\
+		0 & (x_2 - x_1)x_2^{n-2}& \ldots & (x_n-x_1)x_n^{n-2} 
+	\end{vmatrix}\overset{\text{разл. по строке}}{=}\) \newline \( =(x_2-x_1)\ldots(x_n-x_1)\begin{vmatrix}
+	1 & 1 &\ldots & 1 \\
+	x_2 & x_3 & \ldots & x_n \\
+	\ldots \\
+	x_2^{n-2} & x_3^{n-2} & \ldots & x_n^{n-2} 	
+	\end{vmatrix} = (x_2-x_1)\ldots(x_n-x_1)\det(x_2, \ldots, x_n) = \prod_{i\le j<i\le n}(x_i-x_j) = \det(x_1, \ldots, x_n)\).
+\end{proof}
+\begin{theorem}
+	(теорема Крамера) \newline
+	Пусть \(A\in M_{n\times n}(F)\) и \(Ax = b\) - система линейных уравнений. Возьмем определитель \(\Delta = \det A, \Delta_i = \begin{vmatrix}
+	a_{1n} & \ldots & b_1 & \ldots & a_{1n}\\ 
+	\ldots \\
+	a_{1n} & \ldots & b_n  & \ldots  & a_{nn}
+	\end{vmatrix}\) - определитель матрицы с заменой i-ого столбца на столбец b. Тогда если решение есть(\(\Delta\det A \ne 0\)), то \(x_i = \dfrac{\Delta_i}{\Delta}, i = 1, \ldots, n\). 
+\end{theorem}
+\begin{proof}
+	Имеем \(x_1\begin{pmatrix}
+		a_{11} \\ \ldots \\ a_{n1}
+	\end{pmatrix} + \ldots + x_n\begin{pmatrix}
+	a_{1n} \\ \ldots \\ a_{nn}
+	\end{pmatrix} = \begin{pmatrix}
+	b_1 \\ \ldots \\ b_n
+	\end{pmatrix}\). 
+	
+	Проведем э.п. строк, чтобы \((A|b)\to (E|b')\) - эквивалентные системы. То есть система имеет вид \(\left\{\begin{gathered}
+	x_1 = b_1' \\ \ldots \\ x_n = b_n'
+	\end{gathered}\right.\). 
+	
+	Заметим, что формула Крамера работает для данной системы: \(x_i = \dfrac{\Delta_i}{\Delta} = b'_i\) - верно. Заметим, что при э.п. строки формула не изменяется.
+	
+	Второй тип: оба определителя меняют знак, то есть отношение не изменяется. 
+	
+	Третий тип: Оба умножаются на $\lambda$, то есть отношение не меняется и 
+	
+	Первый тип: оба определителя не меняются. То есть мы получили искомое.
+\end{proof}
+\begin{theorem}
+	(Формула для обратной матрицы) \newline
+	Пусть \(A\in M_n(F)\) - невырожденная матрица, тогда \(A^{-1} = \dfrac{1}{\det A}\begin{pmatrix}
+		A_{11} &\ldots & A_{n1} \\ 
+		\ldots \\ 
+		A_{1n} & \ldots &  A_{nn}
+	\end{pmatrix}\)
+\end{theorem}
+\begin{proof}
+	Пусть \(A, X, E\in M_n(F), \det A\ne 0, E\) - единичная.
+	 Для нахождения обратной матрицы достаточно найти решение \(AX = E\)
+	Преставим E, X - как совокупность столбцов. 
+	
+	\(A(x_1, \ldots, x_n) = (e_1, \ldots, e_n) \Longrightarrow (Ax_1, \ldots, Ax_n) = (e_1, \ldots, e_n)\). 
+	
+	Тогда система распадается на n систем:
+	
+	\(Ax_i = e_i\). \(x_{ji} = \dfrac{\begin{vmatrix}
+			a_{11} & \ldots &0 & \ldots &a_{1n} \\
+			\ldots \\
+			\ldots & \ldots & 1 & \ldots & 0  \\
+			a_{n1} & \ldots & 0 & \ldots & a_{nn} 
+	\end{vmatrix}}{\det A} = \dfrac{(-1)^{i+j}M_{ij}}{\det A} = \dfrac{A_{ij}}{\det A}\). 
+	
+	
+	Тогда \(A^{-1} = \dfrac{1}{\det A}\begin{pmatrix}
+	A_{11} &\ldots & A_{n1} \\ 
+	\ldots \\ 
+	A_{1n} & \ldots &  A_{nn}
+\end{pmatrix}\) - транспонированная к матрице алгебраических дополнений.
+\end{proof}
+Легко заметить, что если \(A\in M_{n}(\mathbb{Z}), \det A = \pm 1\), то \(A^{-1}\in M_{n}(\mathbb{Z})\)
+\begin{theorem}
+	(Теорема Лапласа) \newline
+	Фиксируем p строк \(A\). Тогда сумма произведений миноров порядка p, принадлежащих этим строкам, на их алгебраические дополонения равна определителю матрицы А.
+\end{theorem}
+ДАЛЬШЕ КАКАЯ-ТО БЕЛИБЕРДА \newline
+
+upd. Была доказана на последней лекции \eqref{laplas}
+
+\(A\in {n\times n}\). Зафиксируем набор строк \(1\le i_1 < i_2 <\ldots < i_p\le n \begin{pmatrix}
+	n \\ p
+\end{pmatrix}\) - миноров возможны. Тогда \(M_{j_{1}\ldots j_{p}}^{i_{1}\ldots i_{p}} = (-1)^{i+j}M_{j_{p+1}\ldots j_{n}}^{i_{p+1}\ldots i_{n}}, i = i_1 + \ldots + i_p, j = i_1 + \ldots i_p\). 
+\section{Группы. Подгруппы. Гомоморфизмы. Теорема Кэли. Циклические группы}
+Понятия группы и подгруппы уже были введены
+\begin{exercise}
+	Пусть \(G\) - множество с бинарной операцией *. 
+	\begin{enumerate}
+		\item ассоциативность 
+		\item \(\exists e\in G: \forall g\in G: g*e = g \)
+		\item \(\forall g\in G \exists g\in G: g*g^{-1} = e\)
+	\end{enumerate}. Доказать, что \(\forall g\in G: e*g = g, g^{-1}*g = e\) - то есть G - группа.
+\end{exercise}
+(Лектор решил напомнить понятие гомоморфизма)
+\begin{definition}
+	Пусть \((G, \cdot), (G', *)\) - группы. Отображение \(\phi:G\to G'\) называется гомоморфизмом группы G в G', если \(\forall g_1, g_2\in G \quad \phi(g_1\cdot g_2) = \phi(g_1)*\phi(g_2)\).
+\end{definition}
+\begin{definition}
+	Ядром гомоморфизма $\phi$ называется \(\ker \phi = \{g\in G|\phi(g) = e'\}\)(нейтральный элемент всегда содержится).
+\end{definition}
+\begin{definition}
+	Образом группы G называется \(\phi(G) = \im \phi = \{g'\in G': \exists g'\in G'|\exists g\in G: \phi(g)=g'\}\)
+\end{definition}
+\begin{proposition}
+	$\phi:G\to G'$ - гомоморфизм.
+	\begin{enumerate}
+		\item\(\im \phi \le G\) - подгруппа в G'.
+		\item\(\ker \phi \le G\) - подгруппа в G. 
+		\item $\phi$ инъективно $\Longleftrightarrow \ker \phi = \{e\}$. Или же переформулировка: $\phi$ является изоморфизмом группы G на некоторую подгруппу группы G' $\Longleftrightarrow$ \(\ker \phi = \{e\}\)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \(\phi(e)\in \im \phi \) - образ непустой. 
+		
+		\begin{multline*} g_1', g_2'\in \im \phi \Longrightarrow \exists g_1, g_2\in G \phi(g_1)=g_1', \\ \quad \phi(g_2) = g_2'\Longrightarrow \phi(g_1g_2) = \phi(g_1)*\phi(g_2)=~g_1'g_2'\in~\im~\phi\end{multline*}.
+		
+		\(\forall g'\in\im\phi:\exists g\in G \Longrightarrow\phi(g^{-1}) = (g')^{-1}\in\im \phi \).
+		
+		\item \(e\in \ker \phi\) - ядро непустое. 
+		
+		Если \(g_1, g_2\in \ker \phi\Longrightarrow \phi(g_1g_2) = \phi(g_1)*\phi(g_2) = e'*e' = e\in \ker \phi\). 
+		
+		Если \(g\in \ker \phi: \phi(g^{-1}) = \phi(g)^{-1} = e'\)
+		
+		\item Пусть $\phi$ инъективно, то есть \(g_1\ne g_2\Longrightarrow \phi(g_1)\ne \phi(g_2) \).
+		
+		\(\phi(e) = e' \Rightarrow e\) - единственный элемент, который отображается в $e'$ \(\Longrightarrow \ker\phi = \{e\}\).\newline
+		
+		Теперь проверим импликацию в другую сторону. 
+		
+		\(\ker\phi = \{e\}, \phi(g_1) = \phi(g_2) \Longrightarrow \phi(g_1\cdot g_2^{-1}) = e' \Longrightarrow g_1\cdot g_2'\ker\phi=\{e\} \Longrightarrow g_1g_2'= e' \Longrightarrow g_1 = g_2\) - то есть $\phi$ инъективно.
+		
+		\item Переформулировка. Изоморфизм - это биективный гомоморфизм. \newline
+		 
+		\(\Longleftrightarrow \left\{\begin{gathered}
+		\text{инъективность} \Longleftrightarrow \ker\phi = \{e\} \\
+		\text{сюръективность} 
+		\end{gathered}\right.\) 
+		
+		Если рассмотреть $\phi$ как отображение \(\phi:G\to \im \phi = \phi(G)\) при условии \(\ker \phi = \{e\}\). \(\phi:G\to \im\phi\) - изоморфизм или \(G\cong \im\phi\le G'\).
+	\end{enumerate}
+\end{proof}
+Обозначим \(S_X \ \{\sigma:X\to X\}\) - группа подстановок на множестве X или симметрическая группа относительно операции композиция перестановок с нейтральным элементом: \\ \(e: e(x) =x \forall x\in G\). Обратный элемент \(\sigma^{-1}\) - обратное отображение. Если \(X = \{x_1, \ldots, x_n\}\), то можно записать \(\sigma = \begin{pmatrix}
+x_1 & x_2 & \ldots & x_n \\
+\sigma(x_1) & \sigma(x_2) & \ldots & \sigma(x_n)
+\end{pmatrix} = \begin{pmatrix}
+x_1 & x_2 & \ldots & x_n \\
+x_{i_1} & x_{i_2} & \ldots & x_{i_n}
+\end{pmatrix}\). 
+
+Если \(|X| = n, \) то \(S_X\cong S_n\).
+\begin{theorem}
+	(Теорема Кэли) \newline
+	Любая группа G изоморфна некоторой подгруппе группы перестановок \(S_{G}\). Если \(|G| =n\), то \(G\) изоморфна подгруппе симметрической группы \(S_n\).
+\end{theorem}
+\begin{theorem}
+	Доказательство будет проводиться для случая конечной группы порядка n. Решение будет основываться на таблице Кэли группы G. \newline
+	\(\begin{pmatrix}
+		 & g_1 & g_2 & \ldots &g_j &\ldots & g_n \\
+		 g_1 & \\
+		 g_2 & \\
+		 \ldots \\
+		 g_i & g_ig_1 & g_ig_2 & \ldots & g_ig_j & \ldots & g_ig_n\\
+		 \ldots \\
+		 g_n
+	\end{pmatrix}\). 
+	
+	Обратим внимание на то, что \(\forall g\in G\) произведения \(gg_1, \ldots, gg_n\) - перестановка элементов \(g_1, \ldots, g_n\). Рассмотрим подстановку \(\sigma_g = \begin{pmatrix}
+	g_1 & g_2 & \ldots & g_n \\
+	gg_1 & gg_2 & \ldots & gg_n
+\end{pmatrix}\). \(\sigma_g:g_j\to gg_j\). Рассмотрим отображение \(\phi: G\to S_n: \phi(g) = \sigma_g\). 
+
+Проверим, что это гомоморфизм и \(\ker\phi = \{e\}\). 
+
+Рассмотрим \(g,h\in G:\) \[ \phi(gh) = \begin{pmatrix}
+g_1 & \ldots & g_n \\
+(gh)g_1 & \ldots & (gh)g_n
+\end{pmatrix}=\begin{pmatrix}
+hg_1 & \ldots hg_n \\
+(gh)g_1 & \ldots & (gh)g_n
+\end{pmatrix}\begin{pmatrix}
+g_1 & \ldots & g_n \\
+hg_1 & \ldots hg_n
+\end{pmatrix}\].
+
+То есть \(g_j \to hg_j\to g(hg_j) = (gh)g_j\) - значит $\phi$ - гомоморфизм.
+
+\(\ker\phi = \left(g|e_g = \begin{pmatrix}
+g_1 & g_2 & \ldots & g_n \\
+g_1 & g_2 & \ldots & g_n
+\end{pmatrix} = e\right) = \{e\}\)
+\end{theorem}
+\subsection{Подстановки элеметов группы}
+\begin{lemma}
+	Если \(\{H_i|i\in I\}\) - семейство подгрупп группы G, то \(H = \bigcap_{i\in I}H_i\) - тоже подгруппа в G.
+\end{lemma}
+\begin{proof}
+	\(\forall i\in I e\in H_i \Longrightarrow e\in H\). Если \(a,b \in H_i \forall i \Longrightarrow ab\in H_i \Longrightarrow ab\in H\). \(a\in H_i \forall i \Longrightarrow a^{-1}\in H_i\Longrightarrow a^{-1}\in H\).
+\end{proof}
+\begin{definition}
+	Пусть \(X\subseteq G\). Подгруппа, порожденная подмножеством X. 
+	
+	\(<X> = \bigcap \{H\subseteq G|X\subseteq H\}\) - подгруппа в G.
+\end{definition}
+\begin{theorem}
+	\(<X> = \{x_1^{\epsilon_1}\cdot\ldots\cdot x_k^{\epsilon_k}| k = 0, 1, \ldots, \epsilon_i = \pm 1\} = F\).(k = 0 соответствует тривиальной группе)
+\end{theorem}
+\begin{proof}
+	Очевидно, что F - подгруппа в G(\(e\in F\), произведение, очевидно, определено, обратный элемент - зеркально отраженное произведение с противоположными степеням). Очевидно, что \(X\subseteq F,\) то есть \(<X>\subseteq F\). С другой стороны вместе с элементами \(x_1, \ldots, x_k\in X\) такие \(x_1^{\epsilon_1}\ldots x_k^{\epsilon_k}\in <X> \Longrightarrow F\subseteq <X> \Longrightarrow F = <X>\). Если X таково, что \(<X> = G,\) то X - система порождающих для G.
+\end{proof}
+\begin{example}
+	\begin{enumerate}
+		\item \(Q^* = <-1, P>\), P - множество всех простых чисел.
+		\item \(G = \GL_n(F)\) порождается элементарными матрицами
+	\end{enumerate}
+\end{example}
+\begin{definition}
+	Циклическая подгруппа, порожденная элементом \(a\in G\) обозначается \(<a> = \{a^k|k\in\mathbb{Z}\}\). Если \(\exists a\in G: <a> = G,\) то G - циклическая группа, порожденная элементом a.
+\end{definition}
+\begin{example}
+	\begin{enumerate}
+		\item \(\mathbb{Z} = <1>, <-1> \) - бесконечная цилическая группа относительно сложения 
+		\item \(\mathbb{Z} = <\overline 1>\) - циклическая группа порядка n
+	\end{enumerate}
+\end{example}
+% \begin{theorem}
+% 	Все циклические группы одного и того же порядка изоморфны между собой. Точнее, если порядок группы бесконечен, то \(G\cong \mathbb{Z}\), а если \(|G| = n\), то \(G\cong \mathbb{Z}_n\).
+% \end{theorem}

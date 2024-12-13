@@ -1,0 +1,277 @@
+\section{Циклические подгруппы. Смежные классы. Теорема Лагранжа}
+\begin{theorem}
+	Все циклические группы одного и того же порядка изоморфны между собой. Точнее, если порядок группы бесконечен, то \(G\cong \mathbb{Z}\), а если \(|G| = n\), то \(G\cong \mathbb{Z}_n\).
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Пусть \(|G|=\infty, G\) - циклическая c \(G=<a>\).\newline
+		 Построим \(\phi: \mathbb{Z}\to G, \phi(k) = a^k\). \(\phi(k_1)\phi(k_2) = a^{k_1}a^{k_2}  = a^{k_1+k_2}= \phi(k_1+k_2)\). \newline 
+		 Проверим сюръективность. \(\forall g\in G g = a^k = \phi(k)\).
+		 \newline Инъективность. \(\ker \phi = \{k\in\mathbb{Z}|a^k=e\} = \{0\}\) - инъекция выполнена.
+		\(G_1, G_2\) - циклические бесконечные группы. \newline 
+		Если есть 2 изоморфзима: \(\phi: \mathbb{Z}\to G_1, \psi: \mathbb{Z}\to G_2 \Longrightarrow (\psi\circ\phi^{-1}):G_1\to G_2\) - тоже изоморфизм. То есть любые 2 бесконечные циклические группы изоморфны.
+		\item \(G\) - конечная циклическая группа. \(G = <a> = \{e, a, \ldots, a^{n-1}\}, a^n = e, |G| = n\). \(\phi: \mathbb{Z_n}\to G, \phi(\overline k) = a^k\). Проверим корректность(а заодно и инъективность) $\phi$.\newline
+		 Нужно показать, что \(k_1 \equiv k_2 \mod n \Longleftrightarrow \phi(k_1) = \phi(k_2)\). \(k_1-k_2 = qn, q \in \mathbb{Z}. \phi(k_1) = a^{k_1} = a^{k_2+qn} = a^{k_2}(a^n)^q = a^{k_2}=\phi(k_2)\). \(\phi(\overline{k_1})\phi(\overline{k_2}) = a^{k_1}a^{k_2} = a^{k_1+k_2} = \phi(\overline{k_1+k_2} = \phi(\overline{k_1}+\overline{k_2}))\).\newline
+		 
+		 Биективность легко проверяется - каждому элементу \(\mathbb{Z_n} = \{\overline 0, \ldots, \overline{n-1}\}\) соответствует единственный элемент из группы G. 
+		\(G_1, G_2\) - циклические конечные группы. \newline
+		
+		Если есть 2 изоморфзима: \(\phi: \mathbb{Z_n}\to G_1, \psi: \mathbb{Z_n}\to G_2 \Longrightarrow (\psi\circ\phi^{-1}):G_1\to G_2\) - тоже изоморфизм. То есть любые 2 конечные циклические группы изоморфны.
+	\end{enumerate}
+\end{proof}
+Для описания внутренней структуры группы очень важно знать строение её подгрупп.
+\begin{theorem}
+	(Опиание подгрупп циклической группы) \newline
+	\begin{enumerate}
+		\item Всякая подгруппа циклической группы является циклической.
+		\item Пусть G - конечная циклическая группа порядка n. Порядок любой подгруппы группы G является делителем n. Тогда для любого делителя \(q\in\mathbb{N}\) числа n в G существует ровно одна подгруппа из q элементов.
+		\item Имеется биекция между множествами \(Div(n)\) - множество делителей числа \(n\in\mathbb{N}\). \(Sub(G)\) - множество подгрупп группы G.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Первые 2 пункта влекут за собой третий. Докажем их
+	\begin{enumerate}
+		\item Оба случая \(|G| = \infty, |G| = n\) доказываются одинаково. \(G = <a>, H\le G\). Если \(H=\{e\}\), тогда очевидно, что \(H = <e>\). Если \(H\ne \{e\}\), то \(\exists k>0: a^k\in H\).\newline Пусть \(t\) - наименьшее натуральное число, так что \(a^t\in H\). Покажем, что H - циклическая подгруппа, порожденная \(H = <a^t>\)
+		\newline
+		\( h\in H \Longrightarrow \exists k\in\mathbb{Z}:a^k = h, k = qt+r, r \in\{0, 1, \ldots, n-1\}: a^r = a^k\cdot a^{-qt} = a^k\cdot \underset{\in H}{(a^t)^{-q}}\in H\). \newline
+		Нет противоречия с условием тогда и только тогда, когда \(r = 0\Longrightarrow k = qt \Longrightarrow h = a^k = (a^t)^q \Longrightarrow H = <a^t>\). 
+		\item Если \(|G| = n\), то \(a^n = e\in H \). По тем же рассуждениям, что и в пункте а, получаем, что \(t|n \Longrightarrow n = \underset{\in\mathbb{Z}}{q}t \Longrightarrow \ord(a^t) = q\Longrightarrow |H| = q\).
+		 Пусть \(q|n, n = q\cdot t\). 
+		 \newline
+		 Пусть \(G = \mathbb{Z}_n\)(По теореме 1). \(H_q = \{\overline 0, \overline t, \ldots, (q-1)\overline t\} = <\overline t>\). 
+		 Покажем, что если \(H\le \mathbb{Z}_n, |H| = q \Longrightarrow H = H_q\). По доказанному в части \(1)\) класс \(\overline t\), 
+		 такой что y - наименьшее натуральное число \(\underset{t\cdot\overline 1}{\overline t}\in H, H = <\overline t> = \{\overline 0, \ldots, (q-1)\overline t\} = H_q(\ord t =\dfrac{n}{t} = q)\)
+	\end{enumerate}
+\end{proof}
+\begin{note}
+	Неверно, что если \(q| |G|,\) то в G найдется подгруппа из q элементов. \(G = A_4\)(группа четных подстановок степени 4). \(|A_4| = \dfrac{|s_4|}{2} = \dfrac{4!}{2} = 12. \quad 6 | 12\), но в \(A_4\) нет подгруппы из 6 элементов.
+\end{note}
+\begin{note}
+	Если \(q|\quad|G|\), то в том числе может быть несколько различных подгрупп порядка q. По таблице  Кэли(\(V_4\)(Kleinscha Viergruppa)) - четверная группа Клейна)
+	\begin{tabular}{c|cccc}
+		& e& a& b& c \\
+		\hline 
+		e  & e & a & b & c \\
+		a  & a & e &c&b \\
+		b  & b & c & e & a \\
+		c  & c & b & a & c
+	\end{tabular}
+	\(<a> = \{e, a\}, <b> = \{e, b\}, <c> = \{e,c\}\)
+\end{note}
+\begin{note}
+	\(H\le G, |G| < \infty, |H| | |G|\) - верно.
+\end{note}
+	Пусть \(A,B\subseteq G, G\) с \("\cdot"\). \(A\cdot B = \{a\cdot b|a\in A, b\in B\}\). \(\underset{(a\cdot b)\cdot c}{(A\cdot B)\cdot C} = \underset{a\cdot(b\cdot c)}{A\cdot(B\cdot C)}\). Если \(A=\{a\}, a\cdot H = \{ah_1, \ldots, \}\), если \(H\le G,\) то вместо \({a}\cdot H\) пишут \(aH\).
+\begin{definition}
+	Левым смежным классом группы G по подгруппе H, порожденный a называется множество \(a\cdot H\)
+\end{definition}
+\begin{definition}
+	Правым смежным классом группы G по подгруппе H, порожденный a называется множество \(H\cdot a\)
+\end{definition}
+\begin{proposition}
+	\(aH = H \Longleftrightarrow a\in H\)
+\end{proposition}
+\begin{proof}
+	Необходимость. Пусть \(aH = H, a = a\cdot e\in aH = H\) \newline
+	Достаточность. Пусть \(a\in H \Longrightarrow a\cdot H \subseteq H\cdot H = H\). \(\underset{\in H}{h} = a(\underset{\in H}{a^{-1}}h)\in aH\)
+\end{proof}
+\begin{proposition}
+	(О свойствах левых смежных классов) \newline
+	Следующие утверждения эквивалентны
+	\begin{enumerate}
+		\item \(aH \bigcap bH \ne \emptyset \) \\
+		\item \(a^{-1}b\in H\) \\
+		\item \(aH = bH\) \\
+		\item \(a\in bH\)
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \(z\in aH\bigcap bH, z= ah_1 = bh_2, h_i \in H. h_1(h_2)^{-1}=a^{-1}b \Longrightarrow a^{-1}b\in H \)
+		\item \(a^{-1}b\in H \Longrightarrow a^{-1}bH = H \Longrightarrow bH = aH\)
+		\item \(aH = bH \Longrightarrow a\in aH \Longrightarrow a\in bH\)
+		\item \(a\in bH \Longrightarrow a\in aH, a\in bH \Longrightarrow a\in aH\bigcap bH\)
+	\end{enumerate}
+\end{proof}
+\begin{corollary}
+	Всякий левым смежный класс порождается любым из своих элементов. \(a\in bH \Longrightarrow aH = bH\)
+\end{corollary}
+\begin{corollary}
+	Всякие два левых смежных класса либо не пересекаются, либо совпадают.
+\end{corollary}
+\begin{proof}
+	Если \(aH\bigcap bH = \emptyset\) - доказано. Иначе получаем, что \(aH\bigcap bH \ne \emptyset \Longrightarrow aH = bH\)
+\end{proof}
+\begin{corollary}
+	Всякая группа G является дизъюнктным объединением левых смежных классов по подгруппе H. \(G = \sqcup_{i\in I} a_iH \). Под дизъюнктным объединением называют объединение таких множеств, которые попарно не пересекаются.
+\end{corollary}
+\begin{proof}
+	Нужно поставить из каждого семейства совпадающих левых классов оставить по одному левому представителю. \(G = \bigcup_{a\in G} aH \Longrightarrow G = \sqcup_{i\in I} a_iH\). Оставшиеся классы попарно не пересекаются. Такое разложение называется левостороннее разложение группы G по H. Все аналогично проводится для правосторонних классов.
+\end{proof}
+\begin{theorem}
+	(теорема Лагранжа) \newline
+	Порядок q подгруппы H конечной группы G\((|G| = n)\) является делителем порядка группы: \(q|n\).
+\end{theorem}
+\begin{proof}
+	пусть \(H = \{h_1, \ldots, h_q\}, aH = \{ah_1, \ldots, ah_q\}, |aH| = q\). \(G = \sqcup_{i\in I} a_iH, |i| = m\). \(n = mq \Longrightarrow q|n\)
+\end{proof}
+\begin{definition}
+	Число левых(правых) смежных классов G по H называется индексом подгруппы H в группе G и \(m = (G : H) = \dfrac{|G|}{|H|}\)
+\end{definition}
+\begin{corollary}
+	Порядок любого элемента конечной группы является делителем порядка группы.
+\end{corollary}
+\begin{proof}
+	\(a\in G, \ord a = |<a>|| |G| \)
+\end{proof}
+\begin{corollary}
+	Если \(|G| = p,\) где p - простое число, то G - циклическая группа порядка p.
+\end{corollary}
+\begin{proof}
+	\(|G|\ge 2, \exists a\in G: a\ne e, |G| \vdots |<a>| \Longrightarrow |<a>| = p \Longrightarrow <a> = G\).
+\end{proof}
+\begin{corollary}
+	Существует единственная, с точностью до изоморфизма, конечная группа порядка p, p - простое число.
+\end{corollary}
+\begin{proof}
+	Пусть \(|G_1| = p = |G_2| \Longrightarrow G_1, G_2\) - циклические группы порядка p \(\Longrightarrow G_1\cong G_2\).
+\end{proof}
+\begin{corollary}
+	(малая теорема Ферма) \newline
+	Пусть \(a\not\equiv 0\mod p\), тогда \(a^{p-1}\equiv 1 \mod p\)
+\end{corollary}
+\begin{proof}
+	Рассмотрим \(\mathbb{Z}^*_p = \{\overline 1, \ldots, \overline {p-1}\}, \overline a \in \mathbb{Z}_p^*, \ord(\overline a)|p-1\). \(p-1 = q\ord \overline a \Longrightarrow \overline{a}^{p-1} = (\overline{a}^{\ord \overline{a}})^q = (\overline 1)^q = \overline 1 \Longrightarrow a^{p-1} \equiv 1 \mod p \Longrightarrow a^p \equiv a \mod p\)
+\end{proof}
+\begin{definition}
+	Пусть \(\phi(n)\) - число натуральных чисел, не превосходящих x и взаимопростых с n.
+\end{definition}
+\begin{proposition}
+	\(n = p_1^{k_1}\ldots p_s^{k_s} \Longrightarrow \phi(n) = n(1-\dfrac{1}{p_1})\ldots(1-\dfrac{1}{p_s})\)
+\end{proposition}
+\begin{corollary}
+	Если \(a\not\equiv 0 \mod n\Longrightarrow a^{\phi(n)}\equiv 1 \mod n\)
+\end{corollary}
+\begin{proof}
+	\(\mathbb{Z}_n^*, |\mathbb{Z}_n^*| = \phi(n), a\in \mathbb{Z}_n^*. \phi(n) = q\cdot\ord a \Longrightarrow (\overline a)^{q(n)}\equiv ((\overline{a})^{\ord(\overline a)})^q = \overline 1 \Longrightarrow a^{\phi(a)}\equiv 1 \mod n\).
+\end{proof}
+
+\section{Теорема о произведении минора на его алгебраическое дополнение. Теорема Лапласа. Поле \(\mathbb{C}\)}
+Была сформулирована, но не доказана на одной из предыдущих лекций
+\begin{theorem}
+	\label{frobenius}
+	(о ранге матрицы)
+	\(\rk_r A= \rk_c A = \rk_MA\)
+	\begin{enumerate}
+		\item \(\rk_MA\) - наибольший из порядков невырожденных миноров
+		\item \(\rk_MA\) - наибольший из порядков отличных от 0 миноров.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Для первого определения миноров это было доказано, для второго: Докажем, что квадратная матрица M невырожденная тогда и только тогда, когда её определитель отличен от 0. 
+	\newline
+	Необходимость. Пусть M - невырожденная. \(M\in M_{r\times r}, \rk M = r\), с помощью э.п. I и II рода приведем к треугольному виду, определитель которой, очевидно, не будет равен 0(так как лидеры будут на главной диагонали) \newline
+	Необходимость. \(\det M\ne 0\). Если привести матрицу к ступенчатому виду, то определитель также будет отличен от 0, то есть лидеры будут стоять по главной диагонали(иначе определитель был бы равен 0)
+\end{proof}
+\begin{corollary}
+	Матрица невырожденная тогда и только тогда, когда ее определитель отличен от 0.
+\end{corollary}
+\begin{definition}
+	Определителем \(M_{j_1\ldots j_k}^{i_1\ldots i_k}\) квадратной подматрицы M, расположенной на пересечении строк \(i_1\ldots i_k\) и столбцов \(j_1\ldots j_k\) будем называть миноров k-ого порядка матрицы A.
+\end{definition}
+\begin{definition}
+	Определитель \(\overline{M}_{j_1\ldots j_k}^{i_1\ldots i_k}\)  квадратной подматрицы матрицы A, полученный выбрасываением строк \(i_1\ldots i_k\) и столбцов \(j_1\ldots j_k\) называется дополнительным минором к M
+\end{definition}
+\begin{definition}
+	Алгебраическим дополнение к минору \(M_{j_1\ldots j_k}^{i_1\ldots i_k}\) называется \(A_{j_1\ldots j_k}^{i_1\ldots i_k}\overset{def}{\equiv} (-1)^{i_1+\ldots + i_k+j_1+\ldots + j_k}\overline{M}_{j_1\ldots j_k}^{i_1\ldots i_k}\), оно либо совпадает с дополнительным минором, либо отличается от него знаком. \(\sum_{s=1}^{k}(i_s+j_s) = s_M\)
+\end{definition}
+\begin{theorem}
+	(Теорема о произведении минора на его алгебраическое дополнение) \newline
+	Пусть \(A\in M_n(F), D=\det A\), тогда произведение любого слагаемого минора \(M_{j_1\ldots j_k}^{i_1\ldots i_k}\) на любое слагаемое его алгебраическое дополнения \(A_{j_1\ldots j_k}^{i_1\ldots i_k}\) является слагаемым определителя D. Более того, произведение знаков исходног слагаемого равно знаку соответствующего слагаемого D.
+\end{theorem}
+\begin{proof}
+	Выделим минор. И занулим все соответстющие ему строки и столбцы(кроме элементов этого минора), остальные же элементы оставим и назовем данную матрицу \( \overset{\circ}{A}\) Любое слагаемое $\det \overset{\circ}{A}$ входит в \(\det A\). Докажем, что \(M_{j_1\ldots j_k}^{i_1\ldots i_k}A_{j_1\ldots j_k}^{i_1\ldots i_k} = \det \overset{\circ}{A}\). Наша цель - перекинуть минор M в левый верхний угол, чтобы взаиморасположение минора M и его дополнительного минора не изменилось. Применяя э.п. II меняем строку \(i_1\) с $i_1-1$ и так далее до 1 строки, всего было $i_1-1$ э.п. Аналогично со второй строкой и так далее. Тогда всего потребуется \(i_1 -1 + i_2-2+\ldots + i_k-k = \sum_{s=1}^{k}i_s - \dfrac{k(k+1)}{2}\) э.п. II типа. Аналогично для передвижения столбцов \(\sum_{s=1}^{k}j_s - \dfrac{k(k+1)}{2}\) э.п. Суммарно буде т \(S_M - k(k+1)\) э.п. Тогда получится матрица \( A'=\begin{pmatrix}
+		M & 0 \\
+		0 & \overline{M}
+	\end{pmatrix}\), определитель которой равен \(\det A' = M\cdot \overline{M} = (-1)^{S_M - k(k+1)}\det\overset{\circ}{A} \Longrightarrow M\cdot \overline M = (-1)^{S_M}\cdot \det \overset{\circ}{A}|(-1)^{S_M} \Longrightarrow M\cdot A = \det \overset{\circ}{A}\)
+\end{proof}
+\begin{theorem}
+	(теорема Лапласа) \newline
+	\label{laplas}
+	Пусть \(A\in M_n(F), D = \det A\). Пусть \(i_1, \ldots, i_k\) - произвольные строки в A. Тогда сумма всевозможных произведений миноров матрицы А, расположенных на выбранных строках на их алгебраические дополнения равно D.
+	\(\sum_{1\le j_1<j_2<\ldots <h_n\le n} M_{j_1\ldots j_k}^{i_1\ldots i_k}A_{j_1\ldots j_k}^{i_1\ldots i_k} = D\)
+\end{theorem}
+\begin{proof}
+	\(M_{j_1\ldots j_k}^{i_1\ldots i_k}\) содержит \(k!\) слагаемых. \(A_{j_1\ldots j_k}^{i_1\ldots i_k}\) содержит \((n-k)!\). Всего мы получим  для \(M\cdot A\) слагаемых \(k!(n-k)!\) слагаемых из D. Расположений минора M всего \(C_n^k\) - выбор k столбцов из n. Тогда всего слагаемых в сумме будет \(C_n^k k!(n-k)! = n!\) - именно столько слагаемых в определителе. При этом все произведения совпадают с произведении из определителя, при этом всего таких слагаемых столько же, сколько в определителе, то есть они равны.
+\end{proof}
+\begin{corollary}
+	Возьмем одну строку. Тогда \(a_{ij} = M_j^i, A_j^i = (-1)^{i+j}\overline{M}^i_j\). Из теоремы Лапласа \(\det A = \sum a_{ij}A_{ij}\) - разложение определителя по i строке.
+\end{corollary}
+\begin{corollary}
+	Аналогично можно разложить определитель по j столбцу. \(\sum_{i=1}^{n}a_{ij}A_{ij}=D\)
+\end{corollary}
+\section{Поле \(\mathbb{C}\)}
+Кардано и Бомбелли в 17 столетии ввели решение \(x^2=-1, i = \sqrt{-1}\), но это привело к многим противоречиям.
+\begin{theorem}
+	Пусть F - поле, в котором уравнение \(x^2=-y^2\) не имеет решений, кроме тривиального. Тогда существует расширение K поля F, такие что \(\dim_FK=2\) и в поле K уравнение \(x^2=-1\) имеет решение.
+\end{theorem}
+\begin{proof}
+	матрицы вида \(\begin{pmatrix}
+		a & b \\
+		-b & a
+	\end{pmatrix}, a,b \in F\). Проверим, что множество таких матриц K- поле. Очевидно, что операция сложения определена и \((K, +)\) - абелева группа с \(0 = \begin{pmatrix}
+	0 & 0 \\ 0 & 0
+	\end{pmatrix}\).\newline
+	 \(\begin{pmatrix}
+	a & b \\ -b & a
+	\end{pmatrix}\cdot \begin{pmatrix}
+	c & d \\ -d & c
+	\end{pmatrix} = \begin{pmatrix}
+	ac-bd & ad+bc \\
+	(-ad+bc) & ac-bd
+	\end{pmatrix}\in K\), заметим, что \((K, \cdot)\) - коммутативная операция.\newline
+	 При этом мы знаем о дистрибутивности матриц, поэтому \((K, +, \cdot)\) - кольцо. Покажем, что есть обратный. \(\begin{pmatrix}
+	a & b \\ -b & a
+	\end{pmatrix}^{-1} = \dfrac{1}{a^2+b^2}\begin{pmatrix}
+	a & -b \\ b & a
+	\end{pmatrix}\in K\), при этом \(a^2+b^2=0\) только для нулевой матрицы, то есть все выполнено и K - поле.\newline
+	 При этом для \(a\in F: \begin{pmatrix}
+	a & 0 \\ 0 & a
+	\end{pmatrix} = a\cdot E\) - то есть F вкладывается в поле K,\( J = \begin{pmatrix}
+	0 & 1 \\ -1 & 0
+	\end{pmatrix} \Longrightarrow \begin{pmatrix}
+	a & b \\ -b & a
+	\end{pmatrix} = a\cdot E + b\cdot J\Longrightarrow \dim_FK = 2\). \(J^2 = \begin{pmatrix}
+	-1 & 0 \\ 0 & -1
+	\end{pmatrix}\equiv -1\in F\).
+\end{proof}
+\begin{note}
+	Поле \(K_{\mathbb{R}} = \mathbb{C}\) и называется полем комплексных чисел, а поле \(K_{\mathbb{Z}_3} = F_9\).
+\end{note}
+Пусть \(E, J\) - базис в \(\mathbb{C}\). \((x,y) = x\cdot E + y\cdot J = \begin{pmatrix}
+	x & y \\ y & x
+\end{pmatrix}\). \((x_1,y_1)+(x_2,y_2)=(x_1+x_2, y_1+y_2), (x_1,y_1)\cdot(x_2, y_2)\overset{def}{\equiv} (x_1x_2-y_1y_2, x_1y_2+y_1x_2)\). \newline
+Если смысл суммы такой же, как у сложения векторов(если представить данные пары как радиус векторы на плоскости), то произведение дает вектор длины произведения длинн данных векторов и углом наклона к положительному направлению x равному сумме углов наклона множителей.\newline
+ Действительно, \(x = r\cos \phi, r\sin \phi = y, r= \sqrt{x^2+y^2}, \begin{pmatrix}
+x & y \\ -x & y
+\end{pmatrix} = \sqrt{x^2+y^2}\begin{pmatrix}
+\frac{x}{\sqrt{x^2+y^2}} & \frac{y}{\sqrt{x^2+y^2}} \\
+\frac{-y}{\sqrt{x^2+y^2}} & \frac{x}{\sqrt{x^2+y^2}}
+\end{pmatrix} = \sqrt{x^2+y^2}\begin{pmatrix}
+\cos\phi & \sin \phi \\ -\sin\phi & \cos \phi
+\end{pmatrix} = r\begin{pmatrix}
+\cos\phi & \sin \phi \\ -\sin\phi & \cos \phi
+\end{pmatrix}\). Перейдя к алгебраической записи комплексного числа, получим \((x,y) = x+iy\), получим к \((x,y ) = r(\cos\phi + i\sin\phi), r\) - модуль комлексного числа, $\phi$ - аргумент, заданные неоднозначно - с точностью до \(2\pi\). \newline
+\(\begin{gathered}
+	z_1 = r_1(\cos\phi_1+i\sin\phi_1) \\
+	z_2 = r_2(\cos\phi_2+i\sin\phi_2)
+\end{gathered} \Longrightarrow z_1z_2 = (r_1r_2)(\cos(\phi_1+\phi_2)+i\sin(\phi_1+\phi_2))\). Тогда верно, что \((r(\cos\phi+i\sin\phi))^n = r^n(\cos n\phi+i\sin n\phi)\) \newline
+Пусть \(z = r(\cos\phi+i\sin\phi), \sqrt[n]{z}  = \sqrt[n]{r}(\cos\dfrac{\phi+2\pi k}{n}+i\sin\dfrac{{\phi + 2\pi k}}{n}), k = \{0, 1,\ldots, n-1\}\)
+\begin{exercise}
+	\(\sqrt[n]{1}\) - циклическая группа с порождающими элементами \(\epsilon = \cos\dfrac{2\pi k}{n}+i\sin\dfrac{2\pi k}{n}\)
+\end{exercise}
+\begin{theorem}
+	(Формула Эйлера) \newline
+	\(e^{i\phi}=\cos\phi+i\sin\phi \Longrightarrow (e^{i\phi})^n = \cos (n\phi)+i\sin( n\phi)\)
+\end{theorem}
+\(e^z = e^a\cdot e^{ib} = e^a(\cos b + i\sin b)\)

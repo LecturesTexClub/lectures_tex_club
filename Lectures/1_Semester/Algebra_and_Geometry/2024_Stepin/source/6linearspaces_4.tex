@@ -1,0 +1,326 @@
+\begin{lemma}
+	(Основная лемма теории линейных пространств) \newline
+	V - линейное пространство над F. \(U = (u_1, u_2,\ldots, u_n), W = (w_1, w_2,\ldots, w_m).\) Известно, что каждый вектор \(w_i\in W\) представим в виде ЛК векторов \(u_1, \ldots, u_m\). Тогда, если m>n, то система \(W\) - ЛЗ.
+\end{lemma}
+\begin{proof}
+	Докажем индукцией по n. 
+	\begin{enumerate}
+		\item База. n = 1. \(U = (u)\). По условию \(w_1 = \lambda_1u, \ldots, w_n = \lambda_nu\). Если \(\exists \lambda_i = 0\), то \(w_i = \vec 0\Longrightarrow W\) - ЛЗ. Пусть все \(\lambda_i\ne0: \lambda_2w_1-\lambda_1w_2 + 0w_3 + \ldots + 0w_n = \lambda_1\lambda_2u - \lambda_1\lambda_2u = 0\Longrightarrow W\) - ЛЗ.
+		\item Переход индукции. Пусть утверждение справедливо для системы  \(U: |U| = n -1\). Докажем для \(U: |U| = n\). \(\left\{\begin{gathered}
+			w_1 = \lambda_{11}u_1 + \ldots + \lambda_{n1}u_n \\
+			w_2 = \lambda_{12}u_1 + \ldots + \lambda_{n2}u_n \\
+			\ldots \\
+			w_m = \lambda_{1m}u_1 + \ldots + \lambda_{nm}u_n
+		\end{gathered}\right.\). \newline
+		Случай 1. Если \(\lambda_{ij} = 0 \> \> \forall j\), тогда W - ЛЗ по предположению индукции. \newline
+		Случай 2. \(\lambda_{11}\ne 0\). Последовательно умножим верхнее равенство на \(-\frac{\lambda_{13}}{\lambda_{11}}\) и сложим с каждой из последующих, тогда \(\Tilde U = (u_2, \ldots, u_n), \Tilde W = (w_2 - \dfrac{\lambda_{12}}{\lambda_{11}}w_1, w_m - \dfrac{\lambda_{1m}}{\lambda_{11}}w_1)\). И \(\Tilde{W}\) представим в виде ЛК \(\Tilde{U}\), тогда \(\Tilde{U}\) - ЛЗ по предположению индукции. \(\exists \) нетривиальная ЛК \(\mu_2(w_2 - \dfrac{\lambda_{12}}{\lambda_{11}}w_1) + \ldots + \mu_m( w_m - \dfrac{\lambda_{1m}}{\lambda_{11}}w_1) = \vec 0 \Longrightarrow -\dfrac{1}{\lambda_{11}}(\mu_2\lambda_{12} + \mu_3\lambda_{13} + \ldots + \mu_m\lambda_{1m})w_1 + \sum_{j=2}^{m}\mu_jw_j=\vec 0\)
+	\end{enumerate}
+\end{proof}
+\section{Конечномерные линейные пространства}
+\begin{definition}
+	Линейное пространство V над полем F называется n-мерным или размерности n, если в пространстве V существует ЛК, 
+	состоящая из n векторов, а всякая система, состоящая из n+1 вектора ЛЗ. 
+	Если же \(\forall n\in\mathbb{N}\text{ в пространстве } V \) существует ЛнЗ система из n векторов, то V называется бесконечномерным. 
+	Пишут \(\dim_FV = n\) или \(\dim_FV = \infty\).
+\end{definition}
+\begin{theorem}
+	Пусть V - конечномерное линейное пространство над полем F. 
+	Тогда любые 2 базиса в V обязательно имеют одинаковое число векторов,
+	(равномощны), причем их число равно \(\dim_FV\).
+\end{theorem}
+\begin{proof}
+	Если \(\mathfrak{E}, \mathfrak{F}\) - базисы, имеющие разное число элементов, то тот базис, в котором больше элементов будет ЛЗ по основной лемме, что противоречит определению базиса. \newline
+	Покажем, что число векторов базиса \(\mathfrak{E}\) совпадает с размерностью \(\dim_FV\).
+	 \(\mathfrak{E} = (\vec e_1, \vec e_2, \ldots, \vec e_n)\) - ЛнЗ. 
+	По основной лемме любая система \(W = (\vec w_1, \vec w_2, \ldots, \vec w_{n+1})\) - ЛЗ $\Longrightarrow \dim_FV = n$.
+\end{proof}
+\begin{note}
+	Иногда размерность определяется как число базисных векторов.
+\end{note}
+\begin{note}
+	\(\{\vec 0\}\) - в этом пространстве пустой базис. Тогда \(\dim\{\vec 0\} = 0\)
+\end{note}
+\begin{example}
+	\begin{enumerate}
+		\item\(V_i, i= 1,2,3; \quad \dim V_i = i\)
+		\item\(F^n = \left\{\begin{pmatrix}
+			\alpha_1 \\ \alpha_2 \\ \ldots \\\alpha_n
+		\end{pmatrix}\right\}, \dim F^n = n\), базис очевиден и приведен в прошлой лекции.
+		\item \(M_{n\times m}(F), \dim M_{n\times m} = m\cdot n\). Базис - матрицы размера \(m\times n\) с единицами на соответствующих позициях
+		\item \(F_n[x]\) - многочлен с коэффициентами из F. \(\dim F_n[x] = n+1\). Базис \(1, x,\ldots, x^n\)
+		\item \(\mathbb{C}\) над \(\mathbb{C}\). \(\dim_{\mathbb{C}}\mathbb{C} = 1\). 
+		Базис - 1. 
+		\(\mathbb{C}\) над \(\mathbb{R}, \dim_{\mathbb{R}}\mathbb{C} = 2\). 
+		Базис - 1, i. 
+		\(z = a\cdot 1 + b\cdot i, a,b\in\mathbb{R}\).
+		\item \(\mathbb{R}\) над \(\mathbb{Q}\) - бесконечномерное линейное пространство. Пусть \(\dim_{\mathbb{Q}}\mathbb{R} = n, r\in\mathbb{R}\underset{\mathfrak{E}}{\longleftrightarrow} \begin{pmatrix}
+			\alpha_1 \\ \ldots \\ \alpha_n
+		\end{pmatrix} 
+		\alpha_i\in\mathbb{Q}\). Но тогда получается биекция между счетным и несчетными множествами. Противоречие.
+	\end{enumerate}
+\end{example}
+\begin{theorem}
+	Пусть S - произвольная система(конечномерная или бесконечная) векторов из конечномерного линейного пространства V над F. Тогда максимальная ЛнЗ подсистема \(S_0\) в \(S\) образует базис в \(<S>\). То есть если к \(S_0\) добавить хотя бы 1 вектор, то получится линейно зависимая система.
+\end{theorem}
+\begin{proof}
+	По теореме из прошлой лекции каждый вектор из \(<S>\) представим в виде линейной комбинации векторов из \(S\). Покажем, что \(\forall s\in S\) представим в виде ЛК из \(S_0\). Если \(s\in S_0\) - очевидно. Если же \(s\in S\setminus S_0\). Рассмотрим \((S_0, s)\) - линейно зависимая по соглашению максимальности. Тогда по утверждению из начала семестра, вектор который добавляется к ЛнЗ системе и делает его ЛЗ, то он представим в виде ЛК векторов из этой ЛнЗ системы, то есть \(s\) представим в виде ЛК векторов из \(S_0\), то есть \(S_0\) - базис.
+\end{proof}
+\begin{corollary}
+	Линейное пространство V над полем F конечномерное тогда и только тогда, когда оно конечно порожденное.
+\end{corollary}
+\begin{proof}
+	\begin{enumerate}
+		\item \(\Longrightarrow\). Пусть \(\dim_FV < \infty\), тогда конечный базис - порождающая система. \(<\mathfrak{E}>=V\Longrightarrow V\) - конечно порожденный.
+		\item \(\Longleftarrow\). Пусть V - конечномерное пространство \(\overset{\text{Th}}{\Longrightarrow}\) в V \(\exists\) конечный базис $\Longrightarrow$ его мощность = \(\dim_FV\)
+	\end{enumerate}
+\end{proof}
+\begin{theorem}
+	Любую ЛнЗ систему векторов конечномерного линейного пространства V можно дополнить до базиса в V.
+\end{theorem}
+\begin{proof}
+	Пусть S - система из всех векторов пространства V. \(<S> = V\). \(S_0\) - ЛнЗ подсистема в S. Пусть \(|S_0| = k\), то есть \(S_0\) состоит из k векторов. Если \(S_0\) - максимальная ЛнЗ подсистема в S, то по предыдущей теореме это базис. Иначе \(\exists s_{k+1}\in S\), так что \(S_0, s_{k+1}\) - ЛнЗ. Если \(S_1\) - максимальная ЛнЗ подсистема, тогда \(S_1\) - базис в \(<S> = V\). И так далее мы будем получать дополнительные вектора, что следующие \(S_i\) будут ЛнЗ. При этом этот процесс закончится через конечное число шагов, так как в V нет ЛнЗ подсистемы с \(\dim V+1\) векторов(то есть найдем такой \(S_i\), что \(S_i\) - максимальная подсистема S).
+\end{proof}
+Пусть V - конечномерное линейное пространство и \(\mathfrak{E} = (\vec e_1, \vec e_2, \ldots, \vec e_n)\) - базис в V над F. Тогда \(\forall a\in V: a=\sum_{i=1}^{n}\alpha_i\vec e_i = \mathfrak{E}\cdot\alpha, \alpha = \begin{pmatrix}
+\alpha_1 \\ \ldots \\\alpha_n
+\end{pmatrix}\in F^n\)
+\begin{proposition}
+	\begin{enumerate}
+		\item Для каждого вектора \(a\in V\) его координатый столбец относительно \(\mathfrak{E}\) определен однозначно
+		\item При сложении векторов их координатные столбцы складываются, а при умножении на $\lambda\in F$, умножаются на $\lambda$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\(\left\{\begin{gathered}
+		a = \mathfrak{E}\cdot \alpha \\
+		b = \mathfrak{E}\cdot \beta
+	\end{gathered}\right. \Longrightarrow a + b =\mathfrak{E}(\alpha+\beta), \lambda\mathfrak{E}\cdot\alpha = \mathfrak{E}(\lambda\alpha)\). Если же \(\left\{\begin{gathered}
+	a = \mathfrak{E}\cdot\alpha \\
+	a = \mathfrak{E}\cdot\beta
+	\end{gathered}\right. \Longrightarrow \vec 0 = \mathfrak{E}(\alpha - \beta) \Longrightarrow \alpha = \beta\).
+\end{proof}
+\subsection{Изоморфизмы линейных пространств}
+\begin{definition}
+	Пусть V и W - 2 линейных пространства надо одним и тем же полем F, тогда отображение \(\phi:V\to W\) называется изоморфизмом, если выполняются следующие свойства 
+	\begin{enumerate}
+	 \item $\phi$ - взаимооднозначно(биективно)
+	 \item $\phi$ сохраняет определенные в V, W операции. \(\forall a,b\in V:\phi(a+b)=\phi(a)+\phi(b), \forall \lambda\in F: \phi(\lambda\cdot a) = \lambda\phi(a)\)
+	\end{enumerate}
+\end{definition}
+\begin{note}
+		\(\phi(\vec 0_V) = \vec 0_W\).
+\end{note}
+\begin{theorem}
+	Пусть V - конечномерное линейное пространство над полем F и \(\dim_FV = n\). Тогда \(V\cong F^n\)
+\end{theorem}
+\begin{proof}
+	Фиксируем \(\mathfrak{E} = (\vec e_1, \ldots, \vec e_n)\) - базис в V. \(\forall a\in V: a\overset{\phi}{\longleftrightarrow}\begin{pmatrix}
+		\alpha_1 \\ \ldots \\ \alpha_n
+	\end{pmatrix} a = \mathfrak{E}\cdot\alpha\).   \(\phi: V\to F^n\), по предыдущему утверждению $\phi$ сохраняет \("+"\) и \("\cdot\lambda"\). 
+	Проверим инъективность и сюръективность $\phi$. Пусть \(\phi(a)=\alpha=\beta = \phi(b) \Longrightarrow \phi(a-b) = \phi(a) - \phi(b) = \alpha - \beta = \vec 0 \Longrightarrow a - b = \mathfrak{E}\cdot\vec 0 = \vec 0\Longrightarrow a = b\).
+	 $\phi$ сюръективна, так как \(\forall \alpha\in F^n \quad \exists a = \mathfrak{E}\alpha\Longrightarrow \phi(a) = \alpha\)
+\end{proof}
+\begin{corollary}
+	(Теорема об изоморфизме линейных пространств) \newline
+	2 конечномерных линейных пространства \(V_1, V_2\) над полем F изоморфны тогда и только тогда, когда \(\dim_F V_1 = \dim_F V_2\).
+\end{corollary}
+\begin{proof}
+	\begin{enumerate}
+		\item \(\Longrightarrow\). Пусть \(\dim_F V_1 = n, \mathfrak{E}_1 = (\vec e_1, \ldots, \vec e_n)\) - базис в \(V_1\). $\exists\phi:V_1\to V_2$. $\phi(\mathfrak{E}) = (\phi(\vec e_1),\ldots, \phi(\vec e_n))$. \(\forall b\in V_2: b = \phi(a) = \phi(\mathfrak{E}\cdot \alpha) = \phi(\mathfrak{E})\alpha\). \(\phi(\mathfrak{E})\) - ЛнЗ, так как при изоморфизме ЛнЗ переходит в ЛнЗ(иначе если мы получим ЛЗ систему, то получится, что и исходная система ЛЗ). $\Longrightarrow \dim_FV_2 = n$
+		\item $\Longleftarrow$. Пусть \(\dim_FV_1 = \dim_FV_2\). Отображение, обратное к изоморфизму очевидно изоморфизм и композиция 2 изоморфизмов тоже изоморфизм. По предыдущей теореме \(V_i\overset{\phi}{\longrightarrow}F^n\overset{\psi}{\longleftarrow}V_2\). Тогда \(\underset{\text{изоморфизм}}{\psi^{-1}\circ \phi}: V_1\to V_2\)
+	\end{enumerate}
+\end{proof}
+\begin{corollary}
+	Если линейные пространства рассматриваются над одним и тем же полем, то единственной значимой характеристикой является \(\dim\).
+\end{corollary}
+\begin{theorem}
+	Пусть F - конечное поле, такое что \(char F = p, p\) - простое. Тогда \(\exists n\in\mathbb{N}: |F| = p^n\).
+\end{theorem}
+\begin{proof}
+	Было доказано, что в поле F \(\exists D_F\cong \mathbb{Z}_p, |\mathbb{Z}_p| = p\). Рассмотрим поле F как линейное пространство над полем \(D_F\)[(F, +) - абелева группа, унитарность и т.д.]. \(\dim_{D_F}F = n, \mathfrak{E}\) - базис F над \(D_F\). \(\forall a\in F: a = \mathfrak{E}\begin{pmatrix}
+	\alpha_1 \\ \ldots \\ \alpha_n
+	\end{pmatrix}, |F| = \left|\{\begin{pmatrix}
+		\alpha_1 \\ \ldots \\ \alpha_n
+	\end{pmatrix}, \alpha_i\in D_F\}\right| = \underbrace{p\times p\times\ldots\times p}_n = p^n\)
+\end{proof}
+\begin{note}
+	Пусть V - линейное пространство размерности m над конечномерным полем F: \(|F| = p^n\), тогда |V| = \(p^{nm}\).
+\end{note}
+\begin{proof}
+	Базис в V \(\mathfrak{E} = (\vec e_1, \ldots, \vec e_m)\)
+	\(v\in V = \mathfrak{E}\cdot\begin{pmatrix}
+		\alpha_1 \\ \ldots \\ \alpha_m
+	\end{pmatrix}\).
+	 \(|V| = \underbrace{p^n\times p^n\times\ldots\times p^n}_m = (p^n)^m=p^{nm}\)
+	Конечномерное линейное пространство над конечным полем всегда имеет конечное число векторов.
+\end{proof}
+
+\section{Метод Гаусса решения систем линейных уравнений}
+F - поле.
+СЛУ содержит m уравнений и n неизвестных.
+\[\left\{\begin{gathered}
+	a_{11}x_1+a_{12}x_2+\ldots+a_{1n}x_n = b_1 \\
+	a_{21}x_1+a_{22}x_2+\ldots+a_{2n}x_n = b_2 \\
+	\ldots \\
+	a_{n1}x_1+a_{n2}x_2+\ldots+a_{nn}x_n = b_n \\
+\end{gathered}\right.\]
+Надсистема матрицы - матрица из всех его коэффициентов(\(A\in M_{m\times n}(F)\)).
+\(X = \begin{pmatrix}
+	x_1 \\ x_2 \\ \ldots \\ x_n
+\end{pmatrix}\in F^n, b \in F^n, AX = b, \Tilde{A} = (A|b)\in M_{m\times(n+1)}(F)\)
+\begin{definition}
+	Система линейных уравнений называется совместной, если она имеет хотя бы одно решение
+\end{definition}
+\begin{definition}
+	Система линейных уравнений называется несовместной, если она не имеет ни одного решения
+\end{definition}
+\begin{definition}
+	Совместная система, имеющая единственный корень называется определенной
+\end{definition}
+\begin{proposition}
+	Всякое решение \(\Tilde{A}\) это набор коэффициентов с которым столбец b представляется в виде линейной комбинации столбцов матрицы A.
+\end{proposition}
+\begin{proof}
+	Столбцы матриы \(AX\) - это ЛК столбцов A с коэффициентами из X.
+\end{proof}
+\begin{corollary}
+	Если столбцы матрицы A ЛнЗ, то система не может иметь более одного решения.
+\end{corollary}
+\begin{proof}
+	Пусть \(X_1\ne X_2 \) - 2 различных решения. Тогда: 
+	\[\left\{\begin{gathered}
+		AX_1 = b \\
+		AX_2 = b 
+	\end{gathered}\right.\Longrightarrow A(X_1 - X_2) = 0 \]
+	Получилась нетривиальная линейная комбинация, дающая 0, но это противоречит ЛнЗ
+\end{proof}
+\begin{note}
+	В условиях следствия из предыдущего утверждения система может оказаться несовместной.
+\end{note}
+
+\begin{proposition}
+	Множество \(V_0\) решений однородной СЛУ является подпространством в \(F^n\). \(V\le F^n\)
+\end{proposition}
+\begin{proof}
+	\(X_1, X_2 \in V_0.A(X_1 + X_2) = \underset{=0}{AX_1} + \underset{=0}{AX_2} = 0\), с домножением на коэффициент из F очевидно. Значит по критерию подпространства \(V_0 \le F^n\)
+\end{proof}
+\begin{proposition}
+	Пусть дана неоднородная система системы \(AX = b\) и \(V_b\) - её множество решений и пусть \(X\) - частное решение этой системы. Пусть \(AX = 0\) соответствующей однородной СЛУ и \(V_0\) - подпространство решений \([V_0 \le F^n]\), тогда \(V_b = X_0 + V_0\).
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \( \subseteq X_0 + V_0 = \{X_0 + u | u\in V\}.\quad A(X_0 + u) = AX_0 + Au = b\Longrightarrow X_0+u\in V_b\).
+		\item \(\supseteq\)wВозьмем произвольной \(X\in V_b\). Рассмотрим \(X - X_0: A(X - X_0) = AX - AX_0 = 0\) - решение однородной системы. то есть \(X-X_0 \in V_0 \Longrightarrow X\in X_0 + V_0\).
+	\end{enumerate}
+\end{proof}
+
+\subsection{Элементарные преобразования строк матрицы}
+\begin{definition}
+	\(M_{m\times n}(F)\)
+	Элементарными преобразованиями строк матрицы F называются 
+	\begin{enumerate}
+		\item (\(i\ne j\)) К i-ой строке матрицы M прибавляется j-ая строка, умноженная на \(\lambda\in F, \vec a_i \to \vec a_i + \lambda \vec a_j\)
+		\item \((i\ne j)\) Перемена местами 2 строк. \(\vec a_i \longleftrightarrow \vec a_j\)
+		\item \((\lambda \ne 0)\). i-ая строка умножается на \(\lambda\).
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+	Совершение над матрицей M э.п. I, II, III типа равносильно умножению матрицы M на одну из элементарных матриц
+	\begin{enumerate}
+		\item (\(i\ne j\)). \(D_{ij}(\lambda) = \begin{pmatrix}
+			1 & 0 & 0 & \ldots & 0\\
+			0 & 1 & \lambda & \ldots & 0 \\
+			\ldots \\ 
+			0 & 0 & 0 & \ldots & 1 \\
+		\end{pmatrix}\). \(\lambda\) на месте (i,j)
+		\item \(P_{ij}(\lambda) = \begin{pmatrix}
+			\ldots &1 & 0 & 0 & \ldots & 0 & 0 & 0\\
+			i \rightarrow & 0 & 0 & 0 & \ldots & 1 & 0 & 0 \\
+			&\ldots & 0 & 0 & 0 & \ldots & 0 & 0 & 0\\
+			j \rightarrow & 0 & 1 & 0 & \ldots & 0 & 0 & 0\\
+			& \ldots \\ 
+			& 0 & 0 & 0 & \ldots & 1 & 0 & 0 \\
+			& . & i & . & . & j & . & .
+		\end{pmatrix}\) Единицы на пересечении (i,i) и (j,j) превращаются в 0, а на местах (i,j) (j,i) появляются единицы.
+		\item \(Z_i(\lambda) = \begin{pmatrix}
+			&1 & 0 & 0 & \ldots & 0\\
+			i \rightarrow &0 & \lambda & 0 & \ldots & 0 \\
+			&\ldots \\ 
+			&0 & 0 & 0 & \ldots & 1 \\
+		\end{pmatrix}\)
+	\end{enumerate}
+\end{proposition}
+\begin{proposition}
+	Все элементраные матрицы \(D_{ij}, P_{ij}, Z_{ij}\) обратимы, причем обратные матрицы имеют тот же тип
+\end{proposition}
+\begin{proof}
+	Докажем \(D_{ij}(\lambda)^{-1} = D_{ij}(-\lambda), D_{ij}\cdot D_{ij}(-\lambda) = E\). Действительно, \(D_{ij}:\quad a_{j} \to a_{j} + \lambda a_{i}, D_{ij}^{-1}:\quad a_{j} + \lambda a_{i} \to a_{j} + \lambda a_i - \lambda a_i = a_j\). Аналогично доказывается \(P^2_{ij} = P_{ij}P_{ij} = E \Longrightarrow P^{-1}_{ij} = P_{ij}\). И \(Z_i(\lambda)^{-1} = Z_i(\overline \lambda): Z_i(\lambda)\cdot z_i(\overline \lambda) = E\).
+\end{proof}
+\begin{exercise}
+	Показать, что если совершнать умножения матрицы M справа на элементарные преобразования нужного размера, то получатся элементарные преобразования столбцов.
+\end{exercise}
+\begin{definition}
+	Пусть \((a_i, \ldots, a_n)\) - строка. Первый ненулевой элемент строки называется её лидером(или ведущим элементом).(\(pivot\) - лидер)
+\end{definition}
+\begin{definition}
+	Ступенчатой матрицей называется матрицы \(A_{m\times n}\), если 
+	\begin{enumerate}
+		\item Если \(a_{ij}, a_{(i+1)k}\) - лидеры двух соседних строк, то j<k, то есть лидер строки с большим номером должен располагаться в столбце с большим номером.
+		\item Ниже нулевой строки в A могут располагаться только нулевые строки
+		
+	\end{enumerate}
+\end{definition}
+\begin{theorem}
+	Всякую матрицу можно привести к ступенчатому виду с использованием только элементарных преобразований строк.
+\end{theorem}
+\begin{proof}
+	Доказательство будет осуществляться с помощью прямого хода метода Гаусса. Пусть \(A_{m\times n}\). Докажем индукцией по m - числу строк.
+	\begin{enumerate}
+		\item База  \(m = 1\). Матрица уже ступенчатая(оба условия выполняются).
+		\item Пусть для матрицы размера \((m-1)\times n\) утверждение справедливо. Докажем для матрицы размера \(m\times n\).Найдем в матрице A лидера строки с наименьшим номером столбца(пусть это будет \(a_{ik}\)). При необходимости применяя э.п. II типа поменяем местами 1 и i строку. Слева от столбца этого лидера стоят только нули по выбору лидера. Пусть под лидером стоят \(a_{2k}, a_{3k}, \ldots, a_{mk}\). Давайте будем домножать первую строчку на \(\lambda = -\dfrac{a_{ik}}{a_{1k}}, i \in \{2, \ldots, m\}\) и вычитать из соответствующей строки. Под лидером и до лидера теперь стоят только 0. Теперь "отрежем" первую строку от матрицы. Тогда для оставшегося куска применимо предположение индукции, потому что он имеет размеры \(((m-1)\times n)\). Тогда очевидно, что полученная матрица будет ступенчатой, так как оба условия для неё выполняются.
+	\end{enumerate}
+\end{proof}
+\begin{definition}
+	Ступенчатая матрица A называется упрощенной, если 
+	\begin{enumerate}
+		\item Если лидеры всех строк равны 1
+		\item Столбцы, содержащие лидеров строк содержат все элементы, содержит только нулевые элементы за исключением лидера, равного 1.
+	\end{enumerate}
+\end{definition}
+\begin{theorem}
+	Всякую ненулевую матрицу можно привести к упрощенному виду с помощью конечного числа э.п. матрицы.
+\end{theorem}
+\begin{proof}
+	Приведем матрицу A к ступенчатому виду. Пусть \(a_{1k_1}, a_{2k_2}, \ldots, a_{rk_r}\) - лидеры строк A. Умножим i-ую строчку на \(\dfrac{1}{a_{ik_i}}\). А теперь давайте начиная с самой нижней строки будем производить э.п. для строк выше, чтобы аннулировать значения в столбце над лидером. 
+\end{proof}
+\begin{note}
+	Данный алгоритм приведения ступенчатой матрицы к упрощенному виду называется обратным ходом метода Гаусса.
+\end{note}
+\begin{definition}
+	2 системы линейных уравнений \(A_1X = b_1\) и \(A_2X = b_2\) называются называются эквивалентными, если они содержат одно и то же множество переменных и каждое решение 1 системы является решением второй и наоборот, каждое решение 2 системы является решением первой системы.
+\end{definition}
+\begin{theorem}
+	Если от СЛУ (\(A|b\)) перейти к СЛУ (\(A'|b'\)) с помощью конечного числа э.п. строк, то эти системы эквивалентны
+\end{theorem}
+\begin{proof}
+	Достаточно доказать для одного э.п. Тогда \(\exists Q: (A'|b') = (QA | Qb)\). V - множество решений СЛУ \((A|b)\), V' - множество решений СЛУ (\(A'|b'\))
+	\begin{enumerate}
+		\item \(V\subset V'\). \(X_0\in V\longrightarrow AX_0 = b | Q \Longrightarrow QAX_0 = Qb \Longrightarrow X_0\in V'\)
+		\item \(V'\subset V\)обратное включение тоже имеет место, так как от полученной системы можно вернуться к исходной за счет обратного преобразования.
+	\end{enumerate}
+\end{proof}
+% \subsection{Метод Гаусса}
+% \(AX = b, \Tilde A = (A|b)\) - расширенная матрица.\newline
+% Приведем матрицу \(\Tilde A\) к ступенчатому виду \(\Tilde A_{\text{ступ}}\)
+% \begin{enumerate}
+% 	\item В \(\Tilde A_{\text{ступ}}\) есть лидер в столбце свободных членов. В таком случае очевидно, что система несовместная, так как ЛК нулей не может давать ненулевой член.
+% 	\item В \(\Tilde A_{\text{ступ}}\) такого лидера нет. В этом случае СЛУ совместна. Пусть лидеры в \(\Tilde A_{\text{ступ}}\): \(a_{1k_1}, \ldots, a_{rk_r}\).
+% 	\begin{definition}
+% 		Неизвестные \(x_{k1}, x_{k_2}, \ldots, x_{k_n}\) назовем главными(базисными), а остальные - свободными(параметрическими).
+% 	\end{definition}
+% 	\(1\le k_1<k_2<\ldots<k_r\le n\).
+% 	\begin{enumerate}
+% 		\item Все неизвестные главные(свободных нет). Если все неизвестные главные, значит \(n = r\), тогда \(k_i = i\), лидеры будут \(a_{11}, a_{22}, \ldots, a_{nn}\). Тогда идя снизу наверх находя неизвестные, можно находить все корни уравнения однозначно, значит система совместная определенная.
+% 		\item Есть хотя бы одна свободная неизвестная. Совместная неопределенная.
+% 	\end{enumerate}
+% \end{enumerate}

@@ -1,0 +1,269 @@
+\begin{theorem}
+	(о характеризации прямой суммы подпространств) \newline
+	Пусть \(U_i\le V, i = 1, \ldots, k\), тогда эквивалентны следующие условия
+	\begin{enumerate}
+		\item \(U_1+\ldots+U_k = U_1\oplus\ldots\oplus U_k\)
+		\item \(\forall i\in\{1,\ldots, k\}U_i\cap(U_1+\ldots + \overset{\wedge}{U_i}+\ldots +U_k)=\{\vec 0\}\), в сумме \(U_i\) пропущено
+		\item \(U_1, U_2, \ldots, U_k\) - ЛнЗ
+		\item Объединение базисов \(U_i\) дает базис \(U_1+U_2+\ldots+U_k\).
+		\item $\sum_{i=1}^{k}\dim U_1 = \dim (U_1 + \ldots + U_k).$
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	По предыдущему следствию \(4\Longleftrightarrow5\). Будем доказывать \(1\Longrightarrow 2\Longrightarrow 3\Longrightarrow 4\Longrightarrow 1\)
+	\begin{enumerate}
+		\item \(1\Longrightarrow 2\). От противного. Пусть \(\exists \vec 0 \ne x \in U_i\cap(U_1+\ldots+\overset{\wedge}{U_i}+\ldots+U_k)\). Тогда \(x = \vec 0 + \vec 0 + \ldots + x + \ldots + \vec 0, x = x_1 + x_2 + \ldots + \underset{i}{\vec 0} + \ldots + x_k\), но тогда получаем, что разложения различные. Противоречие. 
+		\item  \(2\Longrightarrow 3\). От противного. \(\exists x_1, \ldots, x_k(x_i\in U_i)\), не все равные \(\vec 0\), что \(x_1 + \ldots + \underset{\ne \vec 0}{x_i} + \ldots+x_k = \vec 0\Longrightarrow x_i = -\sum_{j\ne i} = z\ne \vec 0, z\in U_i\cap(U_1 + \ldots + U_i + \ldots + U_k)\). Противоречие.
+		\item \(3\Longrightarrow 4\). Базис в \(U_i: e_{i1}, \ldots, e_{is_i}, \mathfrak{E} = (e_{ij})_{i,j}\) - хотим доказать, что это базис. Пусть \(\sum_{i,j}\lambda_{ij}e_{ij} = \vec 0 \Longrightarrow x_i = \sum_{j=1}^{s_i}\lambda_{ij}e_{ij}\in U_i\Longrightarrow \sum_{i,j}\lambda_{ij}e_{ij} = x_1 + x_2 + \ldots + x_k = \vec 0\). В силу ЛнЗ системы \(\forall i x_i = \vec 0\), то есть \(\vec 0 = \sum_{j}\lambda_{ij}e_{ij}\Longrightarrow \lambda_{ij} = 0 \forall j\Longrightarrow \)ЛнЗ \(\mathfrak{E}\). \(\forall x\in \sum_{i=1}^{k}U_i\Longrightarrow x = x_1 + x_2 + \ldots + x_k = \sum_{i,j}\lambda_{ij}e_{ij}\Longrightarrow \mathfrak{E}\) - базис.
+		\item \(4\Longrightarrow 1\). Базис в \(U_i: e_{i_1},\ldots, e_{is_i}\) и \(\mathfrak{E} = (e_{ij})_{i,j}\) - базис в \(U_1 + \ldots + U_k\). Пусть \(\exists x = x_1 + \ldots + x_k, x = x_1' + \ldots + x_2', (x_i, x_i')\in U_i\). По предположению это разложение различно, то есть \(\exists x_i\ne x_i'\Longrightarrow x\) раскладывается по базису \(\mathfrak{E}\) неоднозначно. То есть противоречие.
+	\end{enumerate}
+\end{proof}
+\begin{note}
+	Если \(U_1 + W = U_2 + W\not\Longrightarrow U_1 = U_2\). \(V + V = V, \{\vec 0\} + V = V,\) но \(V\ne \{\vec 0\}\)
+\end{note}
+\begin{note}
+	Если \(U_1\oplus W = U_2\oplus W \not \Longrightarrow U_1 = U_2\). Возьмем плоскость V и пересекающиеся прямые \(U_1, W, U_2\), тогда их попарная сумма дает всю плоскость, но прямые не равны. В любом случае \(U_1\cong U_2\), \(\dim U_1 + \dim W = \dim U_2 + \dim W \Longrightarrow \dim U_1 = \dim U_2 \Longrightarrow U_1\cong U_2\)
+\end{note}
+\begin{definition}
+	Пусть \(U_i\le V\) и \(V = U_1\oplus U_2 \oplus\ldots\oplus U_k\). Тогда говорят, что V разложено в прямую сумму подпространств \(U_i, i = 1, \ldots, k\), тогда и только тогда, когда  \newline
+	\(\underset{x}{V}\underset{=}{=}\underset{x_1}{U_1}\underset{+}{+}\ldots\underset{+}{+}\underset{x_k}{U_k}\), причем разложение на x единственное.(по предыдущей теореме условие 2 заменить на любое эквивалентное)
+\end{definition}
+\begin{definition}
+	В условии предположения определения компоненты \(x_i\in U_i\) имеют название \(x_i=pr_{U_i}x\) - называется проекцией вектора x на подпространство \(U_i\) параллельно \(U_1+\ldots + \overset{\wedge}{U_i}+\ldots + U_k\)
+\end{definition}
+\begin{note}
+	Проекции \(pr_{U_i}x\) зависит не только от \(U_i\), но и от оставшихся пространств. Очевидный случай в плоскости: так как на разные прямые будут даваться разные проекции.
+\end{note}
+\subsection{Прямое дополнение}
+\begin{definition}
+	Пусть \(U\le V\). Тогда \(W\) называется прямым дополнением к \(U\) в \(V\), если \(V = U\oplus W\).
+\end{definition}
+\begin{note}
+	Прямое дополнение вообще говоря не единственное.
+\end{note}
+\begin{theorem}
+	Для любого \(U\le V\) прямое дополнение существует
+\end{theorem}
+\begin{proof}
+	Пусть \(\dim v = n, \dim U = k\). Пусть \((e_1, \ldots, e_k)\) - Базис в \(U\). Пусть \(\mathfrak{E} = (e_1, \ldots, e_k, e_{k+1}, \ldots, e_n)\) - базис в V. Покажем, что \(W = <e_{k+1}, \ldots, e_n>\), так что \(V = U\oplus W\). \(x\in V: x = \sum_{i=1}^{n}x_ie_i= \underset{\in U}{(\sum_{i=1}^{k}x_ie_i)} + \underset{\in W}{\sum_{j = k+1}^{n}x_je_j}\Longrightarrow V = U + W\). В \(W(e_{k+1}, \ldots, e_n)\) - базис. Тогда по теореме о характеризации прямой суммы подпространств \(V = U \oplus W\). 
+\end{proof}
+\subsection{Вычисление обратной матрицы с помощью элементарных преобразований матрицы}
+\begin{proposition}
+	Пусть A - невырожденная матрица из \(GL_{n}(F)\). Если применяя э.п. строк к двойной матрице \((A|E)_{n\times 2n}\) преобразовать A к единичной, то при этом E преобразуется к \(A^{-1}\) 
+\end{proposition}
+\begin{proof}
+	Пусть имеются некоторые э.п. матрицы, тогда \(Q_k\cdot\ldots\cdot Q_1\cdot A = E | \cdot A^{-1}\) справа. Получаем, что \(Q_k\cdot\ldots\cdot Q_1 = E\cdot A^{-1} = A^{-1}\Longrightarrow Q_k\ldots Q_1(A|E) = (E| A^{-1})\).
+\end{proof}
+\begin{proposition}
+	Пусть \(\det A\ne 0\). Доказать \(A = \begin{pmatrix}
+		a & b \\ c & d
+	\end{pmatrix},\) то \(A^{-1} = \dfrac{1}{\det A}\begin{pmatrix}
+	d & - b \\ -c & a
+	\end{pmatrix}\)
+\end{proposition}
+\begin{theorem}
+	Пусть \(U, W\le V\). Тогда имеет место формула \(\dim (U+W) = \dim U + \dim W - \dim(U\cap W)\) - формула Грассмана(1844)
+\end{theorem}
+\begin{proof} 
+
+	Пусть \(\dim U\cap W = k, U\cap W \le W, \le V \Longrightarrow \dim U = k + l, l \ge 0, \dim W = k + m, m\ge 0\). 
+	
+	Тогда \(\dim(U+W) = (k+l) + (k+m) - k  = k + l + m\) - доказать. 
+	
+	Идея доказательства: построим базис в \(U+W\).
+	
+	
+	Пусть \(\mathfrak{E} = (e_1, \ldots, e_k)\) - базис \(U\cap W\). Достроим \(\mathfrak{E}\) до базиса подпространства U. 
+	
+	\((\mathfrak{E}, \mathfrak{F}) = (e_1, \ldots, e_k, f_1, \ldots, f_k)\) - базис в \(U\), \((\mathfrak{E}, \mathfrak{G}) = (e_1, \ldots, e_k, g_1, \ldots, g_k)\) - базис в \(W\).
+	
+	Покажем, что \((\mathfrak{E}, \mathfrak{F},\mathfrak{G})\) - базис в \(U+W\). Покажем, что она ЛнЗ. 
+	
+	Пусть \(\alpha_1 e_1 + \ldots + \alpha_k e_k + \ldots + \beta_1 f_1 + \ldots + \beta_lf_l + \gamma_1 g_1 + \ldots + \gamma_m g_m = \vec 0\Longrightarrow \\ \alpha_1 e_1 + \ldots + \alpha_k e_k + \ldots + \beta_1 f_1 + \ldots + \beta_lf_l = - \gamma_1 g_1 - \ldots - \gamma_m g_m = z \in U\cap W \Longrightarrow\\ z = z_1 e_1 + \ldots + z_k e_k = -\gamma_1g_1 - \ldots - \gamma_mg_m\Longrightarrow \\ z_1e_1 + \ldots + z_k e_k + \gamma_1 g_1 + \ldots + \gamma_m g_m = \vec 0 \Longrightarrow \\ \forall z_i = 0, \forall \gamma_j = 0 \Longrightarrow \\ \alpha_1 e_1 + \ldots + \alpha_k e_k + \beta_1f_1 + \ldots + \beta_lf_l = \vec 0 \Longrightarrow \\ \alpha_i = 0, \beta_k = 0\Longrightarrow (\mathfrak{E}, \mathfrak{F}, \mathfrak{G})\) - ЛнЗ.
+	
+	Покажем, что \(\forall x\in U+W\) раскладывается по \((\mathfrak{E}, \mathfrak{F}, \mathfrak{G})\). 
+	
+	\(x = \underset{\in U}{x_1}+\underset{\in W}{x_2} = \sum_{i=1}^{k}\lambda_ie_i  + \sum_{j=1}^{l}\mu_jf_j + \sum_{i=1}^{k}\nu_ie_i + \sum_{s=1}^{m}\eta_sg_s = \\ =\sum_{i=1}^{k}(\lambda_i+\nu_i)e_i + \sum_{j=1}^{l}\mu_jf_j + \sum_{s = 1}^{m}\eta_s g_s\Longrightarrow\) это БАЗИС.
+\end{proof}
+\begin{note}
+	\(|U\cup W| = |U| + |W| - |U\cap W|\)
+\end{note}
+Для большего числа пространств явной формулы суммы не существует.
+\subsection{Сопряженное пространство}
+V - линейное пространство над \(F, \dim V = n\)
+\begin{definition}
+	Линейной функцией(или линейным функционалом) называется функция \(f: V\to F\), если выполняются 2 условия. \begin{enumerate}
+		\item Аддитивность \(f(x_1+x_2) = f(x_1) + f(x_2)\) 
+		\item Однородность \(f(\lambda x) = \lambda f(x)\)
+	\end{enumerate}
+	Пусть \(V^{*}\) - множество всех линейных функционалов на V.
+\end{definition}
+\(\mathbb{F}(V,F)\) - множество всех функций на V со значением в F.
+\begin{definition}
+	\((f_1+f_2)(x) \overset{def}{\equiv} f_1(x) + f_2(x)\) - \("+"\) \newline
+	\((\lambda f)(x) = \lambda \cdot f(x), \lambda \in F\) - \("\cdot\lambda"\)
+\end{definition}
+\begin{exercise}
+	Проверить, что \(\mathbb{F}(V,F)\) - линейное пространство
+\end{exercise}
+\begin{proposition}
+	\(V^{*}\) является линейным пространством над F.
+\end{proposition}
+\begin{proof}
+	\(V^{*}\subset \mathbb{F}(V,F)\). Проверим замкнутость относительно операций. \(f_1, f_2 \in V^{*}\), проверим, что \(f_1+f_2\in V^{*}\). \((f_1+f_2)(x_1+x_2) \overset{def}{\equiv} f_1(x_1+x_2)+f_2(x_1+x_2) = f_1(x_1)+f_1(x_2)+f_2(x_1)+f_2(x_2) = \underbrace{f_1(x_1)+f_2(x_1)}+\underbrace{f_1(x_2)+f_2(x_2)}\overset{def}{\equiv} (f_1+f_2)(x_1)+ (f_1+f_2)(x_2)\). Проверим, что \((f_1+f_2)(\lambda x) = \lambda (f_1 + f_2)(x). (f_1+f_2)(\lambda x) \overset{def}{\equiv} f_1(\lambda x) + f_2(\lambda x)  = \lambda f_1(x) ++ \lambda f_2(x) = \lambda(f_1+f_2)(x)\). Доказать, что замкнутость относительное \("\cdot\lambda"\) выполняется.
+\end{proof}
+\section{Сопряженное пространство}
+V - линейное пространство над полем F. \(f: V\to F\) - линейный функционал.
+\begin{example}
+	\begin{enumerate}
+		\item Тривиальный: нулевой функционал: 0. \(O(x) = 0\).
+		\item \(V_3, \vec a\in V, f_{\vec a}(\vec x) = (\vec a, \vec x)\). \(f_{\vec a}(\vec x+ \vec y) = (\vec a, \vec x+ \vec y) = (\vec a, \vec x) + (\vec a, \vec y) = f_{\vec a}(\vec x) + f_{\vec a}(\vec x)\), однородность аналогично. То есть это линейный функционал.
+		\item \(f(\vec x) = (\vec x, \vec x)\) - не линейный функционал.
+		\item \(C^1(\mathbb{R})\) - пространство непрерывно дифференцированных функций. \(\alpha(f) = f'(x_0), x_0 \) - фиксировано. \(\alpha(f+g) = (f+g)'(x_0) = f'(x_0) + g'(x_0) = \alpha(f)+\alpha(g)\), однородность аналогично.
+		\item Но \(\alpha(f) = f'(x_0) + 1\) - не является линейный функционалом.
+		\item Пусть V - линейное пространство над F. Зафиксируем в этом пространстве базис \(x\underset{\mathfrak{E}}{\longleftrightarrow}\begin{pmatrix}
+			x_1 \\ \ldots \\ x_n
+		\end{pmatrix}\). Пусть \((\alpha_1,\ldots, \alpha_n)\) - строка, \(\alpha_i \in F\). \(\alpha(x) = (\alpha_1, \ldots, \alpha_n)\begin{pmatrix}
+		x_1 \\ \ldots \\ x_n
+		\end{pmatrix} = \sum_{i=1}^{n}\alpha_i x_i\). Тогда \(\alpha(x+y) = \alpha\cdot x + \alpha\cdot y = \alpha(x) + \alpha(y), \alpha(\lambda x) = \alpha \cdot\lambda\cdot x = \lambda\cdot\lambda\cdot x = \lambda \alpha(x)\) - линейный функционал. Называется линейной формой от координат вектора x.
+	\end{enumerate}
+\end{example}
+\begin{proposition}
+	Всякий линейный функционал на пространстве V, \(\dim V = n\) представим в виде линейной формы от координат вектора \(x\). При этом коэффициентами функционала являются значения функционала на базисных векторах.
+\end{proposition}
+\begin{proof}
+	\(\mathfrak{E} = (e_1, \ldots, e_n)\) - базис в V. \(x\underset{\mathfrak{E}}{\longleftrightarrow} \begin{pmatrix}
+		x_1 \\ \ldots \\ x_n
+	\end{pmatrix}, f(x) = f(\sum_{i = 1}^{n}x_ie_i) \overset{\text{линейность}}{=} \sum_{i=1}^{n}x_if(e_i)  = (f(e_1), \ldots, f(e_n))\begin{pmatrix}
+	x_1 \\ \ldots \\ x_n
+	\end{pmatrix}\). Линейный функционал однозначно определяется своими значениями на базисных векторах.
+\end{proof}
+Введем линейный формы пространства V, зависящие только от одной из координат вектора x. Введем базисные строки \((1, 0, \ldots, 0), \ldots, (0, 0, \ldots, 1), \epsilon_i(x) = (0, 0,\ldots, \underset{i}{1}, 0)\begin{pmatrix}
+	x_1 \\ \ldots \\ x_n
+\end{pmatrix} = x_i\) функционал сопоставляет вектору x его \(i\) координату
+\begin{proposition}
+	Функционалы \(\mathfrak{\epsilon} = (\epsilon_1, \ldots, \epsilon_n)\) - образуют базис в \(V^{*}\)
+\end{proposition}
+\begin{proof}
+	Проверим ЛнЗ. Пусть \(\sum_{j=1}^{n}\beta_j \epsilon_j = 0\), применим к \(e_i\). \(\sum_{j=1}^{n}\beta_j\epsilon_j(e_i) = \beta_i\epsilon(e_i) = \beta_i = 0 \forall i \Longrightarrow\epsilon\) - ЛнЗ система. \newline
+	Проверим, что всякий линейный функционал раскладывается по простейшим функционалам \(\epsilon_i\). \(f(x) = \sum_{i=1}^{n}f(e_i)x_i = \sum_{i=1}^{n}f(e_i)\epsilon_i(x) = (\sum_{i=1}^{n}f(e_i)\epsilon_i)(x)\Longrightarrow f = \sum_{i=1}^{n}f(e_i)\epsilon_i\).
+\end{proof}
+\begin{corollary}
+	Координаты фунционала f в базисе \(\epsilon\) равны значению функционала на базисных векторах. Отсюда следует, что построенный нами базис \(\epsilon\) зависит от базиса \(e\). Базис \(\mathfrak{\epsilon}\) в \(V^{*}\) называется биортогональным(двойственным/взаимным) базису \(\mathfrak{E}\) 
+\end{corollary}
+\begin{corollary}
+	Размерность \(\dim V^{*} = \dim V = n\).
+\end{corollary}
+\begin{note}
+	В отличие от записи базиса в пространстве V \(\mathfrak{E} = (e_1, \ldots, e_n)\) двойственный базис \(\mathfrak{\epsilon} = \begin{pmatrix}
+		\epsilon_i \\ \ldots \\ \epsilon_n
+	\end{pmatrix}\) принято записывать в столбец, а координаты записываются в строчку. \(f(\in V) = (f(e_1), \ldots, f(e_n))\begin{pmatrix}
+	\epsilon_1 \\ \ldots \\ \epsilon_n
+	\end{pmatrix}, f(x) = (f(e_1), \ldots, f(e_n))\begin{pmatrix}
+	\epsilon_1(x) \\ \ldots \\ \epsilon_n(x)
+	\end{pmatrix} = (f(e_1), \ldots, f(e_n))\begin{pmatrix}
+	x_1 \\ \ldots \\ x_n
+	\end{pmatrix} = \sum_{i=1}^{n}f(e_i)x_i\) - линейная форма от координат x. \(f = \alpha \cdot x = (\alpha_1, \ldots, \alpha_n)\begin{pmatrix}
+	x_1 \\ \ldots \\ x_n
+	\end{pmatrix}\). Но как изменится двойственный базис, если изменить базис в пространстве \(V\)?.
+\end{note}
+\begin{proposition}
+	Пусть в пространстве V выбраны 2 базиса \(\mathfrak{E}, \mathfrak{E}'\). Пусть \(\mathfrak{\epsilon}, \mathfrak{\epsilon}' \) - соответствующие им биортогональные базисы и \(S = S_{\mathfrak{E}\to\mathfrak{E}'}\). Тогда \(\begin{pmatrix}
+		\epsilon_1 \\ \ldots \\ \epsilon_n
+	\end{pmatrix} = S\begin{pmatrix}
+	\epsilon_1' \\ \ldots \\ \epsilon_n'
+	\end{pmatrix}\)
+\end{proposition}
+\begin{proof}
+	\(x\underset{\mathfrak{E}}{\longleftrightarrow}\alpha, x\underset{\mathfrak{E}'}{\longleftrightarrow}\alpha' \Longrightarrow \alpha = S\cdot \alpha'\). Тогда \(\begin{pmatrix}
+		\epsilon_1(x) \\ \ldots \\ \epsilon_n(x)
+	\end{pmatrix}=\begin{pmatrix}
+	\alpha_1 \\ \ldots \\ \alpha_n
+	\end{pmatrix} = S\cdot \alpha ' = S\cdot\begin{pmatrix}
+	\epsilon_1'(x) \\ \ldots \\ \epsilon_2'(x)
+	\end{pmatrix}\). Отбрасывая x получаем нужное равенство.
+\end{proof}
+Как изменится координата функционала f, если в сопряженном пространстве перейти к другому базису?
+\begin{corollary}
+	Если \(f \underset{\mathfrak{\epsilon}}{\longleftrightarrow}(f(e_1), \ldots, f(e_n))\), то \(f\underset{\mathfrak{\epsilon}'}{\longleftrightarrow}(f(e_1), \ldots, f(e_n))\cdot S\).\newline \(f = (f(e_1), \ldots, f(e_n))\begin{pmatrix}
+		\epsilon_1(x) \\ \ldots \\ \epsilon_n(x)
+	\end{pmatrix} = (f(e_1), \ldots, f(e_n))\cdot S\begin{pmatrix}
+	\epsilon_1'(x) \\ \ldots \\ \epsilon_n'(x)
+	\end{pmatrix}, f(x)= (f(e_1'), \ldots, f(e_n'))\begin{pmatrix}
+	\epsilon_1'(x) \\ \ldots \\ \epsilon_n'(x)
+	\end{pmatrix}\)
+\end{corollary}
+В отличии от векторов, коэффициенты линейных функционалом преобразуются в другом направлении. Чтобы получить координаты вектора в новом базисе нужно умножить на \(S^{-1}\), а в биортогональном базисе на \(S\)
+\subsection{Изоморфизм линейного пространства и второго сопряженного к нему}
+\begin{definition}
+	Пространство \((V^{*})^{*} = V^{**}\) называется вторым сопряженным к пространству V.
+\end{definition}
+\begin{theorem}
+	Пусть V - линейное пространство над F, \(V^{**}\) - второе сопряженное. Пусть \(\phi(x(\in V))=x^{**}, x^{**}(f) = f(x)\), тогда 
+	\begin{enumerate}
+		\item \(x^{**}\) является линейным функционалом на \(V^{*}\Longrightarrow x^{**}\in V^{**}\)
+		\item \(\phi:V\to V^{**}\) является изоморфизмом линейного пространства.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Докажем линейность \begin{enumerate}
+			\item Линейность. \(x^{**}(f_1+f_2) = (f_1+f_2)(x)  f_1(x) + f_2(x) = x^{**}(f) + x^{**}(f)\)
+			\item Однородность. \(x^{**}(\lambda f) = (\lambda f)(x) = \lambda f(x) = \lambda x^{**}(f)\)
+			
+			\end{enumerate}
+		\item Проверим, что сохраняется сложение. \(\phi(x+y)(f) = (x+y)^{**}(f) = f(x+y) = f(x)+f(y) = x^{**}(f) + y^{**}(f) = (x^{**}+y^{**})(f) = (\phi(x) + \phi(y))(f)\)
+		\item Сохранение умножения на \(\lambda\in F\). \(\phi(\lambda x)(f) = (\lambda x)^{**}(f) = f(\lambda x) = \lambda f(x) = \lambda x^{**}(f) = \lambda \phi(x)(f)\)
+		\item Проверим, что \(\phi\) переносит базис \(\mathfrak{E} = (e_1, \ldots, e_n)\) в базис \(\mathfrak{E}^{**} = (e_1^{**}, \ldots, e_n^{**})\in V^{**}\). Покажем, что \(\mathfrak{E}^{**}\) - биортогональный базис к \(\mathfrak{\epsilon}\). \(e_i^{**}(\epsilon_j) = \epsilon_j(e_i) = \left\{\begin{gathered}
+			1, if i = j \\ 
+			0, if i\ne j
+		\end{gathered}\right., e_i^{**}(f) = e_i^{**}(\sum_j \beta_j\epsilon_j) = \sum_j \beta_j e_i^{**}(\epsilon_j) = \beta_i\) - именно так определяется биортогональный базис. \(\phi(\sum \alpha_ie_i) = \sum \alpha_i e_i^{**} \Longrightarrow x^{**}\underset{\mathfrak{E}^{**}}{\longleftrightarrow}\begin{pmatrix}
+		\alpha_1 \\ \ldots \\ \alpha_n
+		\end{pmatrix}\). 
+	\end{enumerate}
+	В итоге мы доказали, что \(\phi\) взаимно отображает \(V\) в \(V^{**}\), так как в соответствующих базисах вектор не меняет свои координаты. То есть \(\phi\) биективно.
+\end{proof}
+\begin{corollary}
+	Всякий базис \(\begin{pmatrix}
+		f_1 \\ \ldots \\ f_n
+	\end{pmatrix}\) в пространстве V является двойственным некоторому базису в пространстве V.
+\end{corollary}
+\begin{proof}
+	\((V^{*})^{*} = V^{**}\), пусть \(e_1^{**}, \ldots, e_n^{**}\) биортогональный к базису \(\begin{pmatrix}
+	f_1 \\ \ldots \\f_n
+	\end{pmatrix}\). Тогда докажем, что \((e_1, \ldots, e_n)\) - искомый базис. \newline
+	\(f_i(e_j) = e_j^{**}(f_i) = \left\{\begin{gathered}
+		1, if i = j \\ 
+		0, if i\ne j
+	\end{gathered}\right.\). Тогда действительный базис \(\mathfrak{E}\) двойственен к \(\mathfrak{E}^{**}\)
+\end{proof}
+\subsection{Аннулятор пространств}
+\(V, V^{*}, \dim V = n\). Хотим построить соответствие, которое k-мерному подпространству V сопоставляет \(n-k\) мерное пространство в \(V^{*}\). \newline
+\begin{definition}
+	Пусть \(U\le V\). Аннулятором подпространства U называется множество \(U^o = \{f\in V^{*}| f(x) = 0 \forall x\in U\}\)
+\end{definition}
+\begin{definition}
+	Пусть \(W\le V^{*}\). Аннулятором подпространства \(W\) называется множество \(W^o = \{x\in V | f(x) = 0\forall f\in W\}\)
+\end{definition}
+\begin{note}
+	Если быть педантичным(как говорил Дашков, педанты это душнилы) \(W^o = \{X^{**}\in V^{**}|x^{**}(f) = 0\forall f\in W\}\), но у нас есть изоморфизм между \(V\) и \(V^{**}\)
+\end{note}
+% \begin{theorem}
+% 	(Об аннуляторе). \newline
+% 	\begin{enumerate}
+% 		\item \(\forall U\le V\Longrightarrow U^o \le V^{**}\)
+% 		\item \(\dim U^o = \dim V - \dim U\)
+% 	\end{enumerate}
+% \end{theorem}
+% \begin{proof}
+% 	\begin{enumerate}
+% 			\item Пусть \(f_1, f_2\in U^o\). Тогда \((f_1+f_2)(x(\in V)) = f_1(x) + f_2(x) = 0 + 0 = 0\) - \(f_1 + f_2\in U^o\)
+% 		\item \(\lambda\in F\), \((\lambda f_1)(x) = \lambda f_1(x) = \lambda\cdot 0 = 0\) - \(\lambda f_1\in U^o\).
+% 		\item \(\dim U = k. (e_1, \ldots, e_k)\) - базис \(U\). \((e_1, \ldots, e_k, e_{k+1}, \ldots, e_n)\) - базис V. Базисом в \(U^o\) будут \((\epsilon_{k+1}, \epsilon_n)\). Докажем это. 
+% 		\begin{enumerate}
+% 			\item Проверим ЛнЗ. Линейная независимость очевидна, так как это часть базиса \(\epsilon\)
+% 			\item Проверим \(1\le j\le k, k+1\le j\le n, \epsilon_j(e_i) = 0\Longrightarrow e_j(x) = 0\forall x\in U\Longrightarrow \epsilon_j\in U^o\). 
+% 			\item Пусть \(f\in U, f = \sum_{j=1}^{n}\beta_j\epsilon_j, f(e_i) = \sum_j \beta_j \epsilon_j(e_i) = \beta_i = 0 \forall i \in \{1,\ldots, k\} \Longrightarrow f = \sum_{j=k+1}^{n}\beta_j\epsilon_j\Longrightarrow \dim U^o = \dim V - \dim U\).
+% 		\end{enumerate}
+% 	\end{enumerate}
+% \end{proof}

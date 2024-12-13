@@ -1,0 +1,295 @@
+\begin{theorem}
+	(Об аннуляторе). \newline
+	\begin{enumerate}
+		\item \(\forall U\le V\Longrightarrow U^o \le V^{**}\)
+		\item \(\dim U^o = \dim V - \dim U\)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Пусть \(f_1, f_2\in U^o\). Тогда \((f_1+f_2)(x(\in V)) = f_1(x) + f_2(x) = 0 + 0 = 0\) - \(f_1 + f_2\in U^o\)
+		\item \(\lambda\in F\), \((\lambda f_1)(x) = \lambda f_1(x) = \lambda\cdot 0 = 0\) - \(\lambda f_1\in U^o\).
+		\item \(\dim U = k. (e_1, \ldots, e_k)\) - базис \(U\). \((e_1, \ldots, e_k, e_{k+1}, \ldots, e_n)\) - базис V. Базисом в \(U^o\) будут \((\epsilon_{k+1}, \epsilon_n)\). Докажем это. 
+		\begin{enumerate}
+			\item Проверим ЛнЗ. Линейная независимость очевидна, так как это часть базиса \(\epsilon\)
+			\item Проверим \(1\le j\le k, k+1\le j\le n, \epsilon_j(e_i) = 0\Longrightarrow e_j(x) = 0\forall x\in U\Longrightarrow \epsilon_j\in U^o\). 
+			\item Пусть \(f\in U, f = \sum_{j=1}^{n}\beta_j\epsilon_j, f(e_i) = \sum_j \beta_j \epsilon_j(e_i) = \beta_i = 0 \forall i \in \{1,\ldots, k\} \Longrightarrow f = \sum_{j=k+1}^{n}\beta_j\epsilon_j\Longrightarrow \dim U^o = \dim V - \dim U\).
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+Ну и тогда \(\dim W^o = \dim V^{*}-\dim W = \dim V - \dim W\).
+\begin{theorem}
+	(Свойство операции взятия аннулятора) \newline
+	\begin{enumerate}
+		\item \(U^{oo} = (U^o)^o = U\) - инволютивность операции \("o"\)
+		\item Если \(U\le U'\), то \((U')^o \le U^o\)
+		\item \(U = U' \Longleftrightarrow U^o = (U')^o\)
+		\item \((U+U')^o = U^o \cap (U')^o\)
+		\item \(U\cap U'^o = U^o + (U')^o\)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item \(\forall x\in U, \forall f\in U^o\Longrightarrow f(x) = 0 \Longrightarrow x \in U^{oo} \Longrightarrow U\le U^{oo}\). С другой стороны \(\dim (U^{oo}) = \dim V^{*} - \dim U^o = \dim V - (\dim V - \dim U) = \dim U\Longrightarrow U = U^{oo}\)
+		\item Пусть \(U\le U'\). Пусть \(f\in (U')^o \quad \forall x'\in U' \to f(x') = 0,\) тогда в частности \(\forall x \in U\to f(x) = 0 \Longrightarrow f\in U^o\).
+		\item \(U = U' \Longleftrightarrow \left\{\begin{gathered}
+			U\le U' \\ 
+			U'\le U
+		\end{gathered}\right.\Longleftrightarrow \left\{\begin{gathered}
+		(U')^o \le U^o \\
+		U^o \le (U')^o
+		\end{gathered}\right.\Longleftrightarrow U^o = (U')^o\)
+		\item \(\begin{cases*}
+			U \le U + U' \\
+			U' \le U + U'
+		\end{cases*}\Longrightarrow \begin{cases*}
+			(U+U')^o \le U^o \\
+			(U+U')^o \le (U')^o
+		\end{cases*}\Longrightarrow (U+U')^o \le U^o \cap (U')^o\). 
+		
+		Покажем обратное: \(f\in U^o \cap (U')^o \le (U+U')^o: \forall x\in U \to f(x) = 0, \forall x'\in U' \to f(x')=0, \forall x+x'\in U+U' \Longrightarrow f(x+x') = f(x) + f(x') = 0 + 0 = 0\Longrightarrow f\in (U+U')^o \)
+		\item Пусть \(W = U^o, W' = (U')^o\). По 4  \((W+W')^o = W^o\cap (W')^o = U^{oo}\cap (U')^{oo} = U\cap U'\). Применим \("o": (U\cap U')^o = (W+W')^{oo} = W+W' = U^o + (U')^o\).
+		\end{enumerate}
+\end{proof}
+\begin{corollary}
+	Каждое подпространство \(U\le V\) является аннулятором некоторого подпространства пространства \(V^*\)
+\end{corollary}
+\begin{proof}
+	Рассмотрим \(U^o\le V^*\), по свойству 1 \(U^{oo} = (U^o)^o = U\)
+\end{proof}
+\subsection{Применение аннуляторов для решения линейных уравнений}
+\begin{definition}
+	Пусть есть однородное линейное уравнение с n неизвестными \\ \((\alpha_1, \ldots, \alpha_n)\begin{pmatrix}
+	x_1 \\ x_2 \\ \ldots \\ x_n
+	\end{pmatrix} = 0, x\underset{\mathfrak{E}}{\longleftrightarrow} \begin{pmatrix}
+	x_1 \\ \ldots \\ x_n
+	\end{pmatrix},\text{где} \mathfrak{E}\) - базис в \(F^n\) и \((\alpha_1, \ldots, \alpha_n)\underset{\mathfrak{\epsilon}}{\longleftrightarrow} f\in (F^n)^*\). Тогда она принимает вид~\(f(x) = 0\). 
+	
+	Пусть есть ОСЛУ из m уравнений c n неизвестными. 
+	\(\left\{\begin{gathered}
+		f_1(x) = 0 \\ \ldots \\ f_n(x) = 0
+	\end{gathered}\right., f_i\longleftrightarrow A_{1*}(F^n)^{*}\). Пусть \(V = <f_1, \ldots, f_m>\le (F^n)^*: V^o \overset{def}{\equiv} = \{x\in F^n | f_i(x) = 0 \quad \forall i\in \{1,\ldots, n\}\}\). То есть аннулятор - это множество решений ОСЛУ. 
+	По утверждению о размерности аннулятора \(\dim V^o = \dim(F^n) - \dim V = n - \rk A\). Раньше мы доказывали, что \(\dim V_o = n - \rk A\).
+\end{definition}
+\begin{note}
+	Примем соглашение, что если аннулятор это множество решений системы линейных уравнений, то \("o"\) пишем снизу, то есть \(V_o\).
+\end{note}
+\begin{proposition}
+	Всякое подпространство \(U\le F^n\) является множеством решений некоторой ОСЛУ.
+\end{proposition}
+\begin{proof}
+	Пусть \(U^o\) - аннулятор \(U\), пусть \(f_1, \ldots, f_m\) - базис \(U^o\Longrightarrow U^o = <f_1, \ldots, f_n>\). \(U\overset{Th}{=} U^{oo} = <f_1, \ldots, f_m>_o\). \(x\in U\Longleftrightarrow \left\{\begin{gathered}
+		f_1(x) = 0 \\ \ldots \\ f_m(x) = 0
+	\end{gathered}\right.\)
+\end{proof}
+\begin{corollary}
+	Пусть \(U, U'\) - подпространства в \(F^n\), \(U = <f_1, \ldots, f_m>_o, U' = <g_1, \ldots, g_l>_o\). Тогда \(U\cap U' = <f_1, \ldots, f_m>_o\cap <g_1, \ldots, g_l>_o \overset{Th}{=} (<f_1, \ldots, f_m> + <g_1, \ldots, g_l>)_o = (<f_1,\ldots, f_m,g_1,\ldots, g_l>)_o\). И \(U+U' = <f_1,\ldots, f_m>_o + <g_1, \ldots, g_l>_o = (<f_1, \ldots, f_m>\cap <g_1, \ldots, g_l)_o\). То есть чтобы найти пересечение двух подпространств, каждое из которых записывается системой, то нужно уравнения из системы записать в общую систему. Чтобы найти алгебраическую сумму подпространств нужно пересечь соответствующие множества фунционалов сопряженного пространства, а затем решить получившуюся систему.
+\end{corollary}
+
+
+
+\section{Линейные отображения}
+
+\begin{definition}
+	Пусть \(V, W\) - два линейных пространства над одним и тем же полем F. Отображение \(\phi:V\to W\) называается линейным отображением, если оно удовлетворяет двум условиям 
+	\begin{enumerate}
+		\item \(\forall x_1, x_2\in V\to \phi(x_1+x_2) = \phi(x_1)+\phi(x_2)\)
+		\item \(\forall \lambda \in F, \forall x\in V\to \phi(\lambda x) = \lambda\phi(x)\).
+	\end{enumerate}
+	То есть оно линейно. \(\phi(V, +)\to(W, +)\) - гомоморфизм групп. По свойствам гомоморфизма \(\phi(\vec 0_V) = \vec 0_w, \phi(-a) = - \phi(a)\)
+\end{definition}
+\begin{proposition}
+	Пусть \(\phi:V\to W\) - линейное отображение. Тогда $\phi$ переводит Л.З. систему векторов в Л. З. 
+\end{proposition}
+\begin{proof}
+	Пусть \(x_1, \ldots, x_n\) - Л.З. Пусть \(\exists \lambda_1, \ldots, \lambda_n\) не все равны 0: \(\lambda_1x_1 + \ldots + \lambda_n x_n = \vec 0_V\). Применив $\phi$, получаем \(\sum_{i=1}^{n}\lambda_i\phi(x_i) = \vec 0_W\Longrightarrow \phi(x_1), \ldots, \phi(x_n)\) - Л. З.
+\end{proof}
+Верно ли, что всякая ЛнЗ система линейным отображением переводится в ЛнЗ?
+\begin{definition}
+	Линейное отображение $\phi:V\to V$ называется линейным оператором(или линейным преобразованием) пространства V.
+\end{definition}
+\begin{example}
+	\begin{enumerate}
+		\item Тривиальный \(\equiv\) Нулевое линейное отображение. \(0(x) = \vec 0, \forall x\in V\)
+		\item \(A\in M_{m\times n}(F), \phi: F^n \to F^m, \phi(x) = \underset{m\times n}{A}\cdot \underset{n\times1}{x} = y \in M_{m\in 1} \cong F^m\). \(\phi(x_1+x_2) = A(x_1 + x_2) = Ax_1 + Ax_2 = \phi(x_1) + \phi(x_2)\). Однородность ещё проще
+		\item  \(A'\) фиксированная. \(Ax = 0, \phi(V_0) = \vec 0\in F^m, \phi|_{V_0} = 0\).
+		\item \(V = U_1\oplus U_2, x \in V, x_1\in U_1, x_2\in U_2\). \(P_1:V\to U_1, P_1(x) = \pr_{U_1}x = x_1\) - линейное отображение. \(x = x_1 + x_2, y = y_1 + y_2\Longrightarrow x+y = \underset{\in U_1}{(x_1+y_1)} + \underset{\in U_2}{(x_2+y_2)} \Longrightarrow P_1(x+y) = P_1(x) + P_1(y)\). Однородность ещё проще.
+		\item \(\phi = \dfrac{d}{dx}, \phi:R_n[x]\to R_{n-1}[x]\). \(\phi(f_1+f_2) = \dfrac{d(f_1+f_2)}{dx} = \dfrac{df_1}{dx}+\dfrac{df_2}{dx} = \phi(f_1)+\phi(f_2)\). Однородность ещё проще.
+	\end{enumerate}
+\end{example}
+\begin{theorem}
+	(О линейном отображении, переводящем базис в данные векторы). 
+	Пусть \(\mathfrak{E} = (e_1, \ldots, e_n)\) - базис в V, \(\mathfrak{F} = (f_1, \ldots, f_n)\) - произвольные векторы пространства W. Тогда \(\exists !\) линейное отображение \(\phi:V\to W, \phi(e_i) = f_i, \forall i = \{1,\ldots, n\}\)
+\end{theorem}
+\begin{proof}
+	Пусть \(x\in V = \sum_{i=1}^{n}x_ie_i, \phi(x) = \phi(\sum_{i=1}^{n}x_ie_i)=\sum_{i=1}^{n}x_i\phi(e_i) = \sum_{i=1}^{n}x_if_i\in W\). Построенное нами отображение $\phi$ в линейной комбинации векторы \(e_i\) на \(f_i\). Из этого равенства следует не более, чем единственность искомого отображения. Проверим, что отображение $\phi$ - линейно. \(x = \sum_{i=1}^{n}x_ie_i, y = \sum_{i=1}^{n}y_ie_i, x+y = \sum_{i=1}^{n}(x_i+y_i)e_i\Longrightarrow \phi(x+y) = \sum_{i=1}^{n}(x_i+y_i)f_i = \sum_{i=1}^{n}x_if_i + \sum_{i=1}^{n}y_if_i = \phi(x) + \phi(y), \phi(\lambda x) = \phi(\sum_{i=1}^{n}\lambda_ix_ie_i) = \sum_{i=1}^{n}\lambda_ix_if_i = \lambda \phi(x)\).
+\end{proof}
+\subsection{Образы и прообразы подпространства}
+\(\phi: V\to W\) - линейное отображение. \(U\le V\)
+\begin{definition}
+	Образом подпространства U под действием $\phi$ называется множество $\phi(U) = \{\phi(x) | x\in U\}$
+\end{definition}
+\begin{definition}
+	Пусть \(F\le W\), прообразом F под действием $\phi$ называется множество \(\phi^{-1}(F) = \{x\in V | \phi(x)\in F\}\)
+\end{definition}
+\begin{proposition}
+	Образ и прообраз под действием линейного отображения $\phi:V\to W$ сами являются подпространствами в соответствующих пространствах.
+\end{proposition}
+\begin{proof}
+	Хотим $\phi(U)\le W$
+	\begin{enumerate}
+		\item Замкнутость сложения: \(y_1, y_2 \in \phi(U)\Longrightarrow \exists x_1,x_2\in U: \phi(x_1) = y_1, \phi(x_2) = y_2:\phi(x_1) + \phi(x_2) = y_1+y_2\in \phi(U)\)
+		\item $\phi^{-1}(F)\le V$. Пусть \(x_1,x_2\in \phi^{-1}(F)\Longrightarrow \phi(x_1) = y_1\in F, \phi(x_2) = y_2\in F\Longrightarrow \phi(x_1+x_2) = y_1 + y_2 \in F\Longrightarrow x_1+x_2\in \phi^{-1}(F)\)
+	\end{enumerate}
+\end{proof}
+\begin{definition}
+	Пусть \(\phi:V\to W\) - линейное отображение. Тогда образом отображения $\phi$ называется подпространство $\phi(V)\le W$. Обозначение для образа отображения: \(\im \phi(image - \text{образ})\)
+\end{definition}
+\begin{definition}
+	\(\phi:V\to W\) - линейное отображение. Тогда \(\phi^{-1}({\vec 0_W})\) называется ядром отображения $\phi$. \(\ker \phi\). Что равносильно \(\ker \phi = \{x\in V|\phi(x)=\vec 0_W\}\)
+\end{definition}
+\begin{proposition}
+	Линейное отображение \(\phi:V\to W\) инъективно \(\Longleftrightarrow \ker \phi = \{\vec 0\}\). То есть ядро тривиальное.
+\end{proposition}
+\begin{proof}
+	Необходимость. Пусть $\phi$ инъективно. Тогда \(\forall x\ne\vec 0\) будет верно, что \(\phi(x)\ne \phi(\vec 0) = \vec 0\Longrightarrow \ker \phi \) тривиально, так как любой ненулевой вектор \(x\) не принадлежит ядру. \newline
+	Достаточность. Пусть известно, что ядро тривиально. Докажем, что $\phi$ инъективно. От противного. Пусть найдутся \(x_1, x_2\in V: x_1\ne x_2, \phi(x_1)= \phi(x_2)\Longrightarrow \phi(x_1-x_2)=\vec 0\), но \(x_1-x_2\ne 0\), то есть $\ker\phi$ не тривиальное. Противоречие.
+\end{proof}
+\begin{corollary}
+	Пусть $\phi:V\to W$ - линейное отображение и $\phi$ удовлетворяет одному из двух эквивалентных условий этого утверждения. Тогда $\phi$ переводит всякую ЛнЗ систему в ЛнЗ. 
+\end{corollary}
+\begin{proof}
+	Пусть \(x_1, \ldots, x_n\) - ЛнЗ. Возьмем \(\phi(x_1), \ldots, \phi(x_n)\). От противного, пусть эта система ЛЗ. Тогда существует нетривильная ЛК: \(\lambda_1\phi(x_1) + \ldots \lambda_n\phi(x_n) = 0 \Longrightarrow \phi(\lambda_1x_1+\ldots+\lambda_nx_n)=\vec 0\). Так как ЛК нетривиальная, то аргумент будет ненулевым. Но тогда ненулевой вектор принадлежит \(\ker \phi\). Но мы сказали, что $\phi$ тривиально. Противоречие.
+\end{proof}
+\begin{theorem}
+	(Теорема о гомоморфизме для линейных пространств) \newline
+	Пусть $\phi:V\to W$ - линейное отображение. Пусть \(V = \ker\phi \oplus U\), тогда $\exists$ канонический изоморфизм пространства U на \(\im \phi\). Более точно, если \(\phi|_{U}:U\to \im\phi\) является изоморфизмом.
+\end{theorem}
+\begin{proof}
+	\(\phi(U)\le \im \phi \) и $\phi$ - линейное отображение. Проверим, что $\phi$ - инъективно. \(\ker(\phi_U) = \ker\phi\cap U = \{\vec 0\}\) - по теореме о характеристике прямой суммы. Проверим сюръективнось. \(\im\phi\overset{def}{\equiv} \phi(V) = \phi(\ker\phi\oplus U) = \phi(\ker\phi) + \phi(U) = \phi(U)\) - отсюда следует сюръективность \(\phi|_U:U\to \im\phi\)
+\end{proof}
+\begin{theorem}
+	(О ядре и образе линейного отображения) \newline
+	Пусть \(\phi:U\to W\) - линейное отображение. Тогда справедливо равенство: \(\dim \ker\phi + \dim\im \phi = \dim V\).
+\end{theorem}
+\begin{proof}
+	Пусть, как в предыдущей теореме, \(U = \ker\phi\oplus U, \phi|_U: U\to \im \phi\Longrightarrow \dim U = \dim \im \phi\Longrightarrow\) по теореме о характеризации прямой суммы \(\dim U = \dim \ker\phi+\dim\im\phi\). 
+\end{proof}
+\begin{note}
+	Верно ли, что если $\phi:V\to V$, то \(V = \ker\phi\oplus\im\phi\)? Нет.
+\end{note}
+\subsection{Матрица линейного отображения}
+\begin{definition}
+	\(\phi: V\to W\).
+	
+	Пусть \(\mathfrak{E} = (e_1, \ldots, e_n)\) - базис в V. \(\mathfrak{F} = (f_1,\ldots, f_n)\) - базис в W. 
+	
+	\[\begin{cases*}
+		\phi(e_1)(\in W) = a_{11}f_1 + \ldots + a_{m1}f_m \\
+		\phi(e_2) = a_{12}f_1+\ldots+a_{m2}f_m\\
+		\ldots \\
+		\phi(e_n) = a_{1n}f_1 + \ldots + a_{mn}f_m 
+	\end{cases*}\]
+	
+	Возьмем \(A_\phi = \begin{pmatrix}
+		a_{11} & a_{12} & \ldots & a_{1n}\\
+		a_{21} & a_{22} & \ldots & a_{2n}\\
+		\vdots & \ldots & \ldots & \ldots\\
+		a_{m1} & a_{m2} & \ldots & a_{mn}
+	\end{pmatrix}\in M_{m\times n}(F)\). 
+	
+	\(\begin{pmatrix}
+		\phi(e_1) \\ 
+		\phi(e_2) \\ 
+		\ldots \\
+		 \phi(e_n)
+	\end{pmatrix} = A_\phi^T\cdot\begin{pmatrix}
+	f_1 \\ \ldots \\ f_n
+	\end{pmatrix}\Longrightarrow (\phi(e_1), \ldots, \phi(e_n)) = (f_1, \ldots, f_n)\cdot A\Longrightarrow \phi(\mathfrak{E}) = \mathfrak{F}\cdot A_\phi\). 
+	
+	Матрица \(A_\phi\) называется матрицей линейного отображения $\phi$ относительно базисов \(\mathfrak{E}\)~и~\(\mathfrak{F}\). Пишут \(\phi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow}A_\phi\).
+\end{definition}
+\begin{proposition}
+	\(\phi:V\to W\). Пусть \(\mathfrak{E}\) - базис в \(V_1, \mathfrak{F}\) - базис в W, \(\phi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow}A_\phi, \\ x(\in V)\underset{\mathfrak{E}}{\longleftrightarrow}\alpha, \phi(x)\underset{\mathfrak{F}}{\longleftrightarrow}\beta\). Тогда \(\beta = A_\phi\cdot\alpha\).
+\end{proposition}
+\begin{proof}
+	По условию \(\phi(\mathfrak{E}) = \mathfrak{F}\cdot A_\phi, x = \mathfrak{E}\cdot\alpha, \phi(x) = \mathfrak{F}\cdot\beta\). Применяя $\phi: \phi(x) = \phi(\mathfrak{E}\cdot\alpha) \overset{\text{линейность}}{=} \phi(\mathfrak{E})\alpha = \mathfrak{F}\cdot A_\phi\cdot\alpha$. Вывод: Чтобы найти координаты любого вектора под действием отображения $\phi$ достаточно матрицу линейного отображения домножить на координаты образа.
+\end{proof}
+
+
+\subsection{Операции над линейными отображениями}
+Пусть $\mathfrak{L}(V, W)$ - множество всех линейных отображений из \(V\) в \(W\).(В англоязычной литературе \(Hom(V, W)\)). 
+
+Пусть \(\phi, \psi\in \mathfrak{L}(V, W): (\phi+\psi)(x) = \phi(x) + \psi(x), \quad \lambda\in F: (\lambda \phi)(x) = \lambda\cdot(\phi(x))\). 
+
+Проверка аддитивности: \((\phi+\psi)(x+y) = \phi(x+y)+\psi(x+y) = \phi(x)+\phi(y) + \psi(x) + \psi(y) = \phi(x) + \psi(x) + \phi(y) + \psi(y) = (\phi + \psi)(x) + (\phi + \psi)(y)\).
+
+Остальное легко проверить. В том числе, что \(\mathfrak{L}(V, W)\) само является линейным пространством относительно введенных операций.
+В качестве нулевого вектора в пространстве выступает нулевое отображение.
+\begin{proposition}
+	Соответствие $\phi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow} A_\phi$ является изоморфизмом пространства  \(\mathfrak{L}(V, W)\) на пространство матриц \(M_{m\times n}(F)\).
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item Проверим сохранение операций сложения. 
+		
+		\((\phi + \psi)(\mathfrak{E}) = ((\phi+\psi)(e_1)+\ldots + (\phi+\psi)(e_n))\overset{def}{\equiv} (\phi(e_1)+\psi(e_1)+\ldots + \phi(e_n)+\psi(e_n)) = (\phi(e_1) + \ldots + \phi(e_n)+(\psi(e_1)+\ldots + \psi(e_n))) = \mathfrak{F}\cdot A_\phi + \mathfrak{F}\cdot A_\phi = \mathfrak{F}(A_\phi + A_\psi) \)
+		\item Однородность также просто проверить
+		\item Проверим биективность. Инъективность вытекает из того, что только 0(нулевое линейное отображение) имеет нулевую матрицу. Сюръективность выполняется, так как базис переходит в базис, то есть \(\forall A\in M_{m\times n}(F) \exists\) единственное линейное отображение со столбцом вида \(\phi(e_1), \ldots, \phi(e_n)\)
+	\end{enumerate}
+\end{proof}
+\begin{corollary}
+	\(\dim \mathfrak{L}(V, W) = \dim M_{m\times n} = mn = \dim W\cdot\dim V\)
+\end{corollary}
+
+
+\subsection{Ранг линейного отображения}
+\begin{definition}
+	\(\phi:V\to W\) - линейное отображение. Рангом \(\phi(\rk \phi)\) называется размерность пространства \(\im \phi\).
+\end{definition}
+\begin{theorem}
+	Пусть \(\phi:V\to W\) - линейное отображение. Тогда \(\rk \phi\) равен \(\rk A_\phi\) независимо от того, относительно каких базисов строится матрица \(A_\phi\).
+\end{theorem}
+\begin{proof}
+	Вспомогательное равенство \(\im\phi = <\phi(e_1), \ldots, \phi(e_n)>, \mathfrak{E}\) - базис V. \(\forall i \quad \phi(e_i)\in\im\phi\Longrightarrow \supseteq\). 
+	
+	\(\subseteq:\) Пусть \(y\in \im\phi\). Тогда \(\exists x\in V: y = \phi(x) = \phi(\sum_i x_ie_i) = \sum_i x_i\phi(e_i)\in <\phi(e_1), \ldots \phi(e_n)>\). \(\rk \phi = \dim \im\phi = \dim <\phi(e_1), \ldots, \phi(e_n) = \rk A_\phi\).
+\end{proof}
+\subsection{Изменение матрицы отображения при замене базиса}
+\begin{theorem}
+	Пусть \(\phi: V\to W\) - линейное отображение. Пусть \(\mathfrak{E}, \mathfrak{E}'\) - Базисы в V, \(\mathfrak{E}' = \mathfrak{E}\cdot S = S_{\mathbb{E}\to\mathfrak{E}'}\), \(\mathfrak{F}, \mathfrak{F}'\) - базисы в W, \(\mathbb{F}' = \mathfrak{F}\cdot T\). Пусть \(\phi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow}A_\phi, \phi\underset{\mathfrak{E}', \mathfrak{F}'}{\longleftrightarrow}A_\phi' \). Тогда \(A_\phi' = T^{-1}\cdot A_\phi\cdot S\)
+\end{theorem}
+\begin{proof}
+	\(\phi(\mathfrak{E}) = \mathfrak{F}\cdot A_\phi, \phi(\mathfrak{E}') = \mathfrak{F}'A_\phi'\), \(\mathfrak{F} = \mathfrak{F}'\cdot T^{-1}\). \(\phi(\mathfrak{E}') = \phi(\mathfrak{E}\cdot S) = \phi(\mathfrak{E})\cdot S = \mathfrak{F}\cdot A_\phi\cdot S = \mathfrak{F}'\cdot T^{-1}\cdot A_\phi \cdot S\Longrightarrow A_\phi' = T^{-1}\cdot A_\phi\cdot S\)
+\end{proof}
+\begin{corollary}
+	Пусть \(T, S\) - невырожденные квадратные матрицы, такие что \(T^{-1}\cdot A\cdot S\) - имеет смысл, тогда \(\rk T^{-1}AS = \rk A\). То есть ранг матрицы не меняется, если её домножить слева и справа на произвольные невырожденные матрицы
+\end{corollary}
+\begin{proof}
+	\(A = A_\phi, \phi:V\to W: \rk(A)_{\mathfrak{E}, \mathfrak{F}} = \rk (T^{-1}A_\phi S)_{\mathfrak{E}', \mathfrak{F}'}\).
+\end{proof}
+Вопрос: К какому наиболее простому виду можно привести матрицу линейного отображения подходящей заменой базиса? К единичному диагональному виду.
+\begin{theorem}
+	Пусть \(\phi: V\to W\) - линейное отображение. Тогда в V и W \(\exists\) такие базисы \(\mathfrak{E}, \mathfrak{F}\), так что \(\phi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow} = \begin{pmatrix}
+		E_r & 0 \\ 0 & 0
+	\end{pmatrix}, r = \rk \phi\). 
+\end{theorem}
+\begin{proof}
+	Пусть \(V = U\oplus \ker \phi, U\) - прямое дополнение к $\ker\phi$. \(\phi|_U: U\to \im \phi\) - изоморфизм, \(\dim\im\phi = \rk \phi \Longrightarrow \dim U = \rk \phi = r\). 
+	Выберем в пространстве V базис, согласованный с разложением в прямую сумму. 
+	\(e_1, \ldots, e_r\) - Базис U, \(e_{r+1}, \ldots, e_n\) - базис в \(\ker\phi\), \(f_i = \phi_i\) - базис в \(\im\phi\).
+	 И дополнием до базиса в W. Покажем, что \(\mathfrak{E}, \mathfrak{F}\) - искомый базис. 
+	 \(\begin{cases*} 
+		\phi(e_1) = f_1 = 1\cdot f_1 + 0\cdot f_2 + \ldots + 0\cdot f_n, \\
+		\ldots,\\
+		\phi(e_r) = f_r = 0\cdot f_1 + \ldots + 1\cdot f_r + \ldots + 0\cdot f_n, 
+		\phi(e_{r+j}) = \vec 0 
+	\end{cases*}\)
+
+	\(\forall j>0\Longrightarrow \phi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow} \begin{pmatrix}
+		1 & 0 & 0 & 0000 \\
+		0 & 1 & 0 & 0000\\
+		0 & 0 & 1 & 0000 \\
+		0 & 0 & 0 & 0000 \\
+	\end{pmatrix}\).
+\end{proof}

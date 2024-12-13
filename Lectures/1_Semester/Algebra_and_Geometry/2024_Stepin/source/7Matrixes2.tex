@@ -1,0 +1,195 @@
+\section{Применение рангов матриц}
+\begin{definition}
+	Рангом матрицы по минорам называется максимальный порядок среди порядков всех невырожденных миноров матрицы. \(\rk_MA\)
+\end{definition}
+\begin{theorem}
+	(Теорема Фробениуса). \newline
+	Для любой матрицы A выполняется: \(\rk_rA=\rk_cA = \rk_MA\).
+\end{theorem}
+АНОНС. Минор является невырожденным тогда и только тогда, когда его определитель отличен от 0.\newline
+\begin{definition}
+	Матрица F называется фундаментальной матрицей для системы \(AX=0\), если по столбцам этой матрицы располагаются координатные столбцы базиса в пространстве \(V_0\) - пространство решений \(AX=0\) $\Longleftrightarrow$
+	\begin{enumerate}
+		\item \(AF = 0\)
+		\item Столбцы F - ЛнЗ
+		\item Каждое решение \(X_0\) однородной системы \(AX=0\) является ЛК столбцов матрицы F.
+	\end{enumerate}
+	Если система \(AX=0\) имеет только тривиальное нулевое решение, то говорят, что фундаментальной матрицы не существует.
+\end{definition}
+Вернемся к методу Гаусса, а именно в пункт 2.(b). \(A_{n\times n}, \rk A = r\), r - главных неизвестных, \(n-r=d\) - число свободных неизвестных. Б.О.О. будем считать \(x_1, \ldots, x_r\) - главные, \(x_{r+1}, \ldots, x_n\) - свободные. \newline
+\(AX = 0 \Longleftrightarrow (\underset{\text{упрощ. вид}}{E_r}|D)X = 0\), где \(D\in M_{r\times d}\)
+\begin{theorem}
+	Для однородной системы \((E_r|D)X=0\) фундаментальная матрица имеет вид \(F = \begin{pmatrix}
+	-D \\ E_d
+	\end{pmatrix}\)
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item \(AF = (E_r|D)\cdot\begin{pmatrix}
+			-D \\ E_d
+		\end{pmatrix} = E_r\cdot(-D)+D\cdot E_d = -D + D = 0\)
+		\item \(F\begin{pmatrix}
+			\lambda_1 \\ \lambda_2 \\ \ldots \\ \lambda_d
+		\end{pmatrix} = \begin{pmatrix}
+		-D \\ E_d
+		\end{pmatrix}\cdot \begin{pmatrix}
+		\lambda_1 \\ \lambda_2 \\ \ldots \\ \lambda_d
+		\end{pmatrix} = \begin{pmatrix}
+		* \\ \ldots \\ \lambda_1 \\ \ldots \\ \lambda_d
+		\end{pmatrix}\Longrightarrow \lambda_1 = \ldots = \lambda_d = 0\), если ЛК равна 0.
+		\item Возьмем \(X_0\in V_0\) - произвольное решение. \(X_0 = \begin{pmatrix}
+			* \\ \ldots \\ x_1 \\ \ldots \\ x_d
+		\end{pmatrix}, Y_0(\in V_0) = F\begin{pmatrix}
+		x_1 \\ \ldots \\ x_n
+		\end{pmatrix} = \begin{pmatrix}
+		-D \\ E_d
+		\end{pmatrix}\begin{pmatrix}
+		* \\ \ldots \\ x_1 \\ \ldots \\ x_d
+		\end{pmatrix} = \begin{pmatrix}
+		* \\ \ldots \\ x_1 \\ \ldots \\ x_d 
+		\end{pmatrix}\Longrightarrow Y_0 = X_0\), так как главные члены определяются по свободным однозначно.
+	\end{enumerate}
+
+\end{proof}
+\begin{corollary}
+	\(\dim V_0 = d = n - r = n - \rk A\)
+\end{corollary}
+\begin{theorem}
+	(Кронекера-Капелли). \newline
+	СЛУ \(AX = b\) является совместной тогда и только тогда, когда \(\rk A = \rk \Tilde A = \rk (A|b)\)
+\end{theorem}
+\begin{proof}
+	Приведем \((A|b)\) к ступенчатому виду. Система совместна $\Longleftrightarrow$ нет лидера в столбце свободных членов $\Longleftrightarrow$ \(\rk A = \rk A_{\text{ступ.}} = \rk \Tilde A_{\text{ступ.}} = \rk \Tilde A\)
+\end{proof}
+\begin{theorem}
+	(Критерий определенности совместной СЛУ). \newline
+	Совместная СЛУ \(AX= b, A\in M_{m\times n}\) называется определенной тогда и только тогда, когда \(\rk A = n=\)число неизвестных.
+\end{theorem}
+\begin{proof}
+	По Гаусса совместная система линейных уравнений является определенной тогда и только тогда, когда все неизвестные главные, то есть число лидеров\(=\rk A = n\).
+\end{proof}
+\begin{theorem}
+	Пусть \(C = AB\), тогда \(\rk C\le \rk A\) и \(\rk C\le \rk B\)
+\end{theorem}
+\begin{proof}
+	\(i\underset{C}{(\qquad)} = (a_{i_1}\ldots a_{1n})B\Longrightarrow \)i-ая строка C является ЛК строк B. \(\Longrightarrow rowsp(C)\subset rowsp(B)\Longrightarrow \rk C\le \rk B\), и аналогично \(colsp(C)\subset colsp(A)\Longrightarrow \rk C\le \rk A\)
+\end{proof}
+\begin{corollary}
+	\(C = A_1\cdot A_2\cdot\ldots\cdot A_n, \rk C\le \rk A_i, \forall i: 1\le i \le n\)
+\end{corollary}
+\subsection{Применение рангов для исследования квадратной матрицы на обратимость}
+\begin{definition}
+	\(A\in M_n(F)\). A называется обратимой, если \(\exists A^{-1}\in M_n(F)\), так что \(A^{-1}\cdot A = A\cdot A^{-1}=E=E_n\)
+\end{definition}
+\begin{definition}
+	Матрица A называется обратимой слева, если \(\exists B\in M_n(F): B\cdot A = E\)
+\end{definition}
+\begin{definition}
+	Матрица A называется обратимой справа, если \(\exists B\in M_n(F): A\cdot B = E\)
+\end{definition}
+\begin{theorem}
+	(об обратной матрице) \newline
+	Следующие условия на матрицу A эквивалентны 
+	\begin{enumerate}
+		\item A обратима 
+		\item A обратима слева/справа
+		\item A невырожденная
+		\item A приводится к единичной матрице с помощью э.п. одних только строк (столбцов)
+		\item A представимо в виде произведения элементарных матриц.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Докажем в таком порядке: \(1\to 2, 2\to 3, 3\to 4, 4\to 5, 5\to 1\)
+	\begin{enumerate}
+		\item \(1\to 2\) очевидно.
+		\item \(2\to 3\). Пусть \(B\cdot A = E, n = \rk E \le \rk A\le n\Longrightarrow A\)-невырожденная.
+		\item \(3\to 4\). Приведем невырожденную матрицу к упрощенному виду, тогда \(A\to A_{\text{упр}} = E_n\). \(Q_k\cdot\ldots\cdot Q_1\cdot A^T = E \overset{T}{\to}A\cdot Q_1^T\cdot\ldots\cdot Q_k^T = E\), то есть матрицу можно и с помощью только столбцов привести к нужному виду
+		\item \(4\to 5\). \(Q_k\cdot \ldots\cdot Q_1\cdot A =  E\). Домножим слева на \(Q_1^{-1}\cdot\ldots\cdot Q_k^{-1}\), тогда \(A = Q_1^{-1}\cdot\ldots\cdot Q_k^{-1}\).
+		\item \(5\to 1\). \(A = T_1 \cdot \ldots \cdot T_k \longrightarrow A^{-1} = T_k^{-1}\cdot\ldots\cdot T_1^{-1}: A\cdot A^{-1} = A^{-1}\cdot A = E\)
+	\end{enumerate}
+\end{proof}
+\begin{corollary}
+	Вырожденные квадратные матрицы - необратимы.
+\end{corollary}
+\begin{corollary}
+	Произведение двух невырожденных матриц невырожденна. \newline 
+	\(\left\{\begin{gathered}
+		A = Q_1 \cdot \ldots \cdot Q_s \\
+		B = T_1 \cdot \ldots \cdot T_k
+	\end{gathered}\right. \Longrightarrow AB = Q_1 \cdot\ldots\cdot Q_s\cdot T_1\cdot\ldots\cdot T_k\Longrightarrow AB\) - невырожденная.
+\end{corollary}
+\begin{corollary}
+	Множество всех невырожденных квадратных матриц \(n\times n\) образует группу по умножению. Обозначается \(\GL_n(F)\) - General Linear Group.
+\end{corollary}
+\begin{proof}
+	Умножение определено из предыдущего следствия. Ассоциативность выполняется. \(E\) - невырожденная. Обратная к невырожденной сама невырожденная.
+\end{proof}
+\section{Операции над подпространствами}
+Пусть V - конечномерное линейное пространство. Пусть \(U\le V, W\le V\)
+\begin{definition}
+	Пересечением подпространств \(U, W\) называется множество \(U\cap W = \{x\in V | x\in U \wedge x\in W\}\)
+\end{definition}
+\begin{proposition}
+	\(U\cap W\le V\) - доказать самостоятельно(очевидно доказывается по критерию).
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \(x\in U\cap W, y \in U\cap W \Longleftrightarrow x\in U, x\in W, y\in Y, y\in W\Longrightarrow x+y\in U, x+y\in W\Longleftrightarrow x+y\in U\cap W\)
+		\item Умножение на $\lambda$ аналогично.	
+	\end{enumerate}
+\end{proof}
+\begin{note}
+	Объединение подпространств подпространством в общем случае не является. Например возьмем плоскость и оси координат, являющиеся \(U, W\). Но объединение подпространств не выполняет замкнутость относительно сложения(Если взять вектора сонаправленные с осями, то их сумма в общем случае не лежит на осях).
+\end{note}
+\begin{definition}
+	Алгебраической суммой подпространств \(U\le V, W\le V\) называется \(U+W = \{x_1 + x_2 | \quad  x_1\in U \wedge x_2\in W\}\)
+\end{definition}
+\begin{proposition}
+	\(U+W\le V\)
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \(x\in U+W, y\in U+W\longrightarrow x = x_1 + x_2, y = y_1 + y_2 \Longrightarrow x+y = \\ =\underset{\in U}{x_1 + y_1} + \underset{\in W}{x_2 + y_2}\in U+W\)
+		\item Умножение на $\lambda$ очевидно
+	\end{enumerate}
+	Тогда по критерию подпространств \(U+W\le V\)
+\end{proof}
+\begin{corollary}
+	\(U_i\le V\). \(U_1 + \ldots + U_k = \{x_1 + \ldots + x_k| x_i\in U_i\}\le V\)	
+\end{corollary}
+\begin{proposition}
+	Пусть \(U_i = <S_i>, i = 1,\ldots, k\). Тогда \(U_1+\ldots + U_k = <S_1\cup S_2\cup\ldots\cup S_k>\). Объединением упорядоченной системы векторов подразумевается приписывание векторов следующей системы к векторам предыдущей.
+\end{proposition}
+\begin{proof}
+	Пусть \(L = <S_1\cup \ldots\cup S_k>, U_i = <S_i>\subset L\Longrightarrow U_1 + \ldots + U_k\subset L\) \newline
+	L = \(<S_1\cup\ldots\cup S_k>\subset <U_1\cup U_2 \cup \ldots\cup U_k> = U_1 + \ldots + U_k\) - конечная сумма векторов из \(U_1, \ldots, U_k\)
+\end{proof}
+\begin{proposition}
+	\(\dim(U_1 + \ldots + U_k) \le \sum_{i=1}^{n}\dim U_i\)
+\end{proposition}
+\begin{proof}
+	Пусть \(S_i\) - Базис в \(U_i\). По предыдущему утверждению \(\dim (U_1 + \ldots + U_k) =\)мощность максимальной ЛнЗ системы в \(S_1\cup \ldots S_k\le |S_1\cup\ldots\cup S_k|= \sum_{i=1}^{k}|S_i| = \sum_{i=1}^{k}\dim U_i\).
+\end{proof}
+\begin{corollary}
+	\(\dim(U_1+\ldots + U_k) = \sum_{i=1}^{k}\dim U_i\Longleftrightarrow\) объединение базисов в \(U_i\) дает базис в \(U_1+\ldots+U_k\).
+\end{corollary}
+\begin{proof}
+	Размерность \(\dim \sum_{i}U_i = \sum_{i}\dim U_i\Longleftrightarrow S_1\cup\ldots S_k\) - ЛнЗ(если смотреть, где в прошлом доказательстве образовалось неравенство)$\Longleftrightarrow S_1\cup\ldots\cup S_k$ - базис в $\sum_{i}U_i$
+\end{proof}
+\begin{definition}
+	Пусть \(U_i\le V: U_1+\ldots+U_k\) называется прямой суммой подпространств, если каждый вектор x представляется единственным образом в виде векторов из каждого из пространств \(x = x_1+\ldots+x_n, \quad x_i\in U_i\). Обозначается \(U_1\oplus\ldots\oplus U_k\)
+\end{definition}
+\begin{definition}
+	Подпространства \(U_1, \ldots, U_k\) называются ЛнЗ, если \(\sum_i\underset{\in U_i}{x_i}=\vec 0 \Longleftrightarrow \forall i: x_i = \vec 0\).
+\end{definition}
+% \begin{theorem}
+% 	() \newline
+% 	Пусть \(U_i\le V, i = 1, \ldots, k\), тогда эквивалентны следующие условия
+% 	\begin{enumerate}
+% 		\item \(U_1+\ldots+U_k = U_1\oplus\ldots\oplus U_k\)
+% 		\item \(\forall i\in\{1,\ldots, k\}U_i\cap(U_1+\ldots +U_k)=\{\vec 0\}\)
+% 		\item \(U_1, U_2, \ldots, U_k\) - ЛнЗ
+% 		\item Объединение базисов \(U_i\) дает базис \(U_1+U_2+\ldots+U_k\).
+% 		\item $\sum_{i=1}^{k}\dim U_1 = \dim (U_1 + \ldots + U_k).$
+% 	\end{enumerate}
+% \end{theorem}

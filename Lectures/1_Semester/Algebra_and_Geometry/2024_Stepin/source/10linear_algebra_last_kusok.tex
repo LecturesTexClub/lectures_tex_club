@@ -1,0 +1,414 @@
+\subsection{Произведение линейных отображений}
+Пусть \(V, W, L\) - Линейные пространства и \(\psi, \phi\) - линейные отображения. \(V\overset{\psi}{\longrightarrow} W \overset{\phi}{\longrightarrow} L\). Рассмотрим композицию \((\phi\circ \psi)(x)\overset{def}{\equiv} \phi(\psi(x)), x\in V\). То полученные таким образом \(\phi\circ\psi:V\to L\) называется произведением линейного отображения $\phi$ на линейное отображение $\psi$
+\begin{theorem}
+	Пусть $\psi:V\to W, \phi:W\to L$, тогда \(\phi\cdot\psi \) - линейное отображение из V в L. Пусть \(\mathfrak{E}, \mathfrak{F}, \mathfrak{G}\) - базисы в \(V, W, L\). Если, кроме того, \(\phi\underset{\mathfrak{F}, \mathfrak{G}}{\longleftrightarrow} A, \psi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow},\) то \(\phi\cdot\psi\underset{\mathfrak{E}, \mathfrak{G}}{\longleftrightarrow} A\cdot B\)
+\end{theorem}
+\begin{proof}
+	\(x,y \in V: (\phi\cdot \psi)(x+y) = \phi(\psi(x+y)) = \phi(\psi(x) + \psi(y)) = \phi(\psi(x))+\phi(\psi(y)) = (\phi\cdot\psi)(x) + (\phi\cdot\psi)(y)\) - аддитивность проверена. 
+	
+	\(\lambda \in F: (\phi\cdot\psi)(\lambda x) = \phi(\psi)(\lambda x) = \lambda (\phi(\psi(x))) = \lambda (\phi\cdot\psi)(x)\) - однородность проверена. 
+	
+	\(\phi(\mathfrak{F}) = \mathfrak{G}A, \psi(\mathfrak{E}) = \mathfrak{F}\cdot B: (\phi\cdot \psi)(\mathfrak{E}) = \phi(\psi(\mathfrak{E})) = \phi(\mathfrak{F}\cdot B) = \phi(\mathfrak{F})\cdot B = \mathfrak{G}\cdot(A\cdot B)\).
+\end{proof}
+\begin{corollary}
+	Свойства произведения линейных отображений. 
+	\begin{enumerate}
+		\item \((\xi\cdot \phi)\cdot\psi = \xi\cdot(\phi\cdot\psi)\) (ассоциативность)
+		\item \(\xi(\phi+\psi) = \xi\cdot\phi + \xi\cdot\psi\) (левая дистрибутивность)
+		\item \((\xi + \phi)\cdot\psi = \xi\cdot\psi + \phi\cdot\psi\) (правая дистрибутивность)
+	\end{enumerate}
+\end{corollary}
+
+\begin{theorem}
+	Пусть \(\phi: V\to W\) - Биективное ЛО. Тогда \(V\cong W, \exists \quad \phi^{-1}:W\to V\), причем \(\phi ^{-1} \) - линейно.
+	 И если \(\phi\underset{\mathfrak{E}, \mathfrak{F}}{\longleftrightarrow} A\), то \(\phi^{-1}\underset{\mathfrak{F}, \mathfrak{E}}{\longleftrightarrow} A^{-1}\)
+\end{theorem}
+\begin{proof}
+	По определению \(\phi: V\to W\) - изоморфизм линейных пространств. \(\Longrightarrow \dim V = \dim W\). 
+	А тогда \(\exists\quad\phi^{-1}:W\to V\). 
+	
+	Проверим линейность: \(\forall y_1, y_2 \in W: \exists! x_1\in V: \phi(x_1) = y_1, \exists! x_2\in V: \phi(x_2) = y_2 \Longrightarrow \phi(x_1+x_2) = y_1+y_2 \Longrightarrow \phi^{-1}(y_1)+\phi^{-1}(y_2) = x_1 + x_2 = \phi^{-1}(y_1+y_2)\). 
+	
+	Проверим однородность: \(\forall y\in V \exists ! x: \phi(x) = y \Longrightarrow \phi^{-1}(\lambda y) = \lambda x = \lambda\phi^{-1}(y)\). \(\phi\cdot \phi^{-1} = \phi^{-1}\cdot\phi = \epsilon \). 
+	
+	Тогда получаем, что \(A\cdot A_{\phi^{-1}} = A_{\phi^{-1}}\cdot A = E \Longrightarrow A_{\phi^{-1}} = A^{-1}\)
+\end{proof}
+V над F. \(|F| = q, \dim V = m\)
+
+\section{О количестве базисов в ЛП}
+\begin{exercise}
+	Сколько существует различных базисов в пространстве V? \((q^m-1)(q^m-q)\ldots(q^m-q^{m-1})\)
+\end{exercise}
+\begin{proof}
+	\(|V| = q^m\). \(e_1 \) можно выбрать \(q^m -1\) способами, \(e_2 - q^m - q\), так как \(e_2\not\in <e_1>, |<e_1>| = q\). продолжим аналогично к набору векторов \(e_1, \ldots, e_n\) который можно выбрать числом способом  \((q^m-1)(q^m-q)\ldots(q^m-q^{m-1})\)
+\end{proof}
+\begin{exercise}
+	Сколько существует различных k-мерных(\(k\le m\)) подпространств в V? \(\dfrac{(q^m-1)(q^m-q)\ldots(q^m-q^{k-1})}{(q^k-1)\ldots(q^k-q^{k-1})}\).
+\end{exercise}
+\begin{proof}
+	 В числителе число спобосов выбрать ЛнЗ систему из k векторов \(e_1, \ldots, e_k\). Возьмем \(U = <e_1, \ldots, e_k>, \dim U = k\), тогда в знаменателе стоит \(|\GL_k(F)|\). Число способов задать матрицу перехода: \((q^k-1)\ldots(q^k-q^{k-1})\) - число способов выбрать первую строку на число способов выбрать вторую и т.д.
+\end{proof}
+\begin{note} (Неформальный комментарий от авторов конспекта)
+
+	Выражение полученное в последнем упражнении называется биномиальным коэфициентом Гаусса и записывается \((\frac{n}{k})_q\). \href{https://ru.wikipedia.org/wiki/Гауссовы_биномиальные_коэффициенты}{Здесь} можете прочитать про их комбинаторный смысл и свойства.
+
+\end{note}
+\section{Перестановки и подстановки}
+
+\subsection{Перестановки}
+Пусть \(M = \{1, 2, \ldots, n\}\)
+\begin{definition}
+	Всякое расположение элементов множества M в некотором определенном порядке называется перестановкой степени n. 
+	
+	Пусть \(n = 3: (1, 2, 3), (1, 3, 2), (2, 3, 1), (2, 1, 3), (3, 1, 2), (3, 2, 1)\) - всевозможные перестановки длины 3.
+\end{definition}
+\begin{note}
+	\(|P_n| = n!\) 
+\end{note}
+\begin{definition}
+	Перестановка \(\begin{pmatrix}
+		1 & 2 & \ldots & n
+	\end{pmatrix} \) называется тождественной. А перестановка \(\begin{pmatrix}
+	n & n-1 & \ldots & 1
+	\end{pmatrix} \) называется антитождественной
+\end{definition}
+\begin{definition}
+	Символы $\alpha, \beta$ перестановки образуют порядок, если в перестановке \(\alpha, \beta\) идут в том же порядке, что и в тождественной перестановке($\alpha<\beta$)
+\end{definition}
+\begin{definition}
+	Символы $\alpha, \beta$ перестановки образуют инверсию(или беспорядок) или идут в том же порядке, что в антитождественной перестановке
+\end{definition}
+\begin{definition}
+	перестановка называется четной, если её символ образует четное число инверсий и нечетное в противном случае.
+\end{definition}
+\begin{definition}
+	Преобразование, совершаемое над перестановкой при котором 2 символа перестановки меняются местами, а остальные остаются на своих местах называется транспозицией.
+\end{definition}
+\begin{proposition}
+	Всякая транспозиция меняет четность перестановки на противоположную
+\end{proposition}
+\begin{proof}
+	\(\begin{pmatrix}
+		* & * & \ldots \alpha & \beta & * & \ldots
+	\end{pmatrix} \overset{(\alpha, \beta)}{\longleftrightarrow}
+	\begin{pmatrix}
+		* & * & \ldots \beta & \alpha & * & \ldots
+	\end{pmatrix}\). В таком случае меняется только порядок от $\alpha, \beta$, то есть суммарное число инверсий изменяется на 1, то есть их четности противоположны. 
+	
+	Рассмотрим общий случай. Пусть между $\alpha$ и $\beta$ ещё есть s символов. Применим 2s + 1 транпозиции соседних символов \[\begin{pmatrix}
+	* & * & \ldots \alpha & \gamma_1 & \ldots & \gamma_s & \beta & * & \ldots
+	\end{pmatrix} \longleftrightarrow \begin{pmatrix}
+	* & * & \ldots \beta & \gamma_1 & \ldots & \gamma_s & \alpha & * & \ldots
+	\end{pmatrix}\]. 
+	Применим последовательно: \((\alpha, \gamma_1), \ldots, (\alpha, \gamma_s), (\alpha, \beta), (\beta, \gamma_s), \ldots, (\beta, \gamma_1)\).
+\end{proof}
+\begin{proposition}
+	Все \(n!\) перестановок степени n можно выписать в последовательность так, чтобы каждая следующая перестановка получалась из предыдущей с помощью одной транпозиции и при этом начинать можно с любой перестановки.
+\end{proposition}
+\begin{proof}
+	Пусть начинаем с перестановки \((\alpha_1, \ldots, \alpha_n)\). Докажем индуцией по n. n = 1 тривиален. База: n = 2. \(\begin{pmatrix}
+	1 & 2
+	\end{pmatrix}, \begin{pmatrix}
+	2 & 1
+	\end{pmatrix}\) и наоборот. Пусть для перестановок степени n-1 утверждение справедливо. Проверим, что это верно для перестановки степени n. Есть n-1! перестановок \(\begin{pmatrix}
+	\alpha_2 & \ldots & \alpha_n
+\end{pmatrix}\). Если мы слева припишем $\alpha_1$, то мы получим \((n-1)!\) перестановок с первым символом \(\alpha_1\). Рассмотрим транспозицию \((\alpha_1, \alpha_i)\) и отбросим $\alpha_i$, тогда по предположению индукции получим оставшиеся перестановик(их по предположению (n-1)!) с $\alpha_1$ стоящем на i-ом месте. Всего таких вариантов n, то есть всего перестановок получилось \(n\cdot(n-1)! = n!\).
+\end{proof}
+\begin{corollary}
+	Имеется поровну, то есть \(\frac{n!}{2}\) четных и нечетных перестановок(так как мы сделали, чтобы чередовать четность) при \(n\ge 2\).
+\end{corollary}
+
+\subsection{Подставноки степени n}
+
+\begin{definition}
+	Всякое взаимооднозначное (биективное) отображение множества M на себя называется подстановкой степени n. \(G = \begin{pmatrix}
+		1 & 2 & 3 & \ldots & n \\
+		G_1 & G_2 & \ldots & G_n
+	\end{pmatrix} = \begin{pmatrix}
+	2 & 1 & \ldots & n \\ 
+	G_2 & G_1 & \ldots & G_n 
+	\end{pmatrix}\) - каноническая запись.
+\end{definition}
+количество подстолбцов M также равно n!.
+\begin{proposition}
+	Множество подстановок степени n образует группу \(S_n\) и называется симметрическая группа степени n относительно операции произведения подстановок. \((G\cdot \rho)(x) \overset{def}{\equiv} (G\circ\rho)(x) = G(\rho(x)) e= \begin{pmatrix}
+	1 & 2 & \ldots & n \\
+	1 & 2 & \ldots & n
+	\end{pmatrix}\). Обратная подстановка - изменение первой и второй строки.
+\end{proposition}
+Транспозиция: \(\begin{pmatrix}
+	1 & 2
+\end{pmatrix} = \begin{pmatrix}
+1 & 2 & \ldots & n \\
+2 & 1 & \ldots & n
+\end{pmatrix}\)
+\begin{proposition}
+	Всякую перестановку можно разложить в произведение транспозиций.
+\end{proposition}
+\begin{proof}
+	\(\alpha = \begin{pmatrix}
+		1 & 2 & \ldots & n \\
+		\alpha_1 & \alpha_2 & \ldots & \alpha_n
+	\end{pmatrix}\). Заметим, что если умножить на транспозицию \(\begin{pmatrix}
+	\alpha_i & \alpha_j
+	\end{pmatrix}\cdot\begin{pmatrix}
+	1 & 2 & \ldots & i & \ldots & j & \ldots & n \\
+	\alpha_1 & \alpha_2 & \ldots & \alpha_j & \ldots & \alpha_i & \ldots & \alpha_n
+	\end{pmatrix}\). Умножение на транспозцию символов приводит к транспозиции символов перестановки. Тогда применив множество транспозиций, то мы можем получить \((\alpha_{i_k}, \alpha_{j_k})\ldots(\alpha_{i_1}, \alpha_{j_1})\cdot\alpha = e\). Так как \((1, 2)^2 = e\), то \(\alpha = (\alpha_{i_1}, \alpha_{j_1})\ldots (\alpha_{i_k}, \alpha_{j_k})\)
+\end{proof}
+\begin{example}
+	\begin{example}
+		\(\begin{pmatrix}
+			1& 2  & 3 & 4 & 5 \\
+			3 & 4 & 5 & 2 & 1
+		\end{pmatrix}\). \(\begin{pmatrix}
+		3 & 4 & 5 & 2 & 1
+		\end{pmatrix}\overset{(1, 3)}{\longrightarrow}\begin{pmatrix}
+		1 & 4 & 5 & 2 & 3
+		\end{pmatrix}\overset{(4, 2)}{\longrightarrow}\begin{pmatrix}
+		1 & 2 & 5 & 4 & 3
+		\end{pmatrix}\overset{(5, 3)}{\longrightarrow}\begin{pmatrix}
+		1 & 2 & 3 & 4 & 5
+		\end{pmatrix}\). то есть \(\begin{pmatrix}
+		1& 2  & 3 & 4 & 5 \\
+		3 & 4 & 5 & 2 & 1
+		\end{pmatrix} = (1, 3)(4, 2)(5, 3)\)
+	\end{example}
+\end{example}
+
+\section{Определитель произвольного порядка}
+\begin{proposition}
+	Следующие 3 определения эквивалентны: \newline
+	Подстановка называется четной, если 
+	\begin{enumerate}
+		\item четности верхней и нижней её строк совпадают.
+		\item \(n_1+n_2\) - четное, где \(n_i\) - число инверсий в i строк(i = 1, 2)
+		\item Если она раскладывается в произведение четного числа транспозиций.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \((1)\Longleftrightarrow(2)\). \(n_1+n_2\in2\mathbb{Z}\Longleftrightarrow \begin{pmatrix}
+			n_1 \\ n_2
+		\end{pmatrix} = \begin{pmatrix}
+		\text{Ч} \\ \text{Ч}
+		\end{pmatrix}\) или \(\begin{pmatrix}
+		\text{Н} \\ \text{Н}
+		\end{pmatrix}\)
+		\item \((1)\Longleftrightarrow(3)\). Возьмем \(\sigma = \begin{pmatrix}
+			1 & 2 & \ldots & n \\
+			\sigma_1 & \sigma_2 & \ldots & \sigma_n
+		\end{pmatrix}\longrightarrow\begin{pmatrix}
+		1 & 2 & \ldots & n
+		\end{pmatrix}\). Так как каждая транспозиция меняет четность перестановки, то чтобы сохранить четность нужно сделать четное число перестановок.
+	\end{enumerate}
+\end{proof}
+\begin{definition}
+
+	\(\epsilon:S_n\to\{\pm 1\} = \left\{\begin{gathered}[]
+		1, \sigma \text{четна} \\
+		-1, \sigma \text{нечетна}
+	\end{gathered}\right. = (-1)^{inv(\sigma)} = (-1)^{\tau(\sigma)}\) 
+	
+	Так же обозначают \(sign\). \(inv(\sigma)\) - суммарное число инверсий. \(\tau(\sigma)\) - минимальное число транспозиций, необходимое для разложения $\sigma$ в произведение транспозиций.
+\end{definition}
+\begin{proposition}
+	Знак подстановки является гомоморфизмом мультипликативной группы \(\epsilon:S_n\to(\{\pm 1\}б \cdot)\). 
+\end{proposition}
+\begin{proof}
+	Достаточно проверить, что \(\epsilon(\sigma\cdot\rho)=\epsilon(\sigma)\cdot\epsilon(\rho)\). Каждую подстановку можно представить в виде произведения подстановок: \(\left\{\begin{gathered}
+		\sigma = \tau_1\ldots\tau_s \\
+		\rho = \tau_1\ldots\tau_k
+	\end{gathered}\right. \Longrightarrow \sigma\cdot\rho = \tau_1\ldots\tau_s\cdot\tau_1\ldots\tau_k \). Тогда \(\epsilon(\sigma\cdot\rho) = (-1)^{s+k} = (-1)^s\cdot(-1)^k = \epsilon(\sigma)\cdot\epsilon(\rho)\)
+\end{proof}
+Напомним определитель 3 порядка \(\begin{vmatrix}
+	a_{11} & a_{12} & a_{13} \\
+	a_{21} & a_{22} & a_{23} \\
+	a_{31} & a_{32} & a_{33}
+\end{vmatrix} \overset{def}{\equiv} a_{11}a_{22}a_{33}+a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32}-(a_{13}a_{22}a_{31}+a_{12}a_{21}a_{33}+a_{11}a_{23}a_{32})\). Сопоставим \(a_{i_1j_1}a_{i_2j_2}a_{i_3j_3}\to\begin{pmatrix}
+i_1 & i_2 & i_3 \\
+j_1 & j_2 & j_3
+\end{pmatrix}\)
+\newline
+\begin{center}
+\begin{tabular}{c|c|c}
+	\hline
+	Слагаемое & подстановка\(\sigma\) & \(\epsilon(\sigma)\) \\
+	\hline
+	\(a_{11}a_{22}a_{33}\) & e & +1 \\
+	\(a_{12}a_{23}a_{31}\) & \(\begin{pmatrix}
+		1 & 2 & 3 \\
+		2 & 3 & 1
+	\end{pmatrix}\) & +1 \\
+	\(a_{13}a_{21}a_{32}\) & \(\begin{pmatrix}
+		1 & 2 & 3 \\
+		3 & 1 & 2
+	\end{pmatrix}\) & +1 \\
+	\(a_{13}a_{22}a_{31}\) & \(\begin{pmatrix}
+		1 & 2 & 3 \\
+		3 & 2 & 1
+	\end{pmatrix}\) & -1 \\
+	\(a_{12}a_{21}a_{33}\) & \(\begin{pmatrix}
+		1 & 2 & 3 \\
+		2 & 1 & 3
+	\end{pmatrix}\) & -1 \\
+	\(a_{11}a_{23}a_{32}\) & \(\begin{pmatrix}
+		1 & 2 & 3 \\
+		1 & 3 & 2
+	\end{pmatrix}\) & -1
+	
+ \end{tabular}
+\end{center}
+ \begin{definition}
+ 	Пусть \(A\in M_n(F)\). Её определителем называется число \(\det A = |A| \overset{def}{\equiv}\sum_{\sigma\in S_n}\epsilon(\sigma)a_{1\sigma_1}a_{2\sigma_2}\ldots a_{n\sigma_n}\). 
+	
+	\(a_{1\sigma_1}a_{2\sigma_2}\ldots a_{n\sigma_n}\longleftrightarrow \begin{pmatrix}
+ 	1 & 2 & \ldots & n \\
+ 	\sigma_1 & \sigma_2 &\ldots  &\sigma_n
+ 	\end{pmatrix}\).\newline
+ 	\textbf{Или эквивалентное определение:} 
+	
+	Определителем матрицы порядка n называется сумма n! слагаемых, каждое из которых является произведением элементов матрицы, 
+	взятых по одному и ровно одному разу из каждой строки и каждого столбца и перед произведением ставится знак в зависимости 
+	от знака соответствующей подстановки. 
+ \end{definition}
+ \begin{proposition}
+ 	При транспонировании A её определитель не меняется.
+ \end{proposition}
+ \begin{proof}
+ 	Пусть \(a_{1\sigma_1}\ldots a_{n\sigma_n}\) входит в состав \(\det A\), а также в ходит в \(\det A^T\) в разных строках и разных столбцах \(A^T\). При этом в \(A: \epsilon(\begin{pmatrix}
+ 		1 & 2 & \ldots & n \\
+ 		\sigma_1 & \sigma_2 & \ldots & \sigma_n
+ 	\end{pmatrix})\), а так как при транспозиция меняются строки и столбцы, то соответствующий элемент будет \(A^T: \epsilon(\begin{pmatrix}
+ 	\sigma_1 & \sigma_2 & \ldots & \sigma_n \\
+ 	1 & 2 & \ldots & n 
+ 	\end{pmatrix})\). А то есть все произведения входят с одинаковыми знаками, то есть \(\det A = \det A^T\)
+ \end{proof}
+
+ 
+ \subsection{Полилинейные кососимметрические функции}
+ \begin{definition}
+ 	Отношение \(f:V^n\to F\) называется полилинейным, если оно линейно по каждому из своих аргументов. \(V^n = \{(a_1, \ldots, a_n) | a_i\in V\}\). А \(F(a_1, \ldots, a_n)\in F\). То есть \newline\(f(a_1, \ldots, \lambda a_i + \mu a'_i, \ldots, a_n) = \lambda f(a_1, \ldots, a_i, \ldots, a_n) + \mu f(a_1, \ldots, a'_i, \ldots, a_n)\), Где в многоточии находятся одинаковые элементы слева и справа.
+ \end{definition}
+ Пусть \(char F \ne 0\).
+ \begin{definition}
+ 	Полилинейная функция \(f:V^n\to F\) называется кососимметрической, если 
+ 	\begin{enumerate}
+ 		\item \(f(\ldots a_i \ldots a_j \ldots) = - f(\ldots a_j \ldots a_i \ldots)\)
+ 		\item \(f(\ldots a \ldots a \ldots) = 0\).
+ 	\end{enumerate}
+ \end{definition}
+ \begin{proposition}
+ 	Эти два условия эквивалентны
+ \end{proposition}
+ \begin{proof}
+ 	\begin{enumerate}
+ 		\item \((1)\Longrightarrow (2): f(\ldots a \ldots a \ldots) = -f(\ldots a \ldots a\ldots) \Longrightarrow f(\ldots a \ldots a \ldots) = 0\)
+ 		\item \((2)\Longrightarrow (1): 0 = f(\ldots a_i+a_j \ldots a_j+a_i \ldots) = f(\ldots a_i \ldots a_i \ldots)+f(\ldots a_j \ldots a_j \ldots) + f(\ldots a_i \ldots a_j \ldots) + f(\ldots a_j \ldots a_i \ldots) = f(\ldots a_i \ldots a_j \ldots) + f(\ldots a_j \ldots a_i \ldots) \Longrightarrow f(\ldots a_i \ldots a_j \ldots) = -f(\ldots a_j \ldots a_i \ldots)\) 
+ 	\end{enumerate}
+ \end{proof}
+ \begin{note}
+ 	В случае поля характеристики 2 из первого не следует второго, так как \(-1 = 1, 1 + 1 = 0\). В этом случае условие 2 как более сильное принимают за определение кососимметричности.
+ \end{note}
+ \begin{proposition}
+ 	Пусть \(f:V^n\to F\) - полилинейная кососимметрическая функция. Тогда \(\forall \sigma\in S_n : f(a_{\sigma(1)}, a_{\sigma(2)}, \ldots,a_{\sigma(n)}) = \epsilon(\sigma)f(a_1,\ldots, a_n)\)
+ \end{proposition}
+ \begin{proof}
+ 	Будем доказывать индукцией по \(\tau(\sigma)\). 
+	
+	База индукциию \(\tau(\sigma) = 1\Longrightarrow \sigma\) транспозиция за счет кососимметричности и \(\tau(\sigma) = - 1\) для любой перестановки. 
+	
+	Пусть для \(\sigma: \tau(\sigma)<k\) утверждение справедливо, докажем для $\sigma: \tau(\sigma) = k$. 
+	
+	\(\sigma = \tau_1 \ldots \tau_k = \tau_1\cdot\sigma' \Longrightarrow f(a_{\sigma(1)}, a_{\sigma(2)}, \ldots,a_{\sigma(k)}) = f(a_{\tau_1\sigma'(1)}, a_{\tau_2\sigma'(2)}, \ldots,a_{\tau_n\sigma'(k)})\overset{\text{кососимметричность}}{=}\)
+	
+	\(-f(a_{\sigma'(1)}, \ldots, a_{\sigma'(k)})\overset{\text{пред. инд.}}{=}-\epsilon(\sigma')f(a_1, \ldots, a_k) = \epsilon(\tau_1)\epsilon(\sigma)f(a_1, \ldots, a_n)\)
+ \end{proof}
+ \begin{theorem}
+ 	(Характеризация определителя и его свойства) \newline
+ 	\(A\in M_n(F)\). Тогда 
+ 	\begin{enumerate}
+ 		\item \(\det A\) является полилинейной кососимметрической функцией от строк(столбцов) матрицы A.
+ 		\item Пусть \(f:M_n(F)\to F\) полилинейная кососимметрическая функция от строк(или столбцов) матрицы, тогда \(f(A) = f(E)\det A,\) где E - единичная матрица.
+  	\end{enumerate}
+ \end{theorem}
+\begin{proof}
+	Рассмотрим все элементы матрицы \(A: a_{ij}, i>1\). Тогда \(\det A = \sum_{\sigma\in S_n} \epsilon(\sigma)a_{1\sigma_1}\cdot a^o_{2\sigma_2}\ldots \cdot a^o_{n\sigma_n}\), где \(a^o_{k\sigma_k}\) - фиксированное. То есть \(\det A = \sum_{i}a_{1j}\alpha_i\) - линейная форма от координат первой строки. \newline
+	Пусть \(char F\ne 2\). 
+	
+	Проверим, что $\det A$ - кососимметрическая функция строк. \newline \(\det(\underbrace{a_1, \ldots, a_i, \ldots, a_j, \ldots, a_n}_A) \overset{?}{=} -\det(\underbrace{a_1 \ldots a_j \ldots a_i \ldots a_n}_{A'}).\) 
+	
+	\(I:a_{1\sigma_1}\ldots a_{i\sigma_i}\ldots a_{j\sigma_j}\ldots a_{n\sigma n}\to \det A\) и \(II:a_{1\sigma_1}\ldots a_{j\sigma_j}\ldots a_{i\sigma_i}\ldots a_{n\sigma n}\to \det A'.\)
+	
+	\(\epsilon(I) = \epsilon(\begin{pmatrix}
+		1 & \ldots & i & \ldots & j \ldots & n \\
+		\sigma_1 & \ldots & \sigma_i &\ldots &\sigma_j & n
+	\end{pmatrix}), \epsilon(II) = \epsilon(\begin{pmatrix}
+	1 & \ldots & i & \ldots & j \ldots & n \\
+	\sigma_1 & \ldots & \sigma_j &\ldots &\sigma_i & n
+	\end{pmatrix}) \Longrightarrow\) 
+	
+	\( \det A' = - \det A\) \newline
+
+	Пусть \(char F=2\) 
+	
+	\(\det (a_1 , \ldots, a_i, \ldots, a_j, \ldots, a_n)\overset{?}{=} 0, \) если \(a_i = a_j\). 
+	
+	Первый раз возьмем \(a_{i\sigma_i}a_{j\sigma_j}\), а потом \(a_{i\sigma_j}a_{j\sigma_i}\), а они равны(за счет равенства накрестлежащих элементов). 
+	Тогда \(\det (a_1 , \ldots, a_i, \ldots, a_j, \ldots, a_n)= 0\). \newline
+	
+	Возьмем базис \(e_1 = \begin{pmatrix}
+	 1 & 0 & 0 & \ldots & 0
+	\end{pmatrix}, \ldots, e_n = \begin{pmatrix}
+	0 & 0 & 0 & \ldots & 1
+	\end{pmatrix}\). 
+	
+	Тогда \(f(a_1, \ldots, a_n) = f(\sum_{j_1}a_{1j_1}e_{j_1}, \ldots, \sum_{j_n}a_{nj_n}e_{j_n}) \overset{\text{полилинейность}}{=} \) 
+	
+	\(= \sum_{j_1}\ldots \sum_{j_n} a_{1j_1}\ldots a_{nj_n}f(e_{j_1}, \ldots, e_{j_n})\)\( = \sum_{j_1}\ldots \sum_{j_n}\epsilon(j) a_{1j_1}\ldots a_{nj_n}f(e_1, \ldots, e_n) = \) 
+	
+	\(= \det A\cdot f(E) \)
+\end{proof}
+Тогда мы можем получить эквивалентное определения определителя.
+\begin{definition}
+	Определителем квадратной матрицы называется полилинейная кососимметрическая функция от её строк или столбцов, которая на единичной матрице принимает значение единица. 
+\end{definition}
+\begin{proposition}
+	\begin{enumerate}
+		\item Если над матрицей A совершить элементарные преобразования строк I типа \(a_i \to a_i + \lambda a_j\), то определитель не меняется 
+		\item Если же совершить II тип \(a_i \longleftrightarrow a_j\), то определитель изменит свой знак на противоположный.
+		\item Если же III тип \(a_i\to \lambda a_i\), то \(\det A\) Умножится на $\lambda$ или общий множитель всех элементов строки можно выносить за знак определителя.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item \(|A'| = \det(a_1, \ldots, a_i+\lambda a_j, \ldots, a_n) \overset{\text{линейность}}{=} \det(a_1, \ldots, a_i, \ldots, a_n) + \lambda \det(a_1, \ldots, a_j, \ldots, a_j, \ldots, a_n) = \det A\)
+		\item 2 пункт вытекает из кососимметричности
+		\item 3 пункт вытекает из однородности
+	\end{enumerate}
+\end{proof}
+\begin{definition}
+	Матрица \(A\in M_n(F)\) называется верхнетреугольной(нижнетреугольной), если  \(a_{ij}=0 \) при \(i>j\)(\(a_{ij} = 0\) при \(i<j\)).
+\end{definition}
+\begin{proposition}
+	Определитель верхнетреугольной/нижнетреугольной матрицы равен произведению элементов на главной диагонали.
+\end{proposition}
+\begin{proof}
+	\(\epsilon(\sigma) = a_{1\sigma_1}a_{2\sigma_2}\ldots a_{n\sigma_n}\to \det A\). Если \(\sigma\ne e_1\), то \(\exists i: \sigma_i<i: a_{i\sigma_i} \)(От противного, если для всех это неверно, то получим, что $\sigma_i = i$, то есть \(e_1\)). то есть \(\det A = a_{11}a_{22}a_{33}\ldots a_{nn}\)
+\end{proof}
+\begin{definition}
+	Минором k-ого порядка матрицы А назовем \(\det M_{j_1j_2\ldots j_k}^{i_1i_2\ldots i_k}\)
+\end{definition}
+\begin{definition}
+	Рангом матрицы по минорам называется порядок наибольшего ненулевого минора. \(\rk_MA\).
+\end{definition}
+\begin{theorem}
+	(Фробениус 1873-75 года)\newline
+	Все 3 понятия ранга матрицы эквивалентны. \newline
+	\(\rk_rA = \rk_cA = \rk_MA\).
+\end{theorem}
+\begin{proof}
+	Пока не была доказана на лекциях
+
+	upd. Была доказана на последней лекции. \eqref{frobenius}
+\end{proof}
