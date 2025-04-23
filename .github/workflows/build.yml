@@ -81,7 +81,7 @@ jobs:
       - name: Upload
         id: upload
         run: |
-          URL=$(curl -f --silent --get \
+          URL=$(curl -f --get \
           --data-urlencode 'path=Lectures Tex Club/${{ env.FULL_PATH }}.pdf' \
           --data-urlencode 'overwrite=true' \
           --header 'Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}' \
