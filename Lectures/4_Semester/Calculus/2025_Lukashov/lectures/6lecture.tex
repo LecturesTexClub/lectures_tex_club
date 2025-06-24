@@ -1,0 +1,585 @@
+\begin{corollary}
+	Тригонометрический ряд Фурье $f \in L_{2\pi}$ можно почленно интегрировать на любом отрезке.
+\end{corollary}
+
+\begin{corollary}
+	Если $f \in L_{2\pi}$, $f \sim \frac{a_0}{2} + \sum_{n = 1}^\infty (a_n\cos(nx) + b_n\sin(nx))$ --- тригонометрический ряд Фурье этой функции, то ряд $\sum_{n = 1}^\infty (b_n / n)$ сходится (ибо это значение ряда-разложения интеграла в $x = 0$).
+\end{corollary}
+
+\begin{example}
+	$\sum_{n = 1}^\infty \frac{\sin(nx)}{\ln n}$ не является тригонометрическим рядом Фурье. Действительно, если это всё же ряд, то должен сходиться ряд $\sum_{n = 1}^\infty \frac{1}{(n\ln n)}$, чего не происходит. Забавно, но ряд $\sum_{n = 1}^\infty \frac{\cos(nx)}{\ln n}$ сходится.
+\end{example}
+
+\begin{note}~
+	\begin{enumerate}
+		\item А.Н. Колмогоров (1926г.) Существует $f \in L_{2\pi}$ такая, что её тригонометрический ряд Фурье расходится всюду
+		
+		\item Л. Карлесон (1966г.) Для любой функции $f \in L_{2\pi}^2$ (сходимость со своим квадратом) тригонометрический ряд Фурье сходится к $f$ почти всюду
+		
+		\item Хант (...) Для любой функции $f \in L_{2\pi}^p,\ p > 1$ тригонометрический ряд Фурье сходится к $f$ почти всюду
+		
+		\item Н.К. Бари (1952г.) Для любой измеримой и конечной почти всюду функции $f$ найдётся $F \in C[-\pi; \pi]$ такая, что $F' = f$ почти всюду, а продифференцированный тригонометрический ряд Фурье функции $F$ сходится к $f$ почти всюду
+		
+		\item С.Б. Стечкин (1951г.) Для любого множества $E \subset [-\pi; \pi],\ \mu(E) = 0$ найдётся такая функция $f \in L_{2\pi}^2$ такая, что тригонометрический ряд Фурье расходится всюду на $E$
+		\item А.Н. Колмогоров (1935г.)
+		\[
+			\sup_{f : \nrm{f^{(r)}} \leq 1} \nrm{f - S_n(f, \cdot)} = \frac{4 \ln n}{\pi^2n^r} + O(n^{-r})
+		\]
+	\end{enumerate}
+\end{note}
+
+\subsection{Приближение непрерывных функций полиномами}
+
+\begin{reminder}
+	В функциональном анализе приняты следующие обозначения, если $L$ --- это оператор над функцией $f$, принимающей аргумент $x$:
+	\[
+		L(f, x) = L(f)(x) = L(f)x
+	\]
+\end{reminder}
+
+\begin{reminder}
+	$C[a; b]$ --- линейно нормированное пространство непрерывных на $[a; b]$ функций, норма которого определена так:
+	\[
+		\forall f \in C[a; b]\ \ \|f\|_{C[a; b]} := \sup_{x \in [a; b]} |f(x)| = \max_{x \in [a; b]} |f(x)|
+	\]
+\end{reminder}
+
+\begin{designation}
+	$C_{2\pi}$ --- линейно нормированное пространство непрерывных $2\pi$-периодических функций (то есть необходимо и достаточно, что они периодичны и непрерывны на любом $2\pi$ отрезке). Норма этого пространства индуцирована нормой $C[a; a + 2\pi]$
+\end{designation}
+
+\begin{designation}
+	Далее для $f_1, f_2$ таких, что $\forall x \in [a; b] \ f_1(x) \leq f_2(x)$, мы будем сокращённо писать $f_1 \leq f_2$ (не путать с неравенством между нормами).
+\end{designation}
+
+\begin{definition}
+	Оператор $L \colon C[a; b] \to C[a; b]$ (или $C_{2\pi} \to C_{2\pi}$) называется \textit{линейным положительным}, если
+	\begin{enumerate}
+		\item \(\forall f_1, f_2 \in C[a; b] \ (\text{или }C_{2\pi})\ \forall \alpha_1, \alpha_2 \in \R\ \ L(\alpha_1f_1 + \alpha_2f_2)(x) = \alpha_1L(f_1)(x) + \alpha_2L(f_2)(x)\)
+		
+		\item \(\forall f \in C[a; b] \ (\text{или }C_{2\pi})\ (\forall x \in [a; b] \ (\text{или }\R) \ f(x) \ge 0) \to (\forall x \in [a; b] \ (\text{или }\R)\ \ L(f, x) \ge 0)\)
+	\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+	Если $L$ --- линейный положительный оператор, то он сохраняет неравенство:
+	\[
+		\forall f_1, f_2\ \ f_1 \le f_2 \Ra L(f_1) \le L(f_2)
+	\]
+\end{proposition}
+
+\begin{proof}
+	Возьмём произвольные функции $f_1 \le f_2$. Тогда $f_2 - f_1 \ge 0$, что по свойству положительности даёт $L(f_2 - f_1) = L(f_2) - L(f_1) \ge 0$.
+\end{proof}
+
+\begin{theorem} (Коровкина для полиномов)
+	Если $\{L_n\}_{n = 1}^\infty$ --- последовательность линейных положительных операторов $C[a; b] \to C[a; b]$ такая, что
+	\[
+		\forall i \in \{0, 1, 2\}\ \ L_n(e_i) \rra e_i \ \text{на} \ [a; b], \ n \to \infty,
+	\]
+	где $e_i(x) = x^i$ (степень), то $\forall f \in C[a; b] \ L_n(f) \rra f$ на $[a; b],\ n \to \infty$
+\end{theorem}
+
+\begin{proof}
+	Рассмотрим $\forall f \in C[a; b]$. По теореме Вейерштрасса найдём ограничивающую константу:
+	\[
+		\exists M > 0 \such \forall x \in [a; b]\ \ -M \le f(x) \le M
+	\]
+	С другой стороны, по теореме Кантора:
+	\[
+		\forall \eps > 0\ \exists \delta > 0 \such \forall x, t \in [a; b],\ |x - t| < \delta\ \ -\eps < f(x) - f(t) < \eps
+	\]
+	Далее мы фиксируем $\eps > 0$. Построим неравенство, которое оценит разность $f(x) - f(t)$ для любого $t \in [a; b]$:
+	\[
+		\forall x, t \in [a; b]\ \ -\eps - \frac{2M}{\delta^2}(t - x)^2 \le f(x) - f(t) \le \eps + \frac{2M}{\delta^2}(t - x)^2
+	\]
+	Поясним, почему оно верно:
+	\begin{itemize}
+		\item Если $|x - t| < \delta$, то просто пользуемся теоремой Кантора (мы увеличили зазор заведомо неотрицательной величиной)
+		
+		\item Если $|x - t| \ge \delta$, то $(t - x)^2 \ge \delta^2$, то есть $\frac{2M}{\delta^2}(t - x)^2 \ge 2M$, что с запасом (из-за $\eps$) даёт действительно верное неравенство
+	\end{itemize}
+	Теперь посмотрим на это неравенство при фиксированном $x$. В этом случае, полагая $\psi_x(t) := (x - t)^2$, мы имеем неравенства между функциями, зависящими только от $t$. К этим неравенствам можно применить линейный оператор $L_n$ для любого $n$, при этом константа 1 выражается как $e_0$:
+	\[
+		\forall t \in [a; b] \ -\eps L_n(e_0, t) - \frac{2M}{\delta^2}L_n(\psi_x, t) \le f(x)L_n(e_0, t) - L_n(f, t) \le \eps L_n(e_0, t) + \frac{2M}{\delta^2}L_n(\psi_x, t)
+	\]
+	Далее происходит интересный ход. Мы хотим получить оценку на разность $f(x) - L_n(f, x)$, с этой целью подставим в полученное неравенство $t = x$. 
+	При этом посмотрим, куда сходится $L_n(\psi_x)$:
+	\[
+		L_n(\psi_x) = L_n(e_2 - 2xe_1 + x^2e_0) = 
+		L_n(e_2) - 2xL_n(e_1) + x^2L_n(e_0) \rra
+		\\
+		e_2 - 2xe_1 + x^2e_0 = \psi_x,\ n \to \infty
+	\]
+	Поймём, что формально означает это выражение:
+	\[
+		\exists N_1 \in \N \such \forall n > N_1\ \forall t \in [a; b]\ |L_n(\psi_x, t) - \psi_x(t)| \le \frac{\eps\delta^2}{4M}
+	\]
+	В частности, если взять $t = x$, то получим, что $|L_n(\psi_x, x)|$ не превосходит той же величины. Торжество в том, что номер $N_1$ выбирается исходя лишь из равномерной сходимости $L_n(e_i)$ и не зависит от $x$ --- следовательно,
+	\[
+		\forall n > N_1\ \forall x \in [a; b]\ |L_n(\psi_x, x)| \le \frac{\eps\delta^2}{4M}
+	\]
+	Теперь оценим $L_n(e_0, x)$:
+	\[
+		\exists N_2 \in \N \such \forall n > N_2\ \forall x \in [a; b]\ |L_n(e_0, x)| \le \frac{3}{2}
+	\]
+	И вернёмся к нашему неравенству при $n > \max\{N_1, N_2\}$ и уже произвольному $x$ из $[a; b]$:
+	\[
+		-\frac{3\eps}{2} - \frac{\eps}{2} \le f(x)L_n(e_0, x) - L_n(f, x) \le \frac{3\eps}{2} + \frac{\eps}{2} \Lolra |f(x)L_n(e_0, x) - L_n(f, x)| \le 2\eps
+	\]
+	Осталось дело за малым: подобрать $N_3$, чтобы $f(x)L_n(e_0, x)$ оказалось близко к $f(x)$:
+	\[
+		\exists N_3 \in \N \such \forall n > N_3\ \forall x \in [a; b]\ |L_n(e_0, x) - 1| \le \frac{\eps}{M}
+	\]
+	Тогда при $n > N := \max\{N_1, N_2, N_3\}$ имеем:
+	\begin{multline*}
+		|f(x) - L_n(f, x)| \le
+		\\
+		|f(x) - f(x)L_n(e_0, x)| + |f(x)L_n(e_0, x) - L_n(f, x)| \le
+		\\
+		|f(x)| \cdot |L_n(e_0, x) - 1| + 2\eps \le 3\eps
+	\end{multline*}
+	Стало быть, сходимость $L_n(f, x) \rra f(x)$ при $n \to \infty$ установлена.
+\end{proof}
+
+\begin{theorem} (Вейерштрасса о приближении алгебраическими многочленами)
+	Любая функция $f \in C[a; b]$ может быть представлена пределом равномерно сходящейся на $[a; b]$ последовательности многочленов.
+\end{theorem}
+
+\begin{note}
+	Иными словами, простраство алгебраических многочленов всюду плотно в пространстве непрерывных функций.
+\end{note}
+
+\begin{proof}
+	Без ограничения общности рассмотрим $[a; b] = [0; 1]$ (линейная замена $x \ra (b - a)x + a$ переводит многочлен в многочлен). Рассмотрим последовательность объектов, называемых \textit{многочленами Бернштейна}:
+	\[
+		B_n(f, x) = \sum_{k = 0}^n f(k / n) C_n^k x^k(1 - x)^{n - k}
+	\]
+	Прежде всего заметим, что $B_n$ является линейным положительным оператором. Стало быть, мы можем пользоваться теоремой Коровкина. Проверим последовательность на $e_i$:
+	\begin{itemize}
+		\item \(B_n(e_0, x) = \sum_{k = 0}^n C_n^k x^k(1 - x)^{n - k} = (x + (1 - x))^n = 1 = e_0(x)\)
+		
+		\item \(B_n(e_1, x) = \sum_{k = 0}^n \frac{k}{n} C_n^k x^k(1 - x)^{n - k}\). Чтобы показать сходимость этой последовательности, рассмотрим функцию $(tx + (1 - x))^n$ и её производную по $t$:
+		\begin{multline*}
+			nx(tx + (1 - x))^{n - 1} = \big((tx + (1 - x))^n\big)'_t =
+			\\
+			\ps{\sum_{k = 0}^n C_n^k t^k x^k (1 - x)^{n - k}}'_t = \sum_{k = 1}^n kC_n^k t^{k - 1}x^k(1 - x)^{n - k} = \sum_{k = 0}^n kC_n^k t^{k - 1}x^k(1 - x)^{n - k}
+		\end{multline*}
+		Подстановкой $t = 1$ получим требуемое:
+		\[
+			nx = \sum_{k = 0}^n kC_n^kx^k(1 - x)^{n - k} \Lora x = \sum_{k = 0}^n \frac{k}{n} C_n^k x^k(1 - x)^{n - k} = B_n(e_1, x)
+		\]
+		
+		\item \(B_n(e_2, x) = \sum_{k = 0}^n \frac{k^2}{n^2} C_n^k x^k(1 - x)^{n - k}\). Дважды продифференцируем функцию из предыдущего пункта:
+		\[
+			n(n - 1)x^2(tx + (1 - x))^{n - 2} = \sum_{k = 0}^n k(k - 1)C_n^k t^{k - 2} x^k(1 - x)^{n - k}
+		\]
+		Снова подставим $t = 1$ (дополнительно воспользуемся уже доказанными тождествами):
+		\[
+			(n^2 - n)x^2 = \sum_{k = 0}^n (k^2 - k)C_n^k x^k(1 - x)^{n - k} = \sum_{k = 0}^n k^2C_n^k x^k(1 - x)^{n - k} - nx
+		\]
+		Стало быть, $B_2(e_2, x) = \frac{x}{n} + \ps{1 - \frac{1}{n}}x^2 \rra x^2 = e_2(x)$ при $n \to \infty$
+	\end{itemize}
+	Заключаем, что $\forall f \in C[0; 1]\ \ B_n(f, x) \rra f(x)$, что и требовалось.
+\end{proof}
+
+\begin{theorem} (Коровкина для тригонометрических функций)
+	Если $\{L_n\}_{n = 1}^\infty$ --- последовательность линейных положительных операторов $C_{2\pi} \to C_{2\pi}$ такая, что
+	\[
+		\forall i \in \{0, 1, 2\}\ \ L_n(e_i, x) \rra e_i(x) \ \text{на} \ \R,\ n \to \infty
+	\]
+	где $e_0(x) = 1$, $e_1(x) = \cos(x)$, $e_2(x) = \sin(x)$, то $\forall f \in C_{2\pi}\ \ L_n(f_i) \rra f$ на $\R,\ n \to \infty$
+\end{theorem}
+
+\begin{proof}
+	Ход доказательства повторяет первую теорему Коровкина. Однако:
+	\begin{enumerate}
+		\item $\exists M > 0 \such \forall x \in \R\ \ -M \le f(x) \le M$
+		
+		\item $\psi_x(t) = \sin^2 \frac{(x - t)}{2}$
+		
+		\item Требуем $\delta > 0$ из равномерной непрерывности, причём потребуем $\delta < \pi$
+		
+		\item Неравенство для $x, t \in \R$ принимает такой вид:
+		\[
+			-\eps - \frac{2M}{\sin^2 \frac{\delta}{2}} \psi_x(t) \le f(x) - f(t) \le \eps + \frac{2M}{\sin^2 \frac{\delta}{2}} \psi_x(t)
+		\]
+		Без ограничения общности, $t \in \rsi{x; x + 2\pi}$. Тогда разбор случаев имеет вид:
+		\begin{enumerate}
+			\item $t \in (x; x + \delta)$ или $t \in \rsi{x + 2\pi - \delta; x + 2\pi}$ --- тривиально по равномерной непрерывности (во втором случае мы руководствуемся фактом, что $f(x) = f(x + 2\pi)$)
+			
+			\item $t \in [x + \delta; x + 2\pi - \delta]$. Тогда $\frac{t - x}{2} \in [\delta / 2; \pi - \delta / 2]$ (для $\sin^2(x)$ это симметричная часть с максимумом), а значит $\sin^2((t - x) / 2) \ge \sin^2(\delta / 2)$
+		\end{enumerate}
+		
+		\item Снова нужно выяснить сходимость $L_n(\psi, x)$:
+		\begin{multline*}
+			L_n(\psi, x) = L_n\ps{\sin^2\ps{\frac{t - x}{2}}, x} = L_n\ps{\frac{1 - \cos(t - x)}{2}, x} =
+			\\
+			L_n\ps{\frac{1}{2} - \frac{1}{2}(\cos(t)\cos(x) + \sin(t)\sin(x)), x} =
+			\\
+			\frac{1}{2}L_n(e_0, x) - \frac{1}{2}\cos(x)L_n(e_1, x) - \frac{1}{2}\sin(x)L_n(e_2, x) \rra
+			\\
+			\frac{1}{2}e_0(x) - \frac{1}{2}\cos(x)e_1(x) - \frac{1}{2}\sin(x)e_2(x) = 0,\ n \to \infty
+		\end{multline*}
+	\end{enumerate}
+	Дальнейшие действия повторяют предыдущую теорему Коровкина
+\end{proof}
+
+\begin{definition}
+	\textit{Суммой Фейера} $\sigma_n(f, x)$ функции $f \in C_{2\pi}$ называется среднее арифметическое первых $n+1$ частичных сумм её ряда Фурье:
+	\[
+		\sigma_n(f, x) := \frac{S_0(f, x) + \ldots + S_n(f, x)}{n + 1}
+	\]
+\end{definition}
+
+\begin{theorem} (Фейера, или Вейерштрасса о приближении тригонометрическими многочленами)
+	Для любой функции $f \in C_{2\pi}$ последовательность её сумм Фейера $\sigma_n(f, x)$ равномерно сходится к $f$ на $\R$.
+\end{theorem}
+
+\begin{proof}
+	Докажем, что $\sigma_n$ удовлетворяет условиям теоремы Коровкина. Для этого нужно сначала проверить, что $\sigma_n$ --- линейный положительный оператор. Линейность очевидна, а чтобы проверить положительность, воспользуемся одним из представлений $n-$й частичной суммы ряда Фурье, например таким:
+	\[
+		S_n(f, x) = \frac{1}{\pi}\int_{[-\pi; \pi]} f(x + t)D_n(t)d\mu(t) = \frac{1}{\pi}\int_{[-\pi; \pi]} f(x + t) \frac{\sin\ps{(n + \frac{1}{2})t}}{2\sin\ps{t/2}} d\mu(t)
+	\]
+	Соответственно, подставим это в сумму Фейера:
+	\[
+		\sigma_n(f, x) = \frac{1}{\pi(n+1)}\int_{[-\pi; \pi]} f(x + t) \sum_{k=0}^n \frac{\sin\ps{(k + \frac{1}{2})t}}{2\sin\ps{t/2}} d\mu(t)
+	\]
+	Отдельно посчитаем внутреннюю сумму синусов, домножив числитель и знаменатель на $\sin(t/2)$:
+	\begin{multline*}
+		\sum_{k=0}^n \frac{\sin\ps{(k + \frac{1}{2})t}}{2\sin\ps{t/2}} = \sum_{k=0}^n \frac{\sin\ps{(k + \frac{1}{2})t} \sin\ps{t/2}}{2\sin^2\ps{t/2}} = \\
+		\sum_{k=0}^n \frac{\cos(kt) - \cos((k+1)t)}{4\sin^2\ps{t/2}} = \frac{1 - \cos((n+1)t)}{4\sin^2\ps{t/2}} \geq 0
+	\end{multline*}
+	Получается, что при неотрицательности $f$ весь интеграл тоже будет неотрицательным, а значит и $\sigma_n$. Осталось проверить сходимость операторов на трёх функциях:
+	\begin{enumerate}
+		\item $\sigma_n(1, x) = 1$
+		
+		\item Заметим, что $S_n(\cos, x) = \cos(x),\ n \ge 1$. При $n = 0$ это будет просто ноль, поэтому $\sigma_n(\cos, x) = \frac{n}{n + 1}\cos(x) \rra \cos(x),\ n \to \infty$
+		
+		\item Аналогично $\sigma_n(\sin, x) = \frac{n}{n + 1}\sin(x) \rra \sin(x),\ n \to \infty$ 
+	\end{enumerate}
+	Коль скоро условия выполнены, по теореме Коровкина $\forall f \in C_{2\pi}\ \sigma_n(f, x) \rra f,\ n \to \infty$
+\end{proof}
+
+\begin{note}
+	Предыдущая теорема сама по себе удобна на практике, но её можно усилить, если известны некоторые свойста приближаемой функции. Грубо говоря, скорость сходимости зависит от того, насколько крутые "скачки" \ допускает функция. Формально нам потребуется несколько определений и лемм.
+\end{note}
+
+\begin{definition}
+	\textit{Модулем непрерывности} $2\pi$-периодической функции $f$ называется следующая величина:
+	\[
+		\omega(f, \delta) := \sup_{x, t, |x - t| \leq \delta} |f(x) - f(t)|
+	\]
+\end{definition}
+
+\begin{theorem}
+	Модуль непрерывности обладает следующими свойствами:
+	\begin{enumerate}
+	\item
+		$\lim_{\delta \to +0} \omega(f, \delta) = 0 \Lra f \in C_{2\pi}$
+	\item (монотонность)
+		$(\forall \ 0 \leq \delta_1 \leq \delta_2) \ \omega(f, \delta_1) \leq \omega(f, \delta_2)$
+	\item (полуаддитивность)
+		$(\forall \delta_1, \delta_2 \geq 0) \ \omega(f, \delta_1 + \delta_2) \leq \omega(f, \delta_1) + \omega(f, \delta_2)$
+	\item (полулинейность)
+		$(\forall \ \delta, \lambda \geq 0) \ \omega(f, \lambda\delta) \leq ([\lambda] + 1)\omega(f, \delta)$
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+	\item
+		Утверждение эквивалентно равномерной непрерывности на $R$, значит, на любом отрезке длины $2\pi$, значит, обычной непрерывности. 
+	\item
+		Очевидно, т.к. берётся супремум по большему множеству.
+	\item
+		$\forall x, t \in \R : |x - t| \leq \delta_1 + \delta_2 \Lolra \exists p \in \R : |p - x| \leq \delta_1, |t - p| \leq \delta_2$. Тогда
+		\begin{multline*}
+			\omega(f, \delta_1 + \delta_2) = \sup_{x,p,t}|f(x) - f(p) + f(p) - f(t)| \leq \sup_{x,p,t}\ps{|f(x) - f(p)| + |f(p) - f(t)|} \leq \\ \sup_{x,p:|x - p| \leq \delta_1}|f(x) - f(p)| + \sup_{p,t:|p - t| \leq \delta_2}|f(p) - f(t)| = \omega(f, \delta_1) + \omega(f, \delta_2)
+		\end{multline*}
+	\item
+		$\omega(f, \lambda\delta) \leq \omega(f, ([\lambda] + 1)\delta) \ \leq ([\lambda] + 1)\omega(f, \delta) \leq (\lambda + 1)\omega(f, \delta)$ \\
+		Сначала воспользовались монотонностью, затем $[\lambda]$ раз полуаддитивностью.
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	\textit{Ядром Джексона} называется функция
+	\[
+		J_n(x) := \lambda_n \ps{\frac{\sin\frac{nx}{2}}{\sin\frac{x}{2}}}^4,
+	\]
+	где $\lambda_n$ определяется равенством
+	\[
+		\frac{1}{\pi} \int_{-\pi}^\pi J_n(x)dx = 1
+	\]
+\end{definition}
+
+\begin{lemma}
+	В ядре Джексона $\lambda_n = \frac{3}{2n(2n^2 + 1)}$.
+\end{lemma}
+
+\begin{proof}
+	\red{Дописать про формулы для ядер Фейера / Джексона}
+	\[
+		\frac{1}{\lambda_n} = \frac{1}{\pi} \int_{-\pi}^\pi J_n(x)dx = \frac{1}{\pi} \int_{-\pi}^{\pi} \ps{n + 2\sum_{k=1}^{n-1} (n - k)\cos kx}^2dx
+	\]
+	Поскольку косинусы образуют ортогональную систему в $L_{2\pi}$, в последнем интеграле останутся только $n$ слагаемых:
+	\begin{multline*}
+		\frac{1}{\pi} \int_{-\pi}^{\pi} \ps{n^2 + 4\sum_{k=1}^{n-1} (n - k)^2\cos^2kx}dx = \frac{1}{\pi} \int_{-\pi}^{\pi} \ps{n^2 + 4\sum_{k=1}^{n-1} (n - k)^2\frac{1 + \cos(2kx)}{2}}dx = \\
+		\frac{1}{\pi} \int_{-\pi}^{\pi} \ps{n^2 + 	2\sum_{k=1}^{n-1} (n - k)^2}dx = 2n^2 + 4\sum_{k=1}^{n-1} (n - k)^2 = \\
+		2n^2 + 4\frac{(n-1)n(2n-1)}{6} = \frac{6n^2 + 2n(2n^2 - 3n + 1)}{3} = \frac{2n(2n^2+1)}{3}
+	\end{multline*}
+	Формула суммы квадратов считается известной из первого семестра ОКТЧ.
+\end{proof}
+
+\begin{lemma} \label{michael_jackson}
+	Ядро Джексона представимо в следующем виде:
+	\[
+		J_n(x) = \frac{1}{2} + \sum_{k=1}^{2n-2} j_k \cos(kx),
+	\]
+	причём $j_1 = 1 - \frac{3}{2n^2 + 1}$.
+\end{lemma}
+
+\begin{proof}
+	Во-первых, из разложения $J_n(x)$ видно, что это многочлен с мономами вида $C\cos(kx)\cos(lx), 0 \leq k, l \leq n - 1$ или, что то же самое (пользуясь формулой $\cos(kx)\cos(lx) = (\cos((k + l)x) + \cos((k - l)x))/2$),  $j_k \cos(kx), 0 \leq k \leq 2n - 2$.
+	Во-вторых, из того, как определялось $\lambda_n$, ясно, что константа в разложении через обычные косинусы равна $1/2$. Теперь, чтобы посчитать $j_1$, запишем полностью $J_n(x)$ в таком виде:
+	\[
+		J_n(x) = \frac{3}{2n(2n^2 + 1)} \ps{n + 2\sum_{k=1}^{n-1} (n - k)\cos kx}^2
+	\]
+	Одно из слагаемых при $\cos x$ внутри скобки равно $4n(n-1)$, а остальные получаются при умножении $\cos(k)$ на $\cos(k+1)$, причём каждая такая пара встречается дважды. Это всё даёт
+	\begin{multline*}
+		j_1 =  \frac{3}{2n(2n^2 + 1)} \ps{4n(n-1) + \sum_{k=1}^{n-2} 4(n-k)(n-k-1)} = \\
+		\frac{6}{n(2n^2 + 1)} \ps{\sum_{k=1}^{n-1} k(k+1)} =
+		\frac{6}{n(2n^2 + 1)} \ps{\frac{(n-1)n(2n-1)}{6} + \frac{(n-1)n}{2}} = \\ \frac{(n-1)(2n - 1 + 3)}{2n^2 + 1} = \frac{2n^2 - 2}{2n^2 + 1} = 1 - \frac{3}{2n^2 + 1}
+	\end{multline*}
+\end{proof}
+
+\begin{note}
+	Далее нам понадобится ранее доказанное утверждение \ref{fourier_partial_sum} и соответствующие обозначения.
+\end{note}
+
+\begin{lemma} \label{random_weird_bound}
+	Пусть $K_n(t) \geq 0 \ \forall t \in \R$. Тогда $\rho_{n,1} \leq 1$ и
+	\[
+		\frac{1}{\pi} \int_{-\pi}^\pi |t| K_n(t) dt \leq \frac{\pi}{\sqrt{2}}\sqrt{1 - \rho_{n,1}}
+	\]
+\end{lemma}
+
+\begin{proof}
+	Вспомним старое-доброе неравенство: $\forall x \in [0; \pi/2] \ x \leq \frac{\pi}{2}\sin x$ --- и применим его к $x := |t|/2$:
+	\[
+		\frac{2}{\pi} \int_{-\pi}^\pi \frac{|t|}{2} K_n(t) dt \leq \int_{-\pi}^\pi \sin\frac{|t|}{2} K_n(t) dt
+	\]
+	Затем применим неравенство КБШ к интегралам от $\sin\frac{|t|}{2} \sqrt{K_n(t)}$ и $\sqrt{K_n(t)}$, при этом снова посокращаются куча слагаемых с косинусами:
+	\begin{multline*}
+		\int_{-\pi}^\pi \sin\frac{|t|}{2} K_n(t) dt \leq \sqrt{\int_{-\pi}^\pi \sin^2\frac{|t|}{2} K_n(t) dt} \cdot \sqrt{\int_{-\pi}^\pi K_n(t) dt} = \\
+		\sqrt{\int_{0}^\pi (1 - \cos t)\ps{\frac{1}{2} + \sum_{k=1}^{n} \rho_{n,k}\cos(kt)} dt} \cdot \sqrt\pi = \sqrt{\frac{\pi}{2} - \frac{\pi\rho_{n,1}}{2}}\cdot\sqrt\pi = \frac{\pi}{\sqrt{2}}\sqrt{1 - \rho_{n,1}}
+	\end{multline*}
+	Корректность этой записи, то есть неотрицательность $1 - \rho_{n,1}$, следует из того, что изначально под первым корнем стоял интеграл от квадрата некоторой функции, то есть неотрицательное число.
+\end{proof}
+
+\begin{lemma} (Коровкина) \label{korovkin's_weird_bound}
+	Пусть $f \in C_{2\pi}$ и $K_n(t) \geq 0 \ \forall t \in \R$. Тогда $\forall m \in \N, x \in \R$ верно неравенство:
+	\[
+		|\widehat\sigma(f, x) - f(x)| \leq \omega\ps{f, \frac{1}{m}} \cdot \ps{1 + \frac{m\pi}{\sqrt{2}}\sqrt{1 - \rho_{n,1}}}
+	\]
+\end{lemma}
+
+\begin{proof}
+	Пришло время воспользоваться леммой \ref{fourier_partial_sum}:
+	\begin{multline*}
+		|\widehat\sigma_n(f, x) - f(x)| = \md{\frac{1}{\pi} \int_{-\pi}^\pi (f(x+t) - f(x))K_n(t)dt} \leq \\ \frac{1}{\pi} \int_{-\pi}^\pi |f(x+t) - f(x)|K_n(t)dt \leq \frac{1}{\pi} \int_{-\pi}^\pi \omega(f, |t|)K_n(t)dt
+	\end{multline*}
+	Теперь, чтобы выразить $\omega(f, |t|)$ через $\omega(f, \frac{1}{m})$, применим свойство полулинейности $\omega$:
+	\[
+		\omega(f, |t|) = \omega(f, \frac{m|t|}{m}) \leq (m|t| + 1)\cdot \omega(f, \frac{1}{m})
+	\]
+	Последний множитель выносится за интеграл:
+	\[
+		\frac{1}{\pi} \int_{-\pi}^\pi \omega(f, |t|)K_n(t)dt \leq \frac{1}{\pi} \omega(f, \frac{1}{m}) \int_{-\pi}^\pi (m|t| + 1)K_n(t)dt
+	\]
+	И по лемме \ref{random_weird_bound} получившийся интеграл оценивается ровно так, как и задумано.
+\end{proof}
+
+\begin{definition}
+	Обозначим $\Pi_n$ --- множество тригонометрических полиномов порядка не выше $n$, т.е. функций вида $a_0/2 + \sum_{k=1}^n a_k\cos(kx) + b_k\sin(kx)$. Тогда для любой функции $f \in C_{2\pi}$ определим следующую величину:
+	\[
+		E_n(f) := \inf_{T_n \in \Pi_n} \sup_{x \in \R} |f(x) - T_n(x)|
+	\]
+\end{definition}
+
+\begin{note}
+	Очевидно, $E_{n+1}(f) \leq E_n(f)$ (с увеличеним $n$ расширяется класс многочленов, которыми можно равномерно приближать функцию).
+\end{note}
+
+\begin{theorem} (Джексона) \label{E_n_bound}
+	Для любой $f \in C_{2\pi}$ справедлива оценка:
+	\[
+		\forall n \in \N \ E_n(f) \leq (1 + \pi\sqrt{3}) \omega\ps{f, \frac{1}{n}}
+	\]
+\end{theorem}
+
+\begin{proof}
+	Возьмём такой набор $\{\rho_{2n, k}\}_{k=1}^{2n}$, что $K_{2n}(t) = J_{n+1}(t)$. Заметим, что с таким выбором $K_{2n}$ --- неотрицательная функция (потому что $J_{n+1}$ неотрицательно), а соответствующая ей сумма $\widehat\sigma_{2n}(f, x)$ --- некоторый тригонометрический многочлен порядка не выше $2n$. Поэтому в случае $E_{2n}$, вооружившись леммами \ref{korovkin's_weird_bound} (при $m = 2n+2$) и \ref{michael_jackson},  можно сделать такой вывод:
+	\begin{multline*}
+		E_{2n}(f) \leq ||f - \widehat\sigma_{2n}(f, \cdot)||_{C_{2\pi}} \leq \omega \ps{f, \frac{1}{2n+2}}\ps{1 + \frac{(2n+2)\pi}{\sqrt{2}}\sqrt{\frac{3}{2(n+1)^2 + 1}}} \leq \\ \omega \ps{f, \frac{1}{2n+2}}\ps{1 + \frac{(2n+2)\pi}{\sqrt{2}}\sqrt{\frac{3}{2(n+1)^2}}} = (1 + \pi\sqrt{3}) \omega\ps{f, \frac{1}{2n+2}}
+	\end{multline*}
+	Мы получили чуть более сильную оценку для $E_{2n}$, которую можно ослабить для нечётного случая:
+	\[
+		E_{2n+1}(f) \leq E_{2n}(f) \leq (1 + \pi\sqrt{3}) \omega\ps{f, \frac{1}{2n+2}}
+	\]
+	Поскольку $\omega\ps{f, \frac{1}{2n+2}} \leq \omega\ps{f, \frac{1}{2n+1}} \leq \omega\ps{f, \frac{1}{2n}}$, теорема верна при любых $n \in \N$.
+\end{proof}
+
+\begin{note}
+	Теперь мы копнём в сторону рядов Фурье и поймём, насколько хорошо они приближают частичными суммами свою функцию по сравнению с $E_n$ (спойлер: с точностью до логарифмического множителя, но только для функций из $C_{2\pi}$).
+\end{note}
+
+\begin{designation}
+	$C_{2\pi}^*$ --- подмножество $C_{2\pi}$, состоящее из функций $f$ с нулевым интегралом по периоду, т.е.
+	\[
+		\int_{-\pi}^\pi f(x)dx = 0
+	\]
+\end{designation}
+
+\begin{designation}
+	$C_{2\pi}^r, \ r \in \N$ --- множество $2\pi$-периодических функций, непрерывных на $\R$ со всеми своими производными до порядка $r$ включительно.
+\end{designation}
+
+\begin{lemma}
+	Если $f \in C_{2\pi}^*$, $\widetilde S_n(x) := \frac{a_0}{2} + \sum_{k=1}^n a_k\cos(kx) + b_k\sin(kx)$ --- некоторый тригонометрический многочлен, то
+	\[
+		\md{\frac{a_0}{2}} \leq ||f - \widetilde S_n||_{C_{2\pi}}
+	\]
+\end{lemma}
+
+\begin{proof}
+	\[
+		\md{\frac{a_0}{2}} = \frac{1}{2\pi} \md{\int_{-\pi}^{\pi} \widetilde S_n(x) dx} = \frac{1}{2\pi} \md{\int_{-\pi}^{\pi} (\widetilde S_n(x) - f(x)) dx} \leq ||f - \widetilde S_n||_{C_{2\pi}}
+	\]
+\end{proof}
+
+\begin{corollary} \label{what_if_we_remove_a_0}
+	Если $f \in C_{2\pi}^*$, $\widetilde S_n(x)$ из предыдущей леммы, $S_n(x) := \widetilde S_n(x) - \frac{a_0}{2}$, то
+	\[
+		||f - S_n||_{C_{2\pi}} \leq 2||f - \widetilde S_n||_{C_{2\pi}}
+	\]
+\end{corollary}
+
+\begin{proof}
+	\[
+		||f - S_n||_{C_{2\pi}} = \nrm{f - \widetilde S_n + \frac{a_0}{2}}_{C_{2\pi}} \leq \nrm{f - \widetilde S_n}_{C_{2\pi}} + \nrm{\frac{a_0}{2}}_{C_{2\pi}} \leq 2||f - \widetilde S_n||_{C_{2\pi}}
+	\]
+\end{proof}
+
+\begin{corollary} \label{r-th_derivative_approx}
+	Если $f \in C_{2\pi}^r$, то
+	\[
+		\exists C_r \in R : \forall n \in N \ E_n(f) \leq \frac{C_r}{n^r} E_n(f^{(r)})
+	\]
+\end{corollary}
+
+\begin{proof}
+	Проведём индукцию по $r$. Основной случай --- $r = 1$. По определению $E_n(f)$
+	\[
+		\forall \eps > 0 \ \exists \widehat S_n : \ \nrm{f' - \widetilde S_n}_{C_{2\pi}} < E_n(f') + \eps
+	\]
+	Заметим, что $E_n(f) = E_n(f - S_n)$ для любого тригонометрического полинома $S_n$ без свободного члена ($T_n$ хорошо приближает $f \Lra$ $T_n - S_n$ приближает $f - S_n$ с той же точностью). По теореме \ref{E_n_bound}
+	\[
+		E_n(f) = E_n(f - S_n) \leq C\omega\ps{f - S_n, \frac{1}{n}}
+	\]
+	Последнюю величину оценим по формуле конечных приращений:
+	\[
+		C\omega\ps{f - S_n, \frac{1}{n}} = C \sup_{x \in \R, \ |t| \leq \frac{1}{n}} |f(x+t) - S_n(x+t) - f(x) + S_n(x)| \leq \frac{C}{n} \nrm{f' - S_n'}_{C_{2\pi}}
+	\]
+	Теперь, чтобы связать полученное неравенство с нормой $f' - \widetilde S_n$, возьмём такой многочлен $S_n$ (без $a_0$), что $S_n' = \widetilde S_n - \frac{a_0}{2}$. Тогда по лемме \ref{what_if_we_remove_a_0}
+	\[
+		\frac{C}{n} \nrm{f' - S_n'}_{C_{2\pi}} \leq \frac{2C}{n} ||f' - \widetilde S_n||_{C_{2\pi}} < \frac{2C}{n} E_n(f') + \eps
+	\]
+	Поскольку $\eps$ любое, получаем
+	\[
+		E_n(f) \leq \frac{2C}{n} E_n(f')
+	\]
+	Переход индукции получается тривиально.
+\end{proof}
+
+\begin{lemma}
+	\[
+		\forall n \geq 2 \ \int_0^\pi \md{D_n(x)}dx \leq \frac{\pi}{2}(2 + \ln n)
+	\]
+\end{lemma}
+
+\begin{proof}
+	Представим ядро Дирихле как отношение синусов и сделаем замену $x/2 = t$:
+	\[
+		\int_0^\pi \md{D_n(x)}dx = \int_0^\pi \md{\frac{\sin\ps{(n + \frac{1}{2})x}}{2\sin\ps{\frac{x}{2}}}}dx = \int_0^{\frac{\pi}{2}} \md{\frac{\sin((2n+1)t)}{\sin t}}dt
+	\]
+	Разобьём последний интеграл на два:
+	\begin{align*}
+		&I_1 := \int_0^{\frac{\pi}{2(2n+1)}} \md{\frac{\sin((2n+1)t)}{\sin t}}dt \\
+		&I_2 := \int_{\frac{\pi}{2(2n+1)}}^{\frac{\pi}{2}} \md{\frac{\sin((2n+1)t)}{\sin t}}dt
+	\end{align*}
+	Чтобы оценить $I_1$, воспользуемся фактом $|\sin(kt)| \leq k|\sin t|$, который легко доказывается по индукции, ибо
+	\[
+		|\sin(kt)| = |\sin((k-1)t)\cos t + \cos((k-1)t)\sin t| \leq |\sin((k-1)t)| + |\sin t|
+	\]
+	Из этого сразу получается $I_1 \leq \pi/2$.
+	Чтобы оценить $I_2$, снова прибегнем к неравенству $\forall x \in [0; \pi/2] \ x \leq \frac{\pi}{2}\sin x$:
+	\begin{multline*}
+		I_2 \leq \int_{\frac{\pi}{2(2n+1)}}^{\frac{\pi}{2}} \frac{1}{\sin t}dt \leq \frac{\pi}{2} \int_{\frac{\pi}{2(2n+1)}}^{\frac{\pi}{2}} \frac{1}{t}dt = \frac{\pi}{2} \ps{\ln\frac{\pi}{2} - \ln\ps{\frac{\pi}{2(2n+1)}}} = \\
+		\frac{\pi}{2} \ln(2n + 1) \leq \frac{\pi}{2} \ln(en) = \frac{\pi}{2}(1 + \ln n)
+	\end{multline*}
+	Итого $I_1 + I_2 \leq \frac{\pi}{2}(2 + \ln n)$.
+\end{proof}
+
+\begin{corollary}
+	Если $f \in C_{2\pi}$ такова, что $\forall x \in \R \ |f(x)| \leq M$, то $\forall n \geq 2, x \in \R$
+	\[
+		|S_n(f, x)| \leq M(2 + \ln n)
+	\]
+\end{corollary}
+
+\begin{proof}
+	Просто пользуемся одним из представлений частичной суммы ряда Фурье и предыдущей леммой:
+	\[
+		|S_n(f, x)| = \md{\frac{1}{\pi} \int_0^\pi (f(x+t) + f(x-t))D_n(t) dt} \leq \frac{2M}{\pi} \int_0^\pi |D_n(t)| dt \leq M(2 + \ln n)
+	\]
+\end{proof}
+
+\begin{theorem} (Неравенство Лебега)
+	Если $f \in C_{2\pi}$, то $\forall n \geq 2$
+	\[
+		\nrm{f - S_n(f, \cdot)}_{C_{2\pi}} \leq (3 + \ln n)E_n(f)
+	\]
+\end{theorem}
+
+\begin{proof}
+	Как водится, возьмём $\eps > 0$ и сделаем следующее:
+	\[
+		\nrm{f - S_n(f, \cdot)} \leq \nrm{f - T_n} + \nrm{T_n - S_n(f, \cdot)},
+	\]
+	где $T_n$ --- тригонометрический многочлен, для которого $\nrm{f - T_n} < E_n(f) + \eps$. Также, поскольку коэффициенты рядов Фурье обладают аддитивностью и $S_n(T_n) = T_n$,
+	\[
+		\nrm{T_n - S_n(f, \cdot)} = \nrm{S_n(T_n - f, \cdot)}
+	\]
+	Пользуясь выбором $T_n$ и предыдущим следствием,
+	\[
+		\nrm{S_n(T_n - f, \cdot)} \leq (E_n(f) + \eps)(2 + \ln n)
+	\]
+	Складываем и получаем
+	\[
+		\nrm{f - S_n(f, \cdot)} \leq \nrm{f - T_n} + \nrm{T_n - S_n(f, \cdot)} < (E_n(f) + \eps)(3 + \ln n)
+	\]
+	Устремляя $\eps$ к нулю, доказываем теорему.
+\end{proof}
+
+\begin{corollary}
+	Если $f \in C_{2\pi}^r$ и $f^{(r)}$ удовлетворяет условию Гёльдера порядка $\alpha \in \rsi{0; 1}$, то
+	\[
+		\nrm{f - S_n(f, \cdot)}_{C_{2\pi}} \leq C\frac{(3 + \ln n)}{n^{r + \alpha}}
+	\]
+\end{corollary}
+
+\begin{proof}
+	Непосредственно по неравенству Лебега, следствию \ref{r-th_derivative_approx}, теореме Джексона и определению условия Гёльдера.
+\end{proof}

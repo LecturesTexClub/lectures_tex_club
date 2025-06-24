@@ -1,0 +1,240 @@
+\begin{theorem} (Дифференцирование преобразования Фурье)
+	Если $f(x)$ и $xf(x)$ лежат в классе $L_1(\R)$, то $\wdh{f}(\lambda)$ будет дифференцируема всюду на $\R$, причём верны равенства:
+	\[
+		(\wdh{f})'(\lambda) = \wdh{(-ixf(x))}(\lambda);\ \ \lim_{\lambda \to \infty} |\wdh{f}'(\lambda)| = 0
+	\]
+\end{theorem}
+
+\begin{proof}
+	Мы имеем дело с несобственным интегралом:
+	\[
+		\wdh{f}(\lambda) = \frac{1}{\sqrt{2\pi}} \int_\R f(x)e^{-i\lambda x}d\mu(x)
+	\]
+	Поэтому формально происходит следующее: интеграл по $\R$ расписывается как предел, дальше мы получаем собственные интегралы, где подыинтегральная функция суммируема и есть оценка на производную:
+	\[
+		\md{\pd{}{\lambda}\ps{f(x)e^{-i\lambda x}}} = |f(x)(-ix)e^{-i\lambda x}| \le |xf(x)|,\ |xf(x)| \in L_1(\R)
+	\]
+	Стало быть, просто используем теорему о дифференцируемости собственного интеграла по параметру под пределом и возвращаем предел в форму интеграла:
+	\[
+		(\wdh{f})'(\lambda) = \frac{1}{\sqrt{2\pi}} \int_\R (-ix)f(x)e^{-i\lambda x}d\mu(x) = (\wdh{-ixf(x)})(\lambda)
+	\]
+	По свойству преобразования Фурье мы также заключаем, что $\lim_{\lambda \to \infty} |(\wdh{f})'(\lambda)| = 0$.
+\end{proof}
+
+\begin{definition}
+	\textit{Свёрткой функций} $f, g \in L_1(\R)$ называется функция $f * g$, определяемая поточечно следующим образом:
+	\[
+		(f * g)(x) = \int_\R f(t)g(x - t)d\mu(t)
+	\]
+\end{definition}
+
+\begin{proposition}
+	Если $f, g \in L_1(\R)$, то и $f * g \in L_1(\R)$
+\end{proposition}
+
+\begin{proof}
+	Воспользуемся хитрым фактом: $f, g \in L_1(\R) \implies |f|, |g| \in L_1(\R) \implies |f(t) \cdot g(y)| \in L_1(\R^2)$ (по теореме Тонелли) $\implies f(t) \cdot g(y) \in L_1(\R^2)$. Стало быть, работает теорема Фубини:
+	\begin{multline*}
+		\int_{\R^2} f(t)g(y)d\mu(t, y) = \int_\R f(t)d\mu(t) \cdot \int_\R g(y)d\mu(y) = \{y = x - t\} =
+		\\
+		\int_\R f(t) \int_\R g(x - t)d\mu(x)d\mu(t) = \int_\R d\mu(x) \int_\R f(t)g(x - t)d\mu(t) \Lora f * g \in L_1(\R)
+	\end{multline*}
+\end{proof}
+
+\begin{theorem} (Преобразование Фурье для свёртки)
+	Если $f, g \in L_1(\R)$, то имеет место равенство:
+	\[
+		\wdh{f * g}(\lambda) = \sqrt{2\pi}\wdh{f}(\lambda) \cdot \wdh{g}(\lambda)
+	\]
+\end{theorem}
+
+\begin{proof}
+	Подставим определение свёртки в определение преобразования Фурье, разделим интегралы:
+	\begin{multline*}
+		\wdh{f * g}(\lambda) = \frac{1}{\sqrt{2\pi}} \int_\R (f * g)(x)e^{-i\lambda x}d\mu(x) = \frac{1}{\sqrt{2\pi}} \int_\R \int_\R f(t)g(x - t)d\mu(t)e^{-i\lambda x}d\mu(x) =
+		\\
+		\frac{1}{\sqrt{2\pi}} \int_\R f(t) \int_\R g(x - t)e^{-i\lambda x}d\mu(x)d\mu(t) = \{x - t = u\} =
+		\\
+		\frac{1}{\sqrt{2\pi}} \int_\R f(t)e^{-i\lambda t} \int_\R g(u)e^{-i\lambda u}d\mu(u)d\mu(t) = \sqrt{2\pi}\wdh{f}(\lambda) \cdot \wdh{g}(\lambda)
+	\end{multline*}
+\end{proof}
+
+\begin{example}
+	Пусть $f(x) = e^{-\alpha x^2},\ \alpha > 0$. Найдём $\wdh{f}$:
+	\textcolor{red}{Дописать}
+\end{example}
+
+\begin{note}
+	Преобразование Фурье имеет различные применения. Рассмотрим 2 частых:
+	\begin{enumerate}
+		\item Решение уравнения теплопроводности: $\pd{u}{t} = a^2 \pd{^2u}{x^2},\ u(x, 0) = f(x),\ a > 0$. Применим к обеим частям преобразование Фурье:
+		\[
+			\pd{\wdh{u}}{t} = a^2 (-\lambda^2) \wdh{u}(\lambda, t)
+		\]
+		отсюда $\wdh{u}(\lambda, t) = C(\lambda) e^{-a^2\lambda^2 t}$. После преобразования Фурье начальное условие принимает вид $\wdh{u}(\lambda, 0) = \wdh{f}(\lambda)$, то есть
+		\begin{multline*}
+			\wdh{u}(\lambda, t) = \wdh{f}(\lambda) e^{-a^2\lambda^2 t} \Ra
+			\\
+			u(x, t) = F^{-1}[\wdh{f}(\lambda) e^{-a^2\lambda^2 t}](x, t) = \frac{1}{\sqrt{2\pi}} f * \wdt{e^{-a^2\lambda^2 t}} = \frac{1}{\sqrt{2\pi}} f * \ps{\frac{1}{\sqrt{2ta^2}} \cdot e^{-x^2 / (4a^2 t)}}
+		\end{multline*}
+		
+		\item Теорема Котельникова (Найквиста-Шеннона, теорема отсчётов): для восстановления сигнала $f(x)$ с финитным спектром, сосредоточенным в полосе частот $|\omega| \le a$, достаточно передать его значения в точках $k\Delta$, где $k \in \Z$ и $\Delta = \pi / a$, причём верно равенство:
+		\[
+			f(x) = \sum_{k = -\infty}^{+\infty} f\ps{k\frac{\pi}{a}} \frac{\sin\ps{x - \frac{k\pi}{a}}}{a\ps{x - \frac{k\pi}{a}}}
+		\]
+		\textcolor{red}{Вряд ли кто-то в здравом уме спросит ФИВТа доказательство матфиз теоремы, ибо никто нам пока не рассказывал ни финитный спектр, ни понятие полосы частот. Пока что отложено}
+	\end{enumerate}
+\end{note}
+
+\subsection{Пространство Шварца $S$}
+
+\begin{definition}
+	Будем называть функцию $f \colon \R \to \Cm$ \textit{быстро убывающей}, если выполнено утверждение:
+	\[
+		\forall k, n \in \N_0\ \ \exists C_{k, n} \such \forall x \in \R\ (1 + |x|^k)|f^{(n)}(x)| \le C_{k, n}
+	\]
+\end{definition}
+
+\begin{anote}
+	Иначе говоря, любая производная быстро убывающей функции убывает быстрее любого полинома.
+\end{anote}
+
+\begin{definition}
+	Множество быстро убывающих функций $S$ называется \textit{пространством Шварца}.
+\end{definition}
+
+\begin{theorem}
+	Преобразование Фурье является биекцией $S \to S$.
+\end{theorem}
+
+\begin{proof}
+	Заметим ключевое неравенство для любых $k, l \in \N_0$ и $f \in S$:
+	\[
+		|x^kf^{(l)}(x)| \leq \frac{(1 + |x|^{k+2})|f^{(l)}(x)|}{1 + |x|^2} \leq \frac{C_{k+2, n}}{1 + |x|^2}
+	\]
+	Отсюда следует, что:
+	\begin{enumerate}
+		\item $x^kf \in L_1(\R)$ (взяли $l = 0$). Значит, $\wdh{f}$ --- бесконечно дифференцируемая на $\R$ функция (можно сколько угодно раз применить теорему о производной преобразования Фурье).
+		
+		\item $f^{(l)} \in L_1(\R)$, поэтому справедлива также теорема о преобразовании Фурье производной: $\wdt{f^{(l)}}(\lambda) = (i\lambda)^{l} \wdh{f}(\lambda) \implies \wdh{f}(\lambda) = o(1/|\lambda|^l), \ \lambda \to \infty$. Наконец, можно взять производную преобразования: $\wdh{f}^{(n)}(\lambda) = o(1/|\lambda|^{l + n}), \ \lambda \to \infty$ --- значит, $\wdh{f} \in S$.
+	\end{enumerate}
+
+	Далее, преобразование Фурье инъективно в $S$, поскольку однозначно определено обратное преобразование. Осталось показать, что обратное преобразование не выводит функцию за рамки $S$, то есть $g \in S \implies \wdt g \in S$. Это так, ибо $\wdt g(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} g(\lambda) e^{i\lambda x} d\lambda = \wdh{g}(-x)$. Очевидно, $\wdh g$ и $-\wdh g$ принадлежат или не принадлежат $S$ одновременно, а про $\wdh g$ мы доказали выше. Итого $\wdt g \in S$ и теорема доказана.
+\end{proof}
+
+\begin{theorem} (Формулы Парсеваля)
+	Если $f_1, f_2 \in S$, то имеют место следующие формулы:
+	\begin{enumerate}
+		\item \(\int_{-\infty}^\infty \wdh{f}_1(x)f_2(x)dx = \int_{-\infty}^{+\infty} f_1(x)\wdh{f}_2(x)dx\)
+		
+		\item \(\int_{-\infty}^{+\infty} f_1(x)\overline{f_2(x)}dx = \int_{-\infty}^{+\infty} \wdh{f}_1(\lambda)\overline{\wdh{f}_2(\lambda)}d\lambda\)
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}~
+	\begin{enumerate}
+		\item Нужно просто раскрыть преобразования Фурье в равенстве справа и слева и воспользоваться теоремой Фубини для функции $|f_1(t) f_2(x) e^{-itx}|$:
+		\begin{multline*}
+			\int_{-\infty}^\infty \wdh{f}_1(x)f_2(x)dx = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f_2(x) \int_{-\infty}^{+\infty} f_1(t) e^{-itx} dt \ dx = \\ \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f_1(t) \int_{-\infty}^{+\infty} f_2(x) e^{-itx} dx \ dt = \int_{-\infty}^{+\infty} f_1(x)\wdh{f}_2(x)dx
+		\end{multline*}
+		
+		\item Сведём всё к первому равенству, обозначив $h(x) = \ole{\wdh f_2}(x) \in S$:
+		\[
+			\int_{-\infty}^{+\infty} \wdh{f}_1(\lambda)h(\lambda) d\lambda = \int_{-\infty}^{+\infty} f_1(x)\wdh{h}(x)dx
+		\]
+		Тривиально доказывается, что $\wdh h$ и есть $\ole{f_2}$:
+		\[
+			\wdh{h}(t) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \ole{\wdh f_2}(x) e^{-itx} dx = \frac{1}{\sqrt{2\pi}} \ole{\int_{-\infty}^{+\infty} \wdh f_2(x) e^{itx}} = \ole{\wdt{\wdh f_2}}(t) = \ole{f_2}(t)
+		\]
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+	$S$ всюду плотно в $L_2(\R)$.
+\end{lemma}
+
+\begin{proof}
+	Идея: произвольную $f \in L_2(\R)$ "обрезаем" \ по бокам, затем приближаем многочленами, а те незаметно сглаживаем. Формально:
+	\[
+		f \in L_2(\R) \implies \forall \eps > 0 \ \exists N > 0: \nrm{f \cdot \mathbb{I}_{[-N; N]} - f}_{L_2(\R)} < \eps,
+	\]
+	то есть множество финитных функций всюду плотно в $L_2(\R)$. Те, в свою очередь, приближаются алгебраическими многочленами, обрывающимися вне $[-N; N]$. Теперь рассмотрим типичный пример последовательности бесконечно гладких функций, а именно:
+	\[
+		\phi_n(x) = \begin{cases*}
+			e^{-\frac{1}{n(N^2 - x^2)}}, & |x| < N \\
+			0, & |x| \geq N
+		\end{cases*}
+	\]
+	Нетрудно видеть, что $\phi_n(x) \to \mathbb{I}_{(-N; N)}, n \to \infty$, а также что $\phi_n \cdot P \in S$, где $P$ --- алгебраический многочлен (последнее обговаривалось в третьем семестре при построении разбиения единицы). Отсюда $\phi_n \cdot P \to P$, то есть приблизили многочлен функцией из $S$. По транзитивности получаем, что $S$ всюду плотно в $L_2(\R)$.
+\end{proof}
+
+\begin{note}
+	В любом ЛНП норма обладает непрерывностью (выводится непосредственно из неравенства треугольника).
+\end{note}
+
+\begin{theorem} (Планшереля)
+	Пусть $f \in L_2(\R)$, $g_n(t) = \frac{1}{\sqrt{2\pi}} \int_{[-n; n]} f(x) e^{-ixt} d\mu(x)$ --- последовательность функций, сходящихся к $g$ в $L_2(\R)$. Тогда $\nrm{g}_{L_2(\R)} = \nrm{f}_{L_2(\R)}$. Кроме того, если $f \in L_2(\R) \cap L_1(\R)$, то $g(t) = \wdh f(t)$.
+\end{theorem}
+
+\begin{proof}
+	Опять докажем отдельно финитный случай и общий.
+	\begin{enumerate}
+		\item $f$ финитна, то есть $\supp f \subset [-N; N]$. В этом случае также $f \in L_1(\R)$ и, начиная с номера $N$, $g_n$ --- стационарная последовательность, равная $\wdh f$. Значит, $g = \wdh f$ и вторая часть утверждения доказана. Приступим теперь к равенству $\nrm{g}_{L_2(\R)}$ (или же $\nrm{\wdh f}_{L_2(\R)}$) и $\nrm{f}_{L_2(\R)}$.
+		
+		По лемме существует последовательность функций $f_n \to f$ из $S$, причём из доказательства леммы ясно, что можно выбрать $\supp f_n \subset \supp f$. Также из второго равенства Парсеваля можно выудить следствие: для $f_n \in S$ $\nrm{f}_{L_2(\R)} = \nrm{\wdh f}_{L_2(\R)}$. То есть уже можно сказать, что
+		\[
+			\nrm{f}_{L_2(\R)} = \lim_{n \to \infty} \nrm{f_n}_{L_2(\R)} = \lim_{n \to \infty} \nrm{\wdh f_n}_{L_2(\R)}
+		\]
+		Теперь заметим две сходимости:
+		\begin{itemize}
+			\item $f_n$ фундаментальна в $L_2(\R)$, поэтому $\wdh f_n$ тоже:
+			\[
+				\nrm{\wdh f_n - \wdh f_m}_{L_2(\R)} = 		\nrm{\wdh{f_n - f_m}}_{L_2(\R)} = \nrm{f_n - f_m}_{L_2(\R)}
+			\]
+			Следовательно, $\wdh f_n$ сходится в $L_2(\R)$, поскольку $L_2(\R)$ полно.
+			
+			\item $\wdh f_n$ сходится равномерно к $\wdh f$:
+			\[
+				\md{\wdh f_n(x) - \wdh f(x)} = \md{\int_\R (f_n(t) - f(t)))e^{-itx} d\mu(t)} \leq \int_{[-N; N]} \md{f_n(t) - f(t)} d\mu(t) \rightrightarrows 0
+			\]
+		\end{itemize}
+		Из этих двух утверждений вытекает, что $\wdh f_n$ сходится к $\wdh f$ в $L_2(\R)$ \red{объяснить подробнее}. Значит, $\nrm{\wdh f_n}_{L_2(\R)}$ сходится к $\nrm{\wdh f}_{L_2(\R)}$ и
+		\[
+			\nrm{f}_{L_2(\R)} = \lim_{n \to \infty} \nrm{\wdh f_n}_{L_2(\R)} = \nrm{\wdh f}_{L_2(\R)}
+		\]
+		
+		\item Общий случай. Обозначим $\phi_n(x) = (f \cdot \mathbb{I}_{[-n; n]})(x)$. Очевидно, что $\phi_n \xrightarrow{L_2(\R)} f$ и $\wdh \phi_n = g_n$. Также по уже доказанному $\nrm{\phi_n}_{L_2(\R)} = \nrm{\wdh \phi_n}_{L_2(\R)}$. Из этого выводится первая часть утверждения:
+		\[
+			\nrm{g} = \nrm{\lim_{n \to \infty} g_n} = \lim_{n \to \infty} \nrm{g_n} = \lim_{n \to \infty} \nrm{\wdh \phi_n} = \lim_{n \to \infty} \nrm{\phi_n} = \nrm{f}
+		\]
+		Теперь, если $f \in L_1(\R)$, то снова имеет место равномерная сходимость $\wdh \phi_n$ к $\wdh f$:
+		\[
+			\md{\wdh \phi_n(x) - \wdh f(x)} = \md{\int_\R (\phi_n(t) - f(t)))e^{-itx} d\mu(t)} \leq \int_{\R \setminus [-N; N]} \md{\phi_n(t) - f(t)} d\mu(t) \rightrightarrows 0
+		\]
+		Так же, как и в предыдущем случае, можно видеть, что $\phi_n$ фундаментальна в $L_2(\R)$. Отсюда снова заключаем, что $\wdh \phi_n \xrightarrow{L_2(\R)} \wdh f$, и, поскольку $\wdh \phi_n = \wdh g_n$, по определению $g = \wdh f$ в $L_2(\R)$.
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem} (Принцип неопределённости Гейзенберга)
+	Если $f\red{, tf(t), \lambda\wdh f(\lambda)} \in L_2(\R)$, то выполнено неравенство:
+	\[
+		\nrm{tf(t)}_{L_2(\R)} \cdot \nrm{\lambda\wdh f(\lambda)}_{L_2(\R)} \geq \frac{\nrm{f}_{L_2(R)}^2}{2},
+	\]
+	причём равенство имеет место тогда и только тогда, когда $f(t) = C_1e^{C_2t^2}, C_2 < 0$.
+\end{theorem}
+
+\begin{proof}[Доказательство \red{только для $f \in S$}]
+	По свойству преобразования Фурье
+	\[
+		\nrm{\lambda\wdh f(\lambda)}_{L_2(\R)} = \nrm{i\lambda\wdh f(\lambda)}_{L_2(\R)} = \nrm{\wdh{ f'}(\lambda)}_{L_2(\R)} = \nrm{f'(\lambda)}_{L_2(\R)}
+	\]
+	Применим теперь неравенство Коши-Буняковского-Шварца:
+	\[
+		\nrm{tf(t)}_{L_2(\R)} \cdot \nrm{\lambda\wdh f(\lambda)}_{L_2(\R)} = \nrm{tf(t)}_{L_2(\R)} \cdot \nrm{f'(\lambda)}_{L_2(\R)} \geq \md{\tbr{tf(t), f'}}
+	\]
+	Последнее посчитаем просто интегрированием по частям:
+	\[
+		\tbr{tf(t), f'} = \int_\R tf(t)f'(t) d\mu(t) = \left.\frac{tf^2(t)}{2}\right \rvert_{-\infty}^{+\infty} \! - \frac{1}{2} \int_\R f^2(t) d\mu(t) = -\frac{1}{2} \nrm{f}_{L_2(R)}^2
+	\]
+	Здесь слагаемое с $\frac{tf^2(t)}{2}$ равно нулю в силу быстрого убывания $f$, откуда получается требуемое неравенство. По той же теореме КБШ равенство достигается в том и только том случае, когда $f'(t) = Ctf(t)$. Решая дифференциальное уравнение, получаем $f(t) = C_1e^{C_2t^2}$, где $C_1 = 0$ или $C_2 < 0$, т.к. $f \in L_2(\R)$.
+\end{proof}
