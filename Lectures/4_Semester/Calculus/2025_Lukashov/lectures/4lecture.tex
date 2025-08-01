@@ -1,31 +1,13 @@
 \begin{definition}
-	Если функция $F \colon E \to \sxR$ лежит в $L_{2\pi}$, то мы называем \textit{интегральным модулем непрерывости функции $F$} значение следующей функции:
+	Если функция $F: E \colon \ole{\R}$ лежит в $L_{2\pi}$, где $[-\pi, \pi + \delta] \subset E$ для некоторого $\delta > 0$, то мы называем \textit{интегральным модулем непрерывости функции $F$} значение следующей функции:
 	\[
 		\omega_1(\delta, F) = \sup_{0 \le h \le \delta} \int_{[-\pi; \pi]} |F(x + h) - F(x)|d\mu(x)
 	\]
 \end{definition}
 
-\begin{lemma} (от автора)
-	Для $f \in L_{2\pi}$ имеет место следующий предел:
-	\[
-		\lim_{\delta \to 0+} \omega_1(\delta, f) = 0
-	\]
-\end{lemma}
-
-\begin{proof}
-	По лемме \ref{average_continuous}
-	\[
-		\forall g \in L_1(\R)\ \ \exists \lim_{t \to 0} \int_\R |g(x + t) - g(x)|d\mu(x) = 0
-	\]
-	Из функции $f \in L_{2\pi}$ легко сделать функцию $g \in L_1(\R)$ (например, расширить до некоторой окрестности $[-\pi; \pi]$ по периодичности и занулить вне этой окрестности). Тогда при достаточно маленьком $\delta > 0$ (таком, что $f$ и $g$ совпадают на $[-\pi; \pi + \delta]$) верно следующее:
-	\[
-		\omega_1(\delta, f) \leq \sup_{0 \le h \le \delta} \int_\R |g(x + h) - g(x)|d\mu(x)
-	\]
-	Перейдём к пределу в неравенстве и получим требуемое:
-	\[
-		\lim_{\delta \to 0+} \omega_1(\delta, f) \leq \lim_{\delta \to 0+} \sup_{0 \le h \le \delta} \int_\R |g(x + h) - g(x)|d\mu(x) = \lim_{t \to 0} \int_\R |g(x + t) - g(x)|d\mu(x) = 0
-	\]
-\end{proof}
+\begin{note}
+	Если доопределить $F$ нулём на $\R$, то из леммы \ref{average_continuous} следует, что $\lim_{\delta \to 0+} \omega_1(\delta, F) = 0$.
+\end{note}
 
 \begin{lemma} \label{uniconv_lemma}
 	Пусть $f \in L_{2\pi}$, а $g$ --- измеримая, $2\pi$-периодическая и ограниченная на $\R$ функция. Тогда коэффициенты Фурье функции $\chi_x(t) = f(x + t)g(t)$ стремятся к нулю равномерно по $x$ на $\R$.
