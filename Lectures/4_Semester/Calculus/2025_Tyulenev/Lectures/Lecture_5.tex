@@ -1,0 +1,278 @@
+\begin{remark}
+    Рассуждая аналогично, в случае $\alpha = 1$ можно получить более грубую оценку:
+    $$
+    ||S_n[f] - f||_{C([-\pi, \pi])} \le \frac{C\ln^2n}{n}.
+    $$
+    Но на самом деле можно при условии $f \in LIP(\R)$ справедлива более сильная оценка(б/д):
+    $$
+    ||S_n[f] - f||_C \le \frac{C \ln n}{n}.
+    $$
+\end{remark}
+
+\subsection{Теорема Фейера}
+\begin{theorem}
+    Пусть $f \in C([-\pi, \pi])$ и $f$ ~---~ $2\pi$ - периодична. Тогда $\sigma_n[f] \underset{\R}{\rightrightarrows} f, \ n \rightarrow \infty.$
+\end{theorem}
+\begin{proof}
+    В силу периодичности $\sigma_n[f]$ и $f$ достаточно доказать, что $\sigma_n[f] \underset{[-\pi, \pi]}{\rightrightarrows} f, \ n \rightarrow \infty$.
+    Поскольку $f \in C([-\pi, \pi]])$, то по теореме Кантора она равномерно непрерывна. Значит её модуль непрерывности стремится к нулю:
+    $$
+    \omega(\delta) = \sup\limits_{\underset{|x' - x''| < \delta}{x', x'' \in [-2\pi, 2\pi]}} |f(x') - f(x'')| \rightarrow 0, \delta \rightarrow +0.
+    $$
+    Формально, описанное выше выражение определено для $\delta \in (0, 4\pi).$ Запишем по определению сумму Фейера:
+    $$
+    \sigma_n[f](x) = \int\limits_{-\pi}^{\pi}f(x - t) \Phi_n(t) dt = \int\limits_{-\pi}^{\pi}f(t)\Phi_n(x - t) dt \text{ , где } \Phi_n(t) \text{ ~---~ ядро Фейера}.
+    $$
+    Тогда:
+    $$
+    |\sigma_n[f](x) - f(x)| = \left| \int\limits_{-\pi}^{\pi} f(x - t)\Phi_n(t)dt - \int\limits_{-\pi}^{\pi} \Phi_n(t) f(x) dt \right| \le I_n = \int\limits_{-\pi}^{\pi} \Phi_n(t) |f(x - t) - f(t)| dt = I_1(\delta) + I_2(\delta).
+    $$
+    $$
+    I_1(\delta) = \int\limits_{-\delta}^{\delta}\Phi_n(t) |f(x - t) - f(x)| dt \le \omega_{\delta}[f] \int\limits_{-\delta}^{\delta} \Phi_n(t) dt \le \omega_{\delta}[f].
+    $$
+    В этой оценке мы ограничиваем сверху $|f(x - t) - f(t)|$ через модуль непрерывности, \newline  a $\int\limits_{-\delta}^{\delta} \Phi_n(t) dt \le 1$.
+    $$
+    I_2(\delta) = \int\limits_{[-\pi, \pi] \setminus [-\delta, \delta]} \Phi_n(t) |f(x - t) - f(x)| dt.
+    $$
+    Так как $f$ ~---~ непрерывна на $[-2\pi, 2\pi]$, то $\exists \ M > 0$ такое, что $|f(x)| \le M \ \forall x \in [-2\pi, 2\pi]$. Тогда можем оценить $|f(x - t) - f(x)| \le |f(x)| + |f(x - t)| \le 2M$. \newline
+    Из вышеприведенного утверждения и того, что $\forall \delta > 0 \sup\limits_{\delta < |u| < \pi} \Phi_n(u) \rightarrow 0, n \rightarrow \infty$ и ограничения, описанного выше, получаем:
+    $$
+    I_2(\delta) \le 2M \int\limits_{[-\pi, \pi] \setminus [-\delta, \delta]} \Phi_n(t) dt \le 2M (2\pi - 2\delta) \sup\limits_{\delta \le |t| \le \pi} \Phi_n(t) \rightarrow 0, n \rightarrow \infty.
+    $$
+    $\forall \epsilon > 0$ найдем $\delta(\epsilon)$ такое, что $I_1(\delta) < \frac{\epsilon}{2}$. Затем, при фиксированном $\delta(\epsilon)$ выберем $N(\epsilon) \in \N$ таким, что $\forall n > N(\epsilon) \ I_2(\delta) \le \frac{\epsilon}{2}$. \newline
+    Итого, получается, $\forall \epsilon > 0 \ \exists N(\delta(\epsilon)) = \tilde{N}(\epsilon)$ такой, что $\forall n > \tilde{N}(\epsilon) \hookrightarrow I_n < \epsilon$.
+\end{proof}
+\begin{definition}
+    Функция
+    \[
+        T_n(x) = a_0 + \sum_{k=1}^{n}\bigl(a_k\cos(kx) + b_k\sin(kx)\bigr)
+    \]
+    называется тригонометрическим полиномом степени \(n\), если $|a_n| + |b_n| \neq 0.$
+\end{definition}
+
+
+\begin{corollary}[Первая теорема Вейерштрасса]
+    Пусть $f \in C([-\pi, \pi]])$ и $f(-\pi) = f(\pi)$. Тогда, $\forall \epsilon > 0 \ \exists$ тригонометрический полином $T_{\epsilon}$ такой, что $||f - T_{\epsilon}||_{C([-\pi, \pi])} \le \epsilon$.
+\end{corollary}
+
+\begin{corollary}[Теорема Вейерштрасса]
+    Пусть $-\infty < a < b < \infty$ и $f \in C([a, b])$. Тогда $\forall \epsilon > 0 \ \exists$ полином $P_{\epsilon}[f]$ такой, что $||f - P_{\epsilon}[f]||_{C([a, b])} < \epsilon$.
+\end{corollary}
+\begin{proof}
+    Для удобства доказательства перенесем отрезок $[a, b]$ в отрезок $[0, \pi]$. Пусть $x \in [a, b]$, а $t \in [0, \pi]$. Обозначим $\varphi(x)$ ~---~ взаимно однозначная функция, преобразующая точку из первого отрезка в точку из второго отрезка. Тогда $x(t) = \varphi^{-1}(t) = a + \frac{b - a}{\pi} t$. \newline
+    Заметим, что $f \circ \varphi \in C([0, \pi])$. Продолжим $f$ чётным образом. Получим функцию $\tilde{f} \in C([-\pi, \pi])$ и $\tilde{f}(-\pi) = \tilde{f}(\pi)$. \newline
+    Применим теорему Фейера к функции $\tilde{f}$.
+    $$
+    \forall \epsilon > 0 \ \exists N(\epsilon) \in \N \ \forall n \ge N(\epsilon) \hookrightarrow \sigma_n[\tilde{f}] \text{ такая, что } ||\tilde{f} - \sigma_n[\tilde{f}]||_{C([-\pi, \pi])} < \epsilon.
+    $$
+    $$
+    \sigma_n[f] = \frac{1}{n} \sum\limits_{k = 1}^{n - 1} S_k[\tilde{f}] \text{ , где } S_k[\tilde{f}] = \frac{a_0}{2} + \sum\limits_{j = 1}^{k} a_j(\tilde{f}) \cos(jx) + \sum\limits_{j = 1}^{k} b_j(\tilde{f}) \sin(jx)
+    $$
+    Вспомним, что $\cos(jx)$ и $\sin(jx)$ ~---~ аналитические $\forall j \in \N$. Следовательно, на любом отрезке $[-A, A] \subset \R $ к ним равномерно сходятся их ряды Тейлора. Тогда мы можем приблизить $\cos(jx)$ и $\sin(jx)$ полиномами Тейлора настолько, чтобы после сложения получилось что-то <<небольшое>>. Обозначим $P_{j}(x)$ ~---~ полином Тейлора для $\sin(jx)$, а $Q_{j}(x)$ ~---~ полином Тейлора для $\cos(jx)$. \newline
+    Можно выбрать полиномы Тейлора так, чтобы существовали $\epsilon_{j}$ и $\tilde{\epsilon_j}$ такие, что:
+    $$
+    \sup\limits_{x \in [-\pi, \pi]} |P_j(x) - \sin(jx)| < \epsilon_{j}
+    $$
+    $$
+    \sup\limits_{x \in [-\pi, \pi]} |Q_j(x) - \cos(jx)| < \tilde{\epsilon_j}
+    $$
+    И при этом выполнялось:
+    $$
+    \dfrac{1}{n}\sum\limits_{k = 0}^{n - 1} (\dfrac{a_0}{2} + \sum\limits_{j = 1}^{k}|a_j|\epsilon_j + |b_j|\tilde{\epsilon_j}) < \epsilon
+    $$
+    Тогда, полагая
+    $$
+    P_{\epsilon}[\tilde{f}] := \frac{1}{n} \sum\limits_{k = 0}^{n - 1} (\frac{a_0}{2} + \sum\limits_{j = 1}^{k} a_j(\tilde{f}) Q_j + b_j(\tilde{f}) P_j)
+    $$
+    $P_{\epsilon}[f](t)$ <<живет>> на отрезке $[-\pi, \pi]$. Теперь мы хотим перенести его на $[0, 1]$. \newline
+    Положим $t(x) = \frac{x - a}{b - a}\pi$. Тогда $P_{\epsilon}[f] = P_{\epsilon}[\tilde{f}](t(x))$ ~---~ искомый полином, так как $\tilde{f}(t(x)) = f(x)$. Тогда заметим, что $\sup\limits_{t \in [-\pi, \pi]} |\tilde{f}(t) - P_{\epsilon}[\tilde{f}](t)| = \sup\limits_{x \in [a, b]} | f(x) - P_{\epsilon}[f](x)| < \epsilon.$
+\end{proof}
+
+\subsection{Скорость убывания коэффициентов Фурье}
+Общая концепция: чем более гладкая функция, тем быстрее убывают коэффициенты Фурье.
+
+\begin{lemma}[Основная]
+    Пусть $f \in \tilde{L_1}(\R) \cap BV(\R)$. Тогда $c_f(y) = \int\limits_{\R}f(x) e^{-ixy} = O(\frac{1}{n}), y \rightarrow \infty$.
+\end{lemma}
+\begin{proof}
+    Так как $f \in BV(\R)$, то $f(x) = u(x) + v(x), \ x \in \R$, где $u(x)$ ~---~ нестрого возрастающая функция на $\R$, а $v(x)$ ~---~ нестрого убывающая функция на $\R$. \newline
+    Тогда можно записать $\forall a, b : -\infty < a < b < \infty$:
+    $$
+    c_{[a, b]}(y) = \int\limits_{a}^{b} f(x) e^{-ixy} dx = \int\limits_{a}^{b} u(x) e^{-ixy} dx + \int\limits_{a}^{b} v(x) e^{-ixy} dx \Rightarrow
+    $$
+    $$
+    \exists \ \xi \in [a, b], \zeta \in [a, b] : c_{[a, b]}(y) = u(a + 0) \int\limits_{a}^{\xi} e^{-ixy} dx + u(b - 0)\int\limits_{\xi}^{b} e^{-ixy} dx +
+    $$
+    $$
+     + v(a + 0) \int\limits_{a}^{\zeta} e^{-ixy} dx + v(b - 0) \int\limits_{\zeta}^{b} e^{-ixy} dx.
+    $$
+    Ключевое наблюдение: если $f \in BV(\R)$ и интрегрируема, то $f(x) \rightarrow 0, x \rightarrow \infty$. \newline
+    Пусть $f \nrightarrow 0$. Тогда $\exists C > 0$ такой, что $\forall \delta > 0 \ \exists \ x : |f(x)| > C$. Но при этом, $f \in L_1(\R)$, так как интегрируема. Тогда, $\exists \ \tilde{x} : |\tilde{x}| > \delta \  |f(\tilde{x})| < \frac{C}{2}$. Получаем противоречие, так как можно получить бесконечный набор точек $\{x_n\}$ и $\{\tilde{x}_n\}$, которые мы набираем по описанному выше условию. \newline
+    Ограничим:
+    $$
+    \left| \int\limits_{a}^{\xi} e^{-ixy} dx \right| < \frac{2}{|y|} \hspace{100pt} \left| \int\limits_{\xi}^{b} e^{-ixy} dx \right| < \frac{2}{|y|}
+    $$
+    $$
+    \left| \int\limits_{a}^{\zeta} e^{-ixy} dx \right| < \frac{2}{|y|} \hspace{100pt} \left| \int\limits_{\zeta}^{b} e^{-ixy} dx \right| < \frac{2}{|y|}
+    $$
+    $$
+    u(a + 0) \le V_{\R}(f) \hspace{102pt} u(b - 0) \le V_{\R}(f)
+    $$
+    $$
+    v(a + 0) \le V_{\R}(f) \hspace{102pt} v(b - 0) \le V_{\R}(f)
+    $$
+    Получаем: $|c_{[a, b]}(y)| \le \frac{8 V_{\R}(f)}{|y|}$ ~---~ оценка не зависит от выбора интервала $[a, b]$. Устремляя $a \rightarrow -\infty, \ b \rightarrow +\infty$, получаем требуемое.
+\end{proof}
+
+\begin{theorem}[б/д]
+    Пусть $F \in AC([a, b])$. Тогда $F$ почти всюду имеет классическую производную и, более того, восстанавливается через свою производную по формуле Ньютона - Лейбница.
+\end{theorem}
+
+\begin{theorem}[Интегрирование по частям, б/д]
+    Пусть $F \in AC([a, b]), g \in L_1([a, b])$. Тогда верна формула интегрирования по частям: $\int\limits_{a}^{b} F(x)g(x) dx = F(x)G(x)\big|_{a}^{b} - \int\limits_{a}^{b} F'(x)G(x) dx$, \newline где $G(x) = \int\limits_a^{x} g(t)dt $
+\end{theorem}
+
+\begin{corollary}
+    Пусть функция $f: \R \rightarrow \R$ ~---~ $2\pi$-периодическая, такая, что $f^{(k - 1)} \in AC([-\pi, \pi])$. Пусть $f^{(k)}$ почти всюду существует и может быть изменена на множестве меры нуль таким образом, что $f^{(k)} \in BV([-\pi, \pi])$. Тогда $c_n(f) = \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} f(x) e^{-inx} dx = O\left(\frac{1}{n^{k + 1}}\right)$.
+\end{corollary}
+
+\begin{proof}
+    $$
+    \int\limits_{-\pi}^{\pi} f'(x) e^{inx} dx = f(x) e^{-inx} \big|_{-\pi}^{\pi} + in \int\limits_{-\pi}^{\pi} f(x) e^{-inx} dx.
+    $$
+    Проделаем эту операцию $k$ раз. Так как $f$ ~---~ $2\pi$-периодична и $f^{(k)} \in AC([-\pi, \pi])$ ~---~ тоже $2\pi$-периодична:
+    $$
+    \int\limits_{-\pi}^{\pi} f^{(k)}e^{-inx} dx = (in)^k \int\limits_{-\pi}^{\pi} f(x)e^{-inx} dx.
+    $$
+    Но $f^{(k)}$ можно считать $BV([-\pi, \pi])$. \newline
+    Рассмотрим функцию $F =
+    \begin{cases}
+        f^{(k)}(x), x \in [-\pi, \pi] \\
+        0, \text{ иначе}
+    \end{cases}
+    $. Тогда $F \in BV([-\pi, \pi])$ и $\int\limits_{-\pi}^{\pi}f(x) e^{-inx} dx = $ $ \int\limits_{\R} F(x) e^{-inx} dx = O\left(\frac{1}{n}\right), n \rightarrow \infty$ в силу леммы.
+    С учетом того, что $\int\limits_{-\pi}^{\pi} f(x)e^{-inx} dx = \frac{1}{(in)^k}\int\limits_{-\pi}^{\pi} f^{(k)}(x) e^{inx} dx$ получаем требуемое.
+
+\end{proof}
+
+\subsection{Почленное дифференциорвание рядов Фурье.}
+\begin{reminder}
+    Функция $f: [a, b] \to \R$ называется кусочно непрерывно-дифференцируемой на $[a, b]$, если существует конечный набор точек $\{x_i\}_{i = 0}^{N} \subset [a, b]$ такой, что
+    \[
+        a = x_0 < x_1 < \ldots < x_N = b.
+    \]
+    И $\forall i \in \{0, \ldots\, N - 1\}$ ограничение на $(x_i, x_{i + 1})$ непрерывно-дифференцируемо и существуют односторонние пределы в точках $x_i$ и $x_{i + 1}$ самой функции и её производной.
+\end{reminder}
+\begin{note}
+    Функции не обязательно вещественнозначные.
+    С комплекснозначными работаем аналогичны образом, отдельно с мнимой и вещественной частью.
+\end{note}
+\begin{lemma}
+    Пусть $f, g: \R \to \mathbb{C}$ непрерывные $2\pi$-периодические функции кусочно непрерывно-дифференцируемые на $[-\pi, \pi]$.
+    Тогда
+    \[
+        \int_0^{2\pi} f g' dx = - \int_0^{2\pi} f' g dx.
+    \]
+\end{lemma}
+\begin{proof}
+    Из конечности разбиений на интервалы у нас существует некоторое общее разбиение $\{x_j\}_{j = 0}^m$ для $f$ и $g$, где обе функции на интервалах будут гладкие.
+    А значит на $j$-ом подотрезке мы можем проинтегрировать по частям:
+    \[
+        \int_{x_j}^{x_{j + 1}} f g' dx + \int_{x_j}^{x_{j + 1}} f' g = fg|_{x_j}^{x_{j + 1}}.
+    \]
+    Просуммируем по всем подинтервалам и получим:
+    \[
+        \sum\limits_{j = 0}^{m - 1} \int_{x_j}^{x_{j + 1}} fg'dx + \int_{x_{j}}^{x_{j + 1}}f' g dx = \sum\limits_{j = 0}^{m - 1} fg|_{x_j}^{x_{j + 1}} = f(x_m)g(x_m) - f(x_0)g(x_0) = 0.
+    \]
+    (где последний переход получен из периодичности функций).
+\end{proof}
+\begin{lemma}
+    Пусть $f$ -- непрерывная $2\pi$-периодичная функция кусочно непрерывно-дифференцируемая на $[0, 2\pi]$.
+    Тогда $\forall k \in \Z \hookrightarrow c_k(f') = ik c_k(f)$.
+\end{lemma}
+\begin{proof}
+    Применим предыдущую лемму к функции $g(x) = e^{-i k x}$ и получим:
+    \[
+        c_k(f') = \frac{1}{2\pi} \int_0^{2\pi} f'(x)e^{-ikx}dx = -\frac{1}{2\pi} \int_0^{2\pi}(-i k)f(x)e^{-ikx}dx = ikc_k(f).
+    \]
+\end{proof}
+\begin{corollary}[Почленное дифференцирование рядов Фурье]
+    Пусть $f$ -- $2\pi$-периодическая непрерывная кусочно непрерывно-дифференцируемая на $[0, 2\pi]$ функция.
+    Пусть
+    \[
+        f(x) = \sum_{k = - \infty}^{+\infty} c_k(f) e^{ikx}.
+    \]
+    Тогда ряд Фурье функции $f'$ будет выражаться как
+    \[
+        f'(x) \sim \sum\limits_{k \in \Z, k \neq 0} ik c_k e^{ikx}.
+    \]
+\end{corollary}
+\begin{theorem}
+    Пусть $f$ -- непрерывная $2\pi$-периодическая кусочно непрерывно-дифференцируемая функция на $[0, 2\pi]$.
+    Тогда её ряд Фурье сходится к ней равномерно.
+\end{theorem}
+\begin{proof}
+    Из условий на $f$ и $f'$ следует интегрируемость $f$ и $f'$ в среднеквадратичном, то есть $f \in L_2([0, 2\pi])$ и $f' \in L_2([0, 2\pi])$ (поскольку $f'$ -- измеримая ограниченная функция).
+    В силу неравенства Бесселя:
+    \[
+        \sum\limits_{k \in \Z} |c_k(f')|^2 \leq \frac{1}{2\pi} \int_0^{2\pi} |f'(x)|dx < +\infty.
+    \]
+    Поскольку при $k \neq 0$
+    \[
+        |c_k(f)| = \dfrac{|c_k(f')|}{|k|} \leq \frac{1}{2}\biggr(|c_k(f')|^2 + \frac{1}{k^2}\biggr).
+    \]
+    А значит $\sum\limits_{k \in \Z} |c_k(f)|$ -- сходится и по признаку Вейерштрасса
+    \[
+        \sum\limits_{k \in \Z} c_k(f)e^{ikx}
+    \]
+    сходится равномерно на $[0, 2\pi]$ (а следовательно и на всей числовой прямой).
+\end{proof}
+
+\subsection{Почленное интегрирование рядов Фурье.}
+\begin{theorem}
+    Пусть $f: \R \to \mathbb{C}$ является $2\pi$-периодичной кусочно непрерывной функцией и ей сопоставлен ряд Фурье:
+    \[
+        f(x) \sim \sum\limits_{k \in \Z} c_k(f) e^{ikx}.
+    \]
+    Тогда $\forall y \in \R$
+    \[
+        \int_0^{y}f(x)dx = \sum\limits_{k \in \Z} \int_0^{y} c_k e^{ikx}dx.
+    \]
+    и ряд сходится равномерно на всей числовой прямой.
+\end{theorem}
+\begin{proof}
+    Рассмотрим функцию $F(x) = \int_0^{x} (f(t) - c_0)dt$.
+    Она является $2\pi$-периодической непрерывной кусочно непрерывно-дифференцируемой функцией (в силу теорем для интеграла Римана с переменным верхним пределом).
+    В силу предыдущих утверждений ряд Фурье к ней сходится равномерно на $\R$:
+    \[
+        F(x) = \sum\limits_{k \in Z} c_k(F) e^{ikx} \
+    \]
+    Более того, поскольку $F'(x) = f(x)$ всюду, кроме, быть может, конечного числа точек то мы получаем следующее соотношение на коэффициенты рядов Фурье:
+    \[
+        \forall k \neq 0 \hookrightarrow ik c_k(F) = c_k(f).
+    \]
+    (здесь мы по сути воспользовались утверждением о почленном дифференцировании рядов Фурье).
+    Поскольку $F(0) = 0$, то
+    \[
+        \sum\limits_{k \in \Z} c_k(F) = 0.
+    \]
+    Но тогда $c_0(F) = -\sum\limits_{k \in \Z, k \neq 0} c_k(F)$.
+    Следовательно
+    \[
+        F(y) = c_0(F) + \sum\limits_{k \neq 0} c_k(F)e^{iky} = \sum\limits_{k \neq 0} c_k(F)(e^{iky} - 1)dx = \sum\limits_{k \neq 0} \dfrac{c_k(F)}{ik}(e^{iky} - 1).
+    \]
+    Причём это равенство верно $\forall y \in \R$.
+    А теперь если мы подставим определение $F(y)$ и перенесём интеграл от $c_0$ в правую часть то мы получим искомое утверждение.
+\end{proof}
+\begin{corollary}[Теорема о единственности.]
+    Если $f$ является $2\pi$-периодической непрерывной функцией и все её коэффициенты Фурье равны нулю, то $f \equiv 0$.
+\end{corollary}
+
+\begin{proof}
+    Поскольку $c_0(f) = 0$, то $F(y) = \int_0^{y} f(x)dx$ является $2\pi$-периодической непрерывно-дифференцируемой функцией.
+    В тоже время $c_k(F) = \frac{c_k(f)}{ik}$ при $k \neq 0$, а следовательно $c_k(F) = 0$ для всех $k \neq 0$.
+    Но $F$ -- непрерывно-дифференцируема и $2\pi$-периодична, а её ряд Фурье к ней равномерно сходится.
+    По определению $F(0) = 0$.
+    Значит и $c_0(F) = 0$ и тогда $c_k(F) = 0 \  \forall k \in \Z$ и $F \equiv 0$.
+    Поэтому и $f = F' = 0$.
+\end{proof}

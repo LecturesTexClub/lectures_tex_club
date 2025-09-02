@@ -1,0 +1,204 @@
+\subsubsection{Интегрирование несобственного интеграла по параметру.}
+\begin{theorem}
+    Пусть $Y = (Y, \NN, \nu)$~---~пространство конечной меры и задана $f$: $[a, b) \times Y \to \overline{\R}$: 
+    \begin{enumerate}
+        \item[$\bullet$] $\forall y \in Y$ интеграл $\int_a^{\ra b} f(t, y)dt = J(y)$ сходится;
+        \item[$\bullet$] $\int_a^{\ra b}f(t, y)dt$ сходится равномерно по параметру;
+        \item[$\bullet$] $\forall b' \in (a, b) \hookrightarrow f \in L_1(\LL^1 \otimes \nu)$.
+    \end{enumerate}
+    Тогда $J(y) \in L_1(Y)$ и верно следующее утверждение:
+    \[
+        \int_Y J(y)d\nu = \int_a^{\ra b} \int_Y f(t, y)d\nu(y)dt.
+    \]
+\end{theorem}
+\begin{proof}
+    По определению
+    \[
+        J(y) = \lim\limits_{b' \ra b - 0} \int_a^{b'}f(t, y)dt = \lim\limits_{b' \ra b - 0} F(b', y).
+    \]
+    По теореме Фубини при фиксированном $b'$ мы можем проинтегрировать $F(b', y)$, то есть $\exists \int_Y F(b', y)d\nu(y)$.
+    С другой стороны, $J$ -- равномерный предел семейства функций $\{F(b', \cdot)\}_{b' \in (a, b)}$, а следовательно $\exists b^*$ такой, что
+    \[
+        \forall b' \in (b^*, b) \hookrightarrow |J(y) - \int_a^{b'} f(t, y)dt| < 1.
+    \]
+    Поскольку мера пространства конечна, то
+    \[
+        \int_Y |J(y)|d\nu(y) \leq \int_Y \biggr|J(y) - \int_a^{b'}f(t, y)dt\biggr|d\nu(y) + \int_Y\biggr|\int_a^{b'}f(t, y)dt\biggr|d\nu(y) < +\infty.
+    \]
+    А значит $J(y) \in L_1(Y)$. \\ % отсюда идёт девятая лекция
+    Покажем теперь справедливость равенства.
+    Введём обозначение $I(t) = \int_Y f(t, y)d\nu(y)$. \\
+    По теореме Фубини $\forall t \in (a, b) \hookrightarrow$
+    \[
+        \int_a^t I(x)dx = \int_Y \int_a^t f(x, y)dxd\nu(y) = \int_Y \biggr(J(y) - \int_t^{\ra b}f(x, y)dx \biggr) d\nu(y).
+    \]
+    Но, тогда,
+    \[
+        \biggr| \int_a^t I(x)dx - \int_Y J(y)d\nu(y) \biggr| \leq \biggr|\int_Y \int_t^{\ra b} f(x, y)dx d\nu(y) \biggr| \ra 0, t \ra b - 0.
+    \]
+    (Последняя сходимость получается из равномерной сходимости интеграла, то есть $\sup\limits_{y \in Y} |\int_t^b f(x, y)dx| \ra 0, t \ra b - 0$). \\
+    Что и показывает необходимое нам равенство.
+\end{proof}
+\subsubsection{Дифференцирование несобственного интеграла по параметру.}
+\begin{theorem}
+    Пусть $f \in C([a, b) \times \lceil c, d \rfloor)$ и $\forall (x, y) \in [a, b) \times \lceil c, d \rfloor$ существует $f'_y(x, y)$ и, более того, $f'_y \in C([a, b) \times \lceil c, d \rfloor)$.
+    Пусть $\int_a^{\ra b} f'_y(x, y)dx$ равномерно сходится на $\lceil c, d \rfloor$, а $\int_a^{\ra b} f(x, y)dx$ сходится всюду поточечно. \\
+    Тогда $J(y) = \int_a^{\ra b} f(x, y)dx$ -- непрерывно дифференцируемая на $\lceil c, d \rfloor$ и справедливо равенство
+    \[
+        \dfrac{dJ}{dy}(y) = \int_a^{\ra b} f'_y(x, y)dx.
+    \]
+\end{theorem}
+\begin{proof}
+    Зафиксируем произвольные точки $s, s_o \in \lceil c, d \rfloor$ ($s > s_0$ -- без ограничения общности). \\
+    Пусть $I(y) = \int_a^{\ra b} f'_y(x, y)dx$.
+    По теореме об интегрировании по параметру (мы можем её применять к $I$ так как $[s_0, s]$ -- пространство конечной меры, интеграл $I$ сходится равномерно по условию и $f'_y$ -- непрерывна, а следовательно -- интегрируема на любом подотрезке)
+    \[
+        \int_{s_0}^s I(y)dy = \int_a^{\ra b} \biggr(\int_{s_0}^s f'_y(x, y)dy\biggr) = \int_a^{\ra b} f(x, s) - f(x, s_0)dx = J(s) - J(s_0).
+    \]
+    Осталось только заметить, что $I$ -- непрерывная функция от $y$ (вытекает из теоремы о предельном переходе по параметру в интеграле Лебега).
+    Тогда
+    \[
+        \dfrac{J(s) - J(s_0)}{s - s_0} = \dashint_{s_0}^s I(y)dy.
+    \]
+    И, поскольку для непрерывных функций на отрезках интеграл Лебега совпадает с интегралом Римана, то
+    \[
+        \exists \dfrac{dJ}{dy}(s_0) = \lim\limits_{s \ra s_0} \dfrac{J(s) - J(s_0)}{s - s_0} = I(s_0).
+    \]
+    То есть показана справедливость утверждения теоремы на $\lceil c, d \rfloor$ (в силу произвольного выбора $s_0$).
+\end{proof}
+\begin{reminder}
+    Тут должно быть напоминание про аппроксимативные единицы.
+\end{reminder}
+\begin{corollary}
+    Пусть $f \in L_1^{loc}(\R^n)$ и $\{w_t\}_{t \in (0, +\infty)}$ -- аппроксимативная единица.
+    Тогда $\forall t > 0 \hookrightarrow f * w_t \in C^{\infty}(\R^n)$.
+\end{corollary}
+\begin{proof}
+    Зафиксируем произвольное $t > 0$.
+    Пусть $\supp w_t \subset B_r(0)$.
+    (Здесь и далее в доказательстве индекс <<$t$>> у $w_t$ будет опускаться -- оно фиксировано).
+    По определению
+    \[
+        (f * w)(x) = \int_{\R^n} f(x - y)w(y) dy = \int_{\R^n} w(x - y)f(y)dy.
+    \]
+    Зафиксируем некоторое $x_0 \in \R^n$.
+    Верно, что $\forall x \in B_1(x_0) \hookrightarrow$
+    \[
+        (f * w)(x) = \int_{B_{r + 1}(x_0)}w(x - y)f(y)dy.
+    \]
+    Покажем, что $\forall x \in B_1(x_0) \forall k \in \{1, \ldots, n\}$
+    \[
+        \exists \dfrac{\partial(f * w)}{\partial x_k}(x_0) = \int_{B_{r + 1}(x_0)}\dfrac{\partial w}{\partial x_k}(x - y) f(y)dy.
+    \]
+    Но по сути, это всё -- собственные интегралы с параметром $x$.
+    И для того, чтобы мы могли продифференцировать всё это, нам нужна локальная мажоранта:
+    \[
+        \biggr|\dfrac{\partial w}{\partial x_k}(x - y)f(y) \biggr| \leq M_k |f(y)|.
+    \]
+    Где $M_k = \max\limits_{t \in \R^n} \biggr|\dfrac{\partial w}{\partial x_k}\biggr|(t)$ и тогда выполнено условие $(L)$ для дифференцирования собственного интеграла Лебега и приведённое выше равенство корректно.
+    Также, нетрудно заметить, что так как $\dfrac{\partial w}{\partial x_k} \in C(\R^n)$, то используя теорему о пределе интеграла Лебега по параметру получим
+    \[
+        \dfrac{\partial(w * f)}{\partial x_k} \in C(\R^n).
+    \]
+    Поскольку $w * f$ -- остаётся $L_1^{loc}$-функцией, то дальнейшее рассуждение можно продолжить по индукции и получить существование частных производных всех порядков, поскольку мы показали
+    \[
+        \dfrac{\partial (w * f)}{\partial x_k} = f * \dfrac{\partial w}{\partial x_k}.
+    \]
+    (просто мы просто перекидываем производные к $w$, а она -- $C^{+\infty}_0$).
+\end{proof}
+\begin{corollary}
+    $\forall p \in [1, +\infty] \hookrightarrow C_0^{\infty}(\R^n)$ плотно в $L_p(\R^n)$ по $p$-норме.
+\end{corollary}
+\begin{note}
+    Эти два следствия уже возникали ранее, второе -- доказано в секции про аппроксимативные единицы.
+\end{note}
+
+\subsubsection{Равномерная сходимость интегралов по параметру.}
+\begin{theorem}[Признак Дирихле.]
+    Пусть $-\infty <  a <  b \leq + \infty$, $Y$~---~параметрическое множество.
+    Пусть функции $f, g$: $[a, b) \times Y \to \mathbb{R}$:
+    \begin{enumerate}
+        \item $\forall y \in Y \hookrightarrow f(\cdot, y) \in C([a, b))$ и $g(\cdot, y) \in C^1([a, b))$;
+        \item $g(x, y) \underset{Y}{\rr} 0$, $x \rightarrow b - 0$.
+        \item $\exists x_0 \in (a, b): g'_x(x, y) \leq 0\  \forall x > x_0$ и $\forall y \in Y$.
+        \item Равномерная ограниченность первообразной: $\displaystyle M = \sup\limits_{y \in Y} \sup\limits_{b' \in (a, b)} \biggr|\int_a^{b'}f(x, y)dx\biggr| < +\infty$.
+    \end{enumerate}
+    Тогда \[
+              \int_a^{\ra b} f(x, y)g(x, y)dx.
+    \]
+    равномерно сходится на множестве $Y$.
+\end{theorem}
+\begin{proof}
+    При каждом фиксированном $\underline{y} \in Y$
+    \[
+        \int_a^{\ra b}f(x, \underline{y})g(x, \underline{y})dx.
+    \]
+    сходится по обычному признаку Дирихле (в данном случае несобственный интеграл Лебега и Римана совпадают).
+    Поскольку $\forall b' \in (a, b) \forall y \in Y$ выполняется
+    \[
+        \int_{b'}^{\ra b} f(x, y)g(x. y)dx = F(x, y)g(x, y)\biggr|_{b'}^{\ra b} - \int_{b'}^{\ra b}F(x, y)g'_x(x, y)dx = (*)
+    \]
+    Поскольку первообразная $F(x, y)$ -- равномерно ограничена, то
+    \[
+        \forall y \in Y \hookrightarrow F(x, y)g(x, y) \ra 0, x \ra b - 0.
+    \]
+    И, продолжая равенство, получаем
+    \[
+        (*) = -F(b', y)g(b', y) + \int_{b'}^{\ra b} F(x, y)(-g'_x(x, y))dx.
+    \]
+    Навесим модуль и получим:
+    \begin{multline*}
+        \biggr|\int_{b'}^{\ra b} f(x, y)g(x, y) \biggr| \leq \\ \leq
+        |F(b', y)|g(b', y) + \int_{b'}^{\ra b}  |F(x, y)|(-g'_x(x, y))dx \leq M(g(b', y) + (-g(x, y))|^{\ra b}_{b'}) = \\ = 2M g(b', y) \underset{Y}{\rr} 0, b' \ra b - 0.
+    \end{multline*}
+    Что и даёт нам равномерную сходимость интеграла.
+\end{proof}
+
+\begin{theorem}[Признак Вейерштрасса]
+    Пусть $-\infty < a < b \leq +\infty$, $Y$~---~абстрактное параметрическое множество. Пусть
+    \begin{enumerate}
+        \item[$\bullet$] $f$: $[a, b) \times Y \to \mathbb{R}$: $\forall y \in Y \hookrightarrow f (\cdot, y) \in L_1 ([a, b']) \ \forall b' \in (a, b)$;
+        \item[$\bullet$] $\exists g \in L_1 ([a, b)),$ $g \geq 0$ почти всюду на $[a, b)$: $|f(x, y)| \leq g(x)$ $\forall y \in Y$ при почти всех $x \in [a, b)$.
+    \end{enumerate}
+    Тогда \[
+              \int_a^{\ra b} f(x, y) \text{d}x.
+    \]
+    равномерно сходится на множестве $Y$.
+\end{theorem}
+\begin{proof}
+    Из условия существования мажоранты и абсолютной непрерывности интеграла Лебега:
+    \[
+        \sup\limits_{y \in Y} \biggr| \int_{b'}^{\ra b} f(x, y)dx \biggr| \leq \int_{b'}^{b} g(x)dx \ra 0, b' \ra b - 0.
+    \]
+    И таким образом мы и получаем равномерную сходимость интеграла.
+\end{proof}
+\begin{theorem}[Критерий Коши]
+    Пусть $-\infty < a < b \leq +\infty$, $Y$~---~абстрактное параметрическое множество. Пусть $\forall y \in Y \ \forall b' \in (a, b) \hookrightarrow f(\cdot, y) \in L_1([a, b'])$.
+    Тогда следующие утверждения эквивалентны:
+    \begin{enumerate}
+        \item[$\bullet$] $\displaystyle J(y) = \int_a^{\ra b} f(x, y)dx$ равномерно сходится на $Y$;
+        \item[$\bullet$] $\forall \epsilon > 0 \ \exists b(\epsilon) \in (a, b) \ \forall b', b'' \in (b(\epsilon), b) \ \forall y \in Y \hookrightarrow$
+        \[
+            \biggr|\int_{b'}^{b''} f(x, y)dx \biggr| < \epsilon.
+        \]
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Пусть есть равномерная сходимость интеграла. \\
+    Тогда $\forall \epsilon > 0 \exists b(\epsilon/2) \in (a, b)$:
+    \[
+        \forall b' > b(\epsilon) \forall y \in Y \hookrightarrow \biggr|\int_{b'}^{\ra b}f(x, y)dx \biggr| < \dfrac{\epsilon}{2}.
+    \]
+    А значит, по неравенству треугольника мы и получаем необходимое утверждение. \\
+    Докажем теперь в обратную сторону. \\
+    Тогда при каждом фиксированном $y$ выполнено условие Коши сходимости несобственного интеграла Лебега.
+    И, следовательно, $\forall y \in Y \exists \int_{a}^{\ra b} f(x, y)dx \in \R$ .
+    При каждом фиксированном $y$ перейдём к пределу в условии Коши и получим $\forall \epsilon > 0 \exists b(\epsilon) \in (a, b)$ такое, что $\forall b' > b(\epsilon)$ и $\forall y \in Y \hookrightarrow$
+    \[
+        \biggr| \int_{b'}^{\ra b}f(x, y)dx \biggr| \leq \epsilon.
+    \]
+    Из чего и следует равномерная сходимость интеграла.
+\end{proof}
+
+
+% Можно дописать интуицию from лекция

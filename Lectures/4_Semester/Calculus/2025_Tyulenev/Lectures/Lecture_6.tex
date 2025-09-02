@@ -1,0 +1,244 @@
+\newpage
+
+\section{Введение в теорию евклидовых пространств.}
+\begin{definition}
+    Пусть $E = (E, \langle \cdot, \cdot \rangle)$~---~евклидово пространство. Пусть $\{e_n\}_{n = 1}^{+\infty}$~---~ортогональная система из ненулевых векторов в нём.
+    Тогда $\forall f \in E$ будем называть
+    \begin{equation*}
+        \alpha_k(f) = \dfrac{\langle f, e_k \rangle}{\langle e_k, e_k \rangle}, k \in \N.
+    \end{equation*}
+    коэффициентом Фурье элемента $f$ по системе $\{e_n\}_{n = 1}^{+\infty}$.
+\end{definition}
+\begin{theorem}[минимальное свойство коэффициентов Фурье]
+    Пусть $E = (E, \langle \cdot, \cdot \rangle)$~---~евклидово пространство. Тогда $\forall f \in E \hookrightarrow$
+    \begin{equation*}
+        \inf\limits_{\beta_1, \ldots, \beta_n} \bigr\|f - \sum\limits_{k = 1}^n \beta_k e_k\bigr\| = \bigr\|f - \sum\limits_{k = 1}^n \alpha_k(f)e_k\bigr\|.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Пусть $d_n = \sum\limits_{k = 1}^n (\alpha_k(f) - \beta_k) e_k$, где $\beta_i$~---~произвольные вещественные коэффициенты. Под $S_n[f]$, как обычно, понимается $n$-ая сумма ряда Фурье, то есть $S_n[f] = \sum\limits_{k = 1}^n a_k(f)e_k$. Тогда
+    \begin{multline*}
+        \big\|f - \sum\limits_{k = 1}^n \beta_{k}e_k\big\|^2 = \big\|f - S_n[f] + S_n[f] - \sum\limits_{k = 1}^n \beta_k e_k\big\|^2 = \\ =
+        \langle f - S_n + d_n, f - S_n + d_n \rangle = \langle f - S_n, f - S_n \rangle + 2 \langle d_n, f - S_n \rangle + \langle d_n, d_n \rangle.
+    \end{multline*}
+    Заметим, что $\forall k \in \{1, \ldots, n\} \hookrightarrow$
+    \[
+        \langle e_k, f - S_n[f] \rangle = \langle e_k, f \rangle - \langle e_k, S_n[f] \rangle = \langle e_k, f \rangle - \sum_{j = 1}^n \langle e_k, \alpha_j(f)e_j \rangle  = \langle e_k, f \rangle - \langle e_k, \alpha_k(f)e_k \rangle = 0.
+    \]
+    Значит, так как $d_n$~---~линейная комбинация $e_k$, то $2\langle d_n, f - S_n \rangle = 0$, и квадрат отклонения выражается как
+    \begin{equation*}
+        \big\|f - \sum\limits_{k = 1}^n \beta_k e_k\big\|^2 = \| f - S_n \|^2+ \|d_n \|^2, \quad  \ \|d_n\| \geq 0.
+    \end{equation*}
+    Значит $\forall \beta_1, \ldots, \beta_n \in \mathbb{R} \hookrightarrow$
+    \begin{equation*}
+        \big\|f - S_n[f]\big\| \leq \big\|f - \sum\limits_{k = 1}^n \beta_k e_k\big\|.
+    \end{equation*}
+    Откуда
+    \[
+        \big\|f - S_n[f]\big\| \leq \inf\limits_{\beta_1, \ldots, \beta_n} \big\|f - \sum\limits_{k = 1}^n \beta_{k}e_k\big\|.
+    \]
+    А поскольку $S_n[f] = \sum\limits_{k = 1}^n a_k(f)e_k$, то $$\bigr\|f - S_n[f]\bigr\| = \inf\limits_{\beta_1, \ldots, \beta_n} \bigr\|f - \sum\limits_{k = 1}^n \beta_k e_k\bigr\| = \min\limits_{\beta_1, \ldots, \beta_n} \bigr\|f - \sum\limits_{k = 1}^n \beta_k e_k\bigr\|.$$
+\end{proof}
+
+\begin{note}[Геометрическая интерпретация теоремы]
+    Рассмотрим линейную оболочку базисных векторов $\text{Lin}\{e_1,\dots,e_n\}$. И тогда для произвольного вектора $f$ среди всех возможных комбинаций наилучшее приближение дает именно сумма Фурье. То есть $S_n[f]$~---~это просто ортогональная проекция $f$ на линейную оболочку.\\ Это является ортогональной проекцией в силу того, что $ \langle e_k, f - S_n[f] \rangle = 0$ $\forall k \in \{1, \ldots, n \}$.
+
+        \begin{minipage}{\textwidth}
+    	\centering
+    	\begin{center}
+    		\begin{tikzpicture}[scale=2,>=Stealth]
+
+    			\fill[gray!10] (-2.4,-0.86) -- (1.6,-0.26) -- (2.5,1) -- (-1.5,0.4) -- cycle;
+    			\draw[thick] (-2.4,-0.86) -- (1.6,-0.26) -- (2.5,1) -- (-1.5,0.4) -- cycle;
+    			\node at (2.8,0.3) {$\mathrm{Lin}\{e_1, \dots, e_n\}$};
+
+    			\coordinate (O) at (-0.2,-0.1);
+
+    			\draw[->, thick] (O) -- ++(1,0.2) node[below right] {$e_1$};
+    			\draw[->, thick] (O) -- ++(0.4,0.6) node[right] {$e_n$};
+
+    			\draw[->, thick] (O) -- ++(0.7,2) node[above] {$f$};
+
+    			\coordinate (Snf) at ($(O)+(0.85,0.4)$);
+    			\draw[->, thick, red] (O) -- (Snf) node[right] {$S_n[f]$};
+
+    			\draw[dashed, thick] (Snf) -- ($(O)+(0.7,2)$);
+    			\node at ($(O)+(1.3,1.3)$) {$f - S_n[f]$};
+
+    		\end{tikzpicture}
+    	\end{center}
+    \end{minipage}
+
+
+\end{note}
+\begin{theorem}[О единственности]
+    Пусть $E = (E, \langle \cdot, \cdot \rangle)$~---~евклидово пространство и $f \in E$. Пусть $\{e_n\}_{n = 1}^{+\infty}$~---~ортогональная система в $E$ и $f = \sum\limits_{k = 1}^{+\infty} \alpha_k e_k$, где сходимость ряда понимается в смысле нормы. Тогда $\alpha_k = \alpha_k (f)$ $\forall k \in \mathbb{N}$.
+\end{theorem}
+\begin{remark}
+    То есть никаких других, кроме коэффициентов Фурье, быть не может (это похоже на теорему о единственности для ряда Тейлора).
+\end{remark}
+\begin{proof}
+    Пусть $S_n := \sum\limits_{k = 1}^n \alpha_k e_k$ (это пока не сумма Фурье, а просто <<какая-то>>).\\
+    Тогда по линейности и КБШ:
+    \[
+        |\langle f, e_k \rangle - \langle S_n, e_k \rangle| = |\langle f - S_n, e_k \rangle| \leq \|f - S_n\| \|e_k\| \rightarrow 0, n \rightarrow +\infty.
+    \]
+    А это значит $\forall k \in \N \ \exists \lim\limits_{n \ra +\infty} \langle S_n, e_k \rangle = \langle f, e_k \rangle$.
+    Но так как система $\{e_n\}_{n = 1}^{+\infty}$ ортогональна, то $\exists \lim\limits_{n \ra +\infty} \langle S_n, e_k \rangle = \alpha_k  \langle e_k, e_k \rangle$. Откуда, приравнивая, получаем $\langle f, e_k \rangle = \alpha_k  \langle e_k, e_k \rangle$.\\
+    В итоге:
+    \[
+    \alpha_k = \frac{\langle f, e_k \rangle}{\langle e_k, e_k \rangle} = \alpha_k(f).
+    \]
+\end{proof}
+
+\begin{lemma}
+    Пусть $E = (E, \langle \cdot, \cdot \rangle)$~---~евклидово пространство и $\{e_n\}_{n = 1}^{+\infty}$~---~ортогональная система в нём.
+    Тогда $\forall f \in E \hookrightarrow$
+    \[
+        \|f\|^2 = \|f - S_n[f]\|^2 + \sum\limits_{k = 1}^n \alpha_k^2(f)\langle e_k, e_k \rangle,
+    \]
+    где $S_n[f]$~---~n-ая частичная сумма ряда Фурье по системе $\{e_n\}_{n=1}^{+\infty}$.
+\end{lemma}
+\begin{proof}
+    Доказательство похоже на доказательство минимальности, то есть рассмотрим
+    \begin{multline*}
+    \| f \|^2 = \langle f, f \rangle = \langle f - S_n[f] + S_n[f], f - S_n[f] + S_n[f]\rangle = \\ = \langle f - S_n[f], f - S_n[f]  \rangle + 2 \langle f - S_n[f], S_n[f]  \rangle + \langle S_n[f], S_n[f]\rangle.
+    \end{multline*}
+    Отметим, что $2 \langle f - S_n[f], S_n[f]  \rangle = 0$, так как $\langle e_k, f - S_n[f] \rangle = 0$ $\forall k$.\\
+    А в свою очередь $$\langle S_n[f], S_n[f] \rangle = \left\langle \sum_{k = 1}^{n} \alpha_k (f) e_k, \sum_{j = 1}^{n} \alpha_j (f) e_j\right\rangle = \sum_{k = 1}^{n} \sum_{j = 1}^{n} \alpha_k (f) \alpha_j (f) \langle e_k, e_j \rangle = \sum_{k = 1}^n \left( \alpha_k (f)\right)^2 \langle e_k, e_k \rangle.$$
+    Итого получили, что хотели.
+\end{proof}
+\begin{corollary}[Неравенство Бесселя]
+    Пусть $E = (E, \langle \cdot, \cdot \rangle)$~---~евклидово пространство и $\{e_n\}_{n = 1}^{+\infty}$~---~ортогональная система в нём.
+    Тогда $\forall f \in E \hookrightarrow$
+\[
+\sum_{k=1}^\infty \left( \alpha_k (f) \right)^2 \| e_k\|^2 \leq \|f\|^2.
+\]
+\end{corollary}
+\begin{proof}
+    В силу предыдущей леммы и неотрицательности нормы $\forall n \in \N \hookrightarrow$
+    \[
+        \sum\limits_{k = 1}^n \alpha_k^2(f)\|e_k\|^2 \leq \|f\|^2.
+    \]
+    Взятие супремума по $n \in \N$ завершает доказательство.
+\end{proof}
+
+\begin{theorem}[Рисс, Фишер]
+    Пусть $H = (H, \langle \cdot, \cdot \rangle)$~---~гильбертово пространство.
+    Пусть $\{e_n\}_{n = 1}^{+\infty}$~---~ортогональная система в нём.
+    Тогда следующие условия эквивалентны:
+    \begin{enumerate}
+        \item Ряд $\sum\limits_{k = 1}^{+\infty} \alpha_k e_k$ сходится к некоторому элементу $f \in H$ в смысле евклидовой нормы.
+        \item Для некоторого $f \in H \hookrightarrow \alpha_k = \alpha_k(f)$ $\forall k \in \mathbb{N}$.
+        \item Числовой ряд $\sum\limits_{k = 1}^{+\infty} |\alpha_k|^2\|e_k\|^2$ сходится.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Будем идти по очереди:
+    \begin{enumerate}
+        \item[$\bullet$] Импликация $1) \Rightarrow 2)$ следует в силу теоремы о единственности, то есть если $\displaystyle f = \sum_{k=1}^{\infty}\alpha_k e_k$, то $\alpha_k = \alpha_k(f)$ $\forall k \in \mathbb{N}$ (этот некоторый элемент и будет разложенный $f$).
+        \item[$\bullet$] Импликация $2) \Rightarrow 3)$ следует в силу неравенства Бесселя;
+        \item[$\bullet$] Осталась импликация $3) \Rightarrow 1)$. Именно тут и нужна будет Гильбертовость (то есть полнота).\\
+        Пусть $m$, $n \in \mathbb{N}$ и $m > n$.
+        Рассмотрим
+        \begin{equation*}
+            \left\langle \sum\limits_{k = n}^{m} \alpha_k e_k, \sum\limits_{k = n}^m \alpha_k e_k \right\rangle = \left\|\sum\limits_{k = n}^m \alpha_k e_k\right\|^2.
+        \end{equation*}
+        Раскроем скалярное произведение. В силу ортогональности системы и Критерия Коши сходимости числового ряда получаем: $$\displaystyle \sum\limits_{k = n}^m |\alpha_k|^2 \cdot\|e_k\|^2 \rightarrow 0,\quad  n, m \rightarrow +\infty.$$
+        Тогда последовательность $\displaystyle \{ S_n\} = \bigg\{ \sum_{k = 1}^{n} \alpha_k e_k\bigg\}_{n = 1}^{+\infty}$~---~фундаментальна в $H$, а $H$ полно $\Longrightarrow \exists f \in H$: $\displaystyle f = \lim_{n \to \infty} \sum_{k = 1}^{n} \alpha_k e_k$, то есть ряд сходится к некоторому элементу.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}
+    Пусть $E = (E,  \|\cdot\|)$~---~ЛНП. Система ненулевых векторов $\{e_n\}_{n = 1}^{+\infty}$ называется полной в $E$, если $\forall f \in E \ \forall \epsilon > 0 \  \exists c_1, \ldots, c_n \in \mathbb{R}$: $\left\|f - \sum\limits_{k = 1}^n c_k e_k \right\| < \epsilon$.
+\end{definition}
+\begin{remark}
+    Коэффициенты $c_1, \ldots, c_n$ идут после квантора всеобщности, то есть формально зависят и от $f$, и от $\epsilon$.
+\end{remark}
+\begin{note}
+    Всякий базис Шаудера является полной системой.\\
+    Обратное неверно: контрпримером является $\{x^n\}_{n = 0}^{+\infty}$ в $C([-1, 1])$. Она полна по теореме Вейерштрасса, но не является базисом.\\
+    Предположим противное.
+    Тогда для
+    \[
+        f(x) = |x| \exists ! \{c_k\}_{k = 0}^{+\infty}: |x| = \sum\limits_{k = 0}^{+\infty} c_k x^k.
+    \]
+    причём равенство понимается в равномерном смысле.
+    Но тогда по теореме о дифференцируемости степенного ряда мы получаем дифференцируемость $f$ в нуле -- противоречие.
+\end{note}
+\begin{definition}
+    Пусть $E = (E, \langle \cdot, \cdot \rangle)$~---~евклидово пространство.
+    Ортогональная система $\{e_n\}_{n = 1}^{+\infty}$ называется замкнутой, если из ортогональности $f$ каждому $e_k$ следует то, что $f = 0$.
+\end{definition}
+\begin{theorem}[<<Основная>> теорема.]
+    Пусть $H = (H, \langle \cdot, \cdot \rangle)$~---~гильбертово пространство.
+    Пусть $\{e_k\}_{k = 0}^{+\infty}$~---~ортогональная система в нём.
+    Следующие условия эквивалентны:
+    \begin{enumerate}
+        \item Система $\{e_n\}_{n = 1}^{+\infty}$~---~полна.
+        \item Система $\{e_n\}_{n = 1}^{+\infty}$~---~базис.
+        \item $\forall f \in H$ ряд Фурье по системе $\{e_k\}$ сходится к $f$.
+        \item Справедливо равенство Парсеваля:
+        \[
+            \|f\|^2 = \sum\limits_{k = 1}^{+\infty} |\alpha_k|^2 \|e_k\|^2.
+        \]
+        \item Система $\{e_n\}_{n = 1}^{+\infty}$~---~замкнута.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Покажем импликацию $1) \Rightarrow 2)$. \\
+    Пусть $\Delta_n = \inf\limits_{\beta_1, \ldots, \beta_n} \big\|f - \sum\limits_{k = 1}^n \beta_k e_k \big\|, n \in \N$.
+    Нетрудно заметить, что $\Delta_{n + 1} \leq \Delta_n \forall n \in \N$, поскольку занулением лишнего коэффициента сводится к предыдущей дельте.
+    Тогда из монотонности последовательности и неотрицательности каждого из её членов следует существование предела равного инфимуму:
+    \[
+        \exists \lim\limits_{n \ra +\infty} \Delta_n = \inf\limits_n \Delta_n.
+    \]
+    Поскольку по определению полноты $\forall f \in H \  \forall \epsilon > 0 \ \exists n \in \N \ \exists c_1, \ldots, c_n \in \R:$
+    \[
+        \left\|f - \sum\limits_{k = 1}^n c_k e_k\right\| < \epsilon,
+    \]
+    то $\inf\limits_n \Delta_n = 0$.
+    В силу минимального свойства коэффициентов Фурье $\Delta_n = \|f - S_n[f]\|$.
+    А значит $\{e_n\}_{n = 1}^{+\infty}$~---~базис (из существования предела $\Delta_n$ и теоремы о единственности). \\
+    Импликация $2) \Ra 3)$ верна по теореме о единственности -- эти коэффициенты в единственном разложении по базису и будут коэффициентами ряда Фурье. \\
+    Импликация $3) \Ra 4)$ следует из ранее доказанной леммы:
+    \[
+        \|f\|^2 = \|f - S_n[f]\|^2 + \sum\limits_{k = 1}^n |\alpha_k(f)|^2 \langle e_k, e_k \rangle.
+    \]
+    При устремлении $n$ в бесконечность получаем равенство Парсеваля. \\
+    Заметим, что та же самая лемма даёт нам из выполнения равенства Парсеваля базисность системы, а значит $4) \Ra 2$.
+    Ранее было замечено, что из базисности системы векторов следует её полнота, то есть $2) \Ra 1)$.
+    При этом, в вышеприведённых рассуждениях полнота нигде не использовалась, а значит $1), 2), 3), 4)$ эквивалентны и при условии отсутствия полноты. \\
+    Покажем $4) \Ra 5)$.
+    Пусть существует $f \in H$ такой, что $\forall k \in \N \hookrightarrow f \perp e_k$.
+    Тогда $\forall k \in \N \alpha_k(f) = 0$ и $\|f\|^2 = 0$ по равенству Парсеваля.
+    По определению нормы $f = 0$ и система замкнута. \\
+    Покажем $5) \Ra 1)$.
+    Зафиксируем $f \in H$.
+    Из неравенства Бесселя следует:
+    \[
+        \sum\limits_{k = 1}^{+\infty} |\alpha_k(f)|^2\cdot\|e_k\|^2 \leq \|f\|^2 < +\infty.
+    \]
+    По теореме Рисса-Фишера ряд $\sum\limits_{k = 1}^{+\infty} \alpha_k(f) e_k$ сходится к некоторому элементу $S \in H$.
+    Заметим, что $\langle S, e_k \rangle = \alpha_k(f) \langle e_k, e_k \rangle$~---~по теореме о единственности.
+    Тогда $\langle S, e_k \rangle = \langle f, e_k \rangle \forall k \in \N$.
+    Из замкнутости системы $\{e_k\}$ следует что $S - f = 0 \Ra S = f$ и теорема доказана.
+\end{proof}
+\begin{note}
+    В неполных евклидовых пространствах система может быть замкнута, но не полна. \\
+    Введём обозначение $e_k = (0, \ldots, 1, 0, \ldots,)$ (где $1$ стоит на $k$-ом месте). \\
+    И пусть $e = (1, 1/2, 1/3, \ldots, 1/n, \ldots)$.
+    Рассмотрим тогда подпространство $l_2$, которое обозначим за $E$ и определим как
+    \[
+        E = Lin(e, e_2, e_3, \ldots).
+    \]
+    с индуцированным скалярным произведением.
+    Очевидно, что $E$~---~неполно:
+    \[
+        \left\|\left(e - \sum\limits_{k = 2}^n \dfrac{e_k}{k}\right) - e_1\right\| \ra 0, n \ra +\infty.
+    \]
+    но $e_1 \notin E$. \\
+    В $E$ система $\{e_2, e_3, \ldots\}$~---~замкнута (вектор $(c, 0, \ldots) \notin E$, а значит если вектор ортогонален всем $e_k$, то он равен 0), но не полна ($e$ не выражается через $e_k$).
+\end{note}
+
+% Возможно, я тут при техе что-то забыл; речекнуть лекцию.
