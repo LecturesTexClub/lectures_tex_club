@@ -1,0 +1,269 @@
+\section{Сходимость ряда Фурье в точке.}
+
+Мы начнём с формулировки общего критерия сходимости, не требующего знания конкретных свойств регулярности функций. Поэтому мы называем его ``абстрактным''.
+Он бесполезен с практической точки зрения, поскольку по сути является переформулировкой определения. С другой стороны, такая формулировка окажется полезной при доказательстве конкретных
+признаков сходимости рядов Фурье.
+
+
+\subsection{Абстрактный критерий сходимости.}
+
+Комбинируя \eqref{eqq.6}, \eqref{eqq.7}, и пользуясь четностью ядра Дирихле, при $f \in L_{1}([-\pi,\pi])$ получим
+\begin{equation}
+	\label{eqq.19}
+	\begin{split}
+		&S_{n}[f](x):=\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}\frac{\sin(n+\frac{1}{2})(t-x)}{\sin(\frac{(t-x)}{2})}f(t)\,dt \\
+		&=\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}\frac{\sin(n+\frac{1}{2})u}{\sin(\frac{u}{2})}f(x-u)\,du =
+		\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}\frac{\sin(n+\frac{1}{2})u}{\sin(\frac{u}{2})}f(x+u)\,du.
+	\end{split}
+\end{equation}
+
+\begin{lemma}
+	\label{Lm.convenient_form}
+	При $n \in \mathbb{N}$ и $\forall u \in (-\pi,\pi)$ справедливо равенство
+	\begin{equation}
+		D_{n}(u) = \frac{\sin(nu)}{\pi u} + \frac{1}{2\pi}(\cos(nu)+g(u)\sin(nu)),
+	\end{equation}
+	где функция $g:(-\pi,\pi) \to \mathbb{R}$ не зависит от $n$ и ограничена на интервале $(-\pi,\pi)$.
+\end{lemma}
+\begin{proof}
+    Используя формулу синуса суммы, получим
+\begin{equation}
+	D_{n}(u)=\frac{\sin(nu)\cos(\frac{u}{2})}{2\pi\sin(\frac{u}{2})} + \frac{\cos(nu)}{2\pi} = \frac{\sin(nu)}{\pi u}+\frac{1}{2\pi}(\cos(nu)+g(u)\sin(nu)),
+\end{equation}
+где мы положили $g(0)=0$ и
+$$
+g(u):=\frac{1}{\tg(\frac{u}{2})}-\frac{2}{u}, \quad u \in (-\pi,\pi) \setminus \{0\}.
+$$
+Нетрудно видеть, что $g$  -- нечетная на $(-\pi,\pi)$ и монотонно убывает. Поэтому, $|g(u)| \le 2/\pi$ при всех $u \in (-\pi,\pi)$.
+\end{proof}
+
+\begin{theorem}[ ``абстрактный'' критерий сходимости ряда Фурье в точке]
+	\label{Th.abstract_criterion}
+	Пусть $f:\mathbb{R} \to \mathbb{R}$ является $2\pi$-периодичной, и $f \in L_{1}([-\pi,\pi])$.
+	Ряд Фурье $f$ сходится в точке $x \in \mathbb{R}$ к числу $S \in \mathbb{R}$ в том и только том случае, если существует $\delta \in (0,\pi]$ такое, что
+	\begin{equation}
+		\label{eqq.22}
+		\lim\limits_{n \to \infty}\int\limits_{0}^{\delta}\Bigl[\frac{f(x+u)+f(x-u)}{2}-S\Bigr]\frac{\sin(nu)}{u}\,du = 0.
+	\end{equation}
+\end{theorem}
+\begin{proof} Нам будет удобно сделать несколько шагов.
+
+\textit{Шаг 1.}
+В силу леммы \ref{Lm.convenient_form}  мы можем переписать \eqref{eqq.19} в виде
+\begin{equation}
+	\label{eqq.23}
+	\begin{split}
+		&S_{n}[f](x)=\int\limits_{-\pi}^{\pi}\frac{\sin(nu)}{\pi u}f(x+u)\,du + \varepsilon_{n}[f](x) = \int\limits_{-\pi}^{\pi}\frac{\sin(nu)}{\pi u}f(x-u)\,du + \varepsilon_{n}[f](x)\\
+		&=\int\limits_{-\pi}^{\pi}\Bigl[\frac{f(x-u)+f(x+u)}{2}\Bigr]\frac{\sin(nu)}{\pi u}\,du + \varepsilon_{n}[f](x),
+	\end{split}
+\end{equation}
+где мы положили (равенство справедливо в силу четности косинуса и в силу четности произведения $g(u)\sin(nu)$)
+\begin{equation}
+	\label{eqq.24}
+	\begin{split}
+		&\varepsilon_{n}[f](x):=\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}f(x+u)(\cos(nu)+g(u)\sin(nu))\,du\\
+		&=\frac{1}{2\pi}\int\limits_{-\pi}^{\pi}f(x-u)(\cos(nu)+g(u)\sin(nu))\,du.
+	\end{split}
+\end{equation}
+По теореме Римана--Лебега \ref{Th.Riemann_Lebesgue} имеем $\varepsilon_{n}[f](x) \to 0$, $n \to \infty$.
+
+\textit{Шаг 2.} Используя рассуждения предыдущего шага для $f \equiv 1$, получим
+\begin{equation}
+	\label{eqq.25}
+	\int\limits_{-\pi}^{\pi}\frac{\sin(nu)}{\pi u}\,du = 1 + o(1), \quad n \to \infty.
+\end{equation}
+
+\textit{Шаг 3.} Комбинируя \eqref{eqq.22} и \eqref{eqq.25}, имеем
+\begin{equation}
+	\label{eqq.26}
+	|S-S_{n}[f](x)| = \int\limits_{-\pi}^{\pi}\Bigl[\frac{f(x+u)+f(x-u)}{2}-S\Bigr]\frac{\sin(nu)}{\pi u}\,du + o(1), \quad n \to \infty.
+\end{equation}
+
+\textit{Шаг 4.}  Функция $1/u$ ограничена на интервале $(\delta,\pi)$ (при любом фиксированном $\delta > 0$). Следовательно, по теореме Римана--Лебега получим
+\begin{equation}
+	\notag
+	\int\limits_{\delta}^{\pi}\Bigl[\frac{f(x+u)+f(x-u)}{2}-S\Bigr]\frac{\sin(nu)}{\pi u}\,du = o(1), \quad n \to \infty.
+\end{equation}
+Следовательно, учитывая четность функции $\sin(nu)/u$, получим
+\begin{equation}
+	\label{eqq.27}
+	\begin{split}
+		&\int\limits_{-\pi}^{\pi}\Bigl[\frac{f(x+u)+f(x-u)}{2}-S\Bigr]\frac{\sin(nu)}{\pi u}\,du = 2\int\limits_{0}^{\delta}\Bigl[\frac{f(x+u)+f(x-u)}{2}-S\Bigr]\frac{\sin(nu)}{\pi u}\,du\\
+		& + 2\int\limits_{\delta}^{\pi}\Bigl[\frac{f(x+u)+f(x-u)}{2}-S\Bigr]\frac{\sin(nu)}{\pi u}\,du\\
+		&= 2\int\limits_{0}^{\delta}\Bigl[\frac{f(x+u)+f(x-u)}{2}-S\Bigr]\frac{\sin(nu)}{\pi u}\,du + o(1), \quad n \to \infty.
+	\end{split}
+\end{equation}
+
+Комбинируя \eqref{eqq.26} и \eqref{eqq.27}, получим \eqref{eqq.22}.
+
+Теорема доказана.
+\end{proof}
+
+\begin{corollary}[Принцип локализации для рядов Фурье]
+	Пусть даны $2\pi$-периодические функции $f, g \in L_1([-\pi, \pi])$. Тогда, если для некоторой точки $x$ $\exists \delta > 0$ такой, что для $f|_{(x - \delta, x + \delta)} \equiv g|_{(x - \delta, x + \delta)}$, то ряды Фурье этих функций в точке $x$ сходятся и расходятся одновременно.
+\end{corollary}
+\subsection{Признаки поточечной сходимости рядов Фурье.}
+\begin{theorem}[Признак Дини]
+	Пусть дана $2\pi$-периодическая функция $f \in L_1([-\pi, \pi])$ и для некоторой точки $x$ существуют $\delta \in (0, \pi)$ и $S \in \R$ такие, что \[
+																																							\int_0^\delta |f(x + u) + f(x - u) - 2S|\dfrac{du}{u} < +\infty.
+	\]
+	то ряд Фурье функции $f$ сходится в точке $x$ к $S$.
+\end{theorem}
+\begin{proof}
+	В силу критерия сводимости ряда Фурье в точке, необходимо и достаточно показать \[
+																						\lim\limits_{n \rightarrow +\infty} \int_0^\delta \biggr(\dfrac{f(x + u) + f(x - u)}{2} - S\biggr)\dfrac{\sin nu}{u}du = 0.
+	\]
+	Поскольку \begin{multline*}
+				  \biggr|\int_0^\delta \biggr(\dfrac{f(x + u) + f(x - u)}{2} - S\biggr)\dfrac{\sin nu}{u}du\biggr| \leq \\ \leq \dfrac{1}{2}\int_0^\delta |f(x + u) + f(x - u) - 2S|\dfrac{|\sin nu|}{u}du \leq \\ \leq \dfrac{1}{2}\int_0^\delta \dfrac{|f(x + u) + f(x - u) - 2S|}{u}du < +\infty.
+	\end{multline*}
+	То если мы зафиксируем $\epsilon > 0$ в силу абсолютной непрерывности интеграла Лебега найдётся $\delta(\epsilon)$ такой, что \[
+																																	  \dfrac{1}{2}\int_0^{\delta(\epsilon)} |f(x + u) + f(x - u) - 2S|\dfrac{du}{u} < \dfrac{\epsilon}{2}.
+	\]
+	Поскольку по теореме Римана-Лебега \[
+										  \int_{\delta(\epsilon)}^\delta \dfrac{f(x + u) + f(x - u) - 2S}{u}\sin nu\cdot du \rightarrow 0, n \rightarrow +\infty.
+	\]
+	И данные оценки верны для любого $\epsilon$, то теорема доказана.
+\end{proof}
+
+\begin{theorem}[Признак Дирихле--Жордана]
+	Если функция $f:\mathbb{R} \to \mathbb{R}$ $2\pi$-периодична, и $f \in BV((a,b)) \cap L_{1}([-\pi,\pi])$ для некоторого интервала $(a,b)$, то её ряд Фурье сходится в каждой точке $x \in (a,b)$, причем
+	$$
+	S_{n}[f](x) \to \frac{f(x+0)+f(x-0)}{2}, \quad n \to \infty.
+	$$
+	% Если дополнительно потребовать, что $f \in C((a,b))$, то ряд Фурье функции $f$ сходится к ней равномерно на любом отрезке $[a',b'] \subset (a,b)$.
+\end{theorem}
+
+\textit{Доказательство.}
+В силу теоремы о представлении функции ограниченной вариации в виде разности двух неубывающих функций, достаточно рассмотреть случай, когда $f$ не убывает.
+
+\textit{Шаг 1.} Зафиксируем точку $x_{0} \in (a,b)$.
+В силу теоремы \ref{Th.abstract_criterion} достаточно доказать, что при некотором $\delta > 0$
+\begin{equation}
+	\notag
+	I_{n}:=\int\limits_{0}^{\delta}\frac{\sin(nu)}{u}\bigg[f(x_{0}+u)-f(x+0)\bigg]\,du \to 0, \quad n \to \infty.
+\end{equation}
+
+
+\textit{Шаг 2.} По признаку Дирихле несобственный интеграл (понимаемый в смысле Римана или в смысле Лебега)
+$$
+J:=\int\limits_{-\infty}^{+\infty}\frac{\sin x}{x}\,dx
+$$
+является сходящимся.
+Поэтому существует постоянная $C > 0$ такая, что
+\begin{equation}
+	\label{eq.int_estimate}
+	\Bigl|\int\limits_{t_{1}}^{t_{2}}\frac{\sin(nu)}{u}\,du\Bigr| = \Bigl|\int\limits_{nt_{1}}^{nt_{2}}\frac{\sin(t)}{t}\,dt\Bigr| \le C \quad \forall t_{1} < t_{2}.
+\end{equation}
+
+\textit{Шаг 3.} Фиксируем $\varepsilon > 0$ и выберем $\delta(\varepsilon) > 0$ столь малым, что $U_{\delta}(x_{0}) \subset (a,b)$ и при этом $|f(x_{0}+0)-f(x_{0}+u)| < \frac{\varepsilon}{2C}$
+при всех $u \in (0,\delta(\varepsilon))$.
+В силу второй теоремы о среднем имеем
+\begin{equation}
+	\notag
+	I^{1}_{n}:=\int\limits_{0}^{\delta(\varepsilon)}\frac{\sin(nu)}{u}[f(x_{0}+u)-f(x+0)]\,du =
+	[f(x_{0}+\delta)-f(x+0)]\int\limits_{\xi}^{\delta(\varepsilon)}\frac{\sin(nu)}{u}\,du.
+\end{equation}
+Отсюда и из \eqref{eq.int_estimate} имеем $|I_{n}^{1}| < \varepsilon/2$.
+
+
+\textit{Шаг 4.}
+В силу теоремы Римана--Лебега \ref{Th.Riemann_Lebesgue} имеем существование такого числа $N_{\varepsilon}:=N(\delta(\varepsilon)) \in \mathbb{N}$, что при $n \geq N_{\varepsilon}$
+\begin{equation}
+	\notag
+	|I_{n}^{2}|:=\Bigl|\int\limits_{\delta(\varepsilon)}^{\delta}\frac{\sin(nu)}{u}[f(x_{0}+u)-f(x+0)]\,du\Bigr| < \varepsilon/2.
+\end{equation}
+
+\textit{Шаг 5.} Собирая вышеприведенные оценки, получаем, что $|I_{n}| < \varepsilon$ при всех $n \geq N_{\varepsilon}$.
+
+Теорема полностью доказана.
+
+\begin{note}
+    Признаки Дини и Дирихле Жордана не сравнимы.
+    \begin{example}
+
+\[
+f(x) =
+\begin{cases}
+\displaystyle \frac{1}{\left| \ln \frac{x}{2\pi} \right|}, & 0 < x \leq \pi, \\
+0, & x = 0, \\
+f(-x), & -\pi \leq x < 0.
+\end{cases}
+\]
+
+        \begin{tikzpicture}
+\begin{axis}[
+    axis lines = middle,
+    xmin = -3.5, xmax = 3.5,
+    ymin = 0, ymax = 2,
+    samples = 300,
+    domain = -3.14:3.14,
+    xtick={-3.14, -1.57, 0, 1.57, 3.14},
+    xticklabels={$-\pi$, $-\frac{\pi}{2}$, $0$, $\frac{\pi}{2}$, $\pi$},
+    ytick={1},
+    xlabel = $x$, ylabel = $f(x)$,
+    every axis plot post/.style={thick}
+]
+\addplot [
+    domain=0.01:3.14,
+    samples=200,
+] {1/abs(ln(x/(2*3.1415)))};
+
+\addplot [
+    domain=-3.14:-0.01,
+    samples=200,
+] {1/abs(ln(abs(x)/(2*3.1415)))};
+
+\addplot+[
+    only marks,
+    mark=*,
+] coordinates {(0, 0)};
+\end{axis}
+\end{tikzpicture}
+
+Понятно, что$
+f \in BV([-\pi, \pi]) \cap C([-\pi, \pi])
+\quad \Rightarrow$ а значит работает признак Дирихле–Жордана.
+Но признак Дини не работает:
+
+\[
+\int_0^\delta \frac{\left| f(x+t) + f(x-t) - 2f(x) \right|}{t} \, dt
+= 2 \int_0^\delta \frac{f(t)}{t} \, dt
+= 2 \int_0^\delta \frac{dt}{|\ln \left( \frac{t}{2\pi} \right)|} = +\infty
+\]
+
+    \end{example}
+    \begin{example}
+        \[
+\Psi(x) =
+\begin{cases}
+\sqrt{x} \cdot \sin\left( \dfrac{1}{x} \right), & x \in (0, \pi], \\
+0, & x = 0, \\
+\Psi(-x), & x \in [-\pi, 0).
+\end{cases}
+\]
+
+
+$\Psi \notin BV((-\delta, \delta)) \quad \forall \delta > 0
+\quad \Rightarrow$
+признак Дирихле–Жордана нельзя использовать.
+
+\[
+\text{Проверим сходимость:} \quad
+2 \int_0^{\delta} \frac{|\Psi(t)|}{t} \, dt
+\leq 2 \int_0^{\delta} \frac{dt}{\sqrt{t}}
+< +\infty
+\]
+Признак Дини работает
+
+    \end{example}
+
+
+
+\end{note}
+
+
+
+% Пусть теперь $f \in C((a,b))$ и $[a',b'] \subset (a,b)$. Тогда для любого $\varepsilon > 0$ существует $\delta(\varepsilon) > 0$ такое, что
+% $$
+% \sup\limits_{x \in [a',b']}\sup\limits_{|u| < \delta(\varepsilon)}|f(x+u)-f(x)| < \varepsilon.
+% $$

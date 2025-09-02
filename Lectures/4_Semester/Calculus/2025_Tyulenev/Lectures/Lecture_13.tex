@@ -1,0 +1,330 @@
+\begin{proof}
+    Нужно проверить, что $D^{\alpha}\lambda \in D'(\R^n)$. \\
+    Линейность по $\phi$ очевидна: оператор производной -- линеен. \\
+    Проверим непрерывность.
+    Пусть $\{\phi_m\} \subset D(\R^n)$ такая, что $\phi_m \xrightarrow[\D (\R^n)]{} \phi, m \ra +\infty$.
+    \[
+        |(D^{\alpha} \lambda, \phi_m) - (D^{\alpha} \lambda, \phi)| = |(D^{\alpha} \lambda, \phi_m - \phi)| = |(\lambda, D^{\alpha}(\phi_m - \phi))|.
+    \]
+    В силу определения сходимости в $D$, очевидно, что $D^{\alpha} \phi_m \xrightarrow[\D(\R^n)]{} D^{\alpha} \phi, m \ra +\infty$.
+    Тогда, поскольку $\lambda \in D'(\R^n)$, то и $(\lambda, D^{\alpha}(\phi_m - \phi)) \ra 0, m \ra +\infty$. \\
+    Пусть $\lambda$ -- регулярный функционал, который порождён $C^1$-гладкой $f_\lambda$.
+    Покажем, что обобщенная производная совпадает с классической. То есть обобщенной производной будет соответствовать регулярный функционал, который поточечно почти всюду совпадает с классической частной производной. Пусть $D_j$ -- частная производная по $j$-й координате в обобщённом смысле. Тогда
+    \[
+        (D_j \lambda, \phi) = -(\lambda, D_j \phi) = -\int_{\R^n} f_{\lambda} \dfrac{\partial \phi}{\partial x_j}dx = (*)
+    \]
+    Далее будем работать с сечениями и, воспользовавшись теоремой Фубини, так как $f_{\lambda}$ - $C^1$-гладка, $\dfrac{\partial \phi}{\partial x_j}$ - бесконечно дифференцируема и финитна, получим
+    \[
+        (*) = -\int_{\R^{n - 1}} d\hat{x}_j \int_{\R} f_{\lambda}(x_1, \ldots, x_j, \ldots x_n) \dfrac{\partial \phi}{\partial x_j} dx_j.
+    \]
+    Где $\hat{x}_j$ - та у которой пропущена j-ая координата. При каждом фиксированном $\hat{x}_j$ проинтегрируем по частям по j-ой координате:
+    \[
+        \int_{\R} f_{\lambda}(x_1, \ldots) \dfrac{\partial \phi}{\partial x_j} dx_j = f_{\lambda}(\ldots)\phi(\ldots)|^{x_j=c}_{x_j=-c} - \int_{\R} \dfrac{\partial f_{\lambda}}{\partial x_j} \phi(x_1, \ldots) dx_j.
+    \]
+    При каждой $\hat{x}_j$:  $f_{\lambda}(\ldots)\phi(\ldots)|^{x_j=c}_{x_j=-c} = 0$. То есть
+    \[
+        (*) = -\int_{\R^{n - 1}} (f_{\lambda}(\ldots)\phi(\ldots)|^{x_j=c}_{x_j=-c}) d\hat{x}_j + \int_{\R^{n - 1}} d\hat{x}_j \int_{\R} \dfrac{\partial f_{\lambda}}{\partial x_j} \phi(x_1, \ldots) dx_j .
+    \]
+    А это, с учётом внешнего интеграла и повторного применения теоремы Фубини, в точности равно $\left(\dfrac{\partial f_{\lambda}}{\partial x_j}, \phi\right)$~---~что и требовалось показать. \\
+    Аналогично по индукции мы можем показать для производной произвольного порядка.
+\end{proof}
+\begin{note}
+    Всяких $\lambda \in D'(\R^n)$ можно дифференцировать сколько угодно раз (в обобщённом смысле).
+\end{note}
+\begin{lemma}
+    Если $\lambda_m \xrightarrow[\D'(\R^n)]{} \lambda$, $m \ra +\infty$, то $\forall \alpha \in (\N_0)^n$ выполняется
+    \[
+        D^{\alpha} \lambda_m \xrightarrow[\D'(\R^n)]{} D^{\alpha} \lambda,\  m \ra +\infty.
+    \]
+\end{lemma}
+\begin{proof}
+    По определению:
+    \[
+        (D^{\alpha} \lambda_m, \phi) = (-1)^{|\alpha|} (\lambda_m, D^{\alpha} \phi) \ra (-1)^{|\alpha|}(\lambda, D^{\alpha}\phi) = (D^{\alpha} \lambda, \phi).
+    \]
+\end{proof}
+\begin{theorem}[Правило Лейбница]
+    Пусть $\lambda \in D'(\R)$, а $g \in C^\infty(\R)$.
+    Тогда
+    \[
+        (g\lambda)' = g' \lambda + g \lambda',
+    \]
+    где равенства и производные понимаются в смысле $D'(\R)$.
+\end{theorem}
+\begin{proof}
+    По определению и ранее доказанным свойствам $\forall \phi \in D(\R)$:
+    \begin{multline*}
+        ((g\lambda)', \phi) = -(g \lambda, \phi') = -(\lambda, g \phi') = -(\lambda, (g\phi)' - g'\phi) = \\ = -(\lambda, (g\phi)') + (\lambda, g' \phi) = (\lambda', g\phi) + (g'\lambda, \phi) = (g\lambda' + g'\lambda, \phi).
+    \end{multline*}
+    В силу произвольности $\phi$ мы и получаем утверждение теоремы.
+\end{proof}
+\subsection{Пространства $S$ и $S'$.}
+\begin{definition}
+    Определим пространство $S(\R^n)$~---~пространство всех бесконечно дифференцируемых функций $\phi$, быстро убывающих на бесконечности, то есть:
+    \[
+        \forall l \in \N_0 \hookrightarrow \|\phi\|_l \equiv \sup\limits_{x \in \R^n} ((1 + |x|)^l \max\limits_{0 \leq |\alpha| \leq l} |D^{\alpha} \phi|) < +\infty,
+    \]
+    где $|x| = \sqrt{x_1^2 + \ldots + x_n^2}$.\\
+    C введенной в нем сходимостью:
+    $\phi_m \xrightarrow{S} \phi$, $m \ra +\infty.$
+    если $\forall l \in \N_0 \hookrightarrow \|\phi - \phi_m\|_l \ra 0$, $m \ra +\infty$.
+\end{definition}
+\begin{note}
+    $\forall l \in \N_0$ верно, что $\|\cdot \|_l$~---~является нормой.
+\end{note}
+
+\begin{note}[Примечание техающего]
+    Было в качестве упражнения, попробовал доказать сам.
+\end{note}
+
+\begin{proof}
+    Проверим три аксиомы нормы.
+
+    \medskip
+    \noindent 1. Неотрицательность и однозначность нуля.
+    По определению, \(\|\varphi\|_l\)~--- супремум неотрицательной функции
+    \[
+        x\;\mapsto\;(1+|x|)^l \max_{0 \le |\alpha|\le l}\bigl|D^\alpha\varphi(x)\bigr|\ge0,
+    \]
+    поэтому \(\|\varphi\|_l\ge0\). Если \(\|\varphi\|_l=0\), то
+    \[
+        \sup_{x\in\mathbb{R}^n}(1+|x|)^l\max_{0 \le |\alpha|\le l}|D^\alpha\varphi(x)|=0
+        \;\Longrightarrow\;
+        \forall x,\;\max_{0 \le |\alpha|\le l}|D^\alpha\varphi(x)|=0,
+    \]
+    т.~е. \(D^\alpha\varphi(x)\equiv0\) для всех \(0 \le |\alpha|\le l\). При \(\alpha=0\) это даёт \(\varphi\equiv0\).
+
+    \medskip
+    \noindent 2. Однородность.
+    Для любого \(a\in\mathbb{R}\) имеем
+    \[
+        \|a\varphi\|_l
+        =\sup_x(1+|x|)^l\max_{0 \le |\alpha|\le l}\bigl|D^\alpha(a\varphi)(x)\bigr|
+        =\sup_x(1+|x|)^l\max_{0 \le |\alpha|\le l}\bigl|a\,D^\alpha\varphi(x)\bigr|
+        =|a|\,\|\varphi\|_l.
+    \]
+
+    \medskip
+    \noindent 3. Неравенство треугольника.
+    Пусть \(\varphi,\psi\in S(\mathbb{R}^n)\). Тогда для каждого \(x\) и каждого \(|\alpha|\le l\)
+    \[
+        |D^\alpha(\varphi+\psi)(x)|
+        \le|D^\alpha\varphi(x)|+|D^\alpha\psi(x)|
+        \le\max_{0 \le |\alpha|\le l}|D^\alpha\varphi(x)|+\max_{0 \le |\alpha|\le l}|D^\alpha\psi(x)|.
+    \]
+    Умножая на \((1+|x|)^l\) и беря супремум по \(x\), получаем
+    \[
+        \|\varphi+\psi\|_l
+        \le\|\varphi\|_l+\|\psi\|_l.
+    \]
+
+    Таким образом, \(\|\cdot\|_l\) удовлетворяет всем трём аксиомам нормы, что и требовалось.
+\end{proof}
+\begin{note}
+    Таким образом $S(\R^n)$ -- счётнонормированное пространство.
+\end{note}
+
+\begin{theorem}
+    $S(\R^n)$~---~метризуемое пространство, то есть существует метрика $d$ такая, что \[d(\phi_m, \phi) \ra 0 \Longleftrightarrow \phi_m \xrightarrow{S} \phi, m \ra +\infty.\]
+\end{theorem}
+\begin{proof}
+    Пусть $\phi, \psi \in S(\R^n)$.
+    Возьмём метрику
+    \[
+        d(\phi, \psi) = \sum\limits_{l = 0}^{+\infty} 2^{-l} \dfrac{\|\phi - \psi\|_l}{1 + \|\phi - \psi\|_l}.
+    \]
+    Пусть $\phi_m \xrightarrow{d} \phi, m \ra +\infty$.
+    Но, тогда, в силу неотрицательности слагаемых:
+    \[
+        \forall l \in \N_{0} \hookrightarrow \dfrac{\|\phi_m - \phi\|_l}{1 + \|\phi_m - \phi\|_l} \ra 0, m \ra +\infty.
+    \]
+    Рассмотрим $t \to \dfrac{t}{1 + t} = 1 - \dfrac{1}{1 + t}$ -- возрастающая и непрерывная в нуле (и у неё есть обратная функция),
+    тогда $\|\phi_m - \phi\|_l \ra 0, m \ra +\infty$. \\
+    Покажем теперь в обратную сторону.
+    Пусть $\forall l \in \N_0 \hookrightarrow \|\phi - \phi_m\|_l \ra 0, m \ra +\infty$ и надо показать сходимость в метрике.
+    Зафиксируем $\epsilon > 0$.
+    Найдём $l(\epsilon)$ такое, что
+    \[
+        \sum\limits_{l(\epsilon)}^{+\infty} 2^{-l} \dfrac{\|\phi_m - \phi\|_l}{1 + \|\phi_m - \phi_m\|} < \epsilon/2.
+    \]
+    Оно существует, поскольку каждое из слагаемых не больше $1$.
+    А теперь выберем $M(\epsilon) \in \N$ таким большим, чтобы
+    \[
+        \max\limits_{1 \leq l \leq l(\epsilon)} \|\phi - \phi_m\|_l < \epsilon/2 \forall m > M(\epsilon).
+    \]
+    Но, тогда, разобьём метрику на две части:
+    \[
+        \sum\limits_{l = 1}^{+\infty} \ldots = \sum\limits_{1}^{l(\epsilon)} \ldots + \sum\limits_{l(\epsilon) + 1}^{+\infty} \ldots \leq \epsilon/2 \cdot\sum\limits_{l = 1}^{l(\epsilon)} 2^{-l} + \epsilon/2 < \epsilon.
+    \]
+    Что и требовалось показать.
+\end{proof}
+
+
+\begin{note}
+    Надо проверить, что $d$ -- действительно метрика.
+\end{note}
+
+\begin{note}[Примечание техающего]
+    Было в качестве упражнения, попробовал доказать сам.
+\end{note}
+\begin{proof}
+    Проверим три аксиомы метрики.
+
+    \medskip
+    \noindent 1. Неотрицательность и невырожденность.
+    Каждое слагаемое
+    \[
+        2^{-l}\,\frac{\|\phi-\psi\|_l}{1+\|\phi-\psi\|_l}
+    \]
+    неотрицательно, следовательно $d(\phi,\psi)\ge0$. Более того,
+    \[
+        d(\phi,\psi)=0
+        \;\Longrightarrow\;
+        \forall l,\;\frac{\|\phi-\psi\|_l}{1+\|\phi-\psi\|_l}=0
+        \;\Longrightarrow\;
+        \forall l,\;\|\phi-\psi\|_l=0
+        \;\Longrightarrow\;
+        \phi=\psi.
+    \]
+
+    \medskip
+    \noindent 2. Симметричность.
+    Поскольку $\|\phi-\psi\|_l=\|\psi-\phi\|_l$, очевидно
+    \[
+        d(\phi,\psi)=d(\psi,\phi).
+    \]
+
+    \medskip
+    \noindent 3. Неравенство треугольника.
+    Обозначим для краткости
+    \[
+        f(t)=\frac{t}{1+t},\qquad t\ge0.
+    \]
+    Функция $f$ возрастает и удовлетворяет неравенству
+    \[
+        f(a+b)\;\le\;f(a)+f(b),
+        \quad a,b\ge0.
+    \]
+    Действительно, используя
+    \(\|\,\phi-\psi\|_l\le\|\phi-\chi\|_l+\|\chi-\psi\|_l\) и возрастание $f$, получаем
+    \[
+        f\bigl(\|\phi-\psi\|_l\bigr)
+        \;\le\;
+        f\bigl(\|\phi-\chi\|_l+\|\chi-\psi\|_l\bigr)
+        \;\le\;
+        f\bigl(\|\phi-\chi\|_l\bigr)
+        +f\bigl(\|\chi-\psi\|_l\bigr).
+    \]
+    Домножая на $2^{-l}$ и суммируя по $l\ge0$, заключаем
+    \[
+        d(\phi,\psi)
+        =\sum_{l=0}^\infty2^{-l}f\bigl(\|\phi-\psi\|_l\bigr)
+        \le
+        \sum_{l=0}^\infty2^{-l}\Bigl[f\bigl(\|\phi-\chi\|_l\bigr)
+        +f\bigl(\|\chi-\psi\|_l\bigr)\Bigr]
+        =d(\phi,\chi)+d(\chi,\psi).
+    \]
+
+    Таким образом, $d$ удовлетворяет всем аксиомам метрики.
+\end{proof}
+\begin{theorem}
+    Преобразование Фурье осуществляет линейный изоморфизм $S(\R)$ на $S(\R)$.
+    Более того, $\forall m, n \in \N_0$ справедливы следующие равенства:
+    \[
+        F\left[\dfrac{d^m \phi}{dx^m}\right](y) = (iy)^m F[\phi](y), \quad \dfrac{d^n F[\phi]}{dy^n}(y) = F[(-ix)^n \phi](y).
+    \]
+\end{theorem}
+
+\begin{remark}
+    Для выполнения второй формулы необходимо $\forall k \in \{1, \ldots n\} \hookrightarrow (-ix)^k \phi \in L_1 (\R)$;\\
+    Для выполнения первой~---~$\forall k \in \{1, \ldots m\} \hookrightarrow \cfrac{d^k \phi}{dx^k} \in C(\R)$, $\cfrac{d^k \phi}{dx^k} \in L_1 (\R)$.
+\end{remark}
+
+\begin{proof}
+    Пусть $\phi \in S(\R)$. Тогда по определению:
+    \[
+        \sup_{x \in \R} ((1 + |x|)^l \max\limits_{0 \leq k \leq l} |\phi^{(k)}(x)|) = \|\phi\|_l < +\infty \  \forall l \in \N_0.
+    \]
+    В частности $\forall k \in \N_0 \hookrightarrow \sup\limits_{x \in \R} |x|^k|\phi (x)| < +\infty$.
+    Так как
+    \[
+        |x|^k|\phi(x)| \leq \dfrac{(1 + |x|)^2}{(1 + |x|)^2} |x|^k|\phi(x)| \leq \dfrac{1}{1 + |x|^2} \|\phi\|_{k + 2}.
+    \]
+    То и $|x|^k\phi \in L_1(\R) \;\; \forall k \in \N_0$, а значит $F[\phi]$ -- бесконечно-дифференцируемая функция и справедлива вторая формула в утверждении теоремы. \\
+    Так как $\forall m \in \N_0 \hookrightarrow \phi^{(m)} \in L_1(\R)$, то
+    \[
+        F\left[\dfrac{d^m \phi}{dx^m}\right] \ra 0, x \ra \infty.
+    \]
+    И тогда $\forall m \in \N_0 \hookrightarrow F[\phi](y) = o\left(\frac{1}{|y|^m}\right), y \ra +\infty$. \\
+    А значит
+    \[
+        (iy)^m \dfrac{d^n F[\phi]}{dy^n} = (iy)^m F[(-ix)^n \phi] = F\left[\dfrac{d^m}{dx^m}((-ix)^n \phi)\right].
+    \]
+    Теперь осталось показать только
+    \[
+        (*) = \dfrac{d^m}{dx^m}\left((-ix)^n \phi\right) \in L_1(\R).
+    \]
+    Но это действительно правда, поскольку $\phi$ -- быстро убывающая функция на бесконечности. По правилу Лейбница раскроем производную:
+    \begin{multline*}
+        \left|\dfrac{d^m}{dx^m}((-ix)^n \phi)\right| = \left|\sum\limits_{k = 1}^m \binom{m}{k}((-ix)^n)^{(k)} \phi^{(m - k)}\right| \leq C (1 + |x|)^{\max(n, m)}\max\limits_{0 \leq s \leq \max(n,m)} |\phi^{(s)}| = C \|\phi\|_{\max(n,m)}.
+    \end{multline*}
+    А $C \|\phi\|_{\max(n,m)}$ - конечна. Теперь домножим и разделим на $(1 + |x|)^2$
+    \[
+        (*) = \frac{(1 + |x|)^2}{(1 + |x|)^2} \left|\sum\limits_{k = 1}^m \binom{m}{k}((-ix)^n)^{(k)} \phi^{(m - k)}\right| \leq \frac{(1 + |x|)^2}{(1 + |x|)^2} \left(C (1 + |x|)^{\max(n, m)}\max\limits_{0 \leq s \leq \max(n,m)} |\phi^{(s)}|\right) \leq.
+    \]
+    \[
+        \leq \frac{1}{(1 + |x|)^2} C \|\phi\|_{\max(n,m)+2}.
+    \]
+    Получили, что m-ая производная мажорируется $\frac{C}{(1+|x|)^2}$, тк $\phi \in S$. \\ Значит $\forall m, n \in \N_0 \hookrightarrow \dfrac{d^m ((-ix)^n \phi)}{dx^m} \in L_1(\R)$ и
+    \[
+        (iy)^m \dfrac{d^n F[\phi](y)}{dy^n} \ra 0, y \ra \infty.
+    \]
+    И тогда $F[\phi] \in S(\R)$, а значит $F[\cdot]$ -- действительно преобразование $S(\R)$. \\
+    Покажем, что это изоморфизм.
+    Поскольку $\phi$ -- бесконечно-дифференцируема и интегрирума, то справедлива формула обращения:
+    \[
+        F^{-1}\left[F[\phi](x)\right] = F[F^{-1}[\phi]](x) = \phi(x) \quad \forall x \in \R.
+    \]
+    А значит, если $F[\phi] = 0$, то $\phi \equiv 0$ и $F$ -- инъективное линейное отображение из $S(\R)$ в $S(\R)$. \\
+    Вышеприведённые рассуждание верны и для обратного преобразования Фурье, а значит обратное преобразование тоже инъективное линейное отображение, а следовательно $F$ -- изоморфизм.
+\end{proof}
+\begin{note}
+    Эту теоремку бы тоже слегка дописать.
+    Или даже не слегка...
+\end{note}
+\begin{theorem}
+    Преобразование Фурье сохраняет сходимость в $S(\R)$, то есть если
+    \[
+        \phi_m \xrightarrow{S} \phi, m \ra +\infty.
+    \]
+    То и
+    \[
+        F[\phi_m] \xrightarrow{S} F[\phi], m \ra +\infty.
+    \]
+\end{theorem}
+\begin{proof}
+    Зафиксируем $l \in \N_0$.
+    Рассмотрим $l$-ую норму $F[\phi_m - \phi]$:
+    \[
+        \|F[\phi_m] - F[\phi]\|_{l} = \|F[\phi_m - \phi]\|_{l} = \sup \limits_x (1 + |x|)^l \max\limits_{0 \leq k \leq l} \dfrac{d^k}{dy^k}(F[\phi_m - \phi]) = \sup ((1 + |x|)^l \max\limits_{0 \leq k \leq l} F[(-ix)^k(\phi_m - \phi)]).
+    \]
+\end{proof}
+\begin{note}
+    Доказательство на 14-й лекции будет.
+\end{note}
+\begin{definition}
+    Определеним $S'(\R)$ как пространство всех непрерывных (по отношению к сходимости в $S$) линейных функционалов.
+\end{definition}
+\begin{note}
+    Под непрерывностью $\lambda \in S'(\R)$ имеется в виду
+    \[ \phi_m \xrightarrow{S} \phi, \;\; m \ra \infty \quad => \quad (\lambda, \phi_m) \ra (\lambda, \phi), \;\; m \ra \infty
+    \]
+\end{note}
+\begin{note}
+    Заметим, что $D(\R) \subset S(\R)$ и $S'(\R) \subset D'(\R)$.
+\end{note}
+\begin{definition}
+    Пусть $\lambda \in S'(\R)$.
+    Тогда $\forall k \in \N \;\, \forall \phi \in S$ определим $(\lambda^{(k)}, \phi) = (-1)^k (\lambda, \phi^{(k)})$.
+    Доказательство корректности аналогично доказательству для $D$.
+\end{definition}

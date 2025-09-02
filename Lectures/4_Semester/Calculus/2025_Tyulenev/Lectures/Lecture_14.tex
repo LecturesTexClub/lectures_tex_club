@@ -1,0 +1,269 @@
+\begin{note}
+Возникает вопрос, а что здесь считать регулярным распределением? Оказывается, не любую локально интегрируемую функцию можно рассматривать как регулярное распределение в $S'$. Здесь проблема в том, что нельзя сильно расти на бесконечности.
+\end{note}
+\begin{example}
+    Рассмотрим следующую $f \in L_1^{loc}(\R)$: $f = e^{2 x^2}$.\\
+    Тогда  для $\phi(x) = e^{-x^2} \in S(\R)$ выполняется $\int_{\R} f \phi dx = +\infty$.
+    А значит не любую локально-интегрируемую функцию можно считать элементом $S'(\R)$.
+\end{example}
+\begin{lemma}
+    Пусть $f \in L_1^{loc}(\R^n)$: $\exists C > 0$ и $\exists l \in \N_0$ такие, что
+    \[
+        |f(x)| \leq C(1 + |x|)^l.
+    \]
+    Тогда обобщённая функция $\lambda_f$, порождённая $f$ следующим образом:
+    \[
+        \forall \phi \in S(\R^n): \ (\lambda_f, \phi) = \int_{\R^n} f\phi dx.
+    \]
+    является элементом $S'(\R^n)$.
+\end{lemma}
+\begin{corollary}
+    Всякий полином можно считать элементом $S'(\R^n)$.
+\end{corollary}
+\begin{proof}
+    Заметим, что $\forall \phi \in S \;\; \forall x \in \R^n$
+    \[
+        |f(x)||\phi(x)| \leq \dfrac{(1 + |x|)^{n + 1}}{(1 + |x|)^{n + 1}}(1 + |x|)^l |\phi(x)| \leq \dfrac{C}{(1 + |x|)^{n + 1}}\|\phi\|_{l + n + 1}.
+    \]
+    А поскольку $\phi \in S$, $\|\phi\|_{l+n+1}$ - конечна. А значит $f \cdot \phi \in L_1(\R^n)$ и интеграл имеет смысл. \\
+    Линейность порождённого функционала очевидным образом следует из линейности интеграла. \\
+    Проверим непрерывность. Пусть $\phi_m \xrightarrow{S} \phi, m \ra +\infty$.
+    Тогда
+    \[
+          |(\lambda_f, \phi_m - \phi)| \leq \int_{\R^n} |f||\phi_m - \phi|dx \leq C \int_{\R^n} \dfrac{dx}{(1 + |x|^{n + 1})}\|\phi - \phi_m\|_{n + l + 1} \ra 0, m \ra +\infty. (*)
+    \]
+    Что и завершает доказательство непрерывности.
+\end{proof}
+\subsection{Умножение элементов из $S'(\R)$ на гладкие функции}
+\begin{lemma}
+    Пусть $g \in C^\infty(\R)$ и $\forall n \in \N_0 \;\; \exists m_n \in \N_0$ такая, что
+    \[
+        C_n(g) = \sup\limits_{x \in \R} \dfrac{|g^{(n)}(x)|}{(1 + |x|)^{m_n}} < +\infty \quad (*).
+    \]
+    Тогда $\forall \lambda \in S'(\R)$ формула $(g \lambda, \phi) = (\lambda, g\phi)$ корретно определяет элемент $S'(\R)$, обозначаемый $g\lambda$.
+\end{lemma}
+\begin{proof}
+    Пусть $0 \leq n \leq l$. \\
+    Ключевое наблюдение: Если $\phi \in S(\R)$ и $g$ удовлетворяет $(*)$, то $g\phi \in S(\R)$, потому что:
+    \[
+        |((1 + |x|)^l (g\phi)^{(n)})| \leq \sum\limits_{s = 0}^n (1 + |x|)^l |g^{(s)}(x)||\phi^{(n - s)}(x)| \binom{n}{s} \leq (**)
+    \]
+    Поскольку $\forall s \in \{0, \ldots, n\}$:
+    \[
+        |g^{(s)}| \leq C_s(g)(1 + |x|)^{m_s},
+    \]
+    То после подстановки:
+    \[
+        (1 + |x|)^l |g^{(s)}||\phi^{(n - s)}| \leq C_s(g)(1 + |x|)^{l + m_s}|\phi^{(n - s)}|.
+    \]
+    А значит после взятия супремума:
+    \[
+        \sup \limits_x (1 + |x|)^l |g^{(s)}||\phi^{(n - s)}| \leq C_s(g) \sup \limits_x (1 + |x|)^{l + m_s}|\phi^{(n - s)}| \leq C_s(g)\|\phi\|_{l + m_1 + \ldots + m_l}.
+    \]
+    И это верно для всех $x \in \R$.
+    После подстановки в $(**)$:
+    \[
+        (**) \leq \|\phi\|_{l + m_1 + \ldots + m_l} C.
+    \]
+    Поскольку рассуждения работают для любого $n$, то можно взять супремум
+    \[
+        \sup\limits_{x \in \R} \max\limits_{0 \leq n \leq l} (1 + |x|)^l |(g \phi)^{(n)}(x)| < +\infty.
+    \]
+    А значит, в силу выполнения этого для любого $l \in \N$, мы получаем, что $g\phi \in S(\R)$ и $(\lambda, g\phi)$ -- корректен. \\
+    Линейность функционала $g\lambda$ по $\phi$ очевидна из линейности интеграла. \\
+    Покажем непрерывность.
+    Если $\phi_m \xrightarrow{S} \phi, \; m \ra +\infty$, то аналогичные рассуждения нам покажут $|g\phi_m - g\phi| \xrightarrow{S} 0, \; m \ra +\infty$:
+    \[
+        \|g\phi_m - g\phi\|_l \leq C(g)\|\phi_m - \phi\|_{l + m_1 + \ldots + m_l} \ra 0, m \ra +\infty.
+    \]
+    Используем непрерывность $\lambda$ на $S$ и получаем
+    \[
+        (g\lambda, \phi_m) = (\lambda, g\phi_m) \ra (\lambda, g\phi) = (g\lambda, \phi).
+    \]
+\end{proof}
+\begin{note}
+    Следующие условия для последовательности $\{\phi_m\} \subset S(\R)$ эквивалентны:
+    \begin{enumerate}
+        \item $\phi_m \xrightarrow{S} 0$.
+        \item $\forall n \in \N_0$ и $\forall l \in \N_0 \hookrightarrow C_{l, n}(\phi_m) = \sup\limits_{x \in \R} x^l \phi^{(n)}_m(x) \ra 0, \; m \ra \infty$.
+    \end{enumerate}
+\end{note}
+\begin{proof}
+    Покажем это.
+    Пусть $\phi_m \xrightarrow{S} 0, m \ra \infty$.
+    Тогда
+    \[
+        \sup\limits_{x \in \R} |x^l\phi^{(n)}_m(x)| \leq \sup\limits_{x \in \R}(1 + |x|)^l|\phi^{(n)}_m(x)| \leq \|\phi_m\|_{n + l} \ra 0, \; m \ra \infty.
+    \]
+    И в эту сторону доказано. \\
+    Теперь докажем в обратную сторону. Рассмотрим следующее выражение, зафиксировав $0 \leq n \leq l$:
+    \begin{multline*}
+        \sup\limits_{x \in \R} (1 + |x|)^l|\phi_m^{(n)}(x)| \leq \sup\limits_{x \in [-1, 1]} (1 + |x|)^l|\phi_m^{(n)}(x)| + \sup\limits_{|x| > 1} (1 + |x|)^l|\phi_m^{(n)}(x)| \leq \\ \leq
+        2^l \sup\limits_{x \in \R}|\phi_m^{(n)}(x)| + \sup\limits_{x \ in \R}|2^l x^l \phi_m^{(n)}(x)| \leq 2^l C_{0, n}(\phi_m) + 2^l C_{l, m}(\phi_m) \ra 0, m \ra +\infty.
+    \end{multline*}
+    А значит $\|\phi_m\|_l \ra 0, \; m \ra \infty \;\; \forall l\in \N_0$. Следовательно $\phi_m \xrightarrow{S} 0, \; m \ra \infty$. Что и завершает доказательство.
+\end{proof}
+\begin{reminder}
+    Теперь докажем недоказанную теорему с прошлой лекции
+\end{reminder}
+\begin{theorem}[Теорема X]
+    Пусть $\phi_m \xrightarrow{S} \phi, \; m \ra \infty$.
+    Тогда $F[\phi_m] \xrightarrow{S} F[\phi], \; m \ra \infty$.
+\end{theorem}
+\begin{proof}
+    Нам достаточно проверить, в силу только сделанного замечания, следующее выражение $\forall l \in \N_0$ и $\forall n \in \N_0$:
+    \[
+        \sup\limits_{y \in \R}|(iy)^l \dfrac{d^n F[\phi_m - \phi]}{dy^n}(y)| \ra 0, \; m \ra \infty.
+    \]
+    Ранее было показано, что
+    \[
+        (iy)^l \dfrac{d^n}{dy^n}(F[\phi_m - \phi]) = (iy)^l F[(-ix)^n(\phi_m - \phi)] = F\left[\dfrac{d^l}{dx^l}((-ix)^n(\phi_m - \phi))(x)\right](y).
+    \]
+    Заметим, что
+    \[
+        \sup\limits_{\R}\left[\dfrac{d^l}{dx^l}((-ix)^n(\phi_m - \phi))(x)\right] \ra 0, \; m \ra \infty.
+    \]
+    Для этого надо рассмотреть
+    \[
+        \sup\limits_{x \in \R} (1 + |x|)^2 \dfrac{d^l}{dx^l}((-ix)^n(\phi_m - \phi)(x)) = \sup\limits_{x \in \R} \psi_{l, n, m}(x) \ra 0, \; m \ra \infty.
+    \]
+    Тогда
+    \[
+        |\sup\limits_{y \in \R}F[\ldots](y)| \leq \dfrac{1}{\sqrt {2\pi}}\left|\int_\R \dfrac{e^{-ixy}}{(1 + |x|^2)}\psi_{l, m, n}(x)dx\right| \leq \dfrac{1}{\sqrt {2\pi}}\sup\limits_{x \in \R}|\psi_{l, m, n}(x)|\int_{\R} \dfrac{1}{(1 + |x|)^2}dx \ra 0, \; m \ra +\infty.
+    \]
+    Что завершает доказательство.
+\end{proof}
+\begin{definition}
+    Пусть $\lambda \in S'(\R)$.
+    Определим преобразование Фурье как
+    \[
+        (F[\lambda], \phi) = (\lambda, F[\phi]).
+    \]
+    И обратное произведение Фурье:
+    \[
+        (F^{-1}[\lambda], \phi) = (\lambda, F^{-1}[\phi]).
+    \]
+    На всякой пробной функции.
+\end{definition}
+\begin{theorem}
+    Определение преобразования Фурье в $S'$ -- корректно, то есть $\forall \lambda \in S'(\R)$ функционалы $F[\lambda]$ и $F^{-1}[\lambda]$ являются корректно определёнными линейными непрерывными функционалами в $S'$.
+    Более того, если $\lambda \in S'(\R)$ порождён $f \in L_1(\R)$, то преобразование Фурье в обобщённом смысле совпадает с преобразованием Фурье в классическом смысле.
+\end{theorem}
+\begin{note}
+Когда мы сделаем преобразование Фурье в обобщенном смысле, мы получим какой-то функционал на $S$. Ему будет соответствовать некоторое регулярное распределение, которое и является классическим преобразованием Фурье $f$. 
+\end{note}
+\begin{proof}
+    Линейность немедленно следует из линейности интеграла и преобразования Фурьеa на $S$. \\
+    Корректность следует из того, что $F[\cdot]$ -- изоморфизм пространства Шварца на себя. \\
+    Непрерывность функционалов $F[\lambda]$ и $F^{-1}[\lambda]$ следует из теоремы X. \\
+    Пусть теперь $\lambda \in S'(\R)$ порождена $f \in L^1(\R)$. \\
+    Для всякой пробной функции $\phi \in S(\R)$:
+    \begin{multline*}
+    (F[\lambda], \phi) = (\lambda, F[\phi]) = \int_{\R} f_{\lambda}(y) F[\phi](y) dy = \dfrac{1}{\sqrt {2\pi}} \int_{\R} f_{\lambda}(y) \left(\int_{\R} \phi(x) e^{-ixy}dx \right)dy = \\ = \int_{\R} \dfrac{1}{\sqrt {2\pi}} \phi(x) \left(\int_{\R} e^{-ixy} f_{\lambda}(y)dy \right) dx = \int_{\R} F[f]\phi dx = (F[f_{\lambda}], \phi).
+    \end{multline*}
+    (Замена пределов интегрирования делается по теореме Фубини, которую мы можем применять вследствие теоремы Тонелли).
+    Что и завершает доказательство. То есть действие на пробные функции обобщенного преобразования Фурье и классического совпадают. \\
+    Для обратного преобразования Фурье действуем полностью аналогично.
+\end{proof}
+\subsection{Преобразование Фурье в $L_2$.}
+\begin{note}
+    Как определить преобразование Фурье на $L_2$?
+\end{note}
+\begin{lemma}[Лемма Планшереля.]
+    $\forall f, g \in S(\R) \hookrightarrow (f, g)_{L_2} = (F[f], F[g])_{L_2}$.
+\end{lemma}
+\begin{note}
+    $(\;\cdot\;,\;\cdot\;)_{L_2}$ - скалярное произведение в $L_2$, $\hat{f}$ - прямое преобразование Фурье.
+\end{note}
+\begin{proof}
+    \begin{multline*}
+    (\hat{f}, \hat{g})_{L_2} = \int_{\R} \hat{f} \overline{\hat{g}}dy = \dfrac{1}{\sqrt {2\pi}} \int_{\R} \hat{f}(y) \left( \overline{\int_\R e^{-ixy}g(x)dx} \right)dy = \\ = \dfrac{1}{\sqrt {2\pi}} \int_{\R} \overline{g}(x) \left( \int_{\R} \hat{f}e^{ixy}dy \right) dx = \int_{\R} \overline{g}(x)f(x) dx = (f, g)_{L_2}.
+    \end{multline*}
+    Предпоследний переход сделан в силу теоремы Фубини (её применимость обосновывается теоремой Тонелли), а последний -- поскольку преобразование Фурье действует как автоморфизм на $S(\R)$.
+\end{proof}
+\begin{corollary}
+    Если рассматривать $S(\R)$ как подпространство $L_2(\R)$, то преобразование Фурье является эрмитовым автоморфизмом на $S(\R) \cap L_2(\R)$.
+    В частности он сохраняет $L_2$-норму (является изометрическим изоморфизмом).
+\end{corollary}
+\begin{lemma}
+    $S(\R)$ плотно в $L_2(\R)$ по $L_2$-норме.
+\end{lemma}
+\begin{proof}
+    Ранее было показано, что $C_0^{\infty}(\R)$ плотно в $L_p(\R)$.
+    Применение этой теоремы при $p = 2$ завершает доказательство, поскольку $C_0^{\infty}(\R) \subset S(\R)$.
+\end{proof}
+\begin{definition}
+    Зафиксируем $f \in L_2(\R)$.
+    Пусть $\{\phi_n\} \subset S(\R)$ такая, что
+    \[
+        \|\phi_n - f\|_{L_2} \ra 0, n \ra +\infty.
+    \]
+    А значит $\{\phi_n\}$ -- фундаментальна по $L_2$-норме.
+    Тогда и $\{F[\phi_n]\}$ -- фундаментальна в $L_2(\R)$.
+    В силу полноты $L_2$ мы определим
+    \[
+        F[f] = \lim\limits_{n \ra +\infty} F[\phi_n].
+    \]
+\end{definition}
+
+\begin{theorem}
+    Определение преобразования Фурье в $L_2(\R)$ корректно.
+\end{theorem}
+\begin{proof}
+    Пусть $\{\phi_n\}$ и $\phi_n'$ последовательности в $L_2(\R) \cap S(\R)$, сходящиеся к $\phi$ в $L_2(\R)$.
+    Определим $\psi_k$ следующим образом:
+    \[
+        \psi_k = \begin{cases}
+                     \phi_n, k = 2n \\
+                     \phi'_n, k = 2n + 1.
+        \end{cases}
+    \]
+    Поскольку $F[\psi_k]$ имеет предел в $L_2$, то в силу того, что все частичные пределы равны пределу мы получаем искомую корректность.
+\end{proof}
+\begin{theorem}[Теорема Планшереля.]
+    Преобразование Фурье осуществляет изометрический изоморфизм $L_2(\R)$ на $L_2(\R)$. \\
+    Кроме того, справедливы следующие свойства:
+    \begin{enumerate}
+        \item $\forall f, g \in L_2(\R) \hookrightarrow (f, g) = (F[f], F[g])$.
+        \item Если $f \in L_2(\R)$ и $\{f_n\} \subset L_2(\R)$, такая, что $\|f_n - f\|_{L_2} \ra 0, n \ra \infty$, то $\|F[f_n] - F[f]\|_{L_2} \ra 0, n \ra \infty$.
+        \item $F^{-1}[F[f]] = F[F^{-1}[f]] = f$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Докажем первый пункт. \\
+    Пусть $\{\psi_n\} \subset S(\R)$ и $\{\phi_n\} \subset S(\R)$ такие, что $\phi_n \xrightarrow{L_2} f \in L_2(\R)$ и $\psi_n \xrightarrow{L_2} g \in L_2$.
+    Рассмотрим скалярные произведения. По лемме Планшереля скалярные произведения функций из $S$ и их Фурье-образов равны:
+    \[
+        \int_{\R} \hat{\phi_n} \overline{\hat{\psi_n}}dx = \int_{\R} \phi_n \overline{\psi_n} dx.
+    \]
+    Рассмотрим правую часть. 
+    Заметим, что
+    \[
+        |f\overline{g} - \phi_n \overline{\psi}_n| \leq |f - \phi_n||\overline{g}| + |\phi_n||\overline{g} - \overline{\psi_n}|.
+    \]
+    Теперь если мы это проинтегрируем по всему пространству и используем неравенство Гёльдера, то получим:
+    \[
+        \|f\overline{g} - \phi_n \overline{\psi}_n\|_1 \leq \||f - \phi_n||g|\|_1 + \||\phi_n||g - \psi_n|\|_1 \leq \|f - \phi_n\|_2\|g\|_2 + \|\phi_n\|_2 \|g - \psi_n\|_2.
+    \]
+    В силу квадратичной интегрируемости $f$ и $g$ и сходимостей $\phi_n \xrightarrow{L_2} f$ и $\psi_n \xrightarrow{L_2} g$ мы получаем стремление правом части к нулю и, соответственно:
+    \[
+        \int_{\R} \phi_n \overline{\psi_n}dx \ra \int_{\R}f \overline{g}dx, n \ra +\infty.
+    \]
+    Проделывая аналогичную процедуру с преобразованиями Фурье $\phi_n$ и $\psi_n$ (там также будет стремление к нулю -- буквально по определению преобразования Фурье в $L_2$) мы получаем
+    \[
+        \int_{\R} \hat{\phi}_n\overline{\hat{\psi}_n}dx \ra \int_{\R} \hat{f} \overline{\hat{g}}dx, n \ra +\infty.
+    \]
+    Что нам и требовалось показать.
+    Докажем второй пункт. \\
+    Поскольку из первого пункта следует $\|\hat{f}\|_{L_2} = \|f\|_{L_2}$, то $F$ -- инъективно и изометрично.
+    Тогда
+    \[
+        \|f - f_n\|_{L_2} = \|F[f_n - f]\|_{L_2}.
+    \]
+    Из чего немедленно следует второй пункт. \\
+    Докажем последний пункт.
+    Пусть $f \in L_2(\R)$.
+    Пусть $\hat{f} = \lim\limits_{n \ra \infty} \hat{\phi_n}$, где $\{\phi_n\} \subset S(\R) \cap L_2(\R)$.
+    Тогда, так как $\hat{f} \in L_2(\R)$, то $\tilde{\hat{f}}$ -- предел в $L_2$ произвольной последовательности $\psi_n \xrightarrow{L_2} \hat{f}, n \ra +\infty$.
+    Возьмём $\psi_n = \hat{\phi_n}$ и, тогда, в силу доказанной теоремы для пространства Шварца и независимости преобразования Фурье в $L_2$ от выбора последовательности, мы немедленно получаем утверждение теоремы.
+\end{proof}

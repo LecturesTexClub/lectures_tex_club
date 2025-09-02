@@ -1,0 +1,365 @@
+\newpage
+\section{Ряды Фурье}
+
+
+Идея представления функции тригонометрическим рядом являлась одной из центральных на рубеже 18-19 веков. Однако, строгая теория оформилась лишь к началу 20-века.
+
+\subsection{Неформальная идея}
+
+Прежде чем переходить к строгим формулировкам, поясним неформально корни идей, лежащих в основе теории рядов Фурье.
+
+Если $V:=(V,<\cdot,\cdot>)$ -- конечномерное евклидово пространство, а $\{e_{n}\}_{n=1}^{N}$ -- ортогональный базис в $V$, то любой вектор $x \in V$
+имеет следующее разложение по базису $\{e_{n}\}_{n=1}^{N}$:
+\begin{equation}
+\label{eq1.1}
+x=\sum\limits_{n=1}^{N} \frac{<x,e_{n}>}{<e_{n},e_{n}>}e_{n}.
+\end{equation}
+Естественно поставить вопрос, имеется ли аналог \eqref{eq1.1} для бесконечномерных евклидовх пространств?
+
+Оказывается, в некоторых важных случаях ответ на этот вопрос положительный. Более точно, если $H:=(H,<\cdot,\cdot>)$ -- бесконечномерное гильбертово пространство (то есть евклидово пространство, полное относительно нормы, порожденной скалярным произведением), а $\{e_{n}\}_{n=1}^{\infty}$ -- ортонормированный базис в нем, то для всякого $x \in H$ имеем
+\begin{equation}
+\label{abstract_fourier}
+x=\sum\limits_{n=1}^{\infty} \frac{<x,e_{n}>}{<e_{n},e_{n}>} e_{n}.
+\end{equation}
+
+При этом числа
+\begin{equation}
+\label{eqq.Fourier_coeff}
+c_{n}(x):=\frac{<x,e_{n}>}{<e_{n},e_{n}>}, \quad n \in \mathbb{N}
+\end{equation}
+называются \textit{коэффициентами Фурье элемента $x$ по системе $\{e_{n}\}_{n=1}^{\infty}$}, а ряд в правой части \eqref{abstract_fourier} -- \textit{рядом Фурье
+элемента $x$ по системе $\{e_{n}\}_{n=1}^{\infty}$}.
+
+Частный случай гильбертова пространства -- $L_{2}([-l,l])$, где $l > 0$ -- фиксированное число.
+Действительно, скалярное произведение, порождающее $L_{2}$--норму, задается формулой (мы рассматриваем случай комплексного пространства, интеграл от комплекснозначной функции по определению это $\int\limits_E f d\mu := \int\limits_E Re(f)d\mu + i\int\limits_E Im(f)d\mu$ )
+$$
+<f,g>:=\int\limits_{-l}^{l}f(x)\overline{g}(x)\,dx.
+$$
+
+Можно показать, что система функций
+\begin{equation}
+\label{eqq.trigonometric_system}
+1,\sin(\frac{\pi x}{l}), \cos(\frac{\pi x}{l}), ... ,\sin(\frac{\pi n x}{l}),\cos(\frac{\pi n x}{l}),...
+\end{equation}
+является ортогональным базисом в пространстве $L_{2}([-l,l])$. Иными словами, для любой функции $f \in L_{2}([-l,l])$ ее ряд Фурье сходится к ней в смысле среднего квадратичного.
+Кроме того, ортогональным базисом является также система комплексных экспонент
+\begin{equation}
+\label{eqq.trigonometric_system_2}
+\{e^{\frac{i\pi kx}{l}}\}_{k \in \mathbb{Z}}.
+\end{equation}
+
+
+
+Отметим, однако, что формально, при $k \in \mathbb{N}$ коэффициенты
+$$
+a_{k}(f):=\frac{1}{l}\int\limits_{-l}^{l}f(x)\cos(\frac{\pi k x}{l})\,dx, \quad b_{k}(f):=\frac{1}{l}\int\limits_{-l}^{l}f(x)\sin(\frac{\pi k x}{l})\,dx
+$$
+имеют смысл для $f \in L_{1}([-l,l])$.
+
+\begin{note}
+    Здесь и далее $a_k, b_k$ это коффиценты перед косинусом и синусом соответсвенно, а $c_k$ перед компелксной экспонентой.
+\end{note}
+
+\subsection{Строгая теория}
+Без ограничения общности будем работать с элементами $f \in L_{1}([-\pi,\pi])$, так как гомотетией можно любую систему привести к такому виду. Данная система называется стандартной тригонометричесской системой.
+
+\begin{definition}
+    Гильбертово пространство — это вещественное линейное пространство \( H \), на котором задано скалярное произведение
+\[
+\langle \cdot, \cdot \rangle : H \times H \to \mathbb{R},
+\]
+удовлетворяющее следующим аксиомам для всех \( x, y, z \in H \) и \( \alpha \in \mathbb{R} \):
+\begin{enumerate}
+    \item \( \langle x, y \rangle = \langle y, x \rangle \) (симметричность),
+    \item \( \langle \alpha x + y, z \rangle = \alpha \langle x, z \rangle + \langle y, z \rangle \) (линейность по первому аргументу),
+    \item \( \langle x, x \rangle \geq 0 \), причём \( \langle x, x \rangle = 0 \iff x = 0 \) (положительная определённость).
+\end{enumerate}
+При этом пространство \( H \) считается \textbf{полным} по норме, индуцированной скалярным произведением:
+\[
+\|x\| = \sqrt{\langle x, x \rangle}.
+\]
+То есть всякая фундаментальная последовательность в \( H \) сходится в \( H \).
+\end{definition}
+
+\begin{definition}
+    (Топологический базис или базис Шаудер    Пусть у нас есть $X$ - л.н.п, будем говорить что система ненулевых векторов $\{e_n\}_{n=1}^{\infty}$ является базисом Шаудера пространства X, если:
+    \[
+    \forall x \in X \exists! \{\alpha_k\}_{k=1}^{\infty} \subset \R \hookrightarrow \| x - \sum_{k=1}^{N} \alpha_k(x) e_k\| \to 0, N \to \infty
+    \]
+    То есть $x = \sum\limits_{k=1}^{\infty} \alpha_k(x) e_k$. Из единственности в определнии следует линейная независимость системы векторов.
+\end{definition}
+
+\begin{proposition}
+    Каждому такому элементу можно сопоставить формальный ряд Фурье по стандартной тригонометрической системе. При том знак "$\sim$" обозначет сопостовление функции ее формального ряда Фурье(Мы можем вычислить коэффициенты, но не можем ничего утверждать про сходиомсть)
+$$
+f \sim a_{0}(f)+\sum\limits_{k=1}^{\infty}a_{k}(f)\cos(kx) + b_{k}(f)\sin(kx),
+$$
+а также по системе комплексных экспонент
+$$
+f \sim \sum\limits_{k \in \mathbb{Z}}c_{k}(f)e^{ikx}.
+$$
+
+% При $n \in \mathbb{N}$ рассмотрим оператор $n$-ой частичной суммы ряда Фурье $S_{n}:L_{1}([-\pi,\pi]) \to C([-\pi,\pi])$. При $f \in L_{1}([-\pi,\pi])$ положим
+% $$
+% S_{n}[f](x):=a_{0}(f)+\sum\limits_{k=1}^{n}a_{k}(f)\cos(kx) + b_{k}(f)\sin(kx).
+% $$
+\end{proposition}
+
+% Заметим, что
+% \begin{equation}
+% \label{eqq.6}
+% \begin{split}
+% S_n[f](x) &= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} f(t)\,dt
+% + \frac{1}{\pi} \sum\limits_{k=1}^{n} \int\limits_{-\pi}^{\pi} f(t) \cos(kt) \cos(kx)\,dt
+% + \frac{1}{\pi} \sum\limits_{k=1}^{n} \int\limits_{-\pi}^{\pi} f(t) \sin(kt) \sin(kx)\,dt \\
+% &= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(t) \left( \frac{1}{2} + \sum\limits_{k=1}^{n} \cos(k(t - x)) \right) dt
+% = \int\limits_{-\pi}^{\pi} f(t) D_n(t - x)\,dt,
+% \end{split}
+% \end{equation}
+% где \( D_n \) — ядро Дирихле:
+% \begin{equation}
+% \label{eqq.7}
+% D_n(x) := \frac{1}{\pi} \left( \frac{1}{2} + \sum\limits_{k=1}^{n} \cos(kx) \right) = \frac{1}{\pi} \cdot \frac{\sin\left( \left(n + \frac{1}{2}\right) x \right)}{2 \sin\left( \frac{x}{2} \right)}.
+% \end{equation}
+
+
+% Свойства ядра Дирихле:
+
+\subsection{Теорема Римана--Лебега об осцилляции}
+
+Докажем теперь важную теорему Римана--Лебега об осцилляции.
+\begin{note}
+    (От редакторов) Эту теорему более наглядной делает ее более простая версия, без комплексных экспонент, а с тригонометрическими функциями, тогда мы понимаем что $y=\omega$ это "частота колебаний" нашего синуса:
+
+Функция \( f \) абсолютно интегрируема на конечном или бесконечном интервале \( (a, b) \). Тогда
+\[
+\lim_{\omega \to \infty} \int_a^b f(x) \cos(\omega x)\,dx = \lim_{\omega \to \infty} \int_a^b f(x) \sin(\omega x)\,dx = 0.
+\]
+\end{note}
+
+\begin{theorem}
+Пусть $E \subset \mathbb{R}^{n}$--измеримое по Лебегу множество и $f \in L_{1}(E)$. Тогда
+\begin{equation}
+\label{Th.Riemann_Lebesgue}
+I(y):=\int\limits_{E}f(x)e^{i<x,y>}\,dx \to 0, \quad \|y\| \to +\infty.
+\end{equation}
+\end{theorem}
+\begin{proof}
+    Будем считать функцию $f$ продолженной нулем вне множества $E$.
+При $y \neq 0$ рассмотрим вектор $h=h(y):=\frac{\pi y}{\|y\|^{2}}$.
+Тогда сделав замену переменной $x=x'-h$ имеем
+$$
+I(y)=\int\limits_{\mathbb{R}^{n}}f(x)e^{i<x,y>}\,dx = \int\limits_{\mathbb{R}^{n}}f(x'-h)e^{-i\pi}e^{i<x',y>}\,dx' = -\int\limits_{\mathbb{R}^{n}}f(x-h)e^{i<x,y>}\,dx.
+$$
+Таким образом, поскольку $h(y) \to 0$, $\|y\| \to \infty$, получим
+\begin{equation}
+2|I(y)| = \Bigl|\int\limits_{\mathbb{R}^{n}}\bigg(f(x)-f(x-h(y))\bigg)e^{i<x,y>}\,dx\Bigr| \le \int\limits_{\mathbb{R}^{n}}|f(x)-f(x-h(y))|\,dx \to 0, \quad \|y\| \to +\infty.
+\end{equation}
+\end{proof}
+\begin{note}
+    Здесь используется непрерывность интеграла по сдвигу. Идея доказательства простая. Мы можем функцию из $L_1$ приблизить простой. А для нее это верно, тк это верно для характерестической функции, а для нее верно, тк это верно для измеримого множества.
+\end{note}
+
+
+
+\begin{corollary}
+Если $f \in L_{1}([-\pi,\pi])$, то
+$$
+\lim\limits_{k \to \infty}a_{k}(f) = \lim\limits_{k \to \infty}b_{k}(f) = \lim\limits_{k \to \infty}c_{k}(f) = 0.
+$$
+Те мы получаем что коэффициенты Фурье стремятся к нулю, а значит выполнено необходимое условие сходимости ряда, то есть существуют условия при которых ряд Фурье будет сходится.
+\end{corollary}
+\begin{note}
+    Есть некотрая серия теорем которые дают понимание про ряды фурье, но доказательство которых выходит за рамки курса
+    \begin{enumerate}
+        \item Пример Колмогорова. $\exists f \in L_1[-\pi,\pi]$ такая что ее ряд Фурье расходится почти всюду.
+        \item Потом Колмогоров доказал более сильное утверждение. $\exists f \in L_1[-\pi,\pi]$ такая что ее ряд Фурье расходится в каждой точке.
+        \item  Есть также теорема (Lennart Carlesson), что $\forall f \in L_2[-\pi,\pi]$ ряд Фурье сходится к $f$ п.в на $[-\pi,\pi]$.
+        \item Теорема (Hunt) $\forall f \in L_p[-\pi,\pi], p \in (1, +\infty)$ ряд Фурье сходится к $f$ п.в на $[-\pi,\pi]$.
+    \end{enumerate}
+
+
+
+\end{note}
+
+\subsection{Компактная форма записи}
+\begin{definition}
+    Пусть \( X \) и \( Y \) — два линейных пространства. Отображение
+\[
+T \colon X \to Y
+\]
+называется оператором из \( X \) в \( Y \).
+\end{definition}
+
+\begin{definition}
+$\forall f \in L_1\left([-\pi, \pi]\right)$ определим оператор частичной суммы ряда Фурье\\
+$S_n \colon L_1\left([-\pi, \pi]\right) \to C \left([-\pi, \pi]\right)$.
+
+\[
+S_n[f](x) := a_0(f) + \sum_{k=1}^{n} \alpha_k(f) \cos(kx) + \beta_k(f) \sin(kx)
+\]
+Также это назвают $n$-ая частичная сумма Фурье
+\end{definition}
+
+
+Заметим, что
+\begin{equation}
+\label{eqq.6}
+\begin{split}
+S_n[f](x) &= \frac{1}{2\pi} \int\limits_{-\pi}^{\pi} f(t)\,dt
++ \frac{1}{\pi} \sum\limits_{k=1}^{n} \int\limits_{-\pi}^{\pi} f(t) \cos(kt) \cos(kx)\,dt
++ \frac{1}{\pi} \sum\limits_{k=1}^{n} \int\limits_{-\pi}^{\pi} f(t) \sin(kt) \sin(kx)\,dt= \\
+&= \frac{1}{\pi} \int\limits_{-\pi}^{\pi} f(t) \left( \frac{1}{2} + \sum\limits_{k=1}^{n} \cos(k(t - x)) \right) dt
+= \int\limits_{-\pi}^{\pi} f(t) D_n(t - x)\,dt,
+\end{split}
+\end{equation}
+где \( D_n \) — ядро Дирихле:
+\begin{equation}
+\label{eqq.7}
+D_n(x) := \frac{1}{\pi} \left( \frac{1}{2} + \sum\limits_{k=1}^{n} \cos(kx) \right) = \frac{1}{\pi} \cdot \frac{\sin\left( \left(n + \frac{1}{2}\right) x \right)}{2 \sin\left( \frac{x}{2} \right)}.
+\end{equation}
+
+
+\begin{tikzpicture}
+  \begin{axis}[
+    domain=-4:4,
+    samples=1000,
+    xmin=-4, xmax=4,
+    ymin=-1, ymax=2.5,
+    axis lines=middle,
+    xlabel={$x$},
+    ylabel={$D_n(x)$},
+    xtick={-3.14,0,3.14},
+    xticklabels={$-\pi$,$0$,$\pi$},
+    ytick=\empty,
+    enlargelimits=false,
+    clip=false,
+    xscale=1.0,
+    yscale=1.0,
+    width=16cm,
+    height=9cm,
+    title={\text{График ядра Дирихле при } $n=5$}
+  ]
+    \addplot [blue, thick, domain=-4:4, samples=1000]
+      {1/(2*pi)*sin((2*5 + 1)*deg(x)/2)/sin(deg(x)/2)};
+    \node at (axis cs:0,1.75) [anchor=south west] {$\frac{2n+1}{2\pi}$};
+  \end{axis}
+\end{tikzpicture}
+
+
+
+
+\begin{definition}
+    Для $\mathcal{L}\text{-почти всех } x \in \mathbb{R}^n$ корректно определена функция, которую мы называем свёрткой:
+\[
+f * g(x) := \int_{\mathbb{R}^n} f(x - y) g(y) \, dy = \int_{\mathbb{R}^n} g(x - y) f(y) \, dy.
+\]
+Доказательство свойств свертки  будет далее.
+\end{definition}
+
+\begin{note}
+    Свойства ядра Дирихле:
+\begin{enumerate}
+    \item $D_{n}$ -- четная $2\pi$-периодическая функция;
+    \item $\int\limits_{-\pi}^{\pi}D_{n}(x)\,dx=1$
+    \item Продлив функции вне $[-\pi, \pi]$ нулем, имеем $S_n[f](x) = \int\limits_{-\pi}^{\pi} f(t) D_n(t - x)\,dt, = D_n*f(x)$
+\end{enumerate}
+\end{note}
+
+
+
+
+\subsection{Вторая теорема о среднем}
+
+В этом пункте мы докажем одно вспомогательное утверждение из теории интеграла Римана, которое
+будет очень важно при доказательстве достаточных условий сходимости ряда Фурье в точке.
+
+\begin{theorem}
+\label{Th.average}
+Пусть $g \in R([a,b])$, а $f$ нестрого монотонна на $[a,b]$. Тогда существует точка $\xi \in [a,b]$ такая, что
+\begin{equation}
+\label{eqq.average_1}
+\int\limits_{a}^{b}f(x)g(x)\,dx = f(a)\int\limits_{a}^{\xi}g(x)\,dx + f(b)\int\limits_{\xi}^{b}g(x)\,dx.
+ \end{equation}
+
+Если, кроме того, $f$ неотрицательна на $[a,b]$, то справедливы более простые формулы:
+
+а) если $f$ нестрого убывает, то при некотором $\xi \in [a,b]$
+\begin{equation}
+\label{eqq.average_2}
+\int\limits_{a}^{b}f(x)g(x)\,dx = f(a)\int\limits_{a}^{\xi}g(x)\,dx;
+\end{equation}
+
+б) если $f$ нестрого возрастает, то при некотором $\xi \in [a,b]$
+\begin{equation}
+\label{eqq.average_3}
+\int\limits_{a}^{b}f(x)g(x)\,dx = f(b)\int\limits_{\xi}^{b}g(x)\,dx.
+\end{equation}
+
+\end{theorem}
+
+\textit{Доказательство.} Отметим, что $fg \in R([a,b])$, что легко следует из критерия Лебега. Поэтому, левые части формул из определения теоремы \eqref{eqq.average_1}--\eqref{eqq.average_3} имеют смысл.
+
+Мы докажем лишь формулу \eqref{eqq.average_2}, поскольку \eqref{eqq.average_3} доказывается аналогично, а равенство \eqref{eqq.average_1} легко
+вытекает из \eqref{eqq.average_2} и \eqref{eqq.average_3}.
+
+\textit{Step 1.}
+Итак, пусть $f$ неотрицательна и нестрого убывает на $[a,b]$. Пусть $T=\{x_{i}\}_{i=0}^{n}$, $n \in \mathbb{N}$ -- произвольное разбиение отрезка $[a,b]$. То есть
+$a=x_{0} < x_{1} < ... < x_{n} =b$. Тогда, очевидно, в силу линейности интеграла Римана имеем
+\begin{equation}
+\begin{split}
+\label{eqq.13}
+&\int\limits_{a}^{b}f(x)g(x)\,dx = \sum\limits_{i=0}^{n-1}\int\limits_{x_{i}}^{x_{i+1}}f(x)g(x)\,dx\\
+&= \sum\limits_{i=0}^{n-1}f(x_{i})\int\limits_{x_{i}}^{x_{i+1}}g(x)\,dx
++\sum\limits_{i=0}^{n-1}\int\limits_{x_{i}}^{x_{i+1}}(f(x)-f(x_{i}))g(x)\,dx =:\Sigma_{1}(T)+\Sigma_{2}(T).
+\end{split}
+\end{equation}
+
+
+\textit{Step 2.}
+Поскольку $g \in R([a,b])$, она ограничена на $[a,b]$. Следовательно, $\sup_{x \in [a,b]}|g(x)| < +\infty$. Легко видеть, что
+$$
+\Bigl|\sum\limits_{i=0}^{n-1}\int\limits_{x_{i}}^{x_{i+1}}(f(x)-f(x_{i}))g(x)\,dx\Bigr| \le \sup_{x \in [a,b]}|g(x)|\sum\limits_{i=0}^{n-1}\omega_{i}(f)|x_{i}-x_{i+1}|,
+$$
+где $\omega_{i}:=\sup_{x',x'' \in [x_{i},x_{i+1}]}|f(x')-f(x'')|$ -- колебание функции $f$ на отрезке $[x_{i},x_{i+1}]$.
+Таким образом, в силу критерия интегрируемости, имеем (здесь и далее через $l(T)$ обозначена мелкость разбиения $T$)
+\begin{equation}
+\label{eqq.th_1}
+\Sigma_1(T) \to 0, \quad l(T) \to 0.
+\end{equation}
+
+\textit{Step 3.} Рассмотрим функцию $G(x):=\int\limits_{a}^{x}g(t)\,dt$. Очевидно, что $G$ непрерывна на $[a,b]$.
+Используя преобразование Абеля, имеем (здесь использовано, что $G(x_{0})=G(a)=0$)
+\begin{equation}
+\begin{split}
+\label{eqq.th_2}
+&\Sigma_2(T) = \sum\limits_{i=0}^{n-1}f(x_{i})(G(x_{i+1})-G(x_{i})) = \sum\limits_{i=1}^{n}f(x_{i-1})G(x_{i})-\sum\limits_{i=0}^{n-1}f(x_{i})G(x_{i}))\\
+&= f(x_{n-1})G(b)+
+\sum\limits_{i=1}^{n-1}(f(x_{i-1})-f(x_{i}))G(x_{i}).
+\end{split}
+\end{equation}
+
+В силу непрерывности $G$ на $[a,b]$ найдутся константы $m,M$, для которых $m \le G(x) \le M$ при всех $x \in [a,b]$.
+Ключевое наблюдение состоит в том, что в силу невозрастания $f$, имеем $f(x_{i-1})-f(x_{i}) \geq 0$ при всех $i$.
+Суммируя сделанные наблюдения, имеем
+\begin{equation}
+\label{eqq.16}
+\begin{split}
+&mf(a) = m \sum\limits_{i=1}^{n-1}(f(x_{i-1})-f(x_{i})) + mf(x_{n-1})\\
+&\le  \Sigma_2(T) \le M \sum\limits_{i=1}^{n-1}(f(x_{i-1})-f(x_{i})) + Mf(x_{n-1}) = Mf(a).
+\end{split}
+\end{equation}
+
+Из \eqref{eqq.13}, \eqref{eqq.th_1} и \eqref{eqq.16} следует, что $\exists \lim_{l(T) \to 0}\Sigma_{1}(T) = \int_{a}^{b}f(x)g(x)\,dx$ и, кроме того,
+\begin{equation}
+\label{eqq.17}
+mf(a) \le \int_{a}^{b}f(x)g(x)\,dx \le Mf(a).
+\end{equation}
+
+\textit{Step 4.} Если $f(a) = 0$, то в силу \eqref{eqq.17} в качестве $\xi$ можно взять любую точку отрезка $[a,b]$. Если $f(a) \neq 0$, то в силу теоремы о промежуточном значении, примененной
+к непрерывной функции $G$, из \eqref{eqq.17} выводим, что найдется точка $\xi \in [a,b]$, для которой
+\begin{equation}
+G(\xi) = \frac{1}{f(a)}\int_{a}^{b}f(x)g(x)\,dx.
+\end{equation}
+
+Теорема полностью доказана.

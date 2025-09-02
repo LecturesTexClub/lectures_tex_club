@@ -1,0 +1,369 @@
+\begin{corollary}
+    Все признаки сходимости для рядов Фурье переносятся на интеграл Фурье:
+    \begin{enumerate}
+        \item Пусть $f \in L_1(\R)$ и в некоторой $U_\delta(\underline{x})$ имеет ограниченную вариацию, тогда:
+        \[
+            f(\underline{x}) = \mathcal{F}^{-1} [\mathcal{F}[f]] (\underline{x})
+        \]
+        \item Пусть $f \in L_1(\R)$ и удовлетворяет условию Гёльдера с показателем $\alpha \in (0; 1]$ в некоторой окрестности $U_\delta(\underline{x})$. Тогда:
+        \[
+            f(\underline{x}) = \mathcal{F}^{-1} [\mathcal{F}[f]] (\underline{x})
+        \]
+        \item (Условие Дини) Пусть $f \in  L_1(\R)$ и $\exists \delta > 0$ и $\exists C > 0$ такие что:
+        \[
+            \int_0^\delta \big| f(\underline{x} - u)+f(\underline{x} + u) - 2C \big|  \frac{du}{2u} < +\infty \]
+
+        Тогда $\mathcal{F}^{-1} [\mathcal{F}[f]] (\underline{x}) = C$
+
+    \end{enumerate}
+\end{corollary}
+
+\subsection{Преобразование Фурье свёртки}
+\begin{reminder}
+    Пусть $f, g \in L_1(\R^n)$. Свёрткой называют $f * g = \int\limits_{\R^n} f(x - t) g(t)dt$. $f * g$ -- корректно определенная интегрируемая по Лебегу функция.
+    \\ Свертка обладает следующими свойствами:
+    \begin{itemize}
+        \item Коммутативность. $f * g = g * f$
+        \item Ассоциативность. $(f * g) * h = f * (g * h)$
+    \end{itemize}
+\end{reminder}
+
+\begin{theorem}
+    Пусть $f, g\in L^1(\mathbb R)$.
+    Тогда
+    \[
+        \mathcal{F}[f * g](x) \;=\;\sqrt{2\pi}\, \mathcal{F}[f](x)\,   \mathcal{F}[g](x),
+    \]
+    где
+    \[
+        \mathcal{F}[h](x)=\frac1{\sqrt{2\pi}}\int_{\mathbb R}e^{-i x y}h(y)\,dy.
+    \]
+\end{theorem}
+
+\begin{proof}
+    По определению
+    \[
+        \mathcal{F}[f*g](x)
+        =\frac1{\sqrt{2\pi}}\int_{\mathbb R}e^{-i x y}\bigl(f*g\bigr)(y)\,dy
+        =\frac1{\sqrt{2\pi}}\int_{\mathbb R}e^{-i x y}
+        \Bigl(\int_{\mathbb R}f(y-t)\,g(t)\,dt\Bigr)dy.
+    \]
+    Меняем порядок интегрирования и расписываем $e^{-ixy}$ как
+    \[e^{-i x y}=e^{-i x (y-t+t)}=e^{-i x t}e^{-i x (y-t)}.\]
+    Теперь подставим этом в выражение для Фурье-образа:
+    \begin{equation*}
+        \mathcal{F}[f*g](x)
+        =\frac1{\sqrt{2\pi}}
+        \int_{\mathbb R}\int_{\mathbb R}e^{-i x t}e^{-i x (y-t)}f(y-t)\,g(t)\,dy\,dt
+        =\frac1{\sqrt{2\pi}}
+        \int_{\mathbb R}g(t)e^{-i x t}
+        \Bigl(\int_{\mathbb R}e^{-i x (y-t)}f(y-t)\,dy\Bigr)dt.
+    \end{equation*}
+    Внутренний интеграл по $y$ при замене переменной $u=y-t$ даёт
+    \[
+        \int_{\mathbb R}e^{-i x (y-t)}f(y-t)\,dy
+        =\int_{\mathbb R}e^{-i x u}f(u)\,du
+        =\sqrt{2\pi}\, \mathcal{F}[f](x).
+    \]
+    Следовательно
+    \[
+        \mathcal{F}[f*g](x)
+        =\frac1{\sqrt{2\pi}}\Bigl(\sqrt{2\pi}\, F[f](x)\Bigr)
+        \int_{\mathbb R}g(t)e^{-i x t}\,dt
+        =\sqrt{2\pi}\, \mathcal{F}[f](x)\, \mathcal{F}[g](x).
+    \]
+\end{proof}
+\begin{note}
+    Заметим, что функция $H(x, y) = |f(x - y)g(y)|$ -- интегрируема по $\LL^2$:
+    \[
+        \iint_{\mathbb R^2}\bigl|f(y-t)\bigr|\;\bigl|g(t)\bigr|\,dy\,dt
+        =\int_{\mathbb R}\bigl|g(t)\bigr|\Bigl(\int_{\mathbb R}\bigl|f(y-t)\bigr|\,dy\Bigr)dt
+        =\|g\|_{L^1}\,\|f\|_{L^1}<\infty.
+    \]
+    Таким образом все переходы с перестановкой интегралов обоснованы теоремой Фубини.
+\end{note}
+
+\subsection{Производная преобразования Фурье и преобразование Фурье производной}
+
+\begin{theorem}[преобразование Фурье производной]
+    Пусть
+    \[
+        f\in L^1(\mathbb R)\cap C^1(\mathbb R),
+        \quad f'\in L^1(\mathbb R),
+    \]
+    Тогда для любого $y\in\mathbb R$
+    \[
+        \mathcal F[f'](y)
+        = i y\,\mathcal F[f](y),
+    \]
+
+\end{theorem}
+
+\begin{proof}
+    \textbf{Шаг 1.}
+    Сначала докажем, что $\lim\limits_{x\to\pm\infty}f(x)=0$. По формуле Ньютона–Лейбница
+    \[
+        f(x)=f(0)+\int_{0}^{x}f'(t)\,dt.
+    \]
+    Так как $f'\in L^1(\mathbb R)$, то
+    \[
+        \lim_{x\to+\infty}f(x)
+        =f(0)+\int_0^{+\infty}f'(t)\,dt =: A
+    \]
+    существует. Предположим $A\neq0$. Тогда найдётся $X_A$ такое, что при $x>X_A$ есть
+    \[
+        |f(x)|>\frac{|A|}{2}
+        \quad\Longrightarrow\quad
+        \int_{X_A}^{+\infty}|f(x)|\,dx = +\infty,
+    \]
+    что противоречит условию $f\in L^1(\mathbb R)$. Аналогичным рассуждением получаем и $\lim_{x\to-\infty}f(x)=0$.
+
+    \medskip
+    \noindent\textbf{Шаг 2.}
+    Интегрируем преобразование Фурье $f'$ по частям:
+    \begin{align*}
+        \mathcal F[f'](y)
+        &=\frac1{\sqrt{2\pi}}\int_{-\infty}^{+\infty}f'(x)e^{-i x y}\,dx\\
+        &=\frac1{\sqrt{2\pi}}\Bigl[f(x)e^{-i x y}\Bigr]_{-\infty}^{+\infty}
+        -\frac1{\sqrt{2\pi}}\int_{-\infty}^{+\infty}f(x)\bigl(-i y\bigr)e^{-i x y}\,dx\\
+        &= i y\;\frac1{\sqrt{2\pi}}\int_{-\infty}^{+\infty}f(x)e^{-i x y}\,dx
+        = i y\,\mathcal F[f](y).
+    \end{align*}
+    Поскольку $f(x)e^{-i x y}\Big|_{x\to\pm\infty}=0$, граничные слагаемые равны нулю.
+\end{proof}
+\begin{corollary}
+    Пусть $k\in\mathbb{N}$,
+    \[
+        f,\;f',\;\dots,\;f^{(k-1)}\in L^1(\mathbb R)\cap C(\mathbb R),
+        \quad
+        f^{(k)}\in L^1(\mathbb R)\text{ и кусочно непрерывна на }\mathbb R.
+    \]
+    Тогда для каждого $y\in\mathbb R$
+    \[
+        \mathcal F\bigl[f^{(k)}\bigr](y)
+        =\,(i y)^k\,\mathcal F[f](y),
+    \]
+    и при $|y|\to\infty$ выполняется
+    \[
+        \mathcal F[f](y)=o\bigl(|y|^{-k}\bigr).
+    \]
+\end{corollary}
+
+\begin{proof}
+    Докажем по индукции по $k$.
+
+    \textit{База} ($k=1$) — это теорема о преобразовании Фурье производной:
+    \[
+        \mathcal F[f'](y)
+        =iy\,\mathcal F[f](y).
+    \]
+
+    \textit{Шаг индукции.} Предположим, что для $k-1$ уже доказано
+    \[
+        \mathcal F\bigl[f^{(k-1)}\bigr](y)
+        =(iy)^{\,k-1}\,\mathcal F[f](y).
+    \]
+    Поскольку $f^{(k)}\in L^1(\mathbb R)\cap C(\mathbb R)$ и $\lim_{x\to\pm\infty}f^{(k-1)}(x)=0$
+    (аналогично первому доказательству), применяем к $f^{(k-1)}$ тот же приём интегрирования по частям:
+    \[
+        \mathcal F\bigl[f^{(k)}\bigr](y)
+        =iy\,\mathcal F\bigl[f^{(k-1)}\bigr](y)
+        =iy\,(iy)^{\,k-1}\,\mathcal F[f](y)
+        =(iy)^k\,\mathcal F[f](y).
+    \]
+    Асимптотика. Из формулы
+    \[
+        \mathcal F[f^{(k)}](y)
+        =(iy)^k\,\mathcal F[f](y)
+    \]
+    получаем
+    \[
+        \mathcal F[f](y)
+        =(iy)^{-k}\,\mathcal F[f^{(k)}](y).
+    \]
+    Но $f^{(k)}\in L^1(\mathbb R)$, и по лемме Римана–Лебега
+    $\mathcal F[f^{(k)}](y)\to0$ при $|y|\to\infty$. Значит
+    \[
+        \mathcal F[f](y)
+        =o\bigl(|y|^{-k}\bigr),
+        \quad |y|\to\infty.
+    \]
+\end{proof}
+
+
+\begin{theorem}[Дифференцирование преобразования Фурье]
+    Пусть
+    \[
+        f\in L^1(\mathbb R),
+        \qquad
+        x\,f(x)\in L^1(\mathbb R).
+    \]
+    Тогда функция
+    \[
+        \mathcal F[f](y)
+        =\frac1{\sqrt{2\pi}}\int_{-\infty}^{+\infty}e^{-i x y}\,f(x)\,dx
+    \]
+    непрерывна и имеет непрерывную первую производную по параметру~$y$:
+    \[
+        \frac{d}{dy}\,\mathcal F[f](y)
+        =\mathcal F\bigl[-\,i x\,f(x)\bigr](y).
+    \]
+\end{theorem}
+
+\begin{proof}
+    Зафиксируем конечный отрезок $[y_1,y_2]\subset\mathbb R$ и положим
+    \[
+        g(x,y)
+        =\frac1{\sqrt{2\pi}}\,e^{-i x y}\,f(x).
+    \]
+    Тогда
+    \[
+        \mathcal F[f](y)=\int_{-\infty}^{+\infty}g(x,y)\,dx.
+    \]
+    Вычислим частную производную по $y$:
+    \[
+        \frac{\partial}{\partial y}g(x,y)
+        =\frac1{\sqrt{2\pi}}\bigl(-i x\bigr)e^{-i x y}\,f(x).
+    \]
+    По условию $x\,f(x)\in L^1(\mathbb R)$, поэтому
+    \[
+        \biggl|\frac{\partial}{\partial y}g(x,y)\biggr|
+        =\frac{|x\,f(x)|}{\sqrt{2\pi}}
+        \quad\text{— интегрируемая функция (независимо от $y$).}
+    \]
+    Следовательно, по теореме о дифференцировании параметрического
+    интеграла под знаком интеграла можно переставить дифференцирование и
+    интегрирование:
+    \[
+        \frac{d}{dy}\,\mathcal F[f](y)
+        =\frac{d}{dy}\int_{-\infty}^{+\infty}g(x,y)\,dx
+        =\int_{-\infty}^{+\infty}\frac{\partial}{\partial y}g(x,y)\,dx
+        =\mathcal F\bigl[-\,i x\,f(x)\bigr](y).
+    \]
+    При этом та же теорема гарантирует непрерывность производной по $y$,
+    а из непрерывности $g(x,y)$ по $y$ и теоремы о переходе к пределу под интегралом следует непрерывность  $\mathcal F[f](y)$.
+\end{proof}
+
+\newpage
+\section{Обобщенные функции}
+\subsection{Лемма Дюбуа-Реймона}
+На самом деле <<обобщённые функции>>~---~это не очень удачный перевод: правильнее было бы называть их \emph{распределениями}. Рассмотрим неформальную идею:
+
+Существует базовая лемма Дю Буа--Реймона из вариационного исчисления, которая по сути говорит следующее: знать функцию <<поточечно>>~---~то же самое, что знать её действие на распределённые в пространстве объекты.
+
+Почему термин <<распределение>>? Потому что мы обычно интегрируем \(f\), рассматривая её как плотность какой-то физической величины (скажем, плотность заряда или массы), а \(\varphi\) моделирует измерительный прибор. И любой реальный прибор не умеет «снимать» значение в точке~---~он измеряет величину в некотором объёме: например, мы не определяем температуру в математической точке, а получаем среднее по окружающему пространству.
+
+Таким образом, мы пытаемся описать физический процесс поточечно, но лемма Дю Буа--Реймона показывает: это вовсе не обязательно~---~можно <<тестировать>> функцию любыми приборами произвольного размера, то есть рассматривать её действие на любые <<распределённые>> тест-функции.
+
+
+
+\begin{lemma}[Дю Буа—Реймона]
+    Пусть $f\in L_1^{loc}(\mathbb R^n)$ и для любой $\varphi\in C_0(\mathbb R^n)$ (где под $C_0(\R^n)$ понимается пространство непрерывных функций с компактным носителем) выполняется
+    \[
+        \int_{\mathbb R^n}f(x)\,\varphi(x)\,dx=0.
+    \]
+    Тогда $f = 0$ почти всюду.
+\end{lemma}
+
+\begin{proof}
+    \textbf{Шаг 1.}
+    По теореме Лебега о дифференцировании интеграла почти всюду
+    \[
+        f(x)
+        =\lim_{r\to0}\frac1{|B_r(x)|}\int_{B_r(x)}f(y)\,dy
+        \tag{$*$}
+    \]
+    Пусть $E=\{x:f(x)\neq0\}$ имеет положительную меру.
+
+    \textbf{Шаг 2.}
+    Для $x\in E$ и $\varepsilon>0$ по $(*)$ существует $\delta>0$ такое, что
+    \[
+        \Bigl|\frac1{|B_r(x)|}\int_{B_r(x)}f(y)\,dy - f(x)\Bigr|<\varepsilon/2
+        \quad
+        \forall\,0<r<\delta.
+    \]
+    Возьмём тест-функцию
+    \[
+        \psi_r(y)
+        =\frac1{|B_r(x)|}\,\psi\!\Bigl(\frac{y-x}{r}\Bigr),
+    \]
+    где $\psi\in C_0^\infty$, $\psi\ge0$, $\int\psi=1$, $\mathrm{supp}\,\psi\subset B_1(0)$.
+    Тогда $\psi_r\in C_0^\infty$, $\int\psi_r=1$, $\mathrm{supp}\,\psi_r\subset B_r(x)$, и
+    \begin{align*}
+        \Bigl|\frac1{|B_r(x)|}\int_{B_r(x)}f(y)\,dy - \int f(y)\,\psi_r(y)\,dy\Bigr|
+        &\le
+        \frac1{|B_r(x)|}\int_{B_{r}(x)\setminus B_r(x)}|f(y)|\,dy
+        <\varepsilon/2.
+    \end{align*}
+
+    \textbf{Шаг 3.}
+    По условию $\int f\,\psi_r=0$, поэтому
+    \[
+        |f(x)| \le \Bigl|\frac1{|B_r|}\!\int_{B_r}f - \int f\,\psi_r\Bigr| + \varepsilon/2
+        <\varepsilon.
+    \]
+    Так как $\varepsilon>0$ произвольна, получаем $f(x)=0$ для почти всех $x$.
+\end{proof}
+
+\subsection{Пространства $\D$ и $\D'$}
+
+\begin{definition}[Пространство пробных функций]
+    Пространством $\mathcal{D}(\mathbb{R}^n)$ назовем $C_0^\infty(\mathbb{R}^n)$ со введенной сходимостью:
+
+    Последовательность $\{ \varphi_m\} \subset \mathcal{D}(\mathbb{R}^n)$ сходится к $\varphi \in \mathcal{D}(\mathbb{R}^n)$, то есть $\varphi_m \xrightarrow[\mathcal{D}(\mathbb{R}^n)]{} \varphi$, если
+    \begin{enumerate}
+        \item $\forall \alpha \in \mathbb{N}^n_0 \hookrightarrow D^{\alpha} \varphi_m \mathrel{\mathop{\rightrightarrows}\limits_{\mathbb{R}^n}} D^{\alpha} \varphi$, $m \to \infty$;
+        \item $\exists C > 0$: $\text{supp}\varphi_m \subset B_c(0)$ $\forall m \in \mathbb{N}$.
+    \end{enumerate}
+
+    Здесь
+    \[
+        \alpha = (\alpha_1, \ldots, \alpha_n), \qquad
+        |\alpha|=\alpha_1+\cdots+\alpha_n,
+        \qquad
+        D^\alpha
+        =\frac{\partial^{|\alpha|}}{\partial x_1^{\alpha_1}\,\partial x_2^{\alpha_2}\,\cdots\,\partial x_n^{\alpha_n}}.
+    \]
+\end{definition}
+
+\begin{definition}
+    Назовем $\mathcal{D}'(\mathbb{R}^n)$~---~пространство всех линейных непрерывных функционалов на $\mathcal{D}(\mathbb{R}^n)$.
+    Функционал
+    \[
+        T\in \mathcal{D}'(\mathbb{R}^n)
+        \quad\Longleftrightarrow\quad
+        T\text{: }\mathcal{D}(\mathbb{R}^n)\to\mathbb{R}
+    \]
+    и удовлетворяет двум условиям:
+    \begin{enumerate}
+        \item (\emph{Линейность})
+        $\displaystyle
+        T\bigl(\alpha\,\varphi_1 + \beta\,\varphi_2\bigr)
+        =\alpha\,T(\varphi_1)+\beta\,T(\varphi_2),
+        \quad
+        \forall\,\alpha,\beta\in\mathbb{R},\;\forall\,\varphi_1,\varphi_2\in\mathcal{D}(\mathbb{R}^n).
+        $
+        \item (\emph{Непрерывность})
+        $\displaystyle
+        \forall \{\varphi_m\} \subset \mathcal{D}(\mathbb{R}^n)\text{: }\exists \varphi \in \mathcal{D}(\mathbb{R}^n)\text{: } \varphi_m \xrightarrow[\mathcal{D}(\mathbb{R}^n)]{} \varphi
+        \;\hookrightarrow \;
+        T(\varphi_m)\;\longrightarrow\;T(\varphi), \ m\to\infty.
+        $
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Далее <<действие>> функционала будем обозначать не как $T(\varphi)$, а как $\langle T, \varphi \rangle$.
+\end{remark}
+
+\begin{definition}
+    Пусть $\varphi\in\mathcal{D}'(\mathbb{R}^n).$ Говорят, что \(\varphi\) является \emph{регулярным} обобщённым функционалом (или регулярной обобщённой функцией), если
+    \[
+        \exists\,f_\varphi\in L^{loc}_{\mathrm{1}}(\mathbb{R}^n)\quad\text{такое, что}\quad
+        \langle \varphi,\psi\rangle
+        =\int_{\mathbb{R}^n}f_\varphi(x)\,\psi(x)\,dx,
+        \quad
+        \forall\,\psi\in\mathcal{D}(\mathbb{R}^n).
+    \]
+    В противном случае \(\varphi\) называют \emph{сингулярным} распределением.
+\end{definition}
