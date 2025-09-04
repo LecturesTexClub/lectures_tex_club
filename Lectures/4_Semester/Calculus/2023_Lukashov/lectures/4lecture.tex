@@ -1,11 +1,11 @@
-\begin{definition}
+\begin{definition} \textcolor{red}{(не по лектору)}
 	Если функция $F \colon E \to \sxR$ лежит в $L_{2\pi}$, то мы называем \textit{интегральным модулем непрерывости функции $F$} значение следующей функции:
 	\[
 		\omega_1(\delta, F) = \sup_{0 \le h \le \delta} \int_{[-\pi; \pi]} |F(t + h) - F(t)|d\mu(t)
 	\]
 \end{definition}
 
-\begin{lemma} (У лектора этот было объединено с леммой \ref{average_continuous})
+\begin{lemma} \textcolor{red}{(У лектора это было объединено с леммой \ref{average_continuous})}
 	Для $f \in L_{2\pi}$ имеет место следующий предел:
 	\[
 		\lim_{\delta \to 0+} \omega_1(\delta, f) = 0
@@ -15,9 +15,20 @@
 \begin{proof}
 	В лемме \ref{average_continuous} было установлено, что
 	\[
-		\forall a \le b, f \in L_1[a; b]\ \ \exists \lim_{t \to 0+} \int_{[a; b - t]} |f(x + t) - f(x)|d\mu(x) = 0
+		\forall \eps > 0\ \exists \delta > 0 \such \forall 0 < t < \delta \int_{[a; b - t]} |f(x + t) - f(x)|d\mu(x) < \eps
 	\]
-	В частности, это верно для $[a; b] = [-\pi; \pi]$. Так как при $\delta \to 0+$ верно, что $h \to 0+$, то и $\omega_1(\delta, f) \to 0$.
+	Так как оценка верна при всех $0 < t = h < \delta$, то очевидным образом
+	\[
+		\forall \eps > 0\ \exists \delta > 0 \such \sup_{0 < h < \delta} \int_{[a; b - h]} |f(x + h) - f(x)|d\mu(x) < \eps
+	\]
+	Отсюда
+	\begin{multline*}
+		\lim_{\delta \to 0+} \omega_1(\delta, f) = \lim_{\delta \to 0+} \sup_{0 \le h \le \delta} \int_{[-\pi; \pi]} |f(x + h) - f(x)|d\mu(x) =
+		\\
+		\sup_{0 \le h \le \delta} \ps{\int_{[-\pi; \pi - h]} + \int_{[\pi - h; \pi]}} |f(x + h) - f(x)|d\mu(x) \le
+		\\
+		\ps{\sup_{0 \le h \le \delta} \int_{[-\pi; \pi - h]} + \sup_{0 \le h \le \delta} \int_{[\pi - h; \pi]}} |f(x + h) - f(x)|d\mu(x)
+	\end{multline*}
 \end{proof}
 
 \begin{lemma} \label{uniconv_lemma}
@@ -67,7 +78,7 @@
 \end{theorem}
 
 \begin{proof}
-	Выберем произвольный отрезок $S \subset I$. Так как $I$ --- это интервал, то есть открытое множество, то верно утверждение:
+	Выберем произвольный отрезок $S \subset I$. Так как $I$ --- это интервал, то есть открытое множество, имеет место утверждение:
 	\[
 		\exists \eta > 0 \such \forall x \in S\ \forall h, |h| < \eta\ \ x + h \in I
 	\]
@@ -117,7 +128,7 @@
 	\[
 		S_n(f, x) - s = \frac{1}{\pi}\int_{[0; \pi]} (f(x + t) + f(x - t) - 2s)D_n(t)d\mu(t)
 	\]
-	Далее мы распишем $D_n(t)$ так, чтобы получить отдельно слагаемое с интегралом из леммы:
+	Далее мы перепишем $D_n(t)$ так, чтобы получить отдельно слагаемое с интегралом из леммы:
 	\begin{multline*}
 		D_n(t) = \frac{\sin((n + 1 / 2)t)}{2\sin(t / 2)} =
 		\\
@@ -139,7 +150,7 @@
  	\begin{enumerate}
  		\item Сходится в зависимости от условия (мы доказываем эквивалентность)
  		
- 		\item Заметим, что у нас тут $g(t) = (f(x + t) + f(x - t) - 2s)(\frac{1}{2}\ctg(t / 2) - 1 / t) \in L_1[0; \delta]$. Стало быть, по теореме об осцилляции этот интеграл сходится к нулю
+ 		\item Заметим, что тут $g(t) = (f(x + t) + f(x - t) - 2s)(\frac{1}{2}\ctg(t / 2) - 1 / t) \in L_1[0; \delta]$. Стало быть, по теореме об осцилляции этот интеграл сходится к нулю
  		
  		\item Аналогично $g(t) = \frac{1}{2}(f(x + t) + f(x - t) - 2s) \in L_1[0; \pi]$
  		

@@ -129,7 +129,7 @@
 	\begin{enumerate}
 		\item $(a; b] = \bscup_{i = 1}^\infty (a_i; b_i]$. У нас уже есть неравенство в одну сторону:
 		\[
-			m(\rsi{a; b}) \ge \sum_{i = 1}^\infty \rsi{a_i; b_i}
+			m(\rsi{a; b}) \ge \sum_{i = 1}^\infty m\rsi{a_i; b_i}
 		\]
 		Остаётся показать неравенство в обратную. Будем отталкиваться от желания воспользоваться компактностью --- надо взять некоторое замкнутое подмножество $\rsi{a; b}$ и найти его покрытие. Возьмём пока произвольные $a < d \le b$ и $c_i > b_i$. Это даст включение $[d; b] \subset \bigcup_{i = 1}^\infty (a_i; c_i)$. Чтобы выбрать уже конкретные значения, воспользуемся свойствами $\phi$:
 		\begin{align*}
@@ -137,9 +137,9 @@
 			\\
 			&{\forall i \in \N\ \forall \eps > 0\ \exists c_i > b_i \such \phi(c_i) - \phi(b_i) < \frac{\eps}{2^{i + 1}}}
 		\end{align*}
-		В силу компактности отрезка, $\exists N \in \N \such [d; b] \subset \bigcup_{i = 1}^N \rsi{a_i; c_i}$. Однако, отрезок в нашей системе неизмерим, а поэтому выполним такой трюк:
+		В силу компактности отрезка, $\exists N \in \N \such [d; b] \subset \bigcup_{i = 1}^N (a_i; c_i)$. Однако, отрезок в нашей системе неизмерим (а интервалы вообще не лежат в системе), а поэтому выполним такой трюк:
 		\[
-			\rsi{d; b} \subset [d; b] \subset \bigcup_{i = 1}^N \rsi{a_i; c_i}
+			\rsi{d; b} \subset [d; b] \subset \bigcup_{i = 1}^N (a_i; c_i) \subset \bigcup_{i = 1}^N \rsi{a_i; c_i}
 		\]
 		А теперь будем писать цепочку неравенств:
 		\begin{multline*}
