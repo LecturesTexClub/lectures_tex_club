@@ -1,0 +1,93 @@
+\subsection{Связность случайного графа}
+
+\begin{theorem}
+    Пусть $p(n) = \frac{clnn}{n}, c > 0.$ Тогда 
+    \begin{itemize}
+        \item Если $c < 1$, то а.п.н. случаный граф несвязен
+        \item Если $c > 1$, то а.п.н случайный граф связен.
+        \item (б/д) Если $c = 1$, то P(случайный граф связен) $\to \frac{1}{e}$
+    \end{itemize}
+    
+\end{theorem}
+
+\begin{proof}
+1) Пусть $X = X(G)$ - случайная величина, равная числу изолированных вершин в графе $G$.
+
+\[EX = E(x_1+\dots+x_n), x_i = \begin{cases} 1, \text{если $i$ изолирована в G}\\
+0, \text{иначе}    
+\end{cases} \]
+
+\[ EX = \sum_{i=1}^n EX_i=n(1-p)^{n-1} = ne^{-pn(1+o(1))} = ne^{-c\ln{n}(1+0(1))} = \frac{n}{n^{c(1+0(1))}}\]
+
+Последнее выражение стремится к $0$ при $c > 1$ и к $\infty$ при $c < 1$.
+
+$P(X \geq 1) \geq 1-\frac{DX}{(EX)^2}$. Нужно теперь показать, что дисперсия сравнительно маленькая:
+
+$DX = EX^2-(EX)^2.$\\$EX^2 = E(X_1+\dots+X_n)^2=E(X_1^2+\dots+X_n^2+\sum_{i \neq j}X_iX_j)=EX+\sum_{i \neq j}X_iX_j = EX+\sum_{i \neq j} (1-p)^{2n-3} = EX+n(n-1)(1-p)^{2n-3}$\\
+$\frac{DX}{(EX)^2} = \frac{EX+n(n-1)(1-p)^{2n-3}-(EX)^2}{(EX)^2} = o(1) + \frac{n(n-1)(1-p)^{2n-3}}{n^2(1-p)^{2n-2}}-1=o(1) \to 0$ \\
+То есть с вероятностью, стремящейся к 1, в графе будут изолированные вершины, значит, граф "развалится" а.п.н.
+
+2) Как понять, что граф разорван? У нас есть нетривиальная компонента. 
+
+
+\begin{multline*}
+    P(\text{случайный граф не связен}) =\\
+    =P(\exists k\in \{1,\dots,\frac{n}{2}\} \exists A\subset V: |A| = k
+    \text{ и $A$ явл. компонентой связности}) \leq\\
+    \leq \sum_{k = 1}^{\frac{n}{2}} \sum_{A \subset V} P(\text{$A$ явл. компонентой связности}) \leq \\
+    \leq \sum_{k = 1}^{\frac{n}{2}} \sum_{A \subset V: |A| = k} P(\text{из $A$ в $V \setminus A$ нет рёбер}) = \\
+    = \sum_{k = 1}^{\frac{n}{2}} C_n^k(1-p)^{k(n-k)} 
+\end{multline*}
+
+Покажем теперь, что полученная сумма стремится к нулю. Для этого обозначим 
+$a_k(n) = C_n^k(1-p)^{k(n-k)}$.
+
+\[
+\frac{a_{k+1}(n)}{a_k(n)} = \frac{n-k}{k+1}(1-p)^{-k+n-k-1} < n(1-p)^{n-2k-1}
+\]
+
+Разобьём нашу сумму на две части:
+
+\[
+\sum_{k = 1}^{\frac{n}{2}} C_n^k(1-p)^{k(n-k)} = \sum_{k = 1}^{\lfloor{\frac{n}{\sqrt{\ln{n}}}} \rfloor}\dots + \sum_{k = \lfloor \frac{n}{\sqrt{\ln{n}}} \rfloor + 1}^\frac{n}{2} \dots
+
+\]
+
+Тогда внутри первой суммы, так как $n-2k-1 = (1+o(1))n$ 
+
+
+\[
+\frac{a_{k+1}(n)}{a_k(n)} < n(1-p)^{n(1+o(1))} := \sigma(n) \to 0 
+\]
+
+Теперь можно оценить первую сумму геометрической прогрессией:
+
+\[
+\sum_{k = 1}^{\lfloor{\frac{n}{\sqrt{\ln{n}}}} \rfloor} a_k(n) =
+a_1(n)(1+\frac{a_2(n)}{a_1(n)} + 
+\frac{a_3(n)}{a_2(n)} \frac{a_2(n)}{a_1(n)} + \dots) \leq a_1(n)(1 + \sigma(n)+\dots ) < \frac{a_1(n)}{1-\sigma(n)} \to 0
+
+\]
+
+Оценим теперь вторую сумму:
+
+\begin{multline*}
+    \sum_{k = \lfloor \frac{n}{\sqrt{\ln{n}}} \rfloor + 1}^\frac{n}{2} C_n^k(1-p)^{k(n-k)} = 2^n (1-p)^{\frac{n}{\sqrt{\ln{n}}} \frac{n}{2}}n  \leq \\ \leq n 2^n e^{-p \frac{n}{\sqrt{\ln{n}}} \frac{n}{2}} = 
+n 2^n e^{-\frac{c\ln{n}}{n} \frac{n}{\ln{n}} \frac{n}{2}}=\\ = e^{n\ln{2} + \ln{n} - \frac{c}{2} n \sqrt{\ln{n}}} \to 0
+\end{multline*}
+
+\end{proof}
+
+\begin{theorem}(б/д)
+Если $c \geq 3$ и $n \geq 100$, то P(случайный граф связен) $>1 -\frac{1}{n}$
+\end{theorem}
+
+\begin{note}
+     Скажем, у нас $n = 2000$ серверов. Идёт атака, где мы с вероятностью $q \approx 0.99$ теряем соединение между двумя серверами. Это соответствует $c \approx 3$, но что можно сказать про возможность передать информацию с одного сервера на другой? Это будет аж $\frac{1999}{2000}$, то есть почти всегда мы остаёмся в полном строю.
+\end{note}
+
+\begin{proposition}
+Пусть $p(n) = \frac{\ln{n} + \gamma}{n}$, $\gamma = const$. Тогда $P(\text{случайный граф связен}) \to e^{-e^{-\gamma}}$
+\end{proposition}
+
+

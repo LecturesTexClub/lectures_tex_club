@@ -1,0 +1,124 @@
+\subsection{Биномиальная модель случайного графа. Теорема Эрдеша.}
+
+
+\begin{theorem} 
+Пусть в $G(n, p)$, где $p = p(n)$, причём $np(n) \to \infty, n \to \infty$. $\xi(G)$ - случайная величина, равная количеству треугольников в графе $G$. Тогда\\
+\begin{enumerate}
+    \item если $np \to 0, p \to \infty$, то $P(\xi = 0) \to 1.$
+    \item если $np \to \infty$, то $P(\xi = 0) \to 0$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	1. Воспользуемся классическим приёмом теории вероятностей: разобьём нашу случайную величину на сумму индикаторов:
+	\[
+		\xi = \xi_1 + \dots + \xi_{C_n^3}
+	\]
+	где $\xi_i$ --- это индикатор того, что $i$-я тройка оказалась подграфом $G$. Тогда
+	\[
+		E\xi = \sum_{i = 1}^{C_n^3} E \xi_i = C_n^3 \cdot p^3 \sim \frac{(np)^3}{6} \xrightarrow[n \to \infty]{} 0
+	\]
+	По неравенству Маркова отсюда моментально следует, что и $P(\xi \ge 1) \to 0$ при $n \to \infty$.\\
+    2. Пусть $\xi(G) = $ число треугольников в $G$. Тогда $P(\xi \ge 1) = 1 - P(\xi \le 0) = 1 - P(\xi = 0)$.  Провернём такой цыганский фокус:
+	\[
+		P(\xi \ge 1) = 1 - P(\xi \le 0) = 1 - P(-\xi \ge 0) = 1 - P(E \xi - \xi \ge E \xi)
+	\]
+	Теперь, мы можем в 2 действия получить оценку неравенством Чебышёва:
+	\[
+		P(E \xi - \xi \ge E \xi) \le P(|E \xi - \xi| \ge E \xi) \le \frac{DX}{(E \xi)^2} \Longrightarrow P(\xi \ge 1) \ge 1 - \frac{DX}{(E \xi)^2}
+	\]
+	При этом $DX = E \xi^2 - (E \xi)^2$, иначе говоря
+	\[
+		P(\xi \ge 1) \ge 2 - \frac{E \xi^2}{(E \xi)^2}
+	\]
+	Распишем матожидание квадрата:
+	\begin{multline*}
+		E \xi^2 = E (\xi_1 + \dots + \xi_{C_n^3})^2 = E({\xi_1^2 + \dots + \xi_{C_n^3}^2 + \sum_{i \neq j} \xi_i \xi_j}) =
+		\\
+		\underbrace{E(\xi_1 + \ldots + \xi_{C_n^3})}_{E \xi} + \sum_{i \neq j} E(\xi_i \cdot \xi_j)
+	\end{multline*}
+	Чтобы посчитать сумму, нужно понять, что есть 3 возможных ситуации:
+	\begin{enumerate}
+		\item Тройки $i, j$ пересекаются по двум элементам. Для суммы таких $i, j$ получится выражение $(C_n^3 \cdot C_3^2 \cdot C_{n - 3}^1) \cdot p^5$
+		
+		\item Тройки $i, j$ пересекаются по одному элементу. Получаем $(C_n^3 \cdot C_3^1 \cdot C_{n - 3}^2) \cdot p^6$
+		
+		\item Тройки $i, j$ не пересекаются. Тогда $(C_n^3 \cdot C_{n - 3}^3) \cdot p^6$
+	\end{enumerate}
+	Теперь подставим всё в дробь:
+	\begin{multline*}
+		\frac{E \xi^2}{(E \xi)^2} = \frac{E \xi + 3p^5 C_n^3 C_{n - 3}^1 + 3p^6 C_n^3 C_{n - 3}^2 + p^6 C_n^3 C_{n - 3}^3}{(C_n^3)^2 p^6} =
+		\\
+		\frac{1}{E \xi} + \frac{3C_{n - 3}^1}{pC_n^3} + \frac{3C_{n - 3}^2}{C_n^3} + \frac{C_{n - 3}^3}{C_n^3} \xrightarrow[n \to \infty]{} 1
+	\end{multline*}
+	Этого нам и достаточно.
+\end{proof}
+
+\begin{theorem} (без доказательства)
+	Пусть в $G(n, p)$, где $p = p(n)$, причём $np \to c > 0, n \to \infty$. Если $\xi(G)$ --- это число треугольников в графе, то
+	\[
+		P(\xi = 0) \xrightarrow[n \to \infty]{} e^{-\frac{c^3}6}
+	\]
+\end{theorem}
+
+\begin{definition}
+	\textit{Обхватом} (на англ. \textit{girth}) графа $G$ называется величина $g(G)$, равная длине минимального цикла в этом графе.
+\end{definition}
+
+\begin{proposition}
+	Чтобы лучше прочувствовать определение, заметим такое интересное свойство:
+	\[
+		g(G) > 3 \Lra \text{в $G$ нет треугольников}
+	\]
+\end{proposition}
+
+\begin{proof}
+	Действительно, $g(G) > 3$ означает, что в графе не существует цикла длины 3, коим является треугольник.
+\end{proof}
+
+\begin{theorem} (1957, Эрдеш)
+	Имеет место следующее утверждение:
+	\[
+		\forall k, l \in \mathbb{N}\ \exists G = (V, E) \mid \chi(G) > k,\ g(G) > l
+	\]
+\end{theorem}
+
+\begin{proof}
+	$G(n, p)$, $p = p(n) = n^{\Theta - 1}$, $\Theta = \frac{1}{2l}$.
+	
+	$X_l := X_l(G)$ --- количество простых циклов длины $\le l$ в $G$. Посмотрим матожидание:
+	\[
+		\E X_l = \sum_{r = 3}^l C_n^r \frac{(r - 1)!}{2} p^r < \sum_{r = 3}^l \frac{n^r}{r!} \cdot r! \cdot p^r = \sum_{r = 3}^l (np)^r < l \cdot n^{\Theta l} = l \cdot n^{1/2}
+	\]
+	По неравенству Маркова:
+	\[
+		P\ps{X_l \ge \frac{n}{2}} \le \frac{\E X_l}{n / 2} < \frac{l\sqrt{n}}{n / 2} \xrightarrow[n \to \infty]{} 0
+	\]
+	Отсюда возникает следствие:
+	\[
+		\exists n_1 \mid \forall n \ge n_1\ P\ps{X_l < \frac{n}{2}} > \frac{1}{2}
+	\]
+	\textcolor{red}{Тут был замысел, около 16й минуты 7й лекции}
+	
+	$Y_x := Y_x(G)$ --- количество независимых множеств размера $x$ в $G$. Положим $x = \lceil{\frac{3\ln n}{p}}\rceil \sim \frac{3\ln n}{p}$. Оценим матожидание:
+	\[
+		E Y_x = C_n^x (1 - p)^{C_x^2} \le n^x \cdot e^{-pC_x^2} = \exp({x\ln n - (1 + o(1))p \frac{x^2}{2}})
+	\]
+	Посмотрим асимптотику штуки в скобочках:
+	\[
+		x\ps{\ln n - (1 + o(1))\frac{px}{2}} \sim x\ps{\ln n - (1 + o(1))\frac{3\ln n}{2}} \xrightarrow[n \to \infty]{} -\infty
+	\]
+	Снова применим неравенство Маркова:
+	\[
+		P(\alpha(G) \ge x) = P(Y_x \ge 1) \le \frac{\E Y_x}{1} \to 0
+	\]
+	Стало быть, $\exists n_2 \mid \forall n \ge n_2\ P(\alpha(G) < x) > 1 / 2$. Теперь можно рассмотреть $n > \max \{n_1, n_2\}$, а потому
+	\[
+		\exists G \mid X_l(G) < \frac{n}{2} \wedge \alpha(G) < x
+	\]
+	Получим индуцированный граф $G'$ из $G$ путём удаления вершин и инциндентных им рёбер. Добьёмся того, что $X_l(G') = 0$, то есть $g(G') > l$. Чтобы убрать все простые циклы (по свойству $G$), нам потребуется удалить не более $n / 2$ вершин. Иначе говоря, $|V(G')| > n - n / 2 = n / 2$. При этом, мы не могли улучшить число независимости \textcolor{red}{почему?}. Отсюда
+	\[
+		\chi(G') > \frac{n}{2x} \sim \frac{np}{2 \cdot 3\ln n} = \frac{n^\Theta}{6\ln n} \to +\infty
+	\]
+	По итогу $\exists n_3 \mid \forall n \ge n_3\ \chi(G') > k$.
+\end{proof}

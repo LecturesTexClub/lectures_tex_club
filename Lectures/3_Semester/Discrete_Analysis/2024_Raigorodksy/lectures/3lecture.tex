@@ -1,0 +1,106 @@
+\subsection{Модель Эрдеша-Реньи. Матожидание. Дисперсия}
+
+\begin{proposition}
+	Верны следующие простые утверждения:
+	\begin{enumerate}
+		\item \(\chi(G) \ge w(G)\)
+		
+		\item \(\chi(G) \ge |V| / \alpha(G)\)
+	\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+	\textit{Моделью Эрдёша-Р\'{е}ньи} $G(n, p)$, $p \in (0; 1)$ называется вероятностное пространство $(\Omega, F, P)$, где
+	\begin{itemize}
+		\item \(\Omega = \{G = (\range{n}, E)\} \Ra |\Omega| = 2^{C_n^2}\)
+		
+		\item \(F = 2^\Omega\)
+		
+		\item \(\forall G = (\range{n}, E) \in \Omega \quad P(G) := P(\{G\}) = p^{|E|} \cdot (1 - p)^{C_n^2 - |E|}\)
+	\end{itemize}
+\end{definition}
+
+\begin{note}
+	Понятно, что $p$ символизирует вероятность того, что в граф будет взято конкретное ребро.
+\end{note}
+
+\begin{theorem}
+Доля тех графов на $n$ вершинах, для которых $w(G) < 2\log_2{n}$ стремится к $1$ при $n \to \infty$. То есть $P(w(G(n, \frac{1}{2})) < 2\log_2{n}) \to 1, n \to \infty$
+\end{theorem}
+\begin{proof}
+Зафиксируем некоторое $k = \floor{2\log_2 n}$ и занумеруем все наборы из $k$ вершин как $A_1, \ldots, A_{C_n^k}$. Обозначим $\mathcal{A}_i$ - событие, когда вершины $A_i$ в выпавшем графе $G$ образуют клику. $\mathcal{A} = \bigcup_{i = 1}^{C_n^k} \mathcal{A}_i$  --- событие, что будет хотя бы одна клика размера $k$. По свойству вероятностной меры
+	\[
+		P(\mathcal{A}) \le \sum_{i = 1}^{C_n^k} P(\mathcal{A}_i)
+	\]
+	Что есть $P(\mathcal{A}_i)$? Это надо поделить число графов, в которых $A_i$ образует клику, на число всех графов. То есть
+	\begin{multline*}
+		P(\mathcal{A}) \le \sum_{i = 1}^{C_n^k} \frac{2^{C_n^2 - C_k^2}}{2^{C_n^2}} = \sum_{i = 1}^{C_n^k} \ps{\frac{1}{2}}^{C_k^2} = C_n^k \cdot 2^{-C_k^2} \le \frac{n^k}{k!} \cdot 2^{-C_k^2} = \frac{2^{k \log_2 n - k^2 / 2 + k / 2}}{k!} \le
+		\\
+		\frac{1}{k!} \cdot 2^{\log^2_2 n + \log_2 n - \frac{(2\log_2 n - 1)^2}{2}} \le \frac{2^{3\log_2 n}}{k!} \le \frac{2^{1.5(k + 1)}}{k!} \to 0
+	\end{multline*}
+	Абсолютно аналогично можно доказать вероятность для числа независимости графа:
+	\[
+		P(\alpha(G) < 2\log_2 n) \xrightarrow[n \to \infty]{} 1
+	\]
+	Теперь поясним, почему вероятность выполнения этих условий одновременно тоже будет стремиться к единице. Пусть $\mathcal{B}$ --- это событие, что будет хотя бы одно независимое множество размера $k$. Тогда
+	\[
+		P(\mathcal{A} \cup \mathcal{B}) \le P(\mathcal{A}) + P(\mathcal{B}) \to 0
+	\]
+	Значит, $P(\overline{\mathcal{A} \cap \mathcal{B}}) \to 1$, что в точности является нужным событием.
+\end{proof}
+
+\begin{note}
+    По сути, теорема выше говорит нам, что первая оценка из утверждения 1.3. гораздо хуже, чем вторая при большом числе вершин, ведь $w(G) < 2\log_2{n}$(очень медленно растущая функции, по сравнению с числом вершин), а второе неравенство - это оценка величиной порядка $\frac{n}{\log(n)}$.
+\end{note}
+
+\begin{example}
+	Зафиксируем $n = k^2$ и рассмотрим граф, состоящий из $k$ клик, в каждой из которых по $k$ элементов. Несложно понять, что в таком графе $w(G) = \sqrt{n} = \alpha(G)$
+\end{example}
+
+\begin{theorem} (Теорема Тур\'{а}на)
+	Для любого графа $G = (V, E)$ такого, что $|V| = n$ и $\alpha(G) = \alpha$, имеет место оценка на число рёбер:
+	\[
+		|E| \ge n \cdot \floor{\frac{n}{\alpha}} - \alpha \frac{\floor{\frac{n}{\alpha}}\ps{\floor{\frac{n}{\alpha}} + 1}}{2}
+	\]
+\end{theorem}
+
+\begin{proof}
+	Пусть $A \subset V$ - это независимое подмножество вершин, реализующее число независимости (то есть $|A| = \alpha(G) = \alpha$). Тогда совершенно очевиден следующий факт:
+	\[
+		\forall x \in V \bs A\ \exists y \in A \such (x, y) \in E
+	\]
+	Следовательно, у нас уже есть не менее $n - \alpha$ рёбер. Повторим рассуждение для $V \bs A$ (в нём выделяем $A' \colon |A'| \le \alpha$ и так далее). Тогда, мы получим ещё $\ge (n - \alpha) - \alpha = n - 2\alpha$ рёбер. Продолжая спуск в разности множеств, получим следующую оценку на $|E|$:
+	\[
+		|E| \ge (n - \alpha) + (n - 2\alpha) + \ldots + \ps{n - \floor{\frac{n}{\alpha}}\alpha} = n \cdot \floor{\frac{n}{\alpha}} - \alpha \frac{\floor{\frac{n}{\alpha}}\ps{\floor{\frac{n}{\alpha}} + 1}}{2}
+	\]
+\end{proof}
+
+\begin{note}
+	<<Мощь>> теоремы заключается в том, что оценка неулучшаемая.
+\end{note}
+
+\begin{theorem}(Неравенство Маркова)
+
+Пусть $\xi: \Omega \to \mathbb{R}_+$. Тогда $\forall a>0$ $P(\xi \geq a) \leq \frac{E\xi}{a}$
+\end{theorem}
+
+\begin{proof}
+
+\[E\xi = \sum_{i = 1}^{k}y_{i}P(\xi = y_i) = \sum_{i: y_i \geq a}\dots + \sum_{i: y_i < a}\dots \geq \sum_{i: y_i \geq a}y_{i}P(\xi = y_i) \geq a\sum_{i: y_i \geq a}P(\xi = y_i)=aP(\xi \geq a)\]
+
+\end{proof}
+
+\begin{theorem}(Неравенство Чебышёва)
+Пусть $a > 0$. Тогда \[
+P(|\xi - E\xi| \geq a) \leq \frac{D\xi}{a^2}
+\]
+
+\end{theorem}
+
+\begin{proof}
+    Введём $\eta = (\xi - E\xi)^2$. Применим неравенство Маркова:
+    \[
+    P(\eta \geq a^2) \leq \frac{E\eta}{a^2} = \frac{D\xi}{a^2}
+    \]
+\end{proof}
+
