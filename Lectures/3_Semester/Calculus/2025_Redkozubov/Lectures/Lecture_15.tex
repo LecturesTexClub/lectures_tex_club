@@ -1,0 +1,153 @@
+
+\subsection{Интеграл от дифференциальной формы}
+
+\begin{definition}
+    \textit{Носителем} формы $\omega \in \Omega^k(M)$ называется замыкание множества точек, в которых $\omega$ не равна нулю, $\supp(\omega) = \overline{\{p \in M : \omega_p \ne 0\}}$. Обозначим через $\Omega_c^k(M)$ множество гладких $k$-форм на $M$ с компактным носителем.
+\end{definition}
+
+Определим интеграл от дифференциальной формы на многообразии в три этапа.
+
+\begin{definition}
+    Пусть $U \subset \R^m$ открыто, $\omega \in \Omega_c^m(U)$. Тогда $\omega = f(x)\cdot dx_1 \wedge \dotsc \wedge dx_m$ для некоторой функции $f \in C^\infty(U)$. Положим
+    \[
+    \int_U \omega := \int_U f(x)\, dx_1 \dotsc dx_m = \int_{\R^m} f(x)\, dx_1 \dotsc dx_m.
+    \]
+	Интеграл в правой части конечен, так как фактически интегрирование ведется по компакту $\supp(\omega)$, на котором непрерывная функция $f$ ограничена.
+\end{definition}
+
+\begin{note}
+	Выясним, как интеграл меняется при заменах координат. Пусть $g: W \to U$ диффеоморфизм, где $x = g(t)$.
+Тогда $g^*\omega = (f \circ g) \cdot J_g \cdot dt_1 \wedge \dotsc \wedge dt_m$, а значит, $\int_W g^*\omega = \int_W (f \circ g)\cdot J_g\, dt_1  \dotsc dt_m$. С другой стороны, по формуле замены переменных в интеграле
+\[
+\int_U \omega = \int_U f(x)\, dx_1 \dotsc dx_m = \int_W (f \circ g) \cdot|J_g|\, dt_1 \dotsc dt_m,
+\]
+отсюда $\int_W g^*\omega = \pm \int_U \omega$ (в зависимости от знака $J_g$). Это доказывает, что интеграл от дифференциальной формы инвариантен относительно замен координат с положительным якобианом.
+\end{note}
+
+\begin{definition}
+    Пусть $M$ -- гладкое $m$-мерное ориентированное многообразие, $\phi: V \to U$ -- параметризация на $M$. Пусть $\omega \in \Omega_c^m(M)$, причем $\supp(\omega) \subset U$. Положим
+    \[
+    \int_M \omega := \pm \int_V \phi^*\omega,
+    \]
+    где знак <<$+$>> берется, если параметризация $\phi$ соответствует ориентации, и <<$-$>> иначе.
+\end{definition}
+
+Корректность определения вытекает из следующей леммы.
+
+\begin{lemma}
+    Пусть $\phi: V \to U$ и $\psi: V' \to U'$ -- две параметризации $M$, якобиан функции перехода между которыми положителен. Пусть $\omega \in \Omega_c^m(M)$ и $\supp(\omega) \subset U \cap U'$. Тогда
+    \[
+    \int_V \phi^*\omega = \int_{V'} \psi^*\omega.
+    \]
+\end{lemma}
+
+\begin{myproof}
+    Функция перехода $g = \psi^{-1} \circ \phi$ отображает $V_0 = \phi^{-1}(U \cap U')$ на $V_0' = \psi^{-1}(U \cap U')$. Положим $\tau = \psi^*\omega$. Так как $g^* = \phi^* \circ (\psi^{-1})^*$, то $g^*\tau = \phi^*\omega$. Поскольку равенство $\int_{V_0} g^*\tau = \int_{V_0'} \tau$ установлено в замечании, а $\supp(\omega) \subset U \cap U'$, то и $\int_{V} g^*\tau = \int_{V'} \tau$, что и требовалось.
+\end{myproof}
+
+\begin{definition}
+    Пусть $M$ -- гладкое $m$-мерное ориентированное многообразие и $\omega \in \Omega_c^m(M)$. Пусть $\phi_i: V_i \to U_i$ ($1 \leq i \leq n$) -- набор параметризаций, согласованных с ориентацией и покрывающих компакт $\supp(\omega)$. Пусть $\{\rho_i\}_{i=1}^n$ -- гладкое разбиение единицы, подчиненное этому покрытию. Определим
+    \[
+    \int_M \omega := \sum_{i=1}^n \int_M \rho_i \omega, \eqno(*)
+    \]
+    где правая часть понимается в смысле определения 8.6, так как $\supp(\rho_i\omega) \subset \supp(\rho_i) \subset U_i$.
+\end{definition}
+
+Корректность этого определения вытекает из следующей леммы.
+
+\begin{lemma}
+    Интеграл $(*)$ не зависит ни от набора параметризаций, покрывающих $\supp(\omega)$ и согласованных с ориентацией, ни от подчиненного разбиения единицы.
+\end{lemma}
+
+\begin{myproof}
+    Пусть $\psi_j: V_j' \to U_j'$, $1 \leq j \leq k$ -- набор параметризаций, согласованных с ориентацией и покрывающих $\supp(\omega)$, и $\{\sigma_j\}_{j=1}^k$ --- разбиение единицы, подчиненное этому покрытию.
+    Пусть носитель $\supp(\rho_i\sigma_j\omega)$ непуст. Тогда $\supp(\rho_i\sigma_j\omega) \subset U_i \cap U_j'$ и по лемме 8.3 имеем
+    \[
+    \int_{V_i} \phi^*_i(\rho_i\sigma_j\omega) = \int_{V_j'} \psi^*_j(\rho_i\sigma_j\omega).
+    \]
+    Суммируя эти равенства по всем $1\leq i \leq n$ и $1 \leq j \leq k$, используя линейность операции переноса дифференциальных форм, линейность интеграла Лебега и равенства $\sum_{j=1}^k \rho_i \sigma_j = \rho_i$, $\sum_{i=1}^n \rho_i \sigma_j = \sigma_j$, получаем
+    $
+    \sum_{i=1}^n \int_{V_i} \phi^*_i(\rho_i\omega) = \sum_{j=1}^k \int_{V_j'} \psi^*_j(\sigma_j\omega)$,
+    что и требовалось.
+\end{myproof}
+
+\begin{note}
+	Непосредственно из определения следует, что интеграл линеен и меняет знак при изменении ориентации $M$.
+\end{note}
+
+\begin{theorem}[\textbf{о замене переменных}]
+    Пусть $M, N$ -- гладкие $m$-мерные ориентированные многообразия, и пусть $F: M \to N$ -- сохраняющий ориентацию диффеоморфизм, то есть $\det dF_p > 0$ для всех $p \in M$. Если $\omega \in \Omega_c^m(N)$, то $\int_N \omega = \int_M F^*\omega$.
+\end{theorem}
+
+\begin{myproof}
+    Отметим, что $\supp(F^*\omega) = F^{-1}(\supp(\omega))$, так что $F^*\omega \in \Omega_c^m(M)$.
+    
+	\vspace{5pt}
+    Пусть $\phi_i: V_i \to U_i$ ($1 \leq i \leq n$) -- набор параметризаций, согласованных с ориентацией и покрывающих $\supp(F^*\omega)$, и пусть $\{\rho_i\}_{i=1}^n$ -- разбиение единицы, подчиненное этому покрытию.
+	Тогда $F \circ \phi_i: V_i \to F(U_i)$ -- набор параметризаций, согласованных с ориентацией и покрывающих $\supp(\omega)$, и $\{\rho_i \circ F^{-1}\}_{i=1}^n$ -- соответствующее разбиение единицы. По предыдущей лемме и свойству переноса ($f^*(g \cdot \omega) = (g \circ f) \cdot f^* \omega$) имеем
+    \[
+    \int_M F^*\omega = \sum_{i=1}^n \int_M \rho_i F^* \omega = \sum_{i=1}^n \int_{\R^m} \phi^*_i(\rho_i F^* \omega) = 
+    \]
+    \[
+    = \sum_{i=1}^n \int_{\R^m} \phi^*_i F^* ((\rho_i \circ F^{-1}) \cdot \omega) = \sum_{i=1}^n \int_{\R^m} (F \circ \phi_i)^* ((\rho_i \circ F^{-1})\omega) = \int_N \omega,
+    \]
+    что завершает доказательство.
+\end{myproof}
+
+\begin{note}
+	На практике при интегрировании форм не используют разбиение единицы. Вместо этого разбивают многообразие на кусочки, по которым легко интегрировать.
+Формализуем этот подход.
+Пусть $M$ -- гладкое $m$-мерное ориентированное многообразие, и пусть $S \subset M$ измеримо. Определим $\int_S \omega$ для $\omega \in \Omega_c^m(M)$. Как и выше, сводим к случаю, когда $\supp(\omega)$ покрывается образом одной параметризации $\phi$. Положим
+\[
+\int_S \omega := \pm \int_{\phi^{-1}(U \cap S)} \phi^*\omega.
+\]
+Знак <<$\pm$>> выбирается в зависимости от соответствия $\phi$ ориентации. Интеграл в правой части конечен как интеграл Лебега от ограниченной функции по подмножеству $\supp(\phi^*\omega)$ конечной меры. Корректность доказывается аналогично леммам 8.3 и 8.4.
+\end{note}
+
+\begin{lemma}
+    Пусть $S \subset M$ представимо в виде дизъюнктного объединения измеримых в $M$ множеств $S_k$ по $k \in \N$, и $\omega \in \Omega_c^m(M)$. Тогда:
+    \[
+    \int_S \omega = \sum_{k=1}^\infty \int_{S_k} \omega.
+    \]
+\end{lemma}
+
+\begin{myproof}
+    Если носитель $\omega$ покрывается образом одной параметризации, то утверждение следует по свойству счетной аддитивности интеграла Лебега. Общий случай доказывается при помощи разбиения единицы и свойства линейности сходящихся рядов.
+\end{myproof}
+
+\begin{corollary}
+    Пусть $S \subset M$ измеримо. Если $M \setminus S$ имеет меру ноль, то $\int_M \omega = \int_S \omega$.
+\end{corollary}
+
+
+\begin{example}
+    Пусть $\Gamma$ -- гладкое 1-мерное многообразие в $\R^n$, покрываемое одной параметризацией $\gamma: I \to \R^n$. Пусть $\omega \in \Omega_c^1(\R^n)$, $\omega(x) = \sum_{i=1}^n f_i(x)\, dx_i$.
+    По общему определению интеграла по многообразию: $\int_\Gamma \omega = \int_I \gamma^*\omega$. 
+    Легко убедиться, что $\gamma^*\omega = \sum_{i=1}^n f_i(\gamma(t)) \gamma_i'(t)\, dt = \omega(\gamma(t), \gamma'(t))\, dt.$
+    Пусть компактный носитель формы лежит в отрезке $[a, b] \subset I$. Тогда:
+    \[
+    \int_\Gamma \omega = \int_a^b \omega(\gamma(t), \gamma'(t))\, dt = \int_a^b \left[ f_1(\gamma(t))\gamma_1'(t) + \dotsc + f_n(\gamma(t))\gamma_n'(t) \right] dt.
+    \]
+	Определение $\int_{\Gamma} \omega$ согласуется с определением криволинейного интеграла II-го рода.
+\end{example}
+
+\begin{example}
+    Пусть $S$ -- гладкое 2-мерное многообразие в $\R^3$, ориентированное полем единичных нормалей $\vec{N}$.
+    Пусть $S$ покрывается одной параметризацией $r: V \to \R^3$ и $\omega = P\, dy \wedge dz + Q\, dz \wedge dx + R\, dx \wedge dy \in \Omega_c^2(\R^3)$. 
+    Тогда:
+    \[
+    r^*\omega = \left( P \circ r \cdot \begin{vmatrix} y'_u & y'_v \\ z'_u & z'_v \end{vmatrix} + Q \circ r \cdot \begin{vmatrix} z'_u & z'_v \\ x'_u & x'_v \end{vmatrix} + R \circ r \cdot \begin{vmatrix} x'_u & x'_v \\ y'_u & y'_v \end{vmatrix} \right) du \wedge dv.
+    \]
+    \[
+    \int_S \omega = \pm \int_V r^*\omega = \pm \int_V 
+    \begin{vmatrix}
+    P \circ r & Q \circ r & R \circ r \\
+    x'_u & y'_u & z'_u \\
+    x'_v & y'_v & z'_v 
+    \end{vmatrix}
+    du\, dv.
+    \]
+    Знак <<$+$>> выбирается, если $r$ соответствует ориентации, то есть вектор $r'_u \times r'_v$ сонаправлен с $\vec{N}$.
+	Знак <<$-$>> выбирается, если $r'_u \times r'_v$ направлен противоположно $\vec{N}$.
+	Этот интеграл называется \textit{поверхностным интегралом II-го рода}.
+\end{example}

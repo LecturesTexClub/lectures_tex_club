@@ -1,0 +1,193 @@
+\section{Методы вычисления кратного интеграла}
+
+%\href{https://disk.yandex.ru/d/vzuxFHSDUzqh1A/2023}{Ссылка} на конспект Вадима Витальевича 2023 года.
+
+\subsection{Сведение кратного интеграла к повторному}
+
+В этом разделе через $\mu_n$ обозначается мера Лебега в $\R^n$.
+Интеграл по мере $\mu_n$ называется \textit{$n$-кратным}. 
+Помимо общих символов $\int_{E} f \, d\mu_n$ и $\int_{E \subset \R^n} f(x) \, d\mu(x)$ для таких интегралов используются обозначения 
+\[ \int \dotsc \int_{E} f(x_1, \dotsc, x_n) \, dx_1 \dotsc dx_n. \]
+Будем отождествлять $\R^{n+m}$ с $\R^n \times \R^m$: если $x = (x_1, \dotsc, x_n) \in \R^n$, $y = (y_1, \dotsc, y_m) \in \R^m$, то 
+$(x, y) = (x_1, \dotsc, x_n, y_1, \dotsc, y_m) \in \R^{n+m}$.
+
+\begin{definition}
+	Пусть $E \subset \R^{n+m}$ и $x \in \R^n$. Множество $E_x = \{y \in \R^m : (x, y) \in E\}$ называется \textit{сечением} $E$ по $x$.
+	Аналогично определяется сечение $E^y$ по $y \in \R^m$.
+\end{definition}
+
+
+Из определения вытекают следующие свойства сечений: если $\{E_i\}_{i \in I} \subset 2^{\R^{n+m}}$, то 
+\[ \big( \bigcup \limits_{i \in I} E_i \big)_{x} = \bigcup \limits_{i \in I} (E_i)_x, \quad \big( \bigcap \limits_{i \in I} E_i \big)_{x} = \bigcap \limits_{i \in I} (E_i)_x. \]
+
+\begin{myproof}
+	Действительно, $y \in \big( \bigcup \limits_{i \in I} E_i \big)_{x} \iff (x, y) \in \bigcup \limits_{i \in I} E_i \iff \exists i \in I : (x, y) \in E_i \iff \exists i \in I : y \in (E_i)_x \iff y \in \bigcup \limits_{i \in I} (E_i)_x$. 
+	Второе свойство аналогично.
+\end{myproof}
+
+\vspace{5pt}
+
+Кроме того, $(E \setminus F)_x = E_x \setminus F_x$ для любых $E, F \subset \R^{n+m}$.
+Следующая теорема позволяет вычислять меру множества по мерам сечений (формализация <<метода неделимых>>).
+
+
+
+\begin{theorem}[\textbf{принцип Кавальери}]
+	Пусть $E \subset \R^{n+m}$ измеримо. Тогда 
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item Сечение $E_x$ измеримо в $\R^m$ для почти всех $x \in \R^n$, 
+		\item Функция $x \mapsto \mu_m(E_x)$ измерима на $\R^n$, 
+		\item $\int_{\R^n} \mu_m(E_x) \, d\mu(x) = \mu_{n+m}(E)$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{myproof}
+	Доказательство заключается в последовательном усложнении множества $E$ на основе свойств непрерывности меры и интеграла.
+
+	\vspace{5pt}
+	Пусть $E = B$ -- брус в $\R^{n+m}$, тогда $B = B^{'} \times B^{''}$, где $B^{'} \subset \R^n$, $B^{''} \subset \R^m$. 
+	$\forall x \in \R^n$ верно 
+	\[ B_x = \begin{cases}
+	 B^{''}, & x\in B',  \\  
+	 \emptyset, & x\notin B'.  
+	\end{cases}\]
+	Поэтому $B_x$ измеримо при всех $x \in \R^n$. Функция $x \mapsto \mu_m (B_x) = \mu_m (B^{''}) \cdot I_{B'}$ измерима как простая. 
+    Третий пункт проверяется вычислением:
+	\[ \int_{\R^n} \mu_m(B_x) \, d\mu(x) = \mu_m(B^{''}) \int_{\R^n} I_{B'} \, d\mu(x) = \mu_m (B^{''}) \cdot \mu_n (B') = \mu_{n+m} (B). \]
+
+	\vspace{5pt}
+	Пусть $E = G$ открыто и ограничено в $\R^{n+m}$, тогда $G = \bigsqcup \limits_{k=1}^{\infty} B_k$, где $B_k$ -- брусы (двоичные кубы).
+	Для любого $x \in \R^n$ верно $G_x = \bigsqcup \limits_{k=1}^{\infty} (B_k)_x$. Поэтому по предыдущему пункту $G_x$ измеримо как объединение измеримых. 
+	Функция $x \mapsto \mu_m(G_x) = \sum \limits_{k=1}^{\infty} \mu_m ((B_k)_x)$ измерима как сумма ряда измеримых функций (как предел последовательности измеримых функций $\sum \limits_{k=1}^{N} \mu_{m} ((B_k)_x)$). 
+	По теореме Леви для рядов, первому пункту и аддитивности $\mu_{n+m}$ имеем 
+	\[ \int_{\R^n} \mu_m (G_x) \, d\mu(x) = \sum \limits_{k=1}^{\infty} \int_{\R^n} \mu_m((B_k)_x) \, d\mu(x) = \sum \limits_{k=1}^{\infty} \mu_{n+m} (B_k) = \mu_{n+m} (G). \]
+
+	\vspace{5pt}
+	Пусть $E = \bigcap \limits_{k=1}^{\infty} G_k$ пересечение вложенных ограниченных открытых множеств ($G_k \supset G_{k+1}$ для всех $k$).
+	$\forall x \in \R^n$ множество $E_x = \bigcap \limits_{k=1}^{\infty} (G_k)_x$ измеримо по второму пункту.
+	Поскольку $(G_k)_x \supset (G_{k+1})_x$ и $\mu_m((G_1)_x) < \infty$, то по непрерывности меры 
+	$\mu_m(E_x) = \lim \limits_{k \to \infty} \mu_m((G_k)_x)$. 
+	Поэтому функция $x \mapsto \mu_m(E_x)$ измерима как предел последовательности измеримых функций. 
+	Учитывая, что $\int_{\R^n} \mu_m ((G_1)_x) \, d\mu(x) = \mu_{n+m} (G_1) < \infty$, то по теореме Лебега 
+	\[ \int_{\R^n} \mu_m(E_x) \, d\mu(x) = \lim \limits_{k \to \infty} \int_{\R^n} \mu_m ((G_k)_x) \, d\mu(x) = \lim \limits_{k \to \infty} \mu_{n+m} (G_k) = \mu_{n+m} (E). \]
+
+	\vspace{5pt}
+	Пусть $E = Z$ -- ограниченное множество меры нуль. По критерию измеримости существует такое 
+	$G_{\delta}$-множество $A$, что $Z \subset A$ и $\mu_{n+m}(A) = 0$.
+	Можно считать, что $A$ ограничено, иначе заменим его на пересечение с открытым шаром, содержащим $Z$. 
+	По предыдущему пункту $\int_{\R^n} \mu_m (A_x) \, d\mu(x) = 0$, откуда $\mu_m (A_x) = 0$ для \textit{почти всех} $x \in \R^n$.
+	Так как $Z_x \subset A_x$, то $\mu_m(Z_x) = 0$ и $Z_x$ измеримо для таких $x$. 
+	Следовательно, $x \mapsto \mu_m(Z_x) = 0$ почти всюду и $\int_{\R^n} \mu_m(Z_x) \, d\mu(x) = 0 = \mu_{n+m}(Z)$.
+	
+	\vspace{5pt}
+	Пусть $E$ -- ограниченное измеримое множество. По критерию измеримости $E = \Omega \setminus Z$ для некоторых $G_{\delta}$-множества $\Omega$ и множества $Z$ нулевой меры. 
+	Можно считать, что $\Omega$ также ограничено, поместив в шар.
+	Поскольку $(\Omega \setminus Z)_x = \Omega_x \setminus Z_x$, и $\mu_m((\Omega \setminus Z)_x) = \mu_m (\Omega_x) - \mu_m(Z_x)$ (разность измеримых функций), то теорема верна для $E$ по двум предыдущим пунктам.
+
+	\vspace{5pt}
+	Пусть $E$ -- произвольное измеримое множество. Тогда представим его в виде $E = \bigsqcup \limits_{k=1}^{\infty} (E \cap A_k)$, где $A_k = \{x \in \R^{n+m} : k-1 \leq |x| < k\}$, и повторим рассуждения второго пункта.
+\end{myproof}
+
+\begin{theorem}[\textbf{Тонелли}]
+	Пусть $E \subset \R^{n+m}$ и функция $f : E \to [0, +\infty]$ измерима. Тогда 
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item Функция $f(x, \cdot)$ измерима на $E_x$ для почти всех $x \in \R^n$,
+		\item Функция $J(x) = \int_{E_x} f(x, y) \, d\mu(y)$ измерима на $\R^n$, 
+		\item $\int_{\R^n} J(x) \, d\mu(x) = \int_{E} f \, d\mu_{n+m}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{myproof}
+	Пусть $E \subset \R^{n+m}$ и $x \in \R^n$. Поскольку при любом $y \in \R^m$ выполнено 
+	\[ I_E (x, y) = \begin{cases}
+	 1, & y\in E_x  \\  
+	 0, & y\notin E_x 
+	\end{cases} = I_{E_x} (y), \]
+	то для функции $f = I_E$ теорема является переформулировкой принципа Кавальери. 
+	Всякая простая функция представима в виде линейной комбинации индикаторов измеримых множеств, поэтому теорема верна для таких функций. 
+
+	\vspace{5pt}
+	Пусть $f$ -- произвольная неотрицательная измеримая на $E$ функция. 
+	По теореме о приближении найдется последовательность простых неотрицательных функций $\{\phi_k\} : 0 \leq \phi_1 \leq \phi_2 \leq \dotsc$ и $\phi_k \to f$ на $E$. 
+	Тогда $\forall x \in \R^n$ функции $\phi_k (x, \cdot)$, возрастая, стремятся к $f(x, \cdot)$ на $E_x$. 
+	Найдется такое множество $Z_k$ меры нуль в $\R^n$, что $\phi_k(x, \cdot)$ измерима на $\R^m$ для $x \in Z^c_k$ (по первому шагу д-ва). 
+	Положим $Z = \bigcup \limits_{k=1}^{\infty} Z_k$. Тогда $Z$ -- множество меры нуль, $f(x, \cdot)$ измерима на $E_x$ для $x \in Z^c$ как предел измеримых. Это доказывает первый пункт.
+
+	\vspace{5pt}
+	Для $x \in Z^c$ по теореме Леви 
+	\[ J(x) = \int_{E_x} f(x, y) \, d\mu(y) = \lim \limits_{k \to \infty} \int_{E_x} \phi_k(x, y) \, d\mu(y) =: \lim \limits_{k \to \infty} J_k(x). \]
+	По первому шагу д-ва все функции $J_k$ измеримы. Поэтому функция $J$ измерима на $Z^c$, а значит, и на $\R^n$. 
+	Это доказывает второй пункт. 
+
+	\vspace{5pt}
+	Для $x \in Z^c$ последовательность $\{J_k(x)\}$ возрастает в силу возрастания $\{\phi_k(x, \cdot)\}$. 
+	Изменяя функции $J_k$ на $Z$, можно считать, что это выполнено для всех $x$. Тогда по теореме Леви 
+	\[ \int_{\R^n} J(x) \, d\mu(x) = \lim \limits_{k \to \infty} \int_{\R^n} J_k(x) \, d\mu(x) = \lim \limits_{k \to \infty} \int_{E} \phi_k \, d\mu_{n+m} = \int_{E} f \, d\mu_{n+m}, \]
+	что завершает доказательство.
+\end{myproof}
+
+\begin{corollary}
+	Пусть $f : E \to \overline{\R}$ измерима. Функция $f$ интегрируема на $E \iff$ конечен 
+	\[ \int_{\R^n} \left( \int_{E_x} |f(x, y)| \, d\mu(y) \right) \, d\mu(x). \]
+\end{corollary}
+
+\vspace{5pt}
+Теперь расширим теорему Тонелли на случай интегрируемых функций.
+
+\begin{theorem}[\textbf{Фубини}]
+	Пусть $E \subset \R^{n+m}$ и функция $f$ интегрируема на $E$. Тогда 
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item Функция $f(x, \cdot)$ интегрируема на $E_x$ для почти всех $x \in \R^n$, 
+		\item Функция $J(x) = \int_{E_x} f(x, y) \, d\mu(y)$ интегрируема на $\R^n$, 
+		\item $\int_{\R^n} J(x) \, d\mu(x) = \int_{E} f \, d\mu_{n+m}$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{myproof}
+	Пусть $f \geq 0$ на $E$. Тогда по теореме Тонелли и из интегрируемости $f$
+	\[ \int_{\R^n} J(x) \, d\mu(x) = \int_{E} f \, d\mu_{n+m} < \infty. \]
+	Следовательно, функция $J$ интегрируема на $\R^n$, доказан второй пункт. В частности, $J$ конечна почти всюду, что доказывает первый пункт.  
+
+	\vspace{5pt}
+	Пусть $f$ произвольного знака, $|f| = f^+ + f^-$. Так как $f$ интегрируема, то $\int_{E} |f| \, d\mu_{n+m} < \infty \Ra \int_{E} f^{\pm} \, d\mu_{n+m} < \infty$, поэтому $f^{\pm}$ интегрируемы и к ним применима доказанная часть.
+    Дальнейшее доказательство очевидно.
+\end{myproof}
+
+\begin{note}
+	В условиях теорем 1.2 и 1.3 переменные $x$ и $y$ равноправны, поэтому 
+	\[ \int_{E} f \, d\mu_{n+m} = \int_{\R^n} \left( \int_{E_x} f(x, y) \, d\mu(y) \right) \, d\mu(x) = \int_{\R^m} \left( \int_{E^y} f(x, y) \, d\mu(x) \right) \, d\mu(y). \]
+	Выражения, стоящие после первого равенства, называются \textit{повторными интегралами}.
+\end{note}
+
+Внешний интеграл (в первом повторном интеграле) можно брать не по всему $\R^n$, а по тем $x$, где $E_x \neq \emptyset$.
+Для этого держим в голове картинку и определим \textit{проекцию}.
+
+\begin{definition}
+	Множество $\operatorname{Pr}_x E = \{x \in \R^n : E_x \neq \emptyset\} = \{x \in \R^n : \exists (x, y) \in E\}$ называется \textit{проекцией} $E$ на $\R^n$.
+\end{definition}
+
+\begin{note}
+	Проекция измеримого множества может оказаться неизмеримой. Действительно, пусть $e$ -- неизмеримое множество в $\R^n$, $c \in \R^m$, $E = e \times \{c\}$. 
+	Тогда $E$ измеримо в $\R^{n+m}$, так как можно его покрыть набором брусов, суммарная мера которых сколь угодно мала, и $\mu_{n+m}(E) = 0$, однако проекция $\operatorname{Pr}_x E = e$ неизмерима в $\R^n$.
+\end{note}
+
+\begin{corollary}
+	Если дополнительно (к условиям теорем 1.2-1.3) $\operatorname{Pr}_x E$ измерима, то 
+	\[ \int_{E} f \, d\mu_{n+m} = \int_{\operatorname{Pr}_x E} \left( \int_{E_x} f(x, y) \, d\mu(y) \right) \, d\mu(x). \]
+\end{corollary}
+
+\begin{example}
+	Доказать интегрируемость и найти интеграл $f(x, y) = y \sin x \cdot e^{-xy}$ на $E = (0, +\infty) \times (0, 1)$.
+\end{example}
+
+\begin{myproof}
+	Функция меняет знак, поэтому нельзя сразу применить теорему Тонелли. Покажем интегрируемость, попутно применив теорему Тонелли к хорошей функции ($ye^{-xy}$), а затем воспользуемся теоремой Фубини:
+    \[ \iint_{E} |y \sin x \cdot e^{-xy}| \, dx \, dy \leq \iint_{E} y e^{-xy} \, dx \, dy = \int_0^1 \left( \int_0^{\infty} y e^{-xy} \, dx \right) \, dy. \]
+    Внутренний интеграл $\int_{0}^{\infty} ye^{-xy} \, dx$ равен 1, $\int_0^1 1 \, dy = 1$. Следовательно, интеграл $|f|$ ограничен, а значит $f$ интегрируема на $E$.
+    
+    \vspace{5pt}
+    Теперь теорема Фубини позволяет вычислить интеграл в любом порядке. 
+    Пусть $F(y) = \int_{0}^{\infty} y \sin x \cdot e^{-xy} \, dx$, тогда $I = \iint_E f \, dx \, dy = \int_0^1 F(y) \, dy$.
+    Сам интеграл $F(y)$ берется по частям: $F(y) = y / (y^2 + 1)$. 
+    В итоге $I = \int_0^1 y/(y^2+1) \, dy$. Этот интеграл берется заменой $u = y^2+1$ и получается $I = (1/2) \cdot \ln 2$.
+\end{myproof}

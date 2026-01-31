@@ -1,0 +1,244 @@
+
+\begin{definition}
+	Пусть $k, l \in \N$. Рассмотрим множество $S_{k, l} := \{\sigma \in S_{k+l} : \sigma(1) < \dotsc < \sigma(k), \, \sigma(k+1) < \dotsc < \sigma(k+l)\} \subset S_{k+l}$. 
+	Элементы $\sigma \in S_{k, l}$ называются \textit{$(k, l)$-перетасовками}.
+\end{definition}
+
+
+\begin{definition}
+	Пусть $\omega \in A_k(V)$ и $\tau \in A_l(V)$, тогда \textit{внешним произведением} $\omega$ и $\tau$ называется функция, определенная равенством:
+	\[ (\omega \wedge \tau) (v_1, \dotsc, v_{k+l}) = \sum_{\sigma \in S_{k, l}} \epsilon(\sigma) \cdot \omega(v_{\sigma(1)}, \dotsc, v_{\sigma(k)}) \cdot \tau(v_{\sigma(k+1)}, \dotsc, v_{\sigma(k+l)}). \]
+\end{definition}
+
+\begin{note}
+	Введем операцию \textit{тензорного произведения}. Для форм $\omega \in A_k(V)$ и $\tau \in A_l(V)$ определим полилинейную функцию $\omega \otimes \tau$ (вообще говоря, не кососимметричную):
+	\[ (\omega \otimes \tau)(v_1, \dotsc, v_{k+l}) = \omega(v_1, \dotsc, v_k) \cdot \tau(v_{k+1}, \dotsc, v_{k+l}). \]
+	Определим действие перестановки $\sigma \in S_{k+l}$ на произвольную функцию $f$ от $k+l$ векторов:
+	\[ (\sigma f)(v_1, \dotsc, v_{k+l}) = f(v_{\sigma(1)}, \dotsc, v_{\sigma(k+l)}). \]
+	Теперь определение внешнего произведения переписывается в компактном виде:
+	\[ \omega \wedge \tau = \sum_{\sigma \in S_{k, l}} \varepsilon(\sigma) \cdot \sigma(\omega \otimes \tau). \]
+	Отметим также, что тензорное произведение ассоциативно.
+\end{note}
+
+\begin{note}
+	Пусть $\omega \in A_k(V)$ и $\tau \in A_l(V)$, тогда $\omega \wedge \tau \in A_{k+l}(V)$.
+\end{note}
+
+\begin{myproof}
+	Полилинейность $\omega \wedge \tau$ очевидна. Для кососимметричности достаточно показать, что $(\omega \wedge \tau)(v_1, \dotsc, v_{k+l}) = 0$, если в наборе векторов есть два соседних совпадающих $v_r = v_{r+1}$.
+	
+	\vspace{5pt}
+	Обозначим $i = \sigma^{-1}(r)$ и $j = \sigma^{-1}(r+1)$.
+	Разобьем $S_{k, l}$ на четыре множества в зависимости от того, в какую форму ($\omega$ или $\tau$) попадают $v_r$ и $v_{r+1}$ в $\sum_{\sigma \in S_{k,l}}$ из определения $\omega \wedge \tau$.
+	\begin{itemize}[itemsep = 0pt, topsep = 5pt]
+		\item $A_1 = \{\sigma \in S_{k, l} : i \le k, \; j  \le k\}$. Оба вектора попадают в $\omega$. Так как $v_r = v_{r+1}$ и $\omega$ кососимметрична, слагаемые зануляются.
+		\item $A_2 = \{\sigma \in S_{k, l} : i > k, \;  j  > k\}$. Оба вектора попадают в $\tau$. Аналогично, слагаемые зануляются.
+		\item $A_3 = \{\sigma \in S_{k, l} : i \le k, \;  j  > k\}$. Вектор $v_r$ попадает в $\omega$, $v_{r+1}$ попадает в $\tau$.
+		\item $A_4 = \{\sigma \in S_{k, l} : i > k, \;  j  \le k\}$. Вектор $v_{r+1}$ попадает в $\omega$, $v_r$ попадает в $\tau$.
+	\end{itemize}
+	
+	Рассмотрим транспозицию $t_r = (r, r+1)$. Отображение $\sigma \mapsto \sigma' = t_r  \sigma$ задает <<попарную>> биекцию между $A_3$ и $A_4$. Действительно, так как $r$ и $r+1$ соседние числа, их перестановка не нарушает возрастание индексов внутри блоков, поэтому $\sigma'$ остается перетасовкой. % действительно, так как $r$ и $r+1$ соседние, то $t_r \sigma$ останется перетасовкой. %Действительно, эта операция меняет местами значения $r$ и $r+1$. Так как они находятся в разных блоках (одно в первых $k$, другое в последних $l$) и являются соседними числами, упорядоченность внутри блоков сохраняется, то есть $\sigma'$ остается перетасовкой.
+	Сравним слагаемые для $\sigma \in A_3$ и $\sigma' \in A_4$:
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item Знаки противоположны: $\varepsilon(\sigma') = \varepsilon(t_r) \cdot \varepsilon(\sigma) = -\varepsilon(\sigma)$.
+		\item Значения форм совпадают: список аргументов для $\sigma'$ отличается только перестановкой векторов $v_r$ и $v_{r+1}$, но $v_r = v_{r+1}$.
+	\end{enumerate}
+	Следовательно, слагаемые из $A_3$ и $A_4$ попарно сокращаются, и вся сумма равна нулю.
+\end{myproof}
+
+\begin{example}
+	Для $\alpha, \beta \in V^*$ имеем $(\alpha \wedge \beta)(v, w) = \alpha(v) \beta(w) - \alpha(w)\beta(v)$.
+\end{example}
+
+\begin{lemma}
+	Внешнее произведение удовлетворяет свойствам:
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item Ассоциативность: $\omega_1 \wedge (\omega_2 \wedge \omega_3) = (\omega_1 \wedge \omega_2) \wedge \omega_3$,
+		\item Дистрибутивность: $\omega_1 \wedge (\omega_2 + \omega_3) = \omega_1 \wedge \omega_2 + \omega_1 \wedge \omega_3$ ($\deg \omega_2 = \deg \omega_3$), 
+		\item Суперкоммутативность: $\omega \wedge \tau = (-1)^{\deg \omega \cdot \deg \tau}  \tau \wedge \omega$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{myproof}
+	Пусть $k_i = \deg \omega_i$, $k = k_1 + k_2 + k_3$. 
+	Введем обозначение 
+	$S_{k_1, k_2, k_3} := \{\sigma \in S_k : \sigma(1) < \dotsc < \sigma(k_1), \, \sigma(k_1 + 1) < \dotsc < \sigma(k_1 + k_2), \, \sigma(k_1 + k_2 + 1) < \dotsc < \sigma(k_1 + k_2 + k_3) \}$
+	и рассмотрим $\omega = \sum_{\sigma \in S_{k_1, k_2, k_3}} \epsilon(\sigma) \cdot \sigma(\omega_1 \otimes \omega_2 \otimes \omega_3)$.
+	%Тогда имеем равенство $\omega_1 \wedge (\omega_2 \wedge \omega_3) = \omega = (\omega_1 \wedge \omega_2) \wedge \omega_3$ в силу ассоциативности <<$\otimes$>>, что доказывает ассоциативность <<$\wedge$>>. 
+	Раскрывая последовательно внешние произведения в выражениях $\omega_1 \wedge (\omega_2 \wedge \omega_3)$ и $(\omega_1 \wedge \omega_2) \wedge \omega_3$, получаем, что они оба равны $\omega$.
+
+	\vspace{5pt}
+	Дистрибутивность следует непосредственно из определения.
+
+	\vspace{5pt}
+	Осталось показать суперкоммутативность.
+	Пусть $k = \deg \omega$, $l = \deg \tau$. Рассмотрим биекцию $\varphi: S_{k, l} \to S_{l, k}$, $\sigma \mapsto \widetilde{\sigma}$, меняющую местами блоки индексов:
+	\[ \widetilde{\sigma}(i) = \begin{cases} \sigma(k+i), & 1 \leq i \leq l, \\ \sigma(i-l), & l+1 \leq i \leq k+l. \end{cases} \]
+	Заметим, что переход от последовательности значений $(\sigma(1), \dots, \sigma(k+l))$ к $(\widetilde{\sigma}(1), \dots, \widetilde{\sigma}(k+l))$ равносилен «протаскиванию» блока длины $l$ налево через блок длины $k$. Это требует ровно $kl$ транспозиций соседних элементов. Следовательно, $\varepsilon(\widetilde{\sigma}) = (-1)^{kl} \varepsilon(\sigma)$. % Следовательно, $\varepsilon(\widetilde{\sigma}) = (-1)^{kl} \varepsilon(\sigma)$.
+	Тогда:
+	\[ \tau \wedge \omega = \sum_{\rho \in S_{l, k}} \varepsilon(\rho) \cdot \rho(\tau \otimes \omega) = \sum_{\sigma \in S_{k, l}} \varepsilon(\widetilde{\sigma}) \cdot \widetilde{\sigma}(\tau \otimes \omega). \]
+	Так как $\widetilde{\sigma}(\tau \otimes \omega)$ на наборе векторов выдает $\tau(v_{\sigma(k+1)}, \dotsc, v_{\sigma(k+l)}) \cdot \omega(v_{\sigma(1)}, \dotsc, v_{\sigma(k)})$, что совпадает со значением $\sigma(\omega \otimes \tau)$, то, вынося знак $(-1)^{kl}$, получаем требуемое.
+\end{myproof}
+
+
+\begin{definition}
+	Пусть $\Phi : V \to W$ -- линейное отображение. 
+	Для $\omega \in A_k(W)$ можно рассмотреть форму $\Phi^* \omega \in A_k(V)$ по правилу 
+	\[ \forall v_1, \dotsc, v_k \in V : \Phi^* \omega (v_1, \dotsc, v_k) = \omega (\Phi(v_1), \dotsc, \Phi(v_k)). \]
+	Эта форма называется \textit{pullback-ом} $\omega$.
+\end{definition} 
+
+
+\begin{lemma}
+	Pullback обладает следующими свойствами:
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item $\Phi^* : A_k(W) \to A_k(V)$ линейно и $\Phi^*(\omega \wedge \tau) = \Phi^* \omega \wedge \Phi^* \tau$, 
+		\item $(\Psi \Phi)^* = \Phi^* \Psi^*$, где $\Psi : W \to Z$ -- линейное отображение.
+	\end{enumerate}
+\end{lemma}
+
+\begin{myproof}
+	Линейность очевидна, уважение внешнего произведения проверяется раскрытием левой и правой частей равенства по определению. 
+	Докажем второй пункт, пусть $\omega \in A_k(Z)$ и $v_1, \dots, v_k \in V$. Тогда
+	\[ ((\Psi \Phi)^* \omega)(v_1, \dotsc, v_k) = \omega(\Psi(\Phi v_1), \dotsc, \Psi(\Phi v_k)). \]
+	С другой стороны, по определению действия $\Phi^*$ на форму $\Psi^* \omega$:
+	\[ (\Phi^* (\Psi^* \omega))(v_1, \dotsc, v_k) = (\Psi^* \omega)(\Phi v_1, \dotsc, \Phi v_k) = \omega(\Psi(\Phi v_1), \dotsc, \Psi(\Phi v_k)). \]
+	Результаты совпадают.
+\end{myproof}
+
+\begin{example}
+	Пусть $\alpha^1, \dotsc, \alpha^k \in V^*$, тогда $\forall v_1, \dotsc, v_k \in V : (\alpha^1 \wedge \dotsc \wedge \alpha^k) (v_1, \dotsc, v_k) = \det (\alpha^i(v_j))$.
+	Действительно, в силу равенства $S_{1, \dotsc, 1} = S_k$ имеем: 
+	$(\alpha^1 \wedge \dotsc \wedge \alpha^k) (v_1, \dotsc, v_k) = \sum_{\sigma \in S_k} \epsilon(\sigma) \alpha^1(v_{\sigma(1)}) \dotsc \alpha^k(v_{\sigma(k)})$, что представляет собой развертку определителя.
+\end{example}
+
+\subsection{Дифференциальные формы на открытых множествах $\R^m$}
+	
+Будем отождествлять касательное пространство $T_p \R^m$ с $\R^m$.
+
+\begin{definition}
+	Пусть $U \subset \R^m$ открыто и $k \in \N$. \textit{Дифференциальной $k$-формой} $\omega$ на $U$ называется функция, которая каждой точке $p \in U$ сопоставляет $\omega_p \in A_k(\R^m)$.
+\end{definition}
+
+\begin{note}
+	Дифференциалы $\{dx_1, \dotsc, dx_m\}$ образуют базис $(\R^m)^*$, двойственный к стандартному, 
+	тогда по теореме 7.1 и предыдущему примеру $\{dx_{i_1} \wedge \dotsc \wedge dx_{i_k} : 1 \leq i_1 < \dotsc < i_k \leq m\}$ образует базис пространства $A_k(\R^m)$.
+	Поэтому имеет место представление:
+	\[ \omega_p = \sum \limits_{1 \leq i_1 < \dotsc < i_k \leq m} f_{i_1, \dotsc, i_k}(p) \cdot dx_{i_1} \wedge \dotsc \wedge dx_{i_k} = \sum \limits_{I \in \mathbb{I}_k} f_I(p) dx^I. \]
+	Функции $f_I : U \to \R$ называются \textit{коэффициентами} $k$-формы $\omega$.
+\end{note}
+
+\begin{definition}
+	Пусть $r \in \N_0 \cup \{\infty\}$. Говорят, что форма $\omega$ принадлежит классу $C^r(U)$, если все ее коэффициенты $f_I$ принадлежат классу $C^r(U)$.
+\end{definition}
+
+В дальнейшем, если не оговорено иное, будем рассматривать только гладкие формы, то есть класса $C^\infty$. 
+Множество гладких $k$-форм на $U$ обозначается $\Omega^k(U)$.
+Поскольку $A_0(\mathbb{R}^m) = \mathbb{R}$, то $0$-формы отождествляются с гладкими функциями $\Omega^0(U) = C^{\infty}(U)$.
+
+\begin{note}
+	На дифференциальных формах вводятся операции, определенные поточечно. 
+	Для $\omega, \nu \in \Omega^k(U)$, $\tau \in \Omega^l(U)$ и $f \in C^\infty(U)$ определим:
+	\begin{itemize}[itemsep = 0pt, topsep = 5pt]
+		\item Сложение: $(\omega + \nu)_p = \omega_p + \nu_p$,
+		\item Умножение на функцию: $(f \omega)_p = f(p) \cdot \omega_p$,
+		\item Внешнее произведение: $(\omega \wedge \tau)_p = \omega_p \wedge \tau_p \in A_{k+l}(\mathbb{R}^m)$.
+	\end{itemize} 
+	Легко убедиться, что $f \omega, \, \omega + \nu \in \Omega^k(U)$ и $\omega \wedge \tau \in \Omega^{k+l}(U)$, то есть операции корректны. Таким образом, $\Omega^k(U)$ является, в частности, линейным пространством.
+\end{note}
+
+\begin{example}
+	Рассмотрим вычисление внешнего произведения в координатах.
+	Пусть $\omega = \sum_{I \in \mathbb{I}_k} f_I dx^I$ и $\tau = \sum_{J \in \mathbb{I}_l} g_J dx^J$.
+	Используя свойства внешнего произведения, получим:
+	\[ \omega \wedge \tau = \sum_{I \in \mathbb{I}_k, \, J \in \mathbb{I}_l} f_I g_J \cdot dx^I \wedge dx^J. \]
+\end{example}
+
+
+\begin{definition}
+	Пусть $U \subset \R^m$, $V \subset \R^n$ открыты, определена $f : U \to V$ класса $C^{\infty}$ и $\omega \in \Omega^k(V)$. 
+	Тогда для $p \in U : df_p : \R^m \to \R^n$ является линейным отображением. 
+	\textit{Переносом} $\omega$ называется $f^* \omega \in \Omega^k(U)$, значение которой в $p \in U$ определяется формулой: 
+	\[\forall v_1, \dotsc, v_k \in \R^m : (f^* \omega)_p (v_1, \dotsc, v_k) = \omega_{f(p)} (df_p(v_1), \dotsc, df_p(v_k)). \]
+	Иначе говоря, $(f^* \omega)_p = (df_p)^* (\omega_{f(p)})$ в смысле старого pullback.
+	Отметим, что при $k = 0$ для $g \in C^{\infty}(V)$ имеем $f^* g = g \circ f$.
+\end{definition}
+
+Не ясно, почему $f^* \omega \in \Omega^k(U)$, но это будет обосновано позже (следствие из леммы 7.3).
+
+\begin{note}
+	Перенос обладает следующими свойствами:
+	\begin{enumerate}[itemsep = 0pt, topsep  =5pt]
+		\item Перенос линеен и $f^*(\omega \wedge \tau) = f^* \omega \wedge f^* \tau$, 
+		\item Если $f : U \to V$, $g : V \to W$ класса $C^\infty$, то $(g \circ f)^* = f^* \circ g^*$.
+	\end{enumerate}
+\end{note}
+
+\begin{myproof}
+	Первый пункт следует из свойств pullback, докажем второй.
+	Пусть $\omega \in \Omega^k(W)$. Вычислим $(g \circ f)^* \omega$ в точке $p \in U$ на $v_1, \dots, v_k \in \mathbb{R}^m$:
+	$((g \circ f)^* \omega)_p (v_1, \dotsc, v_k) = \omega_{(g \circ f)(p)} (d(g \circ f)_p(v_1), \dotsc, d(g \circ f)_p(v_k))$. 
+	С другой стороны, рассмотрим форму $f^* (g^* \omega)$. Тогда
+	\[ (f^* (g^* \omega))_p (v_1, \dots) = (g^* \omega)_{f(p)} (df_p(v_1), \dots) = \omega_{(g \circ f)(p)} (dg_{f(p)}(df_p(v_1)), \dots). \]
+	Поскольку $d(g \circ f)_p = dg_{f(p)} \circ df_p$, то результаты совпадают.
+\end{myproof}
+
+
+\begin{lemma}[\textbf{перенос как замена переменной}]
+	Пусть $U \subset \R^m$, $V \subset \R^n$ открыты, определена функция $f : U \to V$ класса $C^{\infty}$, где $f = (f_1, \dotsc, f_n)$, и $\omega \in \Omega^k(V)$, где $\omega = \sum_{I \in \mathbb{I}_k} a_I \, dx^I$.
+	Тогда 
+	\[ f^* \omega = \sum_{I \in \mathbb{I}_k} (a_I \circ f) \cdot df_{i_1} \wedge \dotsc \wedge df_{i_k}. \]
+\end{lemma}
+
+\begin{myproof}
+	Раскроем левую часть по свойствам переноса:
+	\[ f^* \omega = f^* \left( \sum_{I \in \mathbb{I}_k} a_I \, dx_{i_1} \wedge \dotsc \wedge dx_{i_k} \right) = \sum_{I \in \mathbb{I}_k} f^*(a_I) \cdot f^*(dx_{i_1}) \wedge \dotsc \wedge f^*(dx_{i_k}). \]
+	Имеем $f^*(a_I) = a_I \circ f$, а для 1-формы $dx_i$ и $\forall v \in \R^m$:
+	\[ f^*(dx_i)(v) = dx_i (df (v)) = d(x_i \circ f)(v) = df_i (v). \]
+	Подставляя эти выражения обратно в сумму, получаем требуемую формулу.
+\end{myproof}
+
+\begin{corollary}
+	Перенос $f^*$ сохраняет гладкость, то есть формы из $\Omega^k(V)$ переводит в формы из $\Omega^k(U)$ ($f^* : \Omega^k(V) \to \Omega^k(U)$).
+\end{corollary}
+
+\begin{myproof}
+	Так как $f_i \in C^\infty(U)$, то их дифференциалы $df_i$ принадлежат $\Omega^1(U)$.
+	Коэффициенты $a_I \circ f$ принадлежат $C^\infty(U)$ как композиции гладких функций.
+	Поскольку сумма и внешнее произведение гладких форм являются гладкими формами, то $f^* \omega \in \Omega^k(U)$.
+\end{myproof}
+
+\vspace{5pt}
+Выясним, как переносится форма максимальной степени.
+
+\begin{example}
+	Пусть $U \subset \R^m$ открыто и задана $m$-форма $\omega = f(x) \cdot dx_1 \wedge \dotsc \wedge dx_m$. 
+	Пусть $g : W \to U$ -- диффеоморфизм, $x = g(t)$, тогда $g^* \omega = (f \circ g) \cdot J_g \cdot dt_1 \wedge \dotsc \wedge dt_m$. В частности,
+	\[ dg_1 \wedge \dotsc \wedge dg_m = J_g \cdot dt_1 \wedge \dotsc \wedge dt_m. \]
+\end{example}
+
+\begin{myproof}
+	Так как $dg_i = \sum \limits_{j=1}^m \frac{\partial g_i}{\partial t_j} dt_j$, то по полилинейности:
+	\[ dg_1 \wedge \dotsc \wedge dg_m = \sum_{1 \leq j_1, \dotsc, j_m \leq m} \frac{\partial g_1}{\partial t_{j_1}} \dotsm \frac{\partial g_m}{\partial t_{j_m}} \, \cdot dt_{j_1} \wedge \dotsc \wedge dt_{j_m}. \]
+	Слагаемые с повторяющимися индексами равны нулю, это следует из суперкоммутативности: $dt_i \wedge dt_i = 0$. Ненулевые слагаемые соответствуют $\sigma \in S_m$, где $j_k = \sigma(k)$. Пусть $dt_{\sigma(1)} \wedge \dotsc \wedge dt_{\sigma(m)} = \varepsilon(\sigma) \cdot dt_1 \wedge \dotsc \wedge dt_m$. Тогда 
+	\[ dg_1 \wedge \dotsc \wedge dg_m = \left( \sum_{\sigma \in S_m} \varepsilon(\sigma) \frac{\partial g_1}{\partial t_{\sigma(1)}} \dotsm \frac{\partial g_m}{\partial t_{\sigma(m)}} \right) \cdot dt_1 \wedge \dotsc \wedge dt_m. \]
+	Выражение в скобках совпадает с $\det Dg = J_g$.
+\end{myproof}
+
+\begin{definition}
+	Пусть $U \subset \mathbb{R}^m$ открыто и $\omega = \sum_{I \in \mathbb{I}_k} f_I dx^I \in \Omega^k(U)$. 
+	\textit{Внешним дифференциалом} формы $\omega$ называется форма $d\omega \in \Omega^{k+1}(U)$, определенная формулой:
+	\[ d \omega := \sum_{I \in \mathbb{I}_k} df_I \wedge dx^I. \]
+\end{definition}
+
+\begin{example}
+	Пусть $\omega = P dx + Q dy$ в $\mathbb{R}^2$. Тогда 
+	\[ d \omega = dP \wedge dx + dQ \wedge dy = \left( \frac{\partial P}{\partial x} dx + \frac{\partial P}{\partial y} dy \right) \wedge dx + \left( \frac{\partial Q}{\partial x} dx + \frac{\partial Q}{\partial y} dy \right) \wedge dy. \]
+	Учитывая, что $dx \wedge dx = 0$, $dy \wedge dy = 0$ и $dy \wedge dx = - dx \wedge dy$, получаем:
+	\[ d\omega = \frac{\partial P}{\partial y} dy \wedge dx + \frac{\partial Q}{\partial x} dx \wedge dy = \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dx \wedge dy. \]
+\end{example}
+
+\begin{problem}
+	Докажите, что для любых векторов $v_1, \dotsc, v_{k+1} \in \mathbb{R}^m$ и $p \in U$ справедливо равенство ($\widehat{v_j}$ означает пропуск аргумента):
+	\[ d \omega_p (v_1, \dotsc, v_{k+1}) = \sum \limits_{j=1}^{k+1} (-1)^{j-1} \frac{d}{dt} \Big|_{t = 0} \omega_{p + tv_j} (v_1, \dotsc, \widehat{v_j}, \dotsc, v_{k+1}). \]
+\end{problem}

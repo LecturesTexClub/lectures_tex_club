@@ -1,0 +1,242 @@
+
+\begin{note}
+	Если в условиях теоремы функция $f \in C^k$, где $k \in \N \cup \{\infty\}$, то и $f^{-1} \in C^k$.
+	Действительно, по индукции, база при $k = 1$ доказана. Если $f \in C^{k+1}$, то ее частные производные лежат в $C^k$ и $f^{-1} \in C^k$ по предположению индукции. 
+	Следовательно, частные производные $f^{-1}$ лежат в $C^k$ (из равенства выше для $Df^{-1}(y)$), откуда $f^{-1} \in C^{k+1}$.
+\end{note}
+
+\begin{corollary}
+	Пусть $U \subset \R^n$ открыто и $f : U \to \R^n$ класса $C^1$. Если $J_f \neq 0$ на $U$, то $f(U)$ открыто в $\R^n$.
+\end{corollary}
+
+\begin{myproof}
+	Пусть $b \in f(U)$ и $b = f(a)$ для некоторой $a \in U$. 
+	По теореме об обратной функции найдутся открытое $W \ni a$, $W \subset U$, и открытое $V \ni b$, что $f|_W : W \to V$ -- диффеоморфизм. 
+	Так как $b \in V = f(W) \subset f(U)$, то точка $b$ является внутренней для $f(U)$.
+\end{myproof}
+
+\begin{definition}
+	Если $\forall x \in U$ существует ее окрестность $W_x \subset U$, что $f|_{W_x} : W_x \to f(W_x)$ -- диффеоморфизм, то $f$ называется \textit{локальным диффеоморфизмом}.
+\end{definition}
+
+Таким образом, если $f : U \to \R^n$ класса $C^1$ с $J_f \neq 0$, то $f$ -- локальный диффеоморфизм, причем верно и обратное утверждение : $C^1$-гладкость выполнена, так как это локальное свойство, а $J_f \neq 0$ из невырожденности $Df(x)$ в каждой точке для диффеоморфизма. 
+
+\begin{problem}
+	Докажите, что если к условиям следствия добавить инъективность, то $f$ является (глобальным) диффеоморфизмом.
+\end{problem}
+
+\begin{example}[полярные координаты]
+	Пусть 
+	\[ U = \{(r, \phi) \in \R^2 : r > 0, \ 0 < \phi < 2 \pi \}, \quad V = \R^2 \setminus \{(x, 0) \in \R^2 : x \geq 0\}. \]
+	Тогда $g : U \to V$, $g(r, \phi) = (r \cos \phi, r \sin \phi)$ -- диффеоморфизм. 
+\end{example}
+
+\begin{myproof}
+	Покажем, что $\forall (x, y) \in V \ \exists ! \, (r, \phi) : g(r, \phi) = (x, y)$. 
+	Действительно, можно конструктивно показать существование и единственность прообраза для каждой точки из $V$:
+	\[ r = \sqrt{x^2 + y^2}, \quad \phi = \begin{cases}
+	 \arctg \frac{y}{x}, & x, y > 0, \\  
+	 \pi + \arctg \frac{y}{x}, & x < 0, \\ 
+	 2\pi + \arctg \frac{y}{x}, & y < 0, x \geq 0.
+	\end{cases} \]
+	Отсюда функция $g$ биективна. Очевидно, что $g \in C^1(U)$. $Dg = \begin{pmatrix}
+		\cos \phi & - r \sin \phi \\ 
+		\sin \phi & r \cos \phi
+	\end{pmatrix}$, откуда $J_g = r > 0$.
+	Следовательно, $g^{-1} \in C^1(V)$ из теоремы об обратной функции.
+\end{myproof}
+
+\begin{problem}[сферические координаты]
+	Пусть 
+	\[ U = \{(r, \phi, \psi) : r > 0, \ 0 < \phi < 2\pi, \ -\pi/2 < \psi < \pi/2\}, \quad V = \R^3 \setminus \{(x, 0, z) : x \geq 0, \ z \in \R\}. \]
+	Докажите, что $g : U \to V$, $g(r, \phi, \psi) = (r \cos \phi \cos \psi, r \sin \phi \cos \psi, r \sin \psi)$ является диффеоморфизмом.
+\end{problem}
+
+\begin{definition}
+	Если задан диффеоморфизм $g : U \to V$ между открытыми $U, V \subset \R^n$, то говорят, что на $V$ введена \textit{криволинейная система координат}:
+	для $x \in V$, $x = g(u_1, \dotsc, u_n)$, числа $u_1, \dotsc, u_n$ называются \textit{криволинейными координатами}.
+\end{definition}
+
+\begin{note}
+	Локальный диффеоморфизм при $n > 1$ необязательно обратим.
+	Например, функция $g : U \to V$, $g(r, \phi) = (r \cos \phi, r \sin \phi)$, где $U = \{(r, \phi) : r > 0, \ \phi \in \R\}$, $V = \R^2$, $J_g = r \neq 0$, не является инъективной.
+\end{note}
+
+\begin{problem}
+	Пусть функция $f : \R^n \to \R^n$ класса $C^1$ и такая, что $|f(x) - f(y)| \geq |x - y|$ для всех $x, y \in \R^n$. 
+	Докажите, что $f$ -- диффеоморфизм.
+\end{problem}
+
+
+
+\subsection{Теорема о неявной функции. Неявное дифференцирование}
+
+
+Изучим вопрос, когда множество нулей гладкой функции $F$ является графиком $f$.
+
+\vspace{5pt}
+
+Переменные в $\R^n_x \times \R^m_y = \R^{n+m}$ будем записывать в виде $(x, y) = (x_1, \dotsc, x_n, y_1, \dotsc, y_m)$. 
+
+Пусть $U \subset \R^{n+m}$ открыто и задана функция $F : U \to \R^m$, $F = (F_1, \dotsc, F_m)$. 
+Если $F$ дифференцируема в точке $p = (a, b)$, то ее матрица Якоби $DF(p)$ имеет вид 
+\[ \begin{pmatrix}
+	\frac{\partial F_1}{\partial x_1} & \dotsc & \frac{\partial F_1}{\partial x_n} & \frac{\partial F_1}{\partial y_1} & \dotsc & \frac{\partial F_1}{\partial y_m} \\
+	\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\ 
+	\frac{\partial F_m}{\partial x_1} & \dotsc & \frac{\partial F_m}{\partial x_n} & \frac{\partial F_m}{\partial y_1} & \dotsc & \frac{\partial F_m}{\partial y_m} \\
+\end{pmatrix} = \left( \dfrac{\partial F}{\partial x} (p) \ \dfrac{\partial F}{\partial y} (p) \right), \]
+где $\frac{\partial F}{\partial x}(p)$ -- матрица Якоби $x \mapsto F(x, b)$ в точке $a$, $\frac{\partial F}{\partial y} (p)$ -- матрица Якоби $y \mapsto F(a, y)$ в точке $b$.
+Следующая теорема даст условие, при котором $F(x, y) = 0$ разрешимо относительно $y$, то есть $y = f(x)$ для некоторой $f$. Интуитивно, это возможно, если система <<невырождена>> по $y$. Это условие будет задано при помощи матрицы $\frac{\partial F}{\partial y} (p)$.
+
+
+\begin{theorem}[\textbf{о неявной функции}]
+	Пусть $U \subset \R^{n+m}$ открыто и $(a, b) \in U$. 
+	Если $F : U \to \R^m$ класса $C^1$, $F(a, b) = 0$ и $\det \frac{\partial F}{\partial y}(a, b) \neq 0$, то существуют такие открытые $W \subset \R^n: a \in W$, $V \subset \R^m: b \in V$ и функция $f : W \to V$ класса $C^1$, что 
+	$W \times V \subset U$, и 
+	\[ \forall (x, y) \in W \times V : F(x, y) = 0 \iff y = f(x). \]
+\end{theorem}
+
+\begin{myproof}
+	Рассмотрим отображение $\Phi : U \to \R^n_u \times \R^m_v$, где $\Phi(x, y) = (x, F(x, y))$. 
+	Функция $\Phi \in C^1(U)$ и $D \Phi (a, b) = \begin{pmatrix}
+		E & 0 \\ 
+		\frac{\partial F}{\partial x}(a, b) & \frac{\partial F}{\partial y}(a, b) 
+	\end{pmatrix}$, а значит, якобиан $J_{\Phi}(a, b) = \det \frac{\partial F}{\partial y}(a, b) \neq 0$. 
+	По теореме об обратной функции существуют открытые $O_1 \ni (a, b)$ и $O_2 \ni \Phi(a, b) = (a, 0)$, что 
+	$\Phi : O_1 \to O_2$ -- диффеоморфизм. 
+	Из вида $\Phi$ заключаем, что $\Phi^{-1}(u, v) = (u, g(u, v))$ для некоторой $g \in C^1$.
+	Композиции $\Phi^{-1} \circ \Phi$ на $O_1$ и $\Phi \circ \Phi^{-1}$ на $O_2$ приводят к равенствам 
+	\[ (x, y) = \Phi^{-1}(x, F(x, y)) = (x, g(x, F(x, y))) \Ra y = g(x, F(x, y)), \tag{1} \]
+	\[ (u, v) = \Phi(u, g(u, v)) = (u, F(u, g(u, v))) \Ra v = F(u, g(u, v)). \tag{2} \]
+	Положим $W = \{x \in \R^n : (x, 0) \in O_2\}$ и функцию $f(x) = g(x, 0)$, $x \in W$. 
+	Тогда $W$ открыто и $f \in C^1(W)$.
+	Так как $(a, b) \in O_1$, то $\exists W_a \ni a$, $V \ni b : W_a \times V \subset O_1$. 
+	Заменим $W$ на $W \cap W_a \cap f^{-1}(V)$. 
+	Тогда для этих $W, V$ выполнены все условия. 
+
+	\begin{figure}[h!]
+\centering
+\begin{framed}
+
+\begin{tikzpicture}[>=Stealth, thick, font=\sffamily\large, scale=0.8, transform shape]
+
+% --- Left System (xy-plane) ---
+\begin{scope}
+    % Axes
+    \draw[->] (-0.5,0) -- (6,0) node[below left] {$x$};
+    \draw[->] (0,-1.5) -- (0,5.5) node[below left] {$y$};
+
+    % Coordinates and Intervals
+    \coordinate (A) at (2.5, 2.5); % Point (a,b)
+    \def\wx{1.2} % half-width of W
+    \def\wy{1.2} % half-height of V
+
+    \draw[blue, very thick] (2.5-\wx, 0) -- (2.5+\wx, 0);
+    \draw[blue] (2.5-\wx, -0.1) -- (2.5-\wx, 0.1);
+    \draw[blue] (2.5+\wx, -0.1) -- (2.5+\wx, 0.1);
+    \draw[blue, fill] (2.5, 0) circle (1.5pt) node[below=3pt, black] {$a$};
+    \node[blue, below] at (2.5+\wx+0.3, 0) {$W$};
+
+    % Ticks and Labels on y-axis (V)
+    \draw[blue, very thick] (0, 2.5-\wy) -- (0, 2.5+\wy);
+    \draw[blue] (-0.1, 2.5-\wy) -- (0.1, 2.5-\wy);
+    \draw[blue] (-0.1, 2.5+\wy) -- (0.1, 2.5+\wy);
+    \draw[blue, fill] (0, 2.5) circle (1.5pt) node[left=3pt, black] {$b$};
+    \node[blue, left] at (0, 2.5+\wy+0.3) {$V$};
+
+    % Rectangle W x V
+    \draw[blue] (2.5-\wx, 2.5-\wy) rectangle (2.5+\wx, 2.5+\wy);
+
+    % Point (a,b) inside
+    \draw[blue, fill] (A) circle (2pt);
+
+    % Set O1 (Circle)
+    \draw (2.7, 2.7) circle (2.2);
+    \node at (4.8, 4.8) {$O_1$};
+
+    % Curve F(x,y) = 0
+    \draw[red, very thick] (0.8, 1.8) to[out=50, in=190] (A) to[out=10, in=175] (4.5, 2.9);
+    \node[red, above right] at (1.2, 1.4) {$F(x,y)\!=\!0$};
+\end{scope}
+
+% --- Mapping Arrows ---
+\begin{scope}[xshift=7.5cm, yshift=3cm]
+    \draw[->, very thick] (0, 0.5) -- (2.5, 0.5) node[midway, above] {\Large $\Phi$};
+    \draw[<-, very thick] (0, -0.5) -- (2.5, -0.5) node[midway, below] {\Large $\Phi^{-1}$};
+\end{scope}
+
+% --- Right System (uv-plane) ---
+\begin{scope}[xshift=12cm]
+    % Axes
+    \draw[->] (-0.5,0) -- (6,0) node[below left] {$u$};
+    \draw[->] (0,-1.5) -- (0,5.5) node[below left] {$v$};
+
+    % Center point on u-axis
+    \coordinate (Au) at (2.5, 0);
+    \draw[blue, fill] (Au) circle (2pt);
+    \node[below=3pt] at (Au) {$a$};
+
+    % Transformed Set O2 (Ellipse-like)
+    \draw (2.7, 0) ellipse (2.5 and 1.2);
+	\node at (5, 1.2) {$O_2$};
+
+    % Transformed Curve (Horizontal Line v=0)
+    \draw[red, very thick] (0.5, 0) -- (5, 0);
+
+    % Transformed Rectangle (Deformed Blue Shape)
+    \coordinate (BL) at (1.6, -0.8);
+    \coordinate (BR) at (3.6, -0.8);
+    \coordinate (TR) at (3.6, 0.8);
+    \coordinate (TL) at (1.6, 0.8);
+    
+    \draw[blue, thick] (BL) to[out=10, in=170] (BR) -- (TR) to[out=200, in=-20] (TL) -- cycle;
+
+\end{scope}
+\end{tikzpicture}
+\end{framed}
+\end{figure}
+
+	\vspace{-15pt}
+	Осталось показать справедливость заключения теоремы. Пусть $(x, y) \in W \times V$. 
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item Если $F(x, y) = 0$, то по равенству (1): $y = g(x, 0) = f(x)$, 
+		\item Если $y = f(x)$, то, положив в (2) $(u, v) = (x, 0)$, получим: $0 = F(x, g(x, 0)) = F(x, y)$. 
+	\end{enumerate}
+	Мы доказали, что локально множество нулей $F$ совпадает с графиком $f(x)$.
+\end{myproof} 
+
+
+
+
+\begin{corollary}[\textbf{неявное дифференцирование}]
+	В условиях теоремы о неявной функции матрица Якоби $\frac{\partial f}{\partial x}$ функции $f$ на $W$ задается формулой 
+	\[ \frac{\partial f}{\partial x} (x) = - \left( \frac{\partial F}{\partial y} (x, f(x)) \right)^{-1} \frac{\partial F}{\partial x} (x, f(x)). \]
+\end{corollary}
+
+\begin{myproof}
+	Равенство $F(x, f(x)) = 0$ выполняется на $W$ тождественно.
+	Пусть $H(x) = F(\gamma(x))$, где $\gamma(x) = (x, f(x))$.
+	Тогда $D \gamma(x) = \begin{pmatrix}
+		E \\ 
+		\frac{\partial f}{\partial x}(x)
+	\end{pmatrix}$, $DF (x, f(x)) = \left( \frac{\partial F}{\partial x}(x, f(x)) \ \frac{\partial F}{\partial y}(x, f(x)) \right)$.
+	По правилу дифференцирования композиции $DH(x) = DF(\gamma(x)) \cdot D\gamma(x) = 0$, откуда
+	\[ \begin{pmatrix}
+		\frac{\partial F}{\partial x}(x, f(x)) & \frac{\partial F}{\partial y}(x, f(x))
+	\end{pmatrix} 
+	\begin{pmatrix}
+		E \\ 
+		\frac{\partial f}{\partial x}(x)
+	\end{pmatrix} = 0 \iff \frac{\partial F}{\partial x}(x, f(x)) + \frac{\partial F}{\partial y}(x, f(x)) \cdot \frac{\partial f}{\partial x}(x) = 0. \]
+	Так как матрица Якоби $D \Phi(x, y)$ обратима на $O_1$, то матрица $\frac{\partial F}{\partial y}(x, f(x))$ будет обратима на $W$. 
+	Искомая формула тогда следует из последнего равенства.
+\end{myproof}
+
+\begin{note}
+	Если в условиях теоремы $F \in C^r$, то неявно заданная $f \in C^r$. 
+	Это также проверяется индукцией по порядку гладкости с использованием формулы неявного дифференцирования.
+\end{note}
+
+\begin{problem}
+	Докажите, что теорема об обратной и неявной функции эквивалентны.
+\end{problem}

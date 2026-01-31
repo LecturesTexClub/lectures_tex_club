@@ -1,0 +1,221 @@
+\begin{lemma}
+	Если $E \subset U$ измеримо, то $g(E)$ измеримо и 
+	\[ \mu(g(E)) \leq \int_{E} |J_g(x)| \, d\mu (x). \]
+\end{lemma}
+
+ \begin{myproof}
+	Для $m \in \N$ определим $W_m = \{x \in U : ||x|| < m \wedge |J_g(x)| < m\}$. 
+	Тогда $W_m$ открыто как пересечение $U \cap B_{m}(0) \cap [|J_g|]^{-1}((-\infty, m))$ и $\bigcup \limits_{m=1}^{\infty} W_m = U$. 
+	Следуем от простого к сложному.
+
+	Пусть сначала $E \subset W_m$ и $E = \bigcap \limits_{k = 1}^{\infty} G_k$, где $G_k \supset G_{k+1}$ для всех $k$ и $G_k$ открыты. 
+	Без ограничения можно считать, что все $G_k \subset W_m$, иначе просто заменим $G_k \mapsto G_k \cap W_m$. 
+	Тогда $g(E) = \bigcap \limits_{k=1}^{\infty} g(G_k)$ измеримо как $G_{\delta}$-множество и по непрерывности меры (корректность гарантируется условием $G_1 \subset W_m \subset B_{m+1}(0)$, так как шар имеет конечную меру):
+	\[ \mu(g(E)) = \lim \limits_{k \to \infty} \mu(g(G_k)) \leq \lim \limits_{k \to \infty} \int_{G_k} |J_g(x)| \, d\mu(x) = \int_{E} |J_g(x)| \, d\mu(x). \]
+	Последнее равенство выполнено по теореме Лебега, примененной к $f_k = |J_g(x)|\cdot I_{G_k}$
+
+	\vspace{5pt}
+	Пусть теперь $E = Z$ -- множество меры нуль в $W_m$. По критерию измеримости $\exists \Omega_0$ -- $G_{\delta}$ множество такое, что $\Omega_0 \supset E$ и $\mu(\Omega_0) = 0$. 
+	Без ограничения считаем, что $\Omega_0 \subset W_m$. Тогда 
+	\[ \mu^*(g(E)) \leq \mu^*(g(\Omega_0)) = \mu(g(\Omega_0)) \leq \int_{\Omega_0} |J_g(x)| \, d\mu(x) = 0. \]
+	То есть $g(E)$ измеримо и имеет нулевую меру.
+
+	\vspace{5pt}
+	Пусть $E \subset W_m$ -- произвольное измеримое множество. Тогда $E = \Omega \setminus Z$, где 
+	$\Omega$ -- $G_{\delta}$ множество из $W_m$ и $Z$ -- множество меры нуль. 
+	Следовательно, $g(E) = g(\Omega) \setminus g(Z)$ измеримо как разность измеримых множеств и
+	\[ \mu(g(E)) \leq \mu(g(\Omega)) \leq \int_{\Omega} |J_g(x)| \, d\mu(x) \leq \int_{E} |J_g(x)| \, d\mu(x). \]
+
+	Пусть $E \subset U$ -- произвольное измеримое множество. Так как $\bigcup \limits_{m=1}^{\infty} W_m = U$, то $E = \bigcup \limits_{m=1}^{\infty} E_m$, где $E_m = E \cap W_m$. 
+	По доказанному $\mu(g(E_m)) \leq \int_{E_m} |J_g(x)| \, d\mu(x)$. 
+	Тогда 
+	\[ \mu(g(E)) = \lim \limits_{m \to \infty} \mu(g(E_m)) \leq \lim \limits_{m \to \infty} \int_{E_m} |J_g(x)| \, d\mu(x) = \int_{E} |J_g(x)|\, d\mu(x). \] 
+	Последнее равенство выполнено по теореме Леви, примененной к $f_m = |J_g(x)|\cdot I_{E_m}$.
+ \end{myproof}
+
+ \begin{reminder}
+    Пусть $g : U \to V$ -- диффеоморфизм открытых $U, V \subset \R^n$ и $E \subset U$ измеримо. 
+    Если $f$ неотрицательная измеримая или интегрируемая на $g(E)$, то 
+    \[ \int_{g(E)} f(y) \, d\mu(y) = \int_{E} (f \circ g)(x) \cdot |\det Dg(x)| \, d\mu(x). \]
+\end{reminder}
+
+\begin{myproof}
+	Пусть $f$ -- неотрицательная измеримая функция на $g(E)$.
+	$\forall a \in \R$ 
+	имеем $\{x \in E : f(g(x)) < a\} = g^{-1} \{y \in g(E) : f(y) < a\}$. 
+	Диффеоморфизм сохраняет измеримость, поэтому $\{x \in E : f(g(x)) < a\}$ и $\{y \in g(E) : f(y) < a\}$ измеримы одновременно, то есть функции $f \circ g$ на $E$ и $f$ на $g(E)$ измеримы одновременно.
+	Это гарантирует корректность. 
+
+	\vspace{5pt}
+	Рассмотрим $F : U \times \R \to V \times \R$, где $F(x, t) = (g(x), t)$. 
+	Ясно, что это также будет диффеоморфизмом. Заметим, что 
+	$DF = \begin{pmatrix}
+		Dg & 0 \\ 
+		0 & 1 
+	\end{pmatrix}$, 
+	поэтому $|J_F| = |J_g|$.
+	Для подграфика $B = \{(y, t) : y \in g(E), \ 0 < t < f(y)\}$ мы знаем, что $\mu(B) = \int_{g(E)} f(y) \, d\mu(y)$. 
+	Дополнительно рассмотрим подграфик $A = \{(x, t) : x \in E, \ 0 < t < f(g(x))\}$. % ? 
+	Имеем $F(A) = B$, поэтому
+	\[ \mu(B) = \mu(F(A)) \leq \int_{A} |J_F| \, d\mu = \int_{E} \left( \int_0^{f(g(x))} |J_g| \, dt \right) \, dx. \]
+	Последнее равенство выполнено по теореме Тонелли. Осталось заметить, что $J_g$ зависит только от $x$, поэтому 
+	последний интеграл равен $\int_{E} f(g(x)) \cdot |J_g(x)| \, d\mu(x)$. 
+	Итак, 
+	\[ \int_{g(E)} f(y) \, d\mu(y) \leq \int_{E} f(g(x)) \cdot |J_g(x)| \, d\mu(x). \]
+	Чтобы получить обратное неравенство, сделаем замену $x = g^{-1}(y)$, тогда 
+	\[ \int_{E} f(g(x)) \cdot |J_g(x)| \, d\mu(x) \leq \int_{g(E)} f(y) \cdot |J_g(g^{-1}(y))| \cdot |J_{g^{-1}} (y)| \, d\mu(y) = \int_{g(E)} f(y) \, d\mu(y). \]
+	Таким образом, равенство интегралов установлено.
+	Для интегрируемых функций $f$ доказательство следует из представления $f = f^+ - f^-$ и применения формулы к $f^{\pm}$.
+\end{myproof}
+
+\begin{corollary}
+	В условиях теоремы 
+	$\mu(g(E)) = \int_{E} |J_g(x)| \, d\mu(x)$. 
+\end{corollary}
+
+\begin{note}
+	В теореме 1.4 условия на $g$ можно ослабить. Пусть $U \subset V \subset \R^n$, $U$ открыто,
+	$g : V \to \R^n$, $g|_{U}$ -- диффеоморфизм, $\mu(V \setminus U) = \mu( g(V) \setminus g(U) ) = 0$. 
+	Если $E$ измеримо в $V$, $f$ неотрицательная измеримая или интегрируемая на $g(E)$, то
+	\[ \int_{g(E)} f(y) \, d\mu(y) = \int_{E} (f \circ g)(x) \cdot |\det Dg(x)| \, d\mu(x). \]
+\end{note}
+
+\begin{myproof}
+	Действительно, пренебрегая множествами меры нуль, получаем
+	\[ \int_{g(E)} f(y) \, d\mu(y) = \int_{g(E \cap U)} f(y) \, d\mu(y) = \int_{E \cap U} (f \circ g) \cdot |J_g| \, d\mu = \int_{E} (f \circ g) \cdot |J_g| \, d\mu, \]
+	где среднее равенство выполнено по теореме 1.4.
+\end{myproof}
+
+\begin{example}
+	Вычислим интеграл Пуассона $I = \int \limits_{0}^{+\infty} e^{-x^2} \, dx$.
+\end{example}
+
+\begin{myproof}
+	Рассмотрим $I^2 = \int \limits_{0}^{+\infty} e^{-x^2} \, dx \cdot \int \limits_{0}^{+\infty} e^{-y^2} \, dy$. 
+	По теореме Тонелли это произведение можно свернуть в один двойной интеграл $\iint \limits_{(0, +\infty)^2} e^{-(x^2+y^2)} \, dx \, dy$. 
+	Применим теорему о замене переменных и перейдем к полярным координатам, тогда 
+	\[ I^2 = \iint \limits_{(0, \pi/2) \times (0, +\infty)} e^{-r^2} r \, dr \, d \phi = \int \limits_{0}^{\pi/2} d \phi \int \limits_{0}^{+\infty} e^{-r^2}r \, dr = \frac{1}{2} \int_0^{\pi/2} \, d \phi \int_0^{+\infty} e^{-t} \, dt = \frac{\pi}{4}. \]
+	Поскольку $I$ очевидно положителен, то $I = \sqrt{\pi}/2$. 
+\end{myproof}
+
+
+
+
+\newpage
+
+
+
+
+
+\section{Теоремы об обратной и неявной функции}
+
+\subsection{Теорема об обратной функции. Криволинейные координаты}
+
+\begin{reminder}
+	Множество $B \subset \R^n$ называется \textit{выпуклым}, если $\forall x , y \in B : [x, y] \subset B$.
+\end{reminder}
+
+\begin{lemma}
+	Пусть $f : U \to \R^m$, $f = (f_1, \dotsc, f_m)$ дифференцируема на $U \subset \R^n$ открытом и $B \subset U$ выпукло. 
+	Если $|\frac{\partial f_i}{\partial x_j}(x)| \leq M$ для всех $x \in B$, $1 \leq i \leq m$, $1 \leq j \leq n$, то 
+	\[ \forall x, y \in B : |f(y) - f(x)| \leq  nmM \cdot |y - x|. \]
+\end{lemma}
+
+\begin{myproof}
+	Пусть $x, y \in B$, тогда для $i = 1, \dotsc, m$ рассмотрим дифференцируемую функцию $g_i(t) = f_i(x + t(y - x))$, $t \in [0, 1]$.
+	Тогда по теореме Лагранжа имеем 
+	\[ f_i(y) - f_i(x) = g_i(1) - g_i(0) = g'_i(c_i), \ c_i \in (0, 1). \]
+	По определению $g'_i(c_i) = \sum \limits_{j=1}^{n} \frac{\partial f_i}{\partial x_j} (x + c_i(y - x))(y_j - x_j)$ (как производная композиции $g_i(t) = f_i(h(t))$, где $f_i : \R^n \to \R$ и $h = x+t(y-x) : \R \to \R^n$).  
+	Следовательно,
+	\[ |g'_i(c_i)| \leq M \cdot \sum \limits_{j=1}^{n} |y_j - x_j| \leq nM\cdot |y - x|. \]
+	Откуда $|f_i(y) - f_i(x)| \leq nM \cdot |y - x|$ и $|f(y) - f(x)| \leq nm M \cdot |y - x|$. 
+\end{myproof}
+
+\begin{corollary}
+	Если частные производные $f$ непрерывны в точке $a \in U$, то 
+	\[ \forall \epsilon > 0 \ \exists \delta > 0 \ \forall x, y \in B_{\delta}(a) : |f(y) - f(x) - df_a (y-x)| \leq \epsilon |y - x|. \]
+\end{corollary}
+
+\begin{myproof}
+	Применим лемму к $g(z) = f(z) - df_a(z)$. 
+	Так как дифференциал линейного отображения $L$ в любой точке совпадает с самим отображением ($dL_z = L$), то 
+	$dg_z = df_z - df_a$, откуда $\frac{\partial g_i}{\partial x_j}(z) = \frac{\partial f_i}{\partial x_j} (z) - \frac{\partial f_i}{\partial x_j} (a)$. 
+	В силу непрерывности частных производных имеем
+	\[ \forall \epsilon > 0 \ \exists \delta > 0 \ \forall z \in B_{\delta}(a) : \left|\frac{\partial g_i}{\partial x_j} (z)\right| \leq \frac{\epsilon}{mn}. \]
+	Тогда по лемме 2.1 $|g(y) - g(x)| \leq \epsilon |y - x|$, что совпадает с заявленным.
+\end{myproof}
+
+\begin{theorem}[\textbf{Банах}]
+	Пусть $C \subset \R^n$ -- непустое замкнутое множество и отображение $F : C \to C$ -- \textbf{сжимающее}, то есть
+	$\exists \lambda \in (0, 1) \ \forall x, y \in C : |F(x) - F(y)| \leq \lambda |x - y|$. 
+	Тогда $\exists! \, x^* \in C : F(x^*) = x^*$.
+\end{theorem}
+
+\begin{myproof}
+	Пусть $x_0 \in C$, рассмотрим последовательность $x_{k+1} = F(x_k)$. 
+	Тогда по условию $|x_{k+1} - x_k| \leq \lambda^k |x_1 - x_0|$ для всех $k$. 
+	Следовательно, 
+	\[ |x_{n+p} - x_n| \leq |x_{n+p} - x_{n+p-1}| + \dotsc + |x_{n+1} - x_n| \leq (\lambda^{n+p-1} + \dotsc + \lambda^{n}) |x_1 - x_0| \leq \frac{\lambda^n}{1-\lambda} |x_1 - x_0|. \]
+	Так как $\lambda^n \to 0$ при $n \to \infty$, то $\{x_n\}$ фундаментальна и сходится к некоторой точке $x^*$.
+	В силу замкнутости $C$ имеем $x^* \in C$. 
+	Так как $x_{n+1} = F(x_n)$ и $F$ непрерывна как липшицева, то, переходя к пределу, получим $x^* = F(x^*)$.
+
+	\vspace{5pt}
+	Покажем единственность: если $y^*$ -- некоторая неподвижная точка $F$, то 
+	\[ |y^* - x^*| = |F(y^*) - F(x^*)| \leq \lambda |y^* - x^*|. \]
+	Так как $\lambda \in (0, 1)$, то это неравенство возможно лишь при $x^* = y^*$.
+\end{myproof}
+
+\begin{theorem}[\textbf{об обратной функции}]
+	Пусть $U \subset \R^n$ открыто и $a \in U$. 
+	Если $f : U \to \R^n$ класса $C^1$ и $\det Df(a) \neq 0$, то 
+	найдутся открытые $W \subset U : a \in W$ и $V : f(a) \in V$, что сужение 
+	$f|_W : W \to V$ является диффеоморфизмом.
+\end{theorem}
+
+\begin{myproof}
+	Можно считать, что $Df(a) = E$, иначе заменим $f$ на $\widetilde{f} = T^{-1} f$, $T = Df(a)$. 
+	Замена не меняет общности: если нашлись $W$ и $\widetilde{V}$, что $\widetilde{f}|_W : W \to \widetilde{V}$ -- диффеоморфизм, то и $f = T \widetilde{f}$ диффеоморфизм между $W$ и $V = T(\widetilde{V})$, так как $T$ -- обратимый линейный оператор.
+
+	\vspace{5pt}
+	Рассмотрим вспомогательную функцию $g(x) = f(x) - x$ для $x \in U$. 
+	Функция $g \in C^1(U)$ и $Dg(a) = 0$. Поэтому найдется такой шар $\overline{B_r}(a) \subset U$, что 
+	\[ \forall x \in \overline{B_r}(a) : \left|\frac{\partial g_i}{\partial x_j}(x)\right| \leq \frac{1}{2n^2} \quad \forall i, j : 1 \leq i, j \leq n. \] 
+	По первой лемме $\forall x, x' \in \overline{B_r}(a) : |g(x) - g(x')| \leq 1/2 \cdot |x-x'|$.
+	Покажем, что $\forall y \in B_{r/2} (f(a)) \ \exists! \, x \in B_r(a) : y = f(x)$.
+	Рассмотрим $F(x) = y - g(x)$ для $x \in U$. 
+	Тогда $\forall x \in \overline{B_r}(a)$:
+	\[  |F(x) - a| \leq |F(x) - F(a)| + |F(a) - a| = |g(x) - g(a)| + |y - f(a)| \leq 1/2 \cdot |x - a| + |y - f(a)| < r. \]
+	То есть $F(\overline{B_r}(a)) \subset B_r(a)$.
+	Также $\forall x, x' \in \overline{B_r}(a) : |F(x) - F(x')| = |g(x) - g(x')| \leq 1/2 \cdot |x - x'|$.
+	По теореме Банаха $\exists! \, x : F(x) = x \iff y = f(x)$, причем $x = F(x) \in B_r(a)$.
+
+	\vspace{5pt}
+	Положим $V = B_{r/2}(f(a))$, $W = f^{-1}(V) \cap B_r(a)$. 
+	Тогда $V$ и $W$ открыты, $f$ биективно отображает $W$ на $V$ и определена $f^{-1} : V \to W$.
+	Остаётся доказать гладкость $f^{-1}$.
+
+	\vspace{5pt}
+	По неравенству треугольника на $W$ имеем
+	$ |f(x) - f(x')| \geq |x-x'| - |g(x) - g(x')| \geq 1/2 \cdot |x-x'|$.
+	Перепишем это неравенство, пользуясь обратимостью $f$
+	\[ \forall y, y' \in V : |f^{-1}(y) - f^{-1}(y')| \leq 2\cdot |y - y'|. \tag{$*$} \]
+	Отсюда следует непрерывность $f^{-1}$.
+	Так как якобиан $J_f$ непрерывен и $J_f(a) \neq 0$, то можно считать, что $J_f \neq 0$ на всем $W$.
+	Зафиксируем $y \in V$ и пусть $x = f^{-1}(y)$. 
+	
+	\vspace{5pt}
+	Покажем, что $f^{-1}$ дифференцируема в $y$.
+	В силу биективности $f$, для любого $y + k \in V$ найдется единственное $h$, что $y+k = f(x+h)$, откуда $h(k) = f^{-1}(y+k) - f^{-1}(y)$. 
+	Из непрерывности следует, что $h(k) \to 0$ при $k \to 0$.
+	Функция $f$ дифференцируема в $x$, откуда $f(x+h) - f(x) = df_x(h) + \alpha(h) |h|$, где $\alpha$ непрерывна и $\alpha(0) = 0$.
+	В эту формулу подставим $h = h(k)$ и подействуем оператором $A = [df_x]^{-1}$ ($J_f \neq 0$), тогда 
+	\[ Ak = h(k) + A \alpha (h(k)) \cdot |h(k)| \iff f^{-1}(y+k) - f^{-1}(y) = Ak + \beta(k) \cdot |k|, \]
+	где $\beta(k) = -A \alpha (h(k)) \cdot \frac{|h(k)|}{|k|}$. 
+	Это бесконечно малая функция, поскольку $-A \alpha (h(k)) \to 0$ и $\frac{|h(k)|}{|k|} \leq 2$ в силу $(*)$. 
+	Следовательно, $f^{-1}$ дифференцируема в $y$ и $df^{-1}_y = [df_x]^{-1}$.
+	В частности, $Df^{-1}(y) = [Df(f^{-1}(y))]^{-1}$.
+	Из алгебры мы знаем, что элементы данной матрицы являются рациональными функциями от $\frac{\partial f_i}{\partial x_j}(f^{-1}(y))$ -- это дроби, у которых в числителе полином от этих производных, а в знаменателе $J_f(f^{-1}(y))$ (тоже полином).
+	Так как $f \in C^1(U)$ и $f^{-1}$ непрерывна, то и функции $y \mapsto \frac{\partial f_i}{\partial x_j}(f^{-1}(y))$ непрерывны на $V$.
+	Следовательно, непрерывны и элементы матрицы $Df^{-1}(y)$, откуда $f^{-1} \in C^1(V)$.
+\end{myproof}

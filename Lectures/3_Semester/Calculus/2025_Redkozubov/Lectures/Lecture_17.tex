@@ -1,0 +1,69 @@
+
+
+\subsection{Приложения к векторному анализу}
+
+Рассмотрим область $U \subset \R^3$. Будем обозначать пространство гладких скалярных полей через $C^\infty(U)$, а пространство гладких векторных полей $\vec{F} = (P, Q, R)$ -- через $\mathfrak{X}(U)$.
+Введем символический оператор <<набла>>: $\nabla = \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z} \right)$.
+Тогда классические операции векторного анализа можно определить через формальные произведения:
+\begin{itemize}[itemsep = 0pt, topsep = 5pt]
+    \item Градиент: $\text{grad}\, f = \nabla f = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z} \right)$. 
+    \item Ротор: $\rot \vec{F} = \nabla \times \vec{F}  = \left( \frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}, \ \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}, \ \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right)$. Мнемоника: $\begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\ P & Q & R \end{vmatrix}$.
+    \item Дивергенция: $\operatorname{div} \vec{F} = (\nabla, \vec{F}) = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}$. 
+\end{itemize}
+
+Оказывается, что оператор $d$, действующий на формы, в $\R^3$ в точности соответствует этим операторам. Эту связь демонстрирует коммутативная диаграмма:
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+    \Omega^0(U) \arrow[d, equal] \arrow[r, "d"] 
+    & \Omega^1(U) \arrow[d, equal, "(1)"] \arrow[r, "d"] 
+    & \Omega^2(U) \arrow[d, equal, "(2)"] \arrow[r, "d"] 
+    & \Omega^3(U) \arrow[d, equal, "(3)"] \\
+    C^\infty(U) \arrow[r, "\text{grad}"] 
+    & \mathfrak{X}(U) \arrow[r, "\rot"] 
+    & \mathfrak{X}(U) \arrow[r, "\operatorname{div}"] 
+    & C^\infty(U)
+\end{tikzcd}
+\]
+Здесь вертикальные двойные линии -- изоморфизмы, отождествляющие поля и формы:
+\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+    \item[(1)] Вектору $\vec{F}$ сопоставляется 1-форма (\textit{работа}): $(P, Q, R) \leftrightarrow P\, dx + Q\, dy + R\, dz$,
+    \item[(2)] Вектору $\vec{F}$ сопоставляется 2-форма (\textit{поток}): $(P, Q, R) \leftrightarrow P\, dy \wedge dz + Q\, dz \wedge dx + R\, dx \wedge dy$,
+    \item[(3)] Скаляру $f$ сопоставляется 3-форма (\textit{плотность}): $f \leftrightarrow f\, dx \wedge dy \wedge dz$.
+\end{enumerate}
+
+\begin{note}
+	Свойство $d^2 = 0$ в терминах векторного анализа превращается в следующие тождества: $\rot (\text{grad}\, f) = \vec{0}$ и $\operatorname{div} (\rot \vec{F}) = 0$. 
+\end{note}
+
+\begin{note}[\textbf{интерпретация леммы Пуанкаре в $\R^3$}]
+    Пусть $\vec{F}$ --- векторное поле в $\R^3$. Тогда $\exists f \, (\vec{F} = \text{grad}\, f) \Lra \rot \vec{F} = \mathbf{0}$, $\exists \Phi \, (\vec{F} = \rot \Phi) \Lra \operatorname{div} \vec{F} = 0$.
+\end{note}
+
+
+Вернемся к интегралу от 1-формы $\omega = P\, dx + Q\, dy + R\, dz$ по кривой $\Gamma$, параметризованной $\gamma: I \to \R^3$ и ориентированной полем единичных касательных векторов $\vec{\tau}$. Тогда $\gamma^*\omega = [P(\gamma(t))x'(t) + Q(\gamma(t))y'(t) + R(\gamma(t))z'(t)]dt = (\vec{F}(\gamma(t)), \gamma'(t))$, а значит,
+\[
+\int_\Gamma \omega = \pm \int_I (\vec{F}(\gamma(t)), \gamma'(t)) \, dt = \pm \int_I \left( \vec{F}(\gamma(t)), \frac{\gamma'(t)}{|\gamma'(t)|} \right) |\gamma'(t)| \, dt = \int_\Gamma (\vec{F}, \vec{\tau}) \, ds.
+\]
+Последний интеграл называется работой векторного поля $\vec{F}$ вдоль кривой $\Gamma$, ориентированной полем единичных касательных векторов $\vec{\tau}$.
+
+\vspace{5pt}
+Аналогично для интеграла от 2-формы $\omega = P\, dy \wedge dz + Q\, dz \wedge dx + R\, dx \wedge dy$ по поверхности $S$ с параметризацией $r(u, v)$, $(u, v) \in V$, ориентированной полем единичных нормалей $\vec{N}$:
+
+
+\vspace{10pt}
+
+\noindent\resizebox{\textwidth}{!}{%
+$ \displaystyle
+\int_S \omega = \pm \iint_V 
+\begin{vmatrix}
+P \circ r & Q \circ r & R \circ r \\
+x'_u & y'_u & z'_u \\
+x'_v & y'_v & z'_v 
+\end{vmatrix}
+du\, dv = \pm \iint_V \left( \vec{F} \circ r, \frac{r'_u \times r'_v}{|r'_u \times r'_v|} \right) |r'_u \times r'_v|\, du\, dv 
+= \iint_S (\vec{F}, \vec{N})\, dS.
+$%
+}
+\vspace{10pt}
+
+\noindent Последний интеграл называется потоком векторного поля $\vec{F}$ через поверхность $S$ в направлении поля $\vec{N}$. Теперь формула Гаусса-Остроградского и классическая формула Стокса принимают вид: $\iint_{\partial G} (\vec{F}, \vec{N})\, dS = \iiint_G \operatorname{div} \vec{F}\, dV$ и $\int_{\partial S} (\vec{F}, \vec{\tau}) \, ds = \iint_S (\rot \vec{F}, \vec{N})\, dS$.

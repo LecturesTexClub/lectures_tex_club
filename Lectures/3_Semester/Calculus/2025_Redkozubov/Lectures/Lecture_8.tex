@@ -1,0 +1,205 @@
+
+\subsection{Условные экстремумы}
+
+Пусть $U \subset \R^n$ открыто и функция $g : U \to \R^m$, $g = (g_1, \dotsc, g_m)$, $0 < m < n$. 
+Изучим экстремумы функции $f : U \to \R$ на множестве $M = g^{-1}(0)$ (\textit{условия связи}).
+
+\begin{definition}
+	Точка $p \in M$ называется \textit{точкой локального условного максимума} $f$ на $M$, если 
+	\[ \exists \delta > 0 \ \forall x \in \mathring{B_{\delta}}(p) \cap M : f(x) \leq f(p). \]
+\end{definition}
+
+Аналогично определяются другие точки условного экстремума.
+
+\begin{theorem}[\textbf{Лагранж}]
+	Пусть $f \in C^1(U)$, $g \in C^1(U, \R^m)$ и $\operatorname{rk} Dg(p) = m$. 
+	Если $p$ -- точка условного экстремума на $M = g^{-1}(0)$, то 
+	\[ \exists \lambda_1, \dotsc, \lambda_m \in \R : \nabla f(p) = \sum \limits_{i = 1}^{m} \lambda_i \nabla g_i (p). \]
+\end{theorem}
+
+\begin{myproof}
+	Так как $\operatorname{rk} Dg(p) = m$, то имеется невырожденный минор порядка $m$. 
+	Учитывая, что $g \in C^1$, этот минор (как определитель) отличен от нуля в некоторой окрестности точки $p$. 
+	Тогда без ограничения считаем, что $\forall x \in U : \operatorname{rk} Dg(x) = m$ (больше быть не может, так как ранг не превосходит размера матрицы). 
+	Тогда $M$ является гладким $(n-m)$-мерным многообразием в $\R^n$ по третьему эквивалентному определению.
+	Пусть $v \in T_p M$, рассмотрим гладкую кривую $\gamma : (-\delta, \delta) \to M$ с $\gamma(0) = p$, $\gamma'(0) = v$. 
+	Из условия следует, что $f \circ \gamma$ имеет экстремум в точке $t = 0$, поэтому по теореме Ферма $0 = \frac{d}{dt} \big|_{t = 0} f(\gamma(t)) = (\nabla f(p), v)$, 
+	то есть $\nabla f(p) \in (T_p M)^{\perp}$. 
+	Так как $\nabla g_i (p)$ образуют базис $(T_p M)^{\perp}$, то вектор $\nabla f(p)$ раскладывается по этому базису.
+\end{myproof}
+
+
+\begin{note}
+	Из теоремы следует метод множителей Лагранжа: если $p$ -- точка условного экстремума $f$ на $M$ и выполнены условия теоремы, то 
+	$p$ является стационарной точкой функции Лагранжа $L : U \to \R$, $L(x) = f(x) - \sum \limits_{i=1}^{m} \lambda_i g_i(x)$.
+\end{note}
+
+\begin{theorem}
+	Пусть $f \in C^2(U)$, $g \in C^2(U, \R^m)$ и $\operatorname{rk} Dg(p) = m$, где $p$ -- стационарная точка функции Лагранжа $L$ с множителями $\lambda_i$.
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item Если $d^2 L(h) > 0$ при всех $h \in T_p M \setminus \{0\}$, то $p$ -- точка строгого локального условного минимума $f$ на $M$,
+		\item Если $d^2 L(h) < 0$ при всех $h \in T_p M \setminus \{0\}$, то $p$ -- точка строгого локального условного максимума $f$ на $M$,
+		\item Если $d^2 L$ принимает на $T_p M$ значения разных знаков, то $p$ не является точкой локального условного экстремума $f$ на $M$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{myproof}
+	Пусть $x = \phi(y)$ локальная параметризация $M$ в окрестности $p = \phi(a)$. 
+	Точка $p$ является точкой локального условного максимума (минимума) $f$ на $M \Leftrightarrow a$ является точкой локального максимума (минимума) $H = f \circ \phi$ по определению параметризации.
+	Заметим, что $f \equiv L$ на $M$, поэтому $H \equiv L \circ \phi$ в некоторой окрестности $a$.
+	Поскольку $\forall v \in \R^{n-m}$ имеем $dH_a(v) = d L_p ( d \phi_a (v) ) = 0$ в силу $dL_p \equiv 0$, то $a$ является стационарной для $H$.
+
+	\vspace{5pt}
+	Найдем $d^2 H_a$ по определению:
+	\[ \frac{\partial H}{\partial y_k} = \sum \limits_{i=1}^{n} \frac{\partial L}{\partial x_i} \frac{\partial \phi_i}{\partial y_k}, \qquad \frac{\partial^2 H}{\partial y_l \partial y_k} = \sum \limits_{i=1}^{n} \left[ \left( \sum \limits_{j=1}^{n} \frac{\partial^2 L}{\partial x_j \partial x_i} \frac{\partial \phi_j}{\partial y_l} \right) \cdot \frac{\partial \phi_i}{\partial y_k} + \frac{\partial L}{\partial x_i} \cdot \frac{\partial^2 \phi_i}{\partial y_l \partial y_k} \right]. \]
+	Так как $\forall i : \frac{\partial L}{\partial x_i} (p) = 0$, то $\frac{\partial^2 H}{\partial y_l \partial y_k} (a) = \sum \limits_{i, j=1}^{n} \frac{\partial^2 L}{\partial x_j \partial x_i} (p) \frac{\partial \phi_j}{\partial y_l}(a) \frac{\partial \phi_i}{\partial y_k}(a)$.
+	Следовательно, $\forall v \in \R^{n-m}:$
+	\[ d^2 H_a (v) =  \sum \limits_{k, l = 1}^{n-m} \frac{\partial^2 H}{\partial y_l \partial y_k}(a) \cdot v_l v_k = \sum \limits_{i, j} \frac{\partial^2 L}{\partial x_i \partial x_j}(p) \cdot \left( \sum \limits_{l} \frac{\partial \phi_j}{\partial y_l}(a) v_l \right) \left( \sum \limits_{k} \frac{\partial \phi_i}{\partial y_k}(a) v_k \right). \]
+	Видно, что мы получили в точности $d^2 L_p (d \phi_a (v))$. 
+	Вспомним, что $d \phi_a : \R^{n-m} \to T_p M$ является изоморфизмом, в частности, $\ker d \phi_a = \{\overline{0}\}$.
+	Осталось воспользоваться достаточными условиями <<безусловного>> экстремума.
+\end{myproof}
+
+\subsection{Дополнение к \S 3}
+
+\begin{definition}
+	Шар $B_r(x) \subset \R^n$ называется \textit{рациональным}, если $r \in \Q$ и $x \in \Q^n$.
+\end{definition}
+
+\begin{proposition}
+	Любое открытое множество $G \subset \R^n$ представимо в виде объединения рациональных шаров, содержащихся в нем.
+\end{proposition}
+
+\begin{myproof}
+	Пусть $x \in G$, тогда $\exists \epsilon > 0 : B_{\epsilon}(x) \subset G$. 
+	Выберем $s \in \Q : 0 < s < \epsilon/2$. 
+	Так как $\Q^n$ также плотно в $\R^n$, то $\exists y \in \Q^n : |x - y| < s$.
+	Тогда $x \in B_s(y)$, а $B_s(y) \subset B_{\epsilon}(x) \subset G$, так как $\forall z \in B_s(y) : |z - x| \leq |z - y| + |y - x| < 2s < \epsilon$. 
+	Отсюда следует утверждение.
+\end{myproof}
+
+\begin{lemma}
+	Если $M$ -- гладкое многообразие в $\R^n$, то существует его счетное покрытие $\{U_i\}$ координатными окрестностями (образами параметризаций).
+\end{lemma}
+
+\begin{myproof}
+Рассмотрим некоторое покрытие $\{U_p\}_{p \in M}$ многообразия $M$ координатными окрестностями, существующее по определению $M$.
+Тогда $\forall p \in M \ \exists \widetilde{U}_p \subset \mathbb{R}^n : U_p = \widetilde{U}_p \cap M$.
+Рассмотрим семейство $\mathcal{B} = \{ B_r(y) : y \in \mathbb{Q}^n, \, r \in \mathbb{Q}_+\}$ \textit{всех} рациональных шаров в $\mathbb{R}^n$.
+Поскольку $\mathbb{Q}_+$ и $\mathbb{Q}^n$ счетны, то и $\mathcal{B}$ счетно. Пусть $\mathcal{B} = \{B_j\}_{j=1}^{\infty}$.
+Определим множество индексов $J \subset \mathbb{N} : J = \{ j \in \mathbb{N} \ | \ \exists p \in M : B_j \subset \widetilde{U}_p \}$. 
+Для каждого индекса $j \in J$ выберем ровно одну точку $p(j) \in M$, для которой выполняется условие вложенности $B_j \subset \widetilde{U}_{p(j)}$. 
+Докажем, что счетное семейство координатных окрестностей $\{U_{p(j)}\}_{j \in J}$ покрывает $M$.
+
+\vspace{5pt}
+Действительно, зафиксируем $x \in M$.
+Так как $U_p$ покрывают $M$, то $\exists p_0 \in M : x \in U_{p_0} \subset \widetilde{U}_{p_0}$.
+Так как $\widetilde{U}_{p_0}$ открыто в $\mathbb{R}^n$, то по утверждению $\exists B_k \in \mathcal{B} : x \in B_k \subset \widetilde{U}_{p_0}$, так как объединение шарами $\widetilde{U}_{p_0}$ состоит из каких-то шаров $\mathcal{B}$.
+Индекс $k$ попадает в $J$ (условие существования выполнено для $p_0$) и $x \in B_k \cap M \subset \widetilde{U}_{p(k)} \cap M = U_{p(k)}$.
+Таким образом, любая точка $x \in M$ содержится в одной из окрестностей набора $\{U_{p(j)}\}_{j \in J}$.
+\end{myproof}
+
+
+\section{Интегрирование на многообразиях}
+
+\subsection{Измеримые множества на многообразиях}
+
+Пусть $M$ -- гладкое $m$-мерное многообразие в $\R^n$, $m < n$.
+
+\begin{definition}
+	Множество $E \subset M$ называется \textit{измеримым}, если $\forall \phi : V \to U$ параметризации $U$ в $M$ множество $\phi^{-1}(E \cap U)$ измеримо по Лебегу в $\R^m$.
+\end{definition}
+
+\begin{note}
+	Для измеримости $E$ достаточно проверить измеримость $\phi^{-1}_j (E \cap U_j)$ для счетного семейства $\{\phi_j\}$, образы $U_j$ которых покрывают $M$.
+\end{note}
+
+\begin{myproof}
+	Предположим, что измеримость проверена для счетного семейства $\{\phi_j : \phi_j : V_j \to U_j\}$, например, построенного по предыдущей лемме. 
+	Зафиксируем произвольную параметризацию $\psi : \Omega \to W$ и покажем, что $\psi^{-1}(E \cap W)$ измеримо в $\R^m$. 
+	Так как $U_j$ покрывают $M$, то $W = \bigcup_{j} (W \cap U_j)$ и $\psi^{-1}(E \cap W) = \bigcup_{j} \psi^{-1}(E \cap W \cap U_j)$.
+	
+	\vspace{5pt}
+	Заметим, что $\psi^{-1} (E \cap W \cap U_j) = (\psi^{-1} \circ \phi_j) (\phi^{-1}_j (E \cap W \cap U_j))$. 
+	Поскольку функция перехода $\psi^{-1} \circ \phi_j$ является диффеоморфизмом, а $\phi_j^{-1}(E \cap W \cap U_j) = \phi_j^{-1}(E \cap U_j) \cap \phi^{-1}_j(W)$ измеримо как пересечение измеримого множества с прообразом открытого множества ($W = M \cap \mathcal{O}$, $\phi_j^{-1}(W) = \phi_j^{-1}(\mathcal{O})$) при непрерывном отображении $\phi_j$, 
+	то каждое $\psi^{-1}(E \cap W \cap U_j)$ измеримо, а значит, и их счетное объединение измеримо, что и требовалось.
+\end{myproof}
+
+\begin{lemma}
+	Множество $\mathcal{A}_M := \{E \subset M : E \text{ -- измеримо}\}$ является $\sigma$-алгеброй, содержащей борелевскую $\sigma$-алгебру $\mathcal{B}(M)$.
+\end{lemma}
+
+\begin{myproof}
+	Пусть $E \in \mathcal{A}_M$ и $\phi : V \to U$ -- параметризация $U$ в $M$. 
+	Тогда $\phi^{-1}(E \cap U)$ измеримо по Лебегу в $\R^m$.
+	Имеем $\phi^{-1}(E^c \cap U) = \phi^{-1}(U) \setminus \phi^{-1}(E \cap U)$ измеримо в $\R^m$ как разность измеримых.
+	Пусть $\{E_j\}_{j=1}^{\infty} \subset \mathcal{A}_M$, тогда $\phi^{-1}((\bigcup_j E_j) \cap U) = \bigcup_j \phi^{-1}( E_j \cap U)$ измеримо в $\R^m$ как объединение измеримых, поэтому $\bigcup_j E_j \in \mathcal{A}_M$.
+	Очевидно, что само $M \in \mathcal{A}_M$ по определению измеримости, поэтому $\mathcal{A}_M$ действительно является $\sigma$-алгеброй.
+
+	\vspace{5pt}
+	Пусть $O$ открыто в $M$, тогда $\phi^{-1}(O \cap U)$ открыто и измеримо в $\R^m$, поэтому $O \in \mathcal{A}_M$.
+	Следовательно, минимальная $\sigma$-алгебра, содержащая все открытые множества, тоже лежит в $\mathcal{A}_M$, то есть $\mathcal{B}(M) \subset \mathcal{A}_M$.
+\end{myproof}
+
+\begin{definition}
+	Семейство $\{E_i\}_{i=1}^{\infty}$ назовем \textit{(счетным) измеримым координатным разбиением $M$}, соответствующим набору параметризаций $\{\phi_i : V_i \to U_i\}_{i=1}^{\infty}$, если $M = \bigsqcup \limits_{i=1}^{\infty} E_i$, $\forall i : E_i \subset U_i$ и все $E_i$ измеримы.
+\end{definition}
+
+\begin{note}
+	Измеримое разбиение $M$ существует. Действительно, покроем $M$ счетным набором $U_j$, а затем определим $E_1 = U_1$, $E_i = U_i \setminus \bigcup_{j < i} U_j$. 
+	Множества будут измеримыми как борелевские и оставшиеся условия также очевидно выполнены.
+\end{note}
+
+
+
+\subsection{Мера на аффинных подпространствах и многообразиях}
+
+\begin{definition}
+	Подмножество $\Pi \subset \R^n$ называется \textit{$m$-мерным аффинным подпространством} ($0 \leq m \leq n$), если оно представимо в виде сдвига $m$-мерного линейного подпространства $L \subset \R^n$ на фиксированный вектор $b \in \R^n:$
+	$ \Pi = L + b = \{v + b : v \in L\}$. 
+\end{definition}
+
+\begin{note} 
+	В случае аффинных пространств на $\mathcal{A}_{\Pi}$ можно ввести меру каноническим образом.
+	Отождествим $\mathbb{R}^m$ со стандартным подпространством в $\mathbb{R}^n$: $\mathbb{R}^m \cong \langle e_1, \dotsc, e_m \rangle \subset \mathbb{R}^n$.
+	Пусть $\Pi = L + b$ -- $m$-мерное аффинное пространство в $\R^n$. Существует движение $\Phi : \R^n \to \R^n$, такое что $\Phi(\R^m) = \Pi$.
+	Действительно, можно выбрать ОНБ $\{f_i\}_{i=1}^m$ в $L$, дополнить его до ОНБ $\{f_i\}_{i=1}^n$ в $\R^n$, построить оператор $U : e_i \mapsto f_i$, затем сдвинуть пространство $U(\R^m)$ на $b$ и получить $\Pi$.
+	Определим $\forall E \in \mathcal{A}_{\Pi} : \mu_{\Pi}(E) := \mu_m(\Phi^{-1}(E))$.
+\end{note}
+
+\begin{proposition}
+	Определение меры $\mu_{\Pi}$ корректно, то есть не зависит от движения.
+\end{proposition}
+
+\begin{myproof}
+	Пусть $\Psi$ -- другое движение в $\R^n$, такое что $\Psi(\R^m) = \Pi$.
+	Рассмотрим $H : \R^m \to \R^m$, определенное как $H = (\Psi^{-1} \circ \Phi)|_{\R^m}$. 
+	Композиция движений является движением и $\forall E \in \mathcal{A}_{\Pi} : \Psi^{-1}(E) = H(\Phi^{-1}(E))$.
+	Так как это движение сохранит меру Лебега в $\R^m$ по задаче о преобразовании меры линейным оператором, как композиция ортогонального оператора и сдвига, то 
+	$\forall E \in \mathcal{A}_{\Pi} : \mu_m(\Psi^{-1}(E)) = \mu_m(\Phi^{-1}(E))$, что и требовалось.
+\end{myproof}
+
+\vspace{5pt}
+
+Мера $\mu_{\Pi}$ называется \textit{мерой Лебега на подпространстве $\Pi$}.
+
+\begin{lemma}[б/д]
+	Пусть $\Pi = L(\R^m)$, где $L(x) = Ax + b$ -- аффинное отображение, $\operatorname{rk} A = m$. 
+	Тогда $\forall E$ измеримого в $\R^m$ : $\mu_{\Pi}(L(E)) = \sqrt{\det A^T A} \cdot \mu(E)$.
+\end{lemma}
+
+Прежде чем дать строгое определение меры на многообразии, поймем, как оно должно выглядеть исходя из геометрических соображений. 
+Мы хотим ввести меру $\nu$ на $M$ так, чтобы она была локально согласована с мерой на касательных плоскостях.
+
+\begin{example}
+	Пусть $\Pi_p$ -- касательная плоскость к $M$ в точке $p$. 
+	Если $\phi$ -- параметризация $M$ в окрестности $p = \phi(a)$, то $\Pi_p = L(\R^m)$, где $L(u) = d\phi_a (u-a) + p$. 
+	Здесь матрица линейной части $L$ есть $A = D \phi(a)$.
+	Пусть $a = (a_1, \dotsc, a_m)$, $h > 0$. Рассмотрим куб в пространстве параметров: $Q_h = [a_1, a_1 + h) \times \dotsc \times [a_m, a_m + h)$. 
+	Согласно лемме <<о почти изометрии>>, локально $M$ <<почти изометрична>> $\Pi_p$. Это означает, что меру $\nu$ нужно ввести так, чтобы при $h \to 0+$ искажение объемов стремилось к 1. 
+	Поэтому временно представим, что следующий предел уже выполнен:
+	\[ \lim \limits_{h \to 0+} \frac{\nu(\phi(Q_h))}{\mu_{\Pi}(L(Q_h))} = 1. \]
+	Используя лемму выше для знаменателя, имеем $\mu_{\Pi}(L(Q_h)) = \sqrt{g_{\phi}(a)} \cdot h^m$, где
+	$g_{\phi} = \det G_{\phi}$, $G_{\phi} = (D \phi)^T D \phi$ -- матрица Грама столбцов якобиана.
+	Таким образом, мера куска многообразия асимптотически ведет себя так: $\nu(\varphi(Q_h)) \underset{h \to 0+}{\sim} \sqrt{g_{\varphi}(a)} \cdot h^m$.
+\end{example}

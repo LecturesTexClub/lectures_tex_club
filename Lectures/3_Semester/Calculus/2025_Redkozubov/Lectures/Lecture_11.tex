@@ -1,0 +1,223 @@
+\newpage
+
+ \begin{note}
+	Пусть $F_1, F_2$ -- первообразные 1-формы $\omega$ в области $U$, $x_0, x \in U$. 
+	Тогда $\int_{\gamma_{x_0, x}} \omega = F_1 (x) - F_1(x_0) = F_2(x) - F_2(x_0)$, где $\gamma_{x_0, x}$ -- кусочно-гладкая кривая из $U$ с концами $x_0, x$.
+	Следовательно, $F_1 - F_2 = \operatorname{const}$ в $U$.
+	Итак, функция $F$ по своему дифференциалу $\omega$ восстанавливается так: $F(x) = C + \int_{\gamma_{x_0, x}} \omega = C + \int_{a}^{b} [ f_1(\gamma(t)) \gamma_1'(t) + \dotsc + f_n(\gamma(t)) \gamma'_n(t)] \, dt$.
+ \end{note}
+
+Для выделенного класса 1-форм определим интеграл по \textit{произвольному} пути.
+То есть теперь $\gamma : [a, b] \to U$ -- произвольная параметризованная кривая (непрерывная функция), не обязательно гладкая.
+Но сначала вспомним один технический результат.
+
+ \begin{lemma}[\textbf{Лебег}]
+	Пусть $X$ -- компакт, $\{U_{\alpha}\}_{\alpha \in \Lambda}$ -- открытое покрытие $X$. 
+	Тогда 
+	\[ \exists \delta > 0 \ \forall E \subset X \ ( \operatorname{diam} E \leq \delta \Ra \exists \alpha \in \Lambda : E \subset U_{\alpha} ). \]
+ \end{lemma}
+
+ \begin{myproof}
+	Заметим, что $\forall x \in X \ \exists \epsilon_x > 0 \ \exists \alpha \in \Lambda : B_{2 \epsilon_x}(x) \subset U_{\alpha}$. 
+	Из покрытия $\{B_{\epsilon_x}(x)\}_{x \in X}$ выделим $\{B_{\epsilon_{x_i}}(x_i)\}_{i=1}^N$ и положим $\delta = \min \{\epsilon_{x_i}\}$.
+	Пусть $\operatorname{diam} E \leq \delta$ и $x, y \in E$, тогда $\exists i : x \in B_{\epsilon_{x_i}}(x_i)$ и $\rho(y, x_i) \leq \rho(y, x) + \rho(x, x_i) < \delta + \epsilon_{x_i} \leq 2 \epsilon_{x_i}$. 
+	Следовательно, $E \subset B_{2 \epsilon_{x_i}}(x_i) \subset U_{\alpha_i}$.
+ \end{myproof}
+
+\begin{definition}
+	Непрерывная 1-форма $\omega$ называется \textit{локально точной} в области $U$, если $\forall x \in U$ существует шар $B \subset U$, содержащий $x$, такой что $\omega$ точна в $B$.
+\end{definition}
+
+\begin{note}
+	В конце курса будет доказано, что 1-форма $\omega = f_1(x) dx_1 + \dotsc + f_n(x) dx_n$ локально точна в $U \iff \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i}$ для всех $1 \leq i, j \leq n$ на $U$.
+\end{note}
+
+\begin{example}
+	Форма $\omega = \frac{x dy - y dx}{x^2 + y^2}$ в $U = \R^2 \setminus \{(0, 0)\}$ локально точна, но не точна.
+\end{example}
+
+\begin{myproof}
+	Запишем форму в стандартном виде $\omega = P dx + Q dy$:
+	$P = -\frac{y}{x^2 + y^2}$,  $Q(x, y) = \frac{x}{x^2 + y^2}$. 
+	Проверим условие локальной точности на $U$ по критерию из замечания:
+	\[ \frac{\partial Q}{\partial x} = \frac{1 \cdot (x^2 + y^2) - x \cdot 2x}{(x^2 + y^2)^2} = \frac{y^2 - x^2}{(x^2 + y^2)^2} = -\frac{x^2 - y^2}{(x^2 + y^2)^2} = \frac{\partial P}{\partial y}. \]
+	Равенство производных выполнено, значит, $\omega$ локально точна.
+	Однако $\omega$ не точна в $U$. Рассмотрим замкнутый контур $\gamma(t) = (\cos t, \sin t)$, $t \in [0, 2\pi]$. Тогда $x = \cos t$, $y = \sin t$ и
+	\[ \int_{\gamma} \omega = \int_0^{2\pi} \frac{\cos t (\sin t)' - \sin t (\cos t)'}{\cos^2 t + \sin^2 t} \, dt = \int_0^{2\pi} 1 \, dt = 2\pi \neq 0. \]
+\end{myproof}
+
+\begin{definition}
+	Пусть $\omega$ локально точна в области $U$ и $\gamma : [a, b] \to U$ -- непрерывный путь. 
+	Рассмотрим разбиение $P = \{t_i\}_{i=0}^m$ отрезка $[a, b]$, такое что 
+	$\gamma([t_{i-1}, t_i]) \subset B_i \subset U$ и $\omega$ точна в шаре $B_i$. 
+	Определим интеграл от $\omega$ по $\gamma$ формулой: 
+	\[ \int_{\gamma} \omega := \sum \limits_{i=1}^{m} \left[ F_i(\gamma(t_i)) - F_i(\gamma(t_{i-1})) \right], \]
+	где $F_i$ -- произвольная первообразная $\omega$ на $B_i$.
+\end{definition}
+
+\begin{lemma}
+	Определение интеграла от $\omega$ корректно.
+\end{lemma}
+
+\begin{myproof}
+	Покажем существование разбиения $P$. 
+	Рассмотрим покрытие области $U$ шарами $\{B_\alpha\}$, в которых $\omega$ точна. Семейство прообразов $\{\gamma^{-1}(B_\alpha)\}$ образует открытое покрытие отрезка $[a, b]$. Пусть $\delta$ -- число Лебега этого покрытия. Тогда для любого разбиения $P$ с мелкостью меньше $\delta$ и любого $i$ найдется шар $B_{\alpha}$, содержащий $\gamma([t_{i-1}, t_i])$.
+
+	\vspace{5pt}
+	Покажем инвариантность правой части формулы при измельчении фиксированного разбиения.
+	Пусть $P \cup \{c\}$ -- измельчение $P$, где $t_{j-1} < c < t_j$. Используем тот же шар $B_j$ и первообразную $F_j$ для отрезков $[t_{j-1}, c]$ и $[c, t_j]$. Слагаемое, соответствующее $j$-му отрезку, не изменится:
+ 	$F_j(\gamma(t_j)) - F_j(\gamma(t_{j-1})) = \left[F_j(\gamma(t_j)) - F_j(\gamma(c))\right] + \left[F_j(\gamma(c)) - F_j(\gamma(t_{j-1}))\right]$.
+	Следовательно, вся сумма не меняется. Индукцией получаем инвариантность для любого измельчения при сохранении выбора шаров и первообразных.
+
+	\vspace{5pt}
+	Покажем независимость от выбора.
+	Пусть даны наборы: $(P, \{B_i\}, \{F_i\})$ и $(Q, \{\widetilde{B}_j\}, \{\widetilde{F}_j\})$. Рассмотрим их общее измельчение $T = P \cup Q$.
+	По доказанному, значения интегралов на $P$ и $Q$ совпадают со значениями сумм, записанных для $T$, но с использованием старых шаров и первообразных. 
+	Достаточно проверить, что слагаемые совпадают на каждом элементарном отрезке $[\tau_{k-1}, \tau_k]$ разбиения $T$. Пусть $\gamma([\tau_{k-1}, \tau_k]) \subset B \cap \widetilde{B}$, где $F$ и $\widetilde{F}$ -- соответствующие первообразные.
+	Так как $B \cap \widetilde{B}$ выпукло и открыто, то оно является областью, поэтому $F - \widetilde{F} = C$ на $B \cap \widetilde{B}$. Тогда приращения совпадают:
+	\[ F(\gamma(\tau_k)) - F(\gamma(\tau_{k-1})) = \widetilde{F}(\gamma(\tau_k)) - \widetilde{F}(\gamma(\tau_{k-1})). \]
+	Таким образом, интеграл определен корректно.
+\end{myproof}
+
+\begin{definition}
+	Пусть $\gamma_1, \gamma_2 : [a, b] \to U$ -- пути с общими концами.
+	Пути $\gamma_1$ и $\gamma_2$ называются \textit{гомотопными}, если существует непрерывное отображение $H : [a, b] \times [0, 1] \to U$, удовлетворяющее условиям:
+	\begin{enumerate}[itemsep = 0pt, topsep = 5pt]
+		\item $H(t, 0) = \gamma_1(t)$, $H(t, 1) = \gamma_2(t)$ для всех $t \in [a, b]$,
+		\item $H(a, s) = \gamma_1(a) = \gamma_2(a)$, $H(b, s) = \gamma_1(b) = \gamma_2(b)$ для всех $s \in [0, 1]$.
+	\end{enumerate}
+	Отображение $H$ называется \textit{гомотопией}.
+\end{definition}
+
+\begin{note}
+	При фиксированном $s$ отображение $\gamma_s(t) = H(t, s)$ является путем, поэтому гомотопию можно рассматривать как семейство путей, непрерывно зависящих от $s$.
+\end{note}
+
+В произвольной области $U$ пути с общими концами могут не быть гомотопными.
+Но если $U$ выпукло, то всегда можно построить \textit{линейную гомотопию}.
+
+\begin{example}
+	Пусть $\gamma_1, \gamma_2 : [a, b] \to \R^n$ -- два пути с общими концами.
+	Тогда $\gamma_1, \gamma_2$ гомотопны.
+\end{example}
+
+\begin{myproof}
+	Рассмотрим отображение $H(t, s) := (1 - s) \gamma_1(t) + s \gamma_2(t)$. 
+	Отображение $H$ непрерывно как комбинация непрерывных функций, значения в $s=0$ и $s=1$ очевидно совпадают с $\gamma_1(t)$ и $\gamma_2(t)$. 
+	Легко проверить, что и второе условие гомотопии выполнено.
+\end{myproof}
+
+
+
+\begin{theorem}
+	Пусть $\omega$ локально точна в области $U$. 
+	Если пути $\gamma_1, \gamma_2$ гомотопны, то $\int_{\gamma_1} \omega = \int_{\gamma_2} \omega$.
+\end{theorem}
+
+\begin{myproof}
+	Пусть $H : [a, b] \times [0, 1] \to U$ -- гомотопия между $\gamma_1$ и $\gamma_2$.
+	Рассмотрим покрытие области $U$ шарами $\{B_\alpha\}$, в которых $\omega$ точна. Семейство $\{H^{-1}(B_\alpha)\}$ образует открытое покрытие компакта $[a, b] \times [0, 1]$. 
+	По лемме Лебега существуют разбиения $a = t_0 < \dotsc < t_m = b$ и $0 = s_0 < \dotsc < s_k = 1$, такие что образ каждого прямоугольника $R_{ij} = [t_{i-1}, t_i] \times [s_{j-1}, s_j]$ содержится в некотором шаре $B_{ij}$, где $\omega$ точна.
+	
+	\vspace{5pt}
+	Обозначим $\gamma^{(j)}(t) = H(t, s_j)$ ($\gamma^{(0)} = \gamma_1$, $\gamma^{(k)} = \gamma_2$). Достаточно доказать, что $\forall j : \int_{\gamma^{(j)}} \omega = \int_{\gamma^{(j - 1)}} \omega$.
+	Зафиксируем $j$ и рассмотрим полосу $[a, b] \times [s_{j-1}, s_j]$. Пусть $F_i$ -- первообразная формы $\omega$ в шаре $B_{ij}$.
+	Обозначим точки на путях: $x_i = \gamma^{(j-1)}(t_i) = H(t_i, s_{j-1})$ и $y_i = \gamma^{(j)}(t_i) = H(t_i, s_j)$.
+	Тогда разность интегралов можно записать как следующую сумму:
+	\[ \int_{\gamma^{(j)}} \omega - \int_{\gamma^{(j - 1)}} \omega = \sum \limits_{i=1}^{m} \left( [F_i(y_i) - F_i(y_{i-1})] - [F_i(x_i) - F_i(x_{i-1})] \right). \]
+	Перегруппируем слагаемые, выделяя приращения с одним индексом:
+	\[ \sum \limits_{i=1}^{m} \left( [F_i(y_i) - F_i(x_i)] - [F_i(y_{i-1}) - F_i(x_{i-1})] \right). \]
+	Сведем к телескопической сумме.
+	Заметим, что $L := \{t_{i-1}\} \times [s_{j-1}, s_j] = R_{i,j} \cap R_{(i-1),j}$, поэтому $H(L) \subset B_{i,j} \cap B_{(i-1),j}$. В этой области $F_i - F_{i-1} = C$, при этом $x_{i-1} = H(t_{i-1}, s_{j-1}) \in H(L)$ и $y_{i-1} = H(t_{i-1}, s_j) \in H(L)$, откуда 
+	\[ F_i(y_{i-1}) - F_i(x_{i-1}) = F_{i-1}(y_{i-1}) - F_{i-1}(x_{i-1}). \]
+	Таким образом, сумма телескопическая. Остаются только граничные слагаемые:
+	$[F_m(y_m) - F_m(x_m)] - [F_1(y_0) - F_1(x_0)]$. 
+	Так как $y_m = x_m = H(b, *) = \gamma_1(b)$ и $y_0 = x_0 = H(a, *) = \gamma_1(a)$, то и эти слагаемые равны нулю, что и требовалось.
+\end{myproof}
+
+\begin{definition}
+	Область $U \subset \R^n$ называется \textit{односвязной}, если каждый замкнутый путь в $U$ гомотопен точке, то есть тождественному пути. 
+\end{definition}
+
+\begin{corollary}
+	В односвязной области всякая локально точная форма точна.
+\end{corollary}
+
+\begin{myproof}
+	По критерию достаточно показать, что интеграл формы по любому замкнутому контуру $\gamma$ равен нулю. 
+	Так как $\gamma$ гомотопно <<точке>>, по которой интеграл равен нулю, то по доказанной теореме интеграл по $\gamma$ также равен нулю, что и требовалось.
+\end{myproof}
+
+\section{Дифференциальные $k$-формы}
+
+\subsection{Внешние формы}
+
+Пусть $V$ -- вещественное линейное пространство, $\dim V = m$, $k \in \N$.
+
+\begin{reminder}
+	Напомним, что через $S_k$ обозначается множество всех биекций $\sigma$ на множестве $\{1, \dotsc, k\}$ и $\epsilon(\sigma) := (-1)^{\nu(\sigma)}$, где $\nu(\sigma) := \#\{(i, j) : i < j \wedge \sigma(i) > \sigma(j)\}$.
+\end{reminder}
+
+\begin{definition}
+	Полилинейная функция $\omega : \underbrace{V \times \dotsc \times V}_{k \text{ раз}} \to \R$ называется \textit{кососимметричной (внешней) $k$-формой}, если $\forall \sigma \in S_k$ и любых векторов $v_1, \dotsc, v_k \in V$ выполнено:
+	\[ \omega(v_{\sigma(1)}, \dotsc, v_{\sigma(k)}) = \varepsilon(\sigma) \cdot \omega(v_1, \dotsc, v_k). \]
+	Пространство всех кососимметричных $k$-форм обозначается $A_k(V)$. 
+	По определению полагают $A_0(V) = \mathbb{R}$. Число $k$ называется \textit{степенью} формы.
+\end{definition}
+
+\begin{problem}
+	Пусть $\omega$ -- полилинейная функция. Докажите, что условия эквивалентны:
+	\begin{enumerate}[itemsep= 0pt, topsep = 5pt]
+		\item $\omega$ кососимметрична,
+		\item $\omega(v_1, \dotsc, v_k) = 0$, если $\exists i \neq j : v_i = v_j$,
+		\item $\omega(v_1, \dotsc, v_k) = 0$, если $v_1, \dotsc, v_k$ линейно зависимы.
+	\end{enumerate}
+\end{problem}
+
+\begin{example}
+	Приведем примеры внешних $k$-форм при различных $k$:
+	\begin{itemize}[itemsep = 0pt, topsep = 5pt]
+		\item При $k = 1$: $A_1(V) = V^*$,
+		\item При $k = m = \dim V$: Зафиксируем базис в $V$. Пусть $\xi_j$ -- столбец координат вектора $v_j$ в этом базисе. Тогда функция $\Omega(v_1, \dotsc, v_m) = \det [\xi_1, \dotsc, \xi_m]$ является $m$-формой.
+		\item При $k = 2$: Пусть $A$ -- кососимметричная матрица ($A^T = -A$). Функция $\omega(u, v) = (u, Av)$, где $(\cdot, \cdot)$ -- скалярное произведение в $\mathbb{R}^m$, является 2-формой.
+	\end{itemize}
+\end{example}
+
+\begin{definition}
+	Пусть $(e^1, \dotsc, e^m)$ -- базис $V^*$.
+	Для любой перестановки $I = (i_1, \dotsc, i_k)$, $i_j \in \{1, \dotsc, m\}$ определим функцию $e^I : V^k \to \R$ по формуле:
+	\[ e^I (v_1, \dotsc, v_k) = \det \begin{pmatrix}
+		e^{i_1}(v_1) & \dotsc & e^{i_1}(v_k) \\ 
+		\vdots & \ddots & \vdots \\
+		e^{i_k}(v_1) & \dotsc & e^{i_k}(v_k)  
+	\end{pmatrix}. \]
+	Тогда $e^I \in A_k(V)$, что вытекает из линейности $e^{i_j}$ и свойств определителя.
+\end{definition}
+
+Введем обозначение $\mathbb{I}_k := \{I = (i_1, \dotsc, i_k) : 1 \leq i_1 < \dotsc < i_k \leq m\}$.
+
+\begin{theorem}
+	Пусть $(e^1, \dotsc, e^m)$ -- базис $V^*$, двойственный к базису $(e_1, \dotsc, e_m)$ в $V$.
+	Тогда семейство $E_k = \{e^I : I \in \mathbb{I}_k\}$ образует базис пространства $A_k(V)$.
+\end{theorem}
+
+\begin{myproof}
+	Пусть $f \in A_k(V)$. Будем использовать сокращение $e_J = e_{j_1}, \dotsc, e_{j_k}$ и разложим аргументы формы по базису: $v_i = \sum \limits_{j=1}^m \xi_{ij} e_j$. Тогда по полилинейности имеем:
+	\[ f(v_1, \dotsc, v_k) = \sum_{1 \leq j_1, \dotsc, j_k \leq m} \xi_{1 j_1} \dots \xi_{k j_k} \cdot f(e_J). \]
+	Зафиксируем $J = (j_1, \dotsc, j_k)$. Если среди индексов в $J$ есть повторы, то $f(e_J) = 0$.
+	Иначе найдется $\sigma \in S_k$, которая упорядочит $J$ в $I \in \mathbb{I}_k$ ($j_p = i_{\sigma(p)}$). Для этой перестановки $f(e_I) = \epsilon(\sigma) \cdot f(e_J)$.
+	Поэтому сумму можно вести только по упорядоченным наборам $I$, собирая все перестановки в коэффициент перед $f(e_I)$:
+	\[ f(v_1, \dotsc, v_k) = \sum_{I \in \mathbb{I}_k} \left[ \sum_{\sigma \in S_k} \epsilon(\sigma) \xi_{1 i_{\sigma(1)}} \dots \xi_{k i_{\sigma(k)}} \right] \cdot f(e_I) . \]
+	Осталось вспомнить, что $\forall i,j : \xi_{ij} = e^j(v_i)$ по определению двойственного базиса, поэтому коэффициент в скобках представляет собой полную развертку определителя $e^I(v_1, \dotsc, v_k)$. 
+	Следовательно, $f = \sum \limits_{I \in \mathbb{I}_k} f(e_I)  e^I$, то есть $E_k$ порождает $A_k(V)$.
+
+	\vspace{5pt}
+	Покажем линейную независимость.
+	Пусть $\sum \limits_{I \in \mathbb{I}_k} c_I e^I = 0$. Применим это равенство к набору базисных векторов $e_J$ для фиксированного $J \in \mathbb{I}_k$, то есть $\sum_{I \in \mathbb{I}_k} c_I e^I(e_J) = 0$. 
+	Заметим, что матрица для $e^I(e_J)$ состоит из 0 и 1. Если $I \neq J$, то в ней есть нулевая строка, и тогда $e^I(e_J) = 0$. Если $I=J$, то это единичная матрица, и тогда $e^I(e_J) = 1$.
+	Следовательно, $c_J = 0$. Так как $J$ произвольно, это доказывает утверждение. 
+\end{myproof}
+
+\begin{corollary}
+	$\dim A_k(V) = C_m^k$.
+\end{corollary}
