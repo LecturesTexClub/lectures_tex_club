@@ -1,0 +1,210 @@
+
+
+\section{Линейные уравнения старших порядков}
+\begin{definition}
+    Пусть \(b, a_1, \dots a_n \in C(I, \R), a_0(t) \ne 0 \forall t \in I\). Тогда:
+    \begin{equation}
+        a_0(t)x^{(n)} + a_1(t)x^{(n - 1)} + \dots + a_{n - 1}x' + a_n(t)x = b(t)
+    \end{equation}
+    Называется линейным неоднородным уравнением. При \(b(t) = 0\) уравнение становится линейным однородным уравнением:
+    \begin{equation}
+        a_0(t)x^{(n)} + a_1(t)x^{(n - 1)} + \dots + a_{n - 1}x' + a_n(t)x = 0
+    \end{equation}
+\end{definition}
+
+Рассмотрим \(L: C^n(I, \mathbb{K}) \ra C(I, \R)\):
+\[(Lx)(t) = a_0(t)x^{(n)} + a_1(t)x^{(n - 1)} + \dots + a_{n - 1}x' + a_n(t)x\]
+
+\subsection{Линейное однородное уравнение}
+Данное уравнение равносильно тому, что \(Lx = 0\). Рассмотрим для него замену \(y_1 = x, y_2 = x', \dots y_n = x^{(n - 1)}\). Тогда:
+\begin{equation}
+    \begin{cases}
+        y_1' = y_2 \\
+        y_2' = y_3 \\
+        \vdots \\
+        y_{n - 1}' = y_n \\
+        y_n' = -\frac{a_1(t)}{a_0(t)}y_n - \dots - \frac{a_n(t)}{a_0(t)}y_1
+    \end{cases}
+\end{equation}
+
+Имеем, что \(y\) является решением (8.3) \(\Lra\) \(x\) является решением (8.1). При этом, \(\forall t_0 \in I \forall x_0^0, \dots x_0^{n - 1} \in \mathbb{K} \exists!\) решение \(x: I \ra \mathbb{K}\) задачи Коши \(Lx = 0, x(t_0) = x_0^0, x'(t_0) = x_0^1, \dots x^{(n - 1)}(t_0) = x_0^{n - 1}\).
+
+\begin{lemma}
+    Пусть \(x_1(\cdot), \dots x_m(\cdot)\) --- решения \(Lx = 0\), \(y^1(\cdot), \dots y^m(\cdot)\) --- соответствующие решения (8.3). Тогда \(x^1(\cdot), \dots x^m(\cdot)\) линейно независимы \(\Lra y^1(\cdot), \dots y^m(\cdot)\) линейно независимы.
+\end{lemma}
+\begin{proof}\indent
+    \begin{enumerate}
+        \item[\(\Ra\)]
+        \[\exists c_1, \dots c_m: c_1y^1 + \dots + c_my^m = 0 \Ra c_1x^1 + \dots + c_mx^m = 0 \Ra c_1, \dots c_m = 0\] 
+        Тогда \(y^i\) линейно независимы.
+        \item[\(\La\)]
+        \[\exists c_1, \dots c_m: c_1x_1 + \dots + c_mx_m = 0 \Ra c_1x^{(j)}_1 + \dots + c_mx^{(j)}_m = 0 \forall 0 \le j \le n \Ra\]
+        \[\Ra c_1y^1 + \dots + c_my^m = 0 \Ra c_1, \dots c_m = 0\]
+        Тогда \(x_i\) линейно независимы.
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}
+    \(x_1, \dots x_n \in C^n(I, \mathbb{K})\) называется фундаментальной системой решений уравнение (8.2), если \(x_1, \dots x_n\) являются его решениями и они линейно независимы
+\end{definition}
+
+\begin{corollary}[Из леммы]
+    ФСР существует
+\end{corollary}
+
+\begin{theorem}
+    Пусть \(x_1(\cdot), \dots x_n(\cdot)\) --- ФСР (8.2). Тогда общий вид решения имеет вид
+    \[x(\cdot) = \sum_{i = 1}^n c_jx_j(\cdot), c_j \in \mathbb{K}\]
+\end{theorem}
+\begin{proof}
+    \(x(\cdot)\) --- решение (8.2), \(y = \left( \begin{array}{c}
+        x(\cdot) \\
+        \vdots \\
+        x^{(n - 1)}(\cdot)
+    \end{array} \right)\).
+    \[\exists c_1, \dots c_n \in \mathbb{K}: y = c_1y^1 + \dots + c_ny^y \Ra x = c_1x_1 + c_2x_2 + \dots + c_nx_n\]
+\end{proof}
+
+\begin{definition}
+    Определителем Вронского набора \(x_1, \dots x_n \in C^{n - 1}(I, \mathbb{K})\) называется
+    \[\omega(x_1, \dots x_n)(t) = \left| \begin{array}{ccc}
+        x_1(t) & \dots & x_n(t) \\
+        x_1'(t) & \dots & x_n'(t) \\
+        \vdots & \ddots & \vdots \\
+        x_1^{(n)}(t) & \dots & x_n^{(n)}(t) \\
+    \end{array} \right|, t \in I\]
+\end{definition}
+
+\begin{proposition}
+    \(x_1(\cdot), \dots x_n(\cdot)\) линейно независимы \(\Ra \omega(t) = 0\)
+\end{proposition}
+\begin{proof}
+    \[\exists (c_1, \dots c_n) \ne 0: \sum_{j = 1}^n c_jx_j = 0 \Ra \sum_{j = 1}^n c_jx_j^{(s)} = 0 \Ra \omega(t) = 0\]
+\end{proof}
+
+\begin{note}
+    Обратное неверно
+\end{note}
+\begin{proof}
+    Положим \(n = 2, x_1(t) = t^2, x_2(t) = t|t|, t \in \R\):
+    \[\omega(t) = \left| \begin{array}{cc}
+        t^2 & t|t| \\
+        2t & 2|t|
+    \end{array} \right| = 0\]
+    При этом, \(c_1t^2 + c_2t|t| = 0 \Ra \left\{\begin{array}{l}
+        c_1 + c_2 = 0 \\
+        c_1 - c_2 = 0
+    \end{array}\right. \Ra c_1, c_2 = 0\)
+\end{proof}
+
+\begin{theorem}[Формула Лиувилля-Остроградского]
+    Пусть \(x_1(\cdot), \dots x_n(\cdot)\) --- ФСР (8.2). Тогда
+    \[\omega(t) \equiv \omega(t_0)\exp\left(-\int_{t_0}^t \frac{a_1(s)}{a_0(s)}ds \right), t_0, t \in I\]
+\end{theorem}
+\begin{proof}
+    Известно, что \(x_1, \dots x_n \in C^{n - 1}(I, \mathbb{K})\).
+    \[\omega(x_1, \dots x_n)(t) = \left| \begin{array}{ccc}
+        x_1(t) & \dots & x_n(t) \\
+        x_1'(t) & \dots & x_n'(t) \\
+        \vdots & \ddots & \vdots \\
+        x_1^{(n)}(t) & \dots & x_n^{(n)}(t) \\
+    \end{array} \right|, t \in I\]
+    Мы знаем, что:
+    \[\omega(t) \equiv \omega(t_0)\exp\left( \int_{t_0}^t tr\;A(s)ds \right), t_0, t \in I\]
+    Где:
+    \[A = \left( \begin{array}{c}
+            \tilde{a_1}(t) \\
+            \tilde{a_2}(t) \\
+            \vdots \\
+            \tilde{a_n}(t) \\
+        \end{array}\right) = \left(\begin{array}{cccccc}
+        0 & 1 & 0 & 0 & \dots & 0 \\
+        0 & 0 & 1 & 0 & \dots & 0 \\
+        \vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & 0 & 0 & \dots & -\frac{a_1(t)}{a_0(t)}
+    \end{array} \right) \Ra \begin{array}{c}
+        y_1' = \langle \tilde{a_1}, y \rangle \\
+        y_2' = \langle \tilde{a_2}, y \rangle \\
+        \vdots \\
+        y_n' = \langle \tilde{a_n}, y \rangle \\
+    \end{array} \]
+    Заметим, что \(tr\;A = -\frac{a_1(t)}{a_0(t)}\), откуда имеем желаемое.
+\end{proof}
+
+\begin{proposition}
+    Пусть \(x_1(\cdot), \dots x_n(\cdot)\) --- решения (8.2). Тогда \(\exists t_0 \in I: \omega(t_0) = 0 \Ra x_1(\cdot), \dots x_n(\cdot)\) линейно зависимы
+\end{proposition}
+\begin{proof}
+    Пусть \(y^1(\cdot), \dots y^n(\cdot)\) --- решение (8.3). Тогда:
+    \[\omega(y^1, \dots y^n) = \omega(x_1, \dots x_n)(t) = 0\]
+    \[\Ra y^1(t_0), \dots y^n(t_0) \text{ линено зависимы } \Ra y^1(\cdot), \dots y^n(\cdot) \text{ линейно зависимы }\]
+    \[\Ra x_1(\cdot), \dots x_n(\cdot) \text{ линейно зависимы }\]
+\end{proof}
+
+\subsection{Линейные однородные уравнения с постоянными коэффициентами}
+
+\begin{definition}
+    Если \(a_0, \dots a_n \in \Cm, a_0 \ne 0\), то уравнение
+    \begin{equation}
+        a_0x^{(n)} + a_1x^{(n - 1)} + \dots + a_{n - 1}x' + a_nx = 0
+    \end{equation}
+    Называется линейным однородным уравнением с постоянными коэффициентами.
+\end{definition}
+
+\begin{definition}
+    Многочлен:
+    \[M(\lambda) = a_0\lambda^n + a_1\lambda^{n - 1} + \dots + a_n\]
+    Называется характеристическим многочленом (8.4)
+\end{definition}
+
+\begin{definition}
+    \begin{equation}
+        M(\lambda) = 0
+    \end{equation}
+    Называется характеристическим уравнением (8.4)
+\end{definition}
+
+\begin{lemma}
+    Пусть \(\gamma \in \Cm, k\) --- кратность корня \(\lambda = \gamma\). Тогда:
+    \[L\left( t^se^{\gamma t} \right) = \left\{\begin{array}{l}
+        0, s \le k - 1 \\
+        p(t)e^{\gamma t}, s \ge k \\
+    \end{array}\right., \deg p = s - k\]
+\end{lemma}
+\begin{proof}
+    \[\frac{\partial^j}{\partial t^j}\left( t^s e^{\lambda t} \right) = \frac{\partial^j}{\partial t^j}\left( \frac{\partial^s}{\partial \lambda^s}e^{\lambda t} \right) = \frac{\partial^s}{\partial \lambda^s}\left( \frac{\partial^j}{\partial t^j}e^{\lambda t} \right) = \frac{\partial^s}{\partial \lambda^s}\left( \lambda^j e^{\lambda t} \right)\]
+    \[L\left( t^s e^{\lambda t} \right) \equiv \sum_{j = 0}^n a_{n - j}\frac{\partial^j}{\partial t^j}\left( t^s e^{\lambda t} \right) \equiv \sum_{j = 0}^n a_{n - j}\frac{\partial^s}{\partial \lambda^s}\left( \lambda^i e^{\lambda t} \right) \equiv \frac{\partial^s}{\partial \lambda^s}\left( M(\lambda)e^{\lambda t} \right) \equiv \]
+    \[\equiv e^{\lambda t}\left( t^sM(\lambda) + C_s^1t^{s - 1}M'(\lambda) + \dots + M^{(s)}(\lambda) \right)\]
+    Получили, что:
+    \[L\left( t^se^{\gamma t} \right) = \left\{\begin{array}{l}
+        0, s \le k - 1 \\
+        p(t)e^{\gamma t}, s \ge k \\
+    \end{array}\right., \deg p = s - k\]
+\end{proof}
+
+\begin{theorem}
+    Пусть \(\lambda_1, \dots \lambda_m\) --- корни \(M\), \(k_1, \dots k_m\) --- их кратности, 
+    \[x_{js} = t^se^{\lambda t}, j = 1, \dots m, s = 0, \dots k_j - 1\]
+    Тогда \(x_{is}\) образуют ФСР
+\end{theorem}
+\begin{proof}
+    Заметим, что \(x_{js}\) --- решение, причем их ровно \(n\). Докажем их линейную независимость. Предположим противное.
+    \[\exists (c_{js}) \ne 0: \sum_{j, s} c_{js}t^se^{\lambda_j t} \equiv 0\]
+    \[p_1(t)e^{\lambda_1 t} + \dots p_m(t)e^{\lambda_m t} \equiv 0, p_m(t) \ne 0\]
+    \[p_1(t) + p_2e^{(\lambda_2 - \lambda_1)t} + \dots + p_m(t)e^{(\lambda_m - \lambda_1)t} \equiv 0, p_m(t) \ne 0\]
+    Дифференцируя данное равенство достаточное количество раз и при условии, что \(\lambda_1 \ne \lambda_i\), получаем:
+    \[\tilde{p_2}e^{(\lambda_2 - \lambda_1)t} + \dots + \tilde{p_m}(t)e^{(\lambda_m - \lambda_1)t} \equiv 0, p_m(t) \ne 0\]
+    Причем \(\deg p_i = \deg \tilde{p_i}\). 
+    Действуя аналогично, получаем, что \(p_m(t) = 0\), что приводит нас к противоречию
+\end{proof}
+
+Пусть \(a_0, \dots a_m \in \R, a_0 \ne 0\). Пусть \(\lambda_1, \dots \lambda_r \in \Cm\):
+\[\begin{array}{c}
+    \lambda_{r + 1} = \overline{\lambda_1}, \dots, \lambda_{2r} = \overline{\lambda_r} \\
+    \lambda_{2r + 1} + \dots + \lambda_m \in \R
+\end{array}\]
+Тогда:
+\[\frac{1}{2}\left( x_{js}(t) + x_{j + r, s} \right) = \frac{t^se^{\lambda_j t} + t^s e^{\overline{\lambda_j}t}}{2} = t^s \cos (\beta_j t)e^{\alpha_j}, \lambda_j = \alpha_j + i\beta_j\]
+
+\[\frac{1}{2i}\left( x_{js}(t) - x_{j + r, s} \right) = \frac{t^se^{\lambda_j t} - t^s e^{\overline{\lambda_j}t}}{2} = t^s \sin (\beta_j t)e^{\alpha_j}, \lambda_j = \alpha_j + i\beta_j\]
+

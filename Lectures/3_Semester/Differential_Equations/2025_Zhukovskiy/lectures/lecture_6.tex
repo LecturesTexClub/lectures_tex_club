@@ -1,0 +1,112 @@
+
+
+\section{Теоремы о продолжении решений}
+
+\begin{theorem}
+    Пусть даны \(\Gamma \subset \R \times \R^n\) --- открыто, \(f: \Gamma \ra \R^n, (t_0, x_0) \in \Gamma\). Рассмотрим задачу Коши:
+    \begin{equation}
+        \begin{cases}
+            x' = f(t, x) \\
+            x(t_0) = x_0
+        \end{cases}
+    \end{equation}
+    Тогда, если выполнены условия теоремы о единственности, \(D \subset \Gamma\) --- открытое и ограниченное, такое, что \(\overline{D} \subset \Gamma, (t_0, x_0) \in D\), то \(\exists a, b \in \R, x: (a, b) \ra \R^n\), такие, что
+    \begin{enumerate}
+        \item \(x(\cdot)\) --- решение задачи Коши (6.1)
+        \item \((t, x(t)) \in D \forall t, \exists x(a + 0), x(b - 0): (a, x(a + 0)), (b, x(b - 0)) \in \delta D\).
+        \item \(y: J \ra \R^n\) --- решение задачи Коши (6.1), тогда \(x(t) = y(t) \forall t \in J \cap (a, b)\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Положим \(M = \max{(t, x) \in \overline{D}}|f(t, x)|\). Положим \(r_0 = dist((t_0, x_0), \delta D), d_0 = \frac{r_0}{\sqrt{1 + M^2}}\). Тогда по теореме о существовании решения, \(\exists \xi_0: (t_0 - d_0, t_0 + d_0) \ra \R^n\) задачи Коши (6.1). 
+    Рассмотрим следующую последовательность функций и точек \(\xi_n, t_n, r_n, d_n\): \(\xi_0: (t_0 - d_0, t_0 + d_0) \ra \R^n\) --- решение задачи Коши (6.1), \(t_0, r_0, d_0\) --- даны, а последовательность задается следующим образом:
+    \[t_n = t_{n - 1} + \frac{1}{2}d_{n - 1}\]
+    \[r_n = dist((t_n, \xi_{n - 1}), \delta D)\]:
+    \[d_n = \frac{r_n}{\sqrt{1 + M^2}}\]
+    \[\xi_n: (t_n - d_n, t_n + d_n) \ra \R^n = \text{решение задачи Коши:}\] 
+    \begin{equation}
+        \begin{cases}
+            x' = f(t, x) \\ 
+            x(t_n) = \xi_{n - 1}(t_n)
+        \end{cases}
+    \end{equation}
+
+    Заметим, что \(\{t_j\}\) возрастает и ограничена, тогда \(\exists \lim_{j \ra \infty} t_j = b\). Также, по теореме о существовании и единственности решения, \(\xi_n(t) = \xi_{n + 1}(t) \forall t \in (t_n - d_n, t_n + d_n) \cap (t_{n + 1} - d_{n + 1}, t_{n + 1} + d_{n + 1})\).
+    % \[\begin{array}{c|cccc}
+    %     k & 0 & \dots & n & \dots \\
+    %     \hline
+    %     \xi_k & \xi_0 & \dots &  & \dots\\
+    %     t_k & t_0 & \dots &  & \dots\\
+    %     r_k & r_0 & \dots &  & \dots\\
+    %     d_k & d_0 & \dots &  & \dots\\
+        
+    % \end{array}\]
+
+    % \begin{enumerate}
+    %     \item[] \textbf{База:}
+    %     \item[] \textbf{Переход:}
+    % \end{enumerate}
+    Тогда положим:
+    \[x(t) = \left\{\begin{array}{l}
+        \xi_0(t), t \in (t_0 - d_0, t_1) \\
+        \xi_1(t), t \in (t_1 - d_1, t_2) \\
+        \vdots \\
+        \xi_n(t), t \in (t_n - d_n, t_{n + 1}) \\
+        \vdots \\
+    \end{array}\right.\]
+    Тогда \(x\) определена на \((t_0 - d_0, b)\) и гладкая, т.к. составлена из гладких функций \(\xi_n\), у которых \(\xi_n, \xi_{n + 1}\) совпадают (и, как следствие, \(x\) --- гладкая на \(t_{n} - d_n, t_{n + 1} + d_{n + 1}\)). Так как любые два таких соседних интервала пересекаются, то \(x\) --- гладкая. При этом, \(x\) --- решение (6.1), т.к. \(x(t_0) = \xi(t_0) = x_0\). Тогда \(|x'(t)| = |f(t, x(t))| \le M \forall t \in (t_0 - d_0, b) \Ra |x(t_1) - x(t_2)| \le M|t_1 - t_2| \forall t_1, t_2 \in (t_0 - d_0, b) \Ra \exists x(b - 0)\).
+
+    Теперь докажем, что \((b, x(b - 0)) \in \delta D\). Заметим, что:
+    \[t_n = t_0 + \frac{d_0}{2} + \frac{d_1}{2} + \dots  + \frac{d_{n - 1}}{2} \ra b \Ra d_n \ra 0 \Ra dist((t_n, x(b - 0)), \delta D) \ra 0 \Ra (b, x(b - 0)) \in \delta D\]
+
+    Число \(a\) будет строиться аналогично.
+
+    Докажем теперь, что если \(y: J \ra \R^n\) --- решение (6.1), то \(y(t) = x(t), t \in J \cap (a, b)\). Пусть \(\exists t \in (a, b) \cap J, t > t_0: x(t) \ne y(t)\). Положим \(\tau = \inf\{t \in I \cap J, t > t_0, x(t) \ne y(t)\}\). Но тогда \(x, y\) удовлетворяют решению условиям теоремы о существовании и единственности решения задачи Коши:
+    \begin{equation*}
+        \begin{cases}
+            z' = f(t, z) \\
+            z(\tau) = x(\tau)
+        \end{cases}
+    \end{equation*}
+    Но тогда \(\tau \ne \inf\{t \in I \cap J, t > t_0, x(t) \ne y(t)\}\). Для случая \(\exists t < t_0: x(t) \ne y(t)\) заменяем \(\inf\) на \(\sup\).
+\end{proof}
+
+\begin{example}
+    \(\sin\left( \frac{1}{t} \right), t > 0\) не может быть решением дифференциального уравнение для \(\Gamma = \R^2\), т.к. если положить \(D = (-2, +\infty) \times (-2, 2)\), то по теореме о продолжении решения, \(\exists a: (a, x(a + 0)) \in \delta D\), а это неправда.
+\end{example}
+
+\begin{theorem}
+    Пусть даны \(\Gamma \subset \R \times \R^n\) --- открыто, \(f: \Gamma \ra \R^n, (t_0, x_0) \in \Gamma\). Рассмотрим задачу Коши:
+    \begin{equation}
+        \begin{cases}
+            x' = f(t, x) \\
+            x(t_0) = x_0
+        \end{cases}
+    \end{equation}
+    Тогда, если \(\exists \alpha, \beta \in C(I, \R_+): |f(t, x)| \le \alpha(t)|x| + \beta(t) \forall (t, x) \in \Gamma\), то \(\exists x: I \ra \R^n\), такая, что:
+    \begin{enumerate}
+        \item \(x(\cdot)\) --- решение задачи коши (6.3)
+        \item \(\forall y: J \ra \R^n\) --- решения задачи коши (6.3), верно: \(J \subset I, y(t) = x(t) \forall t \in J\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Пусть \(a_j, b_j \in \R, a_j < b_j \forall j, a_j\) --- убывают, \(b_j\) --- возрастают \(a_j < t_0 < b_j\), \(I = \bigcup_{j = 1}^\infty [a_j, b_j]\). Положим \(k_j = \max_{t \in [a_j, b_j] |\alpha(t)| + 1}, m_j = \max_{t \in [a_j, b_j]} \beta(t)\). Положим также
+    \[R_j = 1 + \max_{t \in [a_j, b_j]}\left( |x_0|e^{k_j|t - t_0|} + \frac{m_j}{k_j}\left( e^{x_j|t - t_0|} - 1 \right) \right) > |x_0|\]
+    \[D_j = (a_j, b_j) \times B_{\R^n}(0, R_j) \Ra (t_0, x_0 \in D_j)\]
+    Но тогда существует решение \(\xi_i: I_j \ra \R^n\) задачи Коши (6.3). Тогда \(|\xi'_i(t)| = |f(t, \xi(t))| \le k_j|\xi_j(t)| + m_j \forall t \in I_j\) тогда по лемме о дифференцируемом неравенстве, \(|\xi_j(t)| \le R_j \forall t \in I_j\). Из теоремы о продолжении решения, получаем, что \(I_j = (a_j, b_j)\). Тогда \(\forall t \in I \exists j: t \in (a_j, b_j)\), при этом \(x(t) = \xi_j(t)\) при \(t \in (a_j, b_j)\). Тогда по построению, \(x\) является искомой
+\end{proof}
+
+\begin{exercise}
+    Доказать единственность, пользуясь стандартным приемом с \(\tau = \inf\{t \in I \cap J, t > t_0, x(t) \ne y(t)\}\).
+\end{exercise}
+
+\begin{example}[Не всегда можно продолжить решение на всю вещественную ось]
+    Рассмотрим уравнение:
+    \begin{equation*}
+        \begin{cases}
+            x' = 1 + x^2 \\
+            x(0) = 0
+        \end{cases}
+    \end{equation*}
+    Решая уравнение, получаем: \(x = \tg t \Ra t \in \left( -\frac{\pi}{2}, \frac{\pi}{2} \right)\).
+\end{example}

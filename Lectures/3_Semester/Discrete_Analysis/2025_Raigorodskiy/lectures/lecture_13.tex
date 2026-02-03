@@ -1,0 +1,43 @@
+
+
+\begin{note}
+    \(m(n, r, s) \ge f(n, r, s + 1) \ge C_{n - s - 1}^{r - s - 1}\).
+    Если \(r, s\) фиксированны, а \(n \ra \infty\), то
+    \[C_{n - s - 1}^{r - s - 1} \sim \frac{n^{r - s - 1}}{(r - s - 1)!}\]
+    Таким образом, верхняя граница \(m(n, r, s)\) точна, т.к. ее асимптотика также равна \(\frac{n^{r - s - 1}}{(r - s - 1)!}\).
+\end{note}
+
+\begin{theorem}
+    Пусть \(r - s = p, r - 2p \ge 0\). Тогда:
+    \[m(n, r, s) \le \frac{C_n^{r - 2p + 1}}{C_r^{r - 2p + 1}}\sum_{k = 0}^{p - 1}C_n^k\]
+\end{theorem}
+\begin{proof}
+    Пусть \(A_1, \dots A_t\) --- ребра нашего гиперграфа. Положим \(d = r - 2p + 1 = r - 2(r - s) + 1 = 2s - r + 1\). Рассмотрим все \(d\)-элементные подмножества множества вершин: \(\{D_1, \dots D_{C_n^d}\}\). Пусть \(I(D_i, A_j) = \left\{\begin{array}{l}
+        1, D_i \subset A_j \\
+        0, D_i \not\subset A_j
+    \end{array}\right.\)
+    \[\sum_{i = 1}^{C_n^d}\sum_{j = 1}^{t}I(D_i, A_j) = \sum_{j = 1}^{t}\sum_{i = 1}^{C_n^d}I(D_i, A_j) = tC_r^d\]
+    Существует \(i: \sum_{j = 1}^t I(D_i, A_j) \ge \frac{tC_r^d}{C_n^d}\) (т.к. сумма \(C_n^d\) слагаемых равна \(tC_r^d\)). Это значит, что для этого \(i\) хотя бы \(\frac{tC_r^d}{C_n^d}\) ребер содержат \(D_i = D\). Но тогда, если мы обозначим эти ребра за \(B_1, \dots B_l, l \ge \frac{tC_r^d}{C_n^d}\), получим: \(|B_i \cap B_j| \ge d\). Положим \(B_i' = B_i \setminus D \Ra |B_i'| = r - d = 2p - 1, |B_i' \cap B_j'| \ne s - d = p - 1\). Положим \(n' = n - d, r' = 2p - 1, s' = p - 1\).
+    \[m(n', r', s') \le \sum_{k = 0}^{p - 1}C_n^k\]
+    Неравенство верно по предыдущей теореме. Тогда:
+    \[\left\{\begin{array}{l}
+        l \le \sum_{k = 0}^{p - 1}C_{n - d}^k
+        l \ge t\frac{C_r^d}{C_n^d}
+    \end{array}\right. \Ra t \le \frac{C_n^d}{C_r^d}\sum_{k = 0}^{p - 1}C_{n - d}^k\]
+\end{proof}
+
+\begin{note}
+    \[\frac{C_n^{r - 2p + 1}}{C_r^{r - 2p + 1}}\sum_{k = 0}^{p - 1}C_n^k \sim \frac{n^{2s - r - 1}(2s - r + 1)!(2r - 2s - 1)!}{(2s - r + 1)!r!} \cdot \frac{n^{r - s - 1}}{(r - s - 1)!} = \frac{n^s(2r - 2s - 1)!}{r!(r - s - 1)!}\]
+
+    При этом:
+    \[m(n, r, s) \ge f(n, r, s + 1) \ge C_{n - s - 1}^{r - s - 1} \sim \frac{n^{r - s - 1}}{(r - s - 1)!}\]
+    И тогда:
+    \[r - 2p \ge 0 \Ra r - 2(r - s) \ge 0 \Ra 2s - r \ge 0 \Ra r \le 2s \Ra r - s - 1 \le s - 1\]
+\end{note}
+
+Рассмотрим \(B_1 \subset \{1, \dots n\}, |B_1| = 2r - s - 1\). Рассмотрим все \(C_{2r - s - 1}^r\) ребер, окторые можно составить из вершин \(B_1\). Очевидно, они будут пересекаться по \(p - 1\) вершине. Выберем как можно больше подмножеств \(B_1, \dots B_t\) в \(\{1, 2, \dots n\}\), таких, что \(|B_i| = 2r - s - 1\) и \(|B_i \cap B_j| \le s - 1\). Заметим, что \(t = h(n, 2r - s - 1, s - 1)\). Тогда:
+\[t \sim \frac{C_n^s}{C_{2r - s - 1}}\]
+Это верно по теореме Рёдля. Тогда:
+\[m(n, r, s) \ge C_{2r - s - 1}^r \frac{C_n^s}{C_{2r - s - 1}} (1 + o(1)) \sim \frac{n^s}{s!} \cdot \frac{s!(2r - 2s - 1)!}{r!(r - s - 1)!} = \frac{n^s(2r - 2s - 1)!}{r!(r - s - 1)!}\]
+Таким образом, полученная нами оценка тоже асимптотически неулучшаема.
+

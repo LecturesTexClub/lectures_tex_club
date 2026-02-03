@@ -1,0 +1,53 @@
+
+
+\[\sum_{k=1}^\frac{n}{2} \underbrace{C_n^k (1-p)^{k(n-k)}}_{a_k(n)} = \underbrace{\sum_{k=1}^{[\frac{n}{\sqrt{\ln{n}}}]}}_{S_1} \dots + \underbrace{\sum_{k = [\frac{n}{\sqrt{\ln{n}}}] + 1}^{\frac{n}{2}}}_{S_2}\]
+
+\[\frac{a_{k+1}(n)}{a_k(n)} \le n (1-p)^{(n-2k-1)} \le n(1-p)^{n(1 + o(1))}\]
+\[S_2 < n \cdot 2^n (1 - p)^{\frac{n}{\sqrt{\ln{n}}} \cdot \frac{n}{2}} \le n(1 - p)^{n - 2\frac{n}{\sqrt{\ln{n}}} - 1}  \le \]
+
+НЕ ЗАКОНЧЕНО
+
+\subsection{Связность случайного графа}
+
+Представим пьяницу, который ходит по целым точкам вещественной прямой либо вправо, либо влево, стартует в кабаке (в 0). Пусть \(\xi_n\) --- куда дошел пьяница за \(n\) шагов. Тогда:
+\[P(\xi_n \ge a) = P(\xi_n - \underbrace{\E \xi_n}_{0} \ge a) \le \frac{\Variance \xi_n}{a^2}\]
+При этом:
+\[\xi_n = \sum_{i = 1}^n \eta_i\]
+Где \(\eta_i \in \{\pm 1\}\) --- куда пошел пьяница на \(i\)-ом шаге. Тогда \(\Variance \xi_n = \E\xi_n^2 - (\E\xi_n)^2 = n\).
+
+\begin{proposition}[Неравенство Хёффдинга]
+    В условиях предыдущей задачи, \(P(\xi_n \ge a) \le e^{-\frac{a^2}{2n}}\)
+\end{proposition}
+\begin{proof}
+    \[P(\xi_n \ge a) = P(\lambda\xi_n \ge \lambda a) = P(e^{\lambda \xi_n} \ge e^{\lambda a}) \le e^{-\lambda a}\E (e^{\lambda \xi_n}) = e^{-\lambda a} \prod_{i = 1}^n \E (e^{\lambda \eta_i}) = \]
+    \[= e^{-\lambda a} \left( \frac{1}{2}e^\lambda + \frac{1}{2}e^{-\lambda} \right) = e^{-\lambda a}\left( \frac{1}{2}\left( \sum_{k = 0}^\infty \frac{\lambda^k}{k!} + \sum_{k = 0}^\infty \frac{(-\lambda)^k}{k!} \right) \right)^n = e^{-\lambda a} \left( \sum_{l = 0}^\infty \frac{\lambda^{2l}}{(2l)!} \right) \le \]
+    \[\le e^{-\lambda a} \left( \sum_{l = 0}^\infty \frac{\lambda^{2l}}{2^ll!} \right) = e^{-\lambda a + \frac{\lambda^2}{2}n}\]
+    При этом \(-\lambda a + \frac{\lambda^2}{2}n\) --- парабола, и ее минимум достигается в точке \(\lambda = \frac{a}{n}\), подставляя данное значение для \(\lambda\), получаем требуемое.
+\end{proof}
+
+\begin{theorem}[Интегральная предельная теорема Муавра --- Лапласа]
+    Пусть \(\xi \sim Bin(n, p)\). Тогда:
+    \[P\left( a \le \frac{\xi - n p}{\sqrt{npq}} \le b\right) \sim_{n \ra \infty} \frac{1}{\sqrt{2\pi}} \int_a^b e^{-\frac{x^2}{2}}dx\]
+\end{theorem}
+
+
+\begin{note}
+    Пусть \(p: pn^2 \ra 0\). \(\E\;|E| = C_n^2p\sim n^2p \ra 0\). Тогда по неравенству Маркова:
+    \[P(|E|) \le \E\;|E| \ra 0 \Ra \text{а.п.н.} \chi(G) = 1\]
+\end{note}
+\begin{proposition}
+    Пусть \(pn^2 \ra \infty, pn \ra 0 \Ra\) а.п.н. ребра есть, тогда:
+    \[\left\{\begin{array}{l}
+        \text{а.п.н. ребра есть \(\Ra\) а.п.н \(\chi(G) \ge 2\)} \\
+        \text{а.п.н. \(G(n, p)\) --- лес} \\
+        \text{а.п.н. \(\chi(G) = 2\)} \\
+    \end{array}\right.\]
+\end{proposition}
+\begin{proof}
+    Пусть \(X(G)\) --- число простых циклов.
+    \[\E X = \sum_{r = 3}^n C_n^r p^r \le \sum_{r = 3}^n \frac{n^r}{r!}\frac{(r - 1)!}{r}p^r < \sum_{r = 3}^n (np)^r < \sum_{r = 3}^\infty (np)^r =_{n \ge n_0} \frac{(np)^3}{1 - np} \ra 0\]
+\end{proof}
+
+\begin{problem}
+    Если \(p = \frac{c}{n}, c < 1\), то а.п.н. все компоненты --- либо деревья, либо унициклические графы \(\Ra\) а.п.н. \(\chi(G) = 3\)
+\end{problem}

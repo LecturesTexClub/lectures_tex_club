@@ -1,0 +1,118 @@
+
+
+\section{Принцип сжимающих отображений}
+\subsection{Напоминание с Матана}
+\begin{definition}
+    Пусть \(X \ne \emptyset, \rho: X \times X \rightarrow \R_+\). Тогда \((X, \rho)\) называется метрическим пространством, а \(\rho\) --- метрикой, если выполнены следующие условия:
+    \begin{enumerate}
+        \item \(\rho(x_1, x_2) = 0 \Ra x_1 = x_2\)
+        \item \(\rho(x_1, x_2) = \rho(x_2, x_1)\)
+        \item \(\rho(x_1, x_2) \le \rho(x_1, x_3) + \rho(x_3, x_2)\)
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+	Последовательность \(\{x_n\} \subset X\) называется сходящейся, если \(\exists x \in X: \rho(x_n, x) \ra 0\).
+\end{definition}
+
+\begin{definition}
+	Последовательность \(\{x_n\}\) называется фундаментальной, если \(\forall \epsilon > 0 \exists N: \forall n, m > N (\rho(x_n, x_m) < \epsilon)\)
+\end{definition}
+
+\begin{note}
+	Последовательность сходится \(\begin{array}{c}
+		\Ra \\
+		\cancel{\La}
+	\end{array}\) она фундаментальна (есть примеры метрических пространств, в которых нет следствия влево, например в \((0, 1)\), последовательность \(\frac{1}{n}\) фундаментальна, но не сходится).
+\end{note}
+\begin{note}
+	В \(\R^n\) определения фундаментальности и сходимости равносильны
+\end{note}
+
+\begin{definition}
+	Метрическое пространство. \((x, \rho)\) называется полным, если любая фундаментальная последовательность сходится.
+\end{definition}
+
+\begin{example}
+	\((\R^n, \rho(x, y) = |x - y|)\)
+\end{example}
+
+\begin{example}
+	Пусть \(K \subset \R \times \R^n\) --- непустой компакт, \(I \subset \R, I \ne \emptyset\). Положим \(X = \{x \in C(I, \R^n): (t, x(t)) \in K \forall t \in I\}, \rho(x, y) = \sup_{t \in I}|x(t) - y(t)|\). Тогда \((X, \rho)\) --- полное метрическое пространство
+\end{example}
+\begin{proof}
+	Нетрудно проверить, что \(\rho\) --- метрика. Рассмотрим \(\{x_n\} \subset X\) --- фундаментальную последовательноость, \(\forall t \in I |x_i(t) - x_j(t)| \le \rho(x_i, x_j) \Ra \{x_i(t)\} \subset \R^n\) --- фундаментальна. Тогда \(\exists x(t) \in R^n: x_i(t) \ra x(t)\). \(\{x_j\} \subset X\) --- фундаментальна \(\Ra \forall \epsilon > 0 \exists N: \rho(x_i, x_j) < \epsilon \forall i, j > N\). Тогда \(\forall \epsilon > 0, i \ge N, t \in I |x(t) - x_i(t)| \le |x(t) - x_j(t)| + |x_j(t) - x_i(t)| < |x(t) - x_j(t)| + \epsilon \ra_{j \ra \infty} \epsilon \Ra x_j \rightrightarrows x \Ra x \in C(I, \R^n)\). \(\forall t \in I (t, x_j(t)) \ra_{j \ra \infty} (t, x(t)) \Ra (t, x(t)) \in K\), т.к. \(K\) --- замкнуто. Но тогда \(x \in X\). Таким образом, получили, что любая фундаментальная последовательность сходится.
+\end{proof}
+
+\begin{definition}
+	Пусть \((X, \rho), (Y, \tilde{\rho})\) --- метрические пространства, \(\Phi: X \ra Y\). Тогда \(\Phi\) называется непрерывной, если \(\forall \{x_j\} \subset X, \forall x \in X: (x_j \ra x \Ra \Phi(x_j) \ra \Phi(x))\).
+\end{definition}
+
+\begin{definition}
+	\(\Phi\) называется липшицевым, если \(\exists L \ge 0: \tilde{\rho(\Phi(x_1), \Phi(x_2))} \le L \rho(x_1, x_2)\).
+\end{definition}
+
+\begin{proposition}
+	\(\Phi\) липшицево \(\Ra \Phi\) непрерывно.
+\end{proposition}
+\begin{proof}
+	Рассмотрим \(x_j \ra x \Ra \rho(x_j, x) \ra 0 \Ra \tilde{\rho(\Phi(x_j), \Phi(x)) \le L\rho(x, x_j) \ra 0}\).
+\end{proof}
+
+\begin{example}[Обратное неверно]
+	Рассмотрим \(X = [0, 1], \Phi(x) = \sqrt{x}\). Тогда \(|\sqrt{x} - \sqrt{0}| = \frac{1}{\sqrt{x}}\cdot |x - 0|\), но \(\frac{1}{\sqrt{x}} \ra +\infty \Ra \sqrt{x}\) --- не липшицево.
+\end{example}
+
+\begin{definition}
+	Пусть \(A: \R^n \ra \R^k\) --- линейный оператор. Будем через \(A\) обозначать его матрицу. Тогда норма линейного оператора \(\|A\| = \sqrt{\sum_{i = 1}^k |A_i|^2}\)
+\end{definition}
+
+\begin{proposition}
+	Пусть \(A: \R^n \ra \R^k\) --- линейный оператор. Тогда \(\forall x \in \R^n |Ax| \le \|A\||x|\).
+\end{proposition}
+\begin{proof}
+	\[|Ax| = \sqrt{(Ax, Ax)} = \sqrt{\sum_{j = 1}^k (a_j, x)^2} \le \sqrt{\sum_{j = 1}^k |a_j|^2|x|^2} = \|A\||x|\]
+\end{proof}
+
+% Пусть \(x_i, y_i\) --- числа, причем все \(x_i\) попарно различны. Многочлен
+% \[P(x) = y_1\frac{(x - x_2)(x - x_3)\dots (x - x_k)}{(x_1 - x_2)(x_1 - x_3)\dots (x_1 - x_k)} + \dots + y_i\frac{(x - x_2)(x - x_3)\dots\cancel{(x - x_i)}\dots (x - x_k)}{(x_1 - x_2)(x_1 - x_3)\dots\cancel{(x_i - x_i)}\dots (x_1 - x_k)} + \dots\]
+% Называется интерполяционным многочленом Лагранжа. Проверь, что \(P(x_i) = y_i\)
+
+\begin{corollary}
+	Пусть \(A: \R^n \ra \R^k\) --- линейный оператор. Тогда \(A\) --- липшицево.
+\end{corollary}
+\begin{proof}
+	\[|Ax_1 - Ax_2| = A(x_1 - x_2) \le \|A\||x_1 - x_2|\]
+\end{proof}
+
+\begin{proposition}
+	Пусть \(\Omega \subset \R \times \R^n\) --- открыто, \(K \subset \Omega, K\) --- непустой компакт, \(f: \Omega \ra \R^n\) --- непрерывна, \(\forall (t, x) \in \Omega: \frac{\partial{f_i}}{\partial{x_j}}(t, x)\) существует и непрерывна и \(\forall t \in \R: K_t = \{x \in \R^n: (t, x) \in K\}\) выпукло. Тогда \(\exists L > 0\):
+	\[|f(t, x_1) - f(t, x_2)| \le L|x_1 - x_2| \forall t \in \R \forall x_1, x_2 \in K_t\]
+\end{proposition}
+\begin{proof}
+	Положим \(\forall t \in \R, x_1, x_2 \in K_t\), \(\gamma(s) = f(t, x_1 + s(x_2 - x_1)), s \in [0, 1]\).
+	\[|f(t, x_1) - f(t, x_2)| = |\gamma(0) - \gamma(1)| = \left|\int_0^1 \gamma'(s)ds\right| \le \left|\int_0^1 \frac{\partial{f}}{\partial{x}}(t, x_1 + s(x_2 - x_1))(x_2 - x_1)ds\right| \le\]
+	\[\le \int_0^1 \left\|\frac{\partial{f}}{\partial{x}}(t, x_1 + s(x_2 - x_1))\right\||x_2 - x_1|ds\]
+\end{proof}
+
+\subsection{Принцип сжимающих отображений}
+\begin{definition}
+	\(\Phi: X \ra X\) называется сжимающих, если \(\exists \beta \in [0, 1): \rho(\Phi(x_1), \Phi(x_2)) \le \beta\rho(x_1, x_2) \forall x_1, x_2 \in X\)
+\end{definition}
+
+\begin{proposition}
+	Если \(\Phi\) --- сжимающее отображение, то \(\exists ! \xi \in X: \xi = \Phi(\xi)\)
+\end{proposition}
+\begin{proof}
+	См. Теорему Банаха в третьей лекции Матана
+\end{proof}
+
+\begin{corollary}
+	Пусть \((X, \rho)\) --- полное метрическое пространство, \(\Phi: X \ra X, \exists N: \Phi^N\) --- сжимающее. Тогда \(\exists ! \xi \in X: \xi = \Phi(\xi)\)
+\end{corollary}
+\begin{proof}
+	\begin{enumerate}
+		\item[] \textbf{Существование:} \(\Phi\) --- сжимающее отображение, тогда \(\exists! \xi \in X: \xi = \Phi^N(\xi)\). \(\Phi(\xi) = \Phi(\Phi^N(\xi)) = \Phi^N(\Phi(\xi)) \Ra \Phi(\xi) = \xi\)
+		\item[] \textbf{Единственность:}. \(\tilde{\xi} \in X: \tilde{\xi} = \Phi(\tilde{\xi}) \Ra \tilde{\xi} = \Phi^N(\tilde{\xi}) \Ra \xi = \tilde{\xi}\).
+	\end{enumerate}
+\end{proof}

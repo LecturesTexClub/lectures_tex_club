@@ -1,0 +1,139 @@
+
+
+\subsection{Однородные уравнения}
+\begin{problem}
+    Пусть \(f \in C(I, \R), I \subset \R\) --- интервал. Решить уравнение:
+    \[x' = f\left(\frac{x}{t}\right)\]
+\end{problem}
+\begin{proof}[Решение]
+    Введем \(y\): \[x(t) = ty(t)\]
+    \[x' = (ty(t))' = f(y(t)) \Ra y't + y = f(y)\]
+    \[x' = (ty(t))' = f(y(t)) \Ra y't = f(y) - y\]
+\end{proof}
+
+\subsection{\(x' = f\left(\frac{a_1t + b_1x + c_1}{a_2t + b_2x + c_2}\right)\)}
+\subsubsection{Прямые пересекаются}
+\begin{problem}
+    Пусть прямые \(a_1t + b_1x + c_1, a_2t + b_2x + c_2\) пересекаются в точке \((t_0, x_0)\). Решить уравнение:
+    \[x' = f\left(\frac{a_1t + b_1x + c_1}{a_2t + b_2x + c_2}\right)\]
+\end{problem}
+\begin{proof}[Решение]
+    Сделаем замену \(x(t) = y(t - t_0) + x_0 \Lra x(t + t_0) - x_0 = y(t)\)
+    \[y'(t) = \frac{d}{dt}x(t + t_0) = f\left(\frac{a_1(t + t_0) + b_1x(t + t_0) + c_1}{a_2(t + t_0) + b_2x(t + t_0) + c_2}\right) = f\left(\frac{a_1t + b_1(x(t_0 + t) - x_0)}{a_2t + b_2(x(t + t_0) - x_0)}\right)=\]
+    \[ = f\left(\frac{a_1t + b_1y(t)}{a_2t + b_1y(t)}\right) = \tilde{f}\left(\frac{y}{t}\right)\]
+\end{proof}
+
+\subsubsection{Прямые не пересекаются}
+\begin{problem}
+    Пусть прямые \(a_1t + b_1x + c_1, a_2t + b_2x + c_2\) не пересекаются. Решить уравнение:
+    \[x' = f\left(\frac{a_1t + b_1x + c_1}{a_2t + b_2x + c_2}\right)\]
+\end{problem}
+\begin{proof}[Решение]
+    Тогда \(\exists k \ne 0: a_2 = ka_1, b2 = kb_1\). Сделаем замену \(y = a_1t + b_1x\)
+
+    \[y' = a_1 + b_1f\left(\frac{a_1t + b_1x + c_1}{ka_2t + kb_2x + c_2}\right) = a_1 + b_1f\left(\frac{y + c_1}{ky + c_2}\right)\]
+    \[y' = a_1 + b_1f\left(\frac{y + c_1}{ky + c_2}\right)\]
+\end{proof}
+
+\subsection{Линейные уравнения}
+Пусть даны \(I \subset \R\) --- интервал, \(a, b \in C(I, \R)\).
+\begin{definition}
+    \(x' = a(t)x + b(t)\) --- линейное неоднородное уравнение I-ого порядка
+\end{definition}
+\begin{definition}
+    \(x' = a(t)x\) --- линейное однородное уравнение I-ого порядка. 
+\end{definition}
+
+\begin{problem}
+    Найти решение однородного уравнения первого порядка.
+\end{problem}
+\begin{proof}[Решение]
+    \[x(t) = C \cdot \exp\left(\int_{t_0}^t a(s)ds\right), t, t_0 \in I, c \in \R\]
+\end{proof}
+
+\subsection{Метод вариации постоянной}
+\begin{problem}
+    Найти решение неоднородного уравнения первого порядка.
+\end{problem}
+\begin{proof}[Решение]
+    Решение будет выглядеть аналогично одноромному уравнению, только \(C\) мы заменим на \(C(t)\)
+    \[x(t) = C(t) \cdot \exp\left(\int_{t_0}^t a(s)ds\right)\]
+    \[x'(t) = C'(t) \cdot \exp\left(\int_{t_0}^t a(s)ds\right) + C(t) \cdot \exp\left(\int_{t_0}^t a(s)ds\right)a(t) = C(t) \cdot \exp\left(\int_{t_0}^t a(s)ds\right)a(t) + b(t)\]
+    \[C'(t) \cdot \exp\left(\int_{t_0}^t a(s)ds\right) = b(t)\]
+    \[C'(t) = b(t)\exp\left(-\int_{t_0}^t a(s)ds\right)\]
+\end{proof}
+
+\subsection{Уравнение Бернулли}
+\begin{problem}
+    Пусть даны \(I \subset \R\) --- интервал, \(a, b \in C(I, \R), \alpha \ne 0, 1\). Решить уравнение
+    \[x' = a(t)x + b(t)x^\alpha\]
+\end{problem}
+\begin{proof}[Решение]
+    Решение \(x(t) \equiv 0\) очевидно подходит. Будем искать решение в виде \(x(t) = y(t)^{\frac{1}{1 - \alpha}}\).
+    \[\frac{1}{1 - \alpha}y^{\frac{\alpha}{1 - \alpha}}y' = ay^{\frac{1}{1 - \alpha}} + by^{\frac{\alpha}{1 - \alpha}}\]
+    \[y' = (1 - \alpha)(ay + b)\]
+\end{proof}
+
+\subsection{Уравнение Риккати}
+\begin{problem}
+    Пусть даны \(I \subset \R\) --- интервал, \(a, b, c \in C(I, \R), x_0 \in C^1(I, \R)\). Решить уравнение:
+    \[x' = a(t)x^2 + b(t)x + c(t)\]
+\end{problem}
+\begin{proof}
+    Пусть \(x_0(\cdot)\) --- решение. Будем искать решения в виде \(x(t) = x_0(t) + y(t)\). 
+    \[x_0' + y' = ax_0^2 + 2ax_0y + ay^2 + bx_0 + by + c\]
+    \[y' = (2ax_0 + b)y + ay^2\]
+\end{proof}
+
+\subsection{Уравнения в дифференциалах}
+Пусть даны \(\Omega \subset \R^2, M, N: \Omega \ra \R\).
+
+\begin{definition}
+    Уравнение
+    \begin{equation}
+        M(t, x)dt + N(t, x)dx = 0
+    \end{equation}
+    Называется уравнением в дифференциалах
+\end{definition}
+
+\begin{definition}
+    Решением (2.1) называются функции \(x(t)\) и \(t(x)\), являющиеся решением однородного дифференциального уравнения: \(M(t, x) + N(t, x)x' = 0\) и \(M(t, x)t' + N(t, x) = 0\)
+\end{definition}
+
+\subsubsection{Уравнения в полных дифференциалах}
+\begin{definition}
+    Если \(\Omega\) открыто и \(M, N \in C^1(\Omega, \R)\). Тогда (2.1) называется уравнением в полных дифференциалах, если \(\exists g \in C^2(\Omega, \R): \frac{dg}{dt}(t, x) = M(t, x), \frac{dg}{dx}(t, x) = N(t, x)\).
+\end{definition}
+
+Если (2.1) является УВПД, то \((1) \sim g(t, x) = c, c \in \R\):
+\[g(t, x(t)) \equiv c, g(t(x), x) \equiv c\]
+
+\(x_0\) является решением \((1) \Lra M(t, x(t)) + N(t, x(t))x'(t) \equiv 0\)
+\[\Lra \frac{dg}{dt}(t, x(t)) + \frac{dg}{dx}(t, x(t))x' \equiv 0\]
+\[\Lra \frac{d}{dt}g(t, x(t)) \equiv 0 \Lra \exists c \in \R: g(t, x(t)) \equiv c\]
+
+\begin{enumerate}
+    \item Если (2.1) --- УВПД и \(\Omega = I \times J\) (\(I, J \subset \R\) --- интервалы), то
+    \[g(t, x) = \int_{t_0}^t M(s, x)ds + \gamma(x)\]
+    \[\frac{d}{dx}\left(\int_{t_0}^t M(s, x)sx + \gamma(x)\right) = N(t, x)\]
+\end{enumerate}
+
+\begin{theorem}
+    Если \(\Omega\) --- выпуклое и \(\frac{dM}{dx}(t, x) \equiv \frac{dM}{dt}(t, x)\), то (2.1) является уравнением в полных дифференциалах.
+\end{theorem}
+
+\subsubsection{Интегрирующий множитель}
+Пусть \(\Omega\) --- открыто, \(M, N \in C^1(\Omega, \R)\)
+\begin{definition}
+    \(\mu(t, x) \in C^1(\Omega, \R), \mu(t, x) \ne 0 \forall (t, x) \in \Omega\) называется интегрирующим множителем для (2.1), если 
+    \[\mu(t, x)M(t, x)dt + \mu(t, x)N(t, x)dx = 0\]
+    Является УВПД
+\end{definition}
+
+\begin{proposition}
+    Пусть \(\frac{\frac{dM}{dx} + \frac{dM}{dt}}{N}\) зависит только от \(t\), \(N(t, x) \ne 0 \forall (t, x) \in \Omega\). Тогда существует интегрирующий множитель \(\mu\), зависящий только от \(t\).
+    \[\frac{d}{dx}(\mu M) = \mu \frac{dM}{dx}\]
+    \[\frac{d}{dt}(\mu N) = \mu' N + \mu \frac{dN}{dt}\]
+    \[\mu'N + \mu \frac{dN}{dt} = \mu \frac{dM}{dx}\]
+    \[\mu' = \mu\left(\frac{\frac{dM}{dx} - \frac{dN}{dx}}{N}\right)\]
+\end{proposition}
