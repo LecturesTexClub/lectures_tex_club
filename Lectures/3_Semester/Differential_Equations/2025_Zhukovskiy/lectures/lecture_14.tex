@@ -1,0 +1,158 @@
+
+
+\section{Автономные системы}
+
+\begin{definition}
+    Пусть \(\Sigma \subset \R^n\) открыто, \(f: \Sigma \ra \R^n, f \in C^1\). Уравнение
+    \begin{equation}
+        x' = f(x)
+    \end{equation}
+    называется автономной системой, \(\Sigma\) называется фазовым пространством.
+\end{definition}
+
+Пусть \(x: I \ra \R^n\) --- непродолжимое решение, т.к. \(\forall \tilde{x}: \tilde{I} \ra \R^n\) --- решения верно, что если \(\tilde{x}(t) = x(t) \forall t \in I \cap \tilde{I}\), то \(\tilde{I} \subset I\).
+
+\begin{definition}
+    Траектория --- множество \(\{x(t), t \in I\} \subset \R^n\)
+\end{definition}
+
+\begin{definition}
+    Интегральная кривая --- множество \(\{(t, x(t)), t \in I\} \subset \R \times \R^n\)
+\end{definition}
+
+\begin{example}
+    \(n = 1\)
+    \begin{center}
+        \includegraphics[scale=0.6]{images/IMG_4630 Medium.jpeg}
+    \end{center}
+\end{example}
+
+\begin{example}
+    \(n = 2\). Рассмотрим \(f(x) = Ax, A = \left( \begin{array}{cc}
+        0 & -1 \\
+        1 & 0 \\
+    \end{array} \right)\) соответсвенно система будет следующая:
+    \begin{equation*}
+        \begin{cases*}
+            x_1' = -x_2 \\
+            x_2' = x_1'
+        \end{cases*}
+    \end{equation*}
+
+    Тогда
+
+    \[\left( \begin{array}{c}
+        x_1(t) \\
+        x_2(t)
+    \end{array} \right) = r\left( \begin{array}{c}
+        \cos(t + \gamma) \\
+        \sin(t + \gamma)
+    \end{array} \right)\]
+
+    Тогда интегральная кривая (слева) и траектория (справа) будут выглядеть так:
+
+    \begin{center}
+        \includegraphics[scale=0.6]{images/IMG_4632 Medium.jpeg}
+    \end{center}
+\end{example}
+
+\begin{definition}
+    Пусть \(\tilde{x} \in \Sigma: f(\tilde{x}) = 0\). Тогда \(x(t) = \tilde{x}\) является решением (13.1). В таком случае точка \(\tilde{x}\) называется положением равновесия системы (13.1).
+\end{definition}
+
+\subsection{Свойства автономных систем}
+Некоторые очевидные свойства мы не будем указывать, например, следствия из теоремы о единственности решений.
+\begin{note}
+    \(x: I \ra \R^n\) --- непродолжаемое решение \(\Ra x_c(t) = x(t + c), t \in I - c\) является непродолжаемым решением \(\forall c \in \R\) 
+\end{note}
+\begin{proof}
+    \[\frac{\partial}{\partial t}(x_c(t)) = \frac{d}{dt}(x(t + c)) = x'(t + c) = f(x(t + c)) = f(x_c(t)), t \in I - c\]
+\end{proof}
+
+\begin{proposition}
+    Две любых траектории либо совпадают, либо не пересекаются.
+\end{proposition}
+\begin{proof}
+    Пусть \(x: I \ra \R^n, y: J \ra \R^n\) --- непролжолжаемые решения (13.1). Пусть \(\exists s \in I, \tau \in J: x(s) = y(\tau)\). Положим \(z(t) = y(t + \tau - s)\), где \(t \in J - (\tau - s)\). Из предыдущего утверждения, \(z\) --- непродолжаемое решение (13.1). Но \(z(s) = y(s + \tau - s) = y(tau) = x(s)\). Но тогда по теореме о существовании и единственности решений, получаем, что \(z(t) = x(t)\) и \(I = J - (\tau - s)\). Тогда траектория \(x, y, z\) совпадают.
+\end{proof}
+
+\begin{example}
+    Рассмотрим \(x' = f(t) \Ra x = t^2 + C\). Но тогда траектория решения при данном \(C\), равна \([C, +\infty)\).
+\end{example}
+
+\begin{proposition}
+    Пусть \(x: I \ra \R^n\) --- непродолжаемое решение, \(x(t_1) = x(t_2), t_1 < t_2\) и \(x(t) \ne const\). Тогда \(I = \R\) и \(x(t)\) --- периодичная функция.
+\end{proposition}
+\begin{proof}
+    Положим \(y(t) = x(t + t_2 - t_1), t \in I - (t_2 - t_1)\). Это непродолжаемое решение (13.1). Также, \(y(t_1) = x(t_1 + t_2 - t_1) = x(t_1)\). Поэтому, по теореме о существовании и единственности решения, \(y(t) = x(t) \forall t \in I = I - (\underbrace{t_2 - t_1}_{\ne 0}) \Ra I = \R\). Кроме того, получили \(x(t + (t_2 - t_1)) = x(t)\), то есть период этой функции (необязательно минимальный) равен \(t_2 - t_1\).
+\end{proof}
+
+\begin{corollary}
+    Траектория является точкой, или замкнутой кривой без самопересечений, или незамкнутой кривой без самопересечений.
+\end{corollary}
+\begin{note}
+    Наличие самопересечений означает, что \(\exists t_1 \ne t_2 \in \R: x(t_1) = x(t_2)\), но \(t_2 - t_1\) не является периодом
+\end{note}
+
+Рассмотрим теперь систему:
+\begin{equation}
+    \begin{cases}
+        x' = f(x) \\
+        x(0) = \xi
+    \end{cases}
+\end{equation}
+
+Положим за \(\phi(\cdot, \xi)\) непродолжаемое решение задачи Коши (13.2), \(\xi \in \Sigma\).
+
+\begin{proposition}
+    \(\phi\) определена на открытом множестве в \(\R \times \R^n\) и непрерывно дифференцируема.
+\end{proposition}
+\begin{proof}
+    Следует из аналогичной теоремы для Задачи Коши, зависимой от параметра.
+\end{proof}
+
+\begin{proposition}[Групповое свойство автономных систем]
+    \(\phi(t, \phi(s, \xi)) = \phi(t + s, \xi)\).
+\end{proposition}
+\begin{proof}
+    Докажем утверждение в случае, когда \(\phi\) определена на \(\R \times \Sigma\) (иначе будет очень много технических выкладок). Положим \(x(t) = \phi(t, \phi(s, \xi)), y(t) = \phi(t + s, \xi), t \in \R\). Заметим, что функции \(x, y\) являются решением автономной системы (13.1). \(x(0) = \phi(0, \phi(s, \xi)) = \phi(s, \xi)\). Также, \(y(0) = \phi(s, \xi)\). Таким образом, \(x, y\) --- непролжолжаемыми решениями задачи Коши \(x' = f(x), x(0) = \phi(s, \xi) \Ra\) они совпадают.
+\end{proof}
+
+\begin{note}
+    Почему данное свойство называется групповым? Рассмотрим множество отображений \(\{\phi(t, \cdot): \Sigma \ra \Sigma, t \in \R\}\) с введенной на нем операцией композиции \(\circ\). Тогда это будет группа. Действительно:
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item Корректность следует из группового свойства
+        \item Ассоциативность следует из свойств композиции.
+        \item Единица --- это \(\phi(0)\)
+        \item \((\phi(t, \cdot))^{-1} = \phi(-t, \cdot)\).
+    \end{enumerate}
+    Более того, данная группа будет абелевой (по групповому свойству).
+\end{note}
+
+\begin{definition}
+    Пусть \(x: (a, +\infty) \ra \R^n\) --- решение, \(X\) --- его траектория. \(z \in \R^n\) называется \(\omega\)-предельной, если \(\exists \{t_j\} \subset (a, +\infty)\), такая, что \(\lim_{j \ra \infty} t_j = \infty\) и \(\lim_{j \ra \infty} x(t_j) \ra z\). Положим \(\Omega(X)\) --- множество всех \(\Omega\)-предельных точек \(X\).
+\end{definition}
+
+\begin{theorem}
+    Пусть \(X\) ограничено и \(\exists \epsilon > 0\) такое, что \(\epsilon\)-окрестность \(X \subset \Sigma\). Тогда \(\Omega(X) \ne 0\), ограничено, замкнуто, связно и состоит из тракеторий.
+\end{theorem}
+
+\begin{theorem}[Бендиксона]
+    Пусть \(n = 2\), \(\Omega(X)\) ограничено, \(\Sigma = \R^2\), \(f(x) \ne 0 \forall x \in \Omega(X)\). Тогда \(\Omega(X)\) --- замкнутая траектория.
+\end{theorem}
+
+\begin{example}
+    Возьмем \(\left( \begin{array}{c}
+        x_1' \\
+        x_2'
+    \end{array} \right) = |x|^2 \left( \begin{array}{c}
+        -x_1 \\
+        x_2
+    \end{array} \right)\).
+    Тогда траектории будут выглядеть так:
+    \begin{center}
+        \includegraphics[scale=0.6]{images/IMG_4630 Medium.jpeg}
+    \end{center}
+    И \(\Omega(X)\) --- единичная окружность
+\end{example}

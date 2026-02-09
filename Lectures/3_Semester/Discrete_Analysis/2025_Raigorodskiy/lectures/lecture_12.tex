@@ -1,0 +1,120 @@
+
+
+\subsection{Изучение \(f(n, k, t)\)}
+\begin{theorem}[б/д, 1961, Эрдёш-Ко-Радо]
+    При \(n \ge n_0(k, t)\) верно: \(f(n, k, t) = C_{n - t}^{k - t}\)
+\end{theorem}
+
+\subsubsection{Случай \(f(n, k, 1)\)}
+Мы докажем более слабую версию данного утверждения
+\begin{proposition}
+    \[f(n, k, 1) = \left\{\begin{array}{l}
+        C_{n - 1}^{k - 1}, n \ge 2k \\
+        C_n^k, n < 2k
+    \end{array}\right.\]
+\end{proposition}
+\begin{proof}
+    При \(n < 2k\) утверждение очевидно. Докажем только для случая \(n \ge 2k\). Заметим, что для \(f(n, k, 1) = C_{n - 1}^{k - 1}\) существует очевидный пример (берем все \(k\)-элементные множества, содержащие один конкретный элемент). Докажем, что \(f(n, k, 1) \le C_{n - 1}^{k - 1}\). Рассмотрим \(\mathcal{F}\) --- такой набор \(k\)-элементных множеств, такой, что \(f(n, k, 1) = |\mathcal{F}|\), удовлетворяющий усовию. Положим \(\mathcal{A} = \{\{1, 2, \dots k\}, \{2, 3, \dots k + 1\}, \dots \{n, \dots k - 1\}\}\).
+
+    \begin{lemma}
+        \(\mathcal{F} \cap \mathcal{A} \le k\).
+    \end{lemma}
+    \begin{proof}
+        Если \(\mathcal{F} \cap \mathcal{A} = \emptyset \Ra\) очевидно. Рассмотрим случай \(\mathcal{F} \cap \mathcal{A} \ne \emptyset\). Б.О.О, \(\{1, 2, \dots k\} \in \mathcal{F} \cap \mathcal{A}\). Рассмотрим множества, которые пересекаются с \(\{1, 2, \dots k\}\):
+        \[\begin{array}{c|c}
+            \{2, \dots k + 1\} & \{n - k + 2, \dots 1\}\\
+            \hline
+            \{3, \dots k + 2\} & \{n - k + 3, \dots 2\}\\
+            \hline
+            \vdots & \vdots \\
+            \hline
+            \{k, \dots 2k - 1\} & \{n, \dots k - 1\}\\
+        \end{array}\]
+        Мы разбили наше множество на пары. Заметим, что из каждой пары мы можем взять не более одного множества в \(\mathcal{F} \cap \mathcal{A} \Ra |\mathcal{F} \cap \mathcal{A}| \le k\)
+    \end{proof}
+    Для \(\sigma \in S_n\) положим \(A_\sigma = \{\sigma(1), \dots \sigma(k)\}\). Заметим, что тогда лемма верна и для \(A_\sigma \forall \sigma \in S_n\). Обозначим \(F_i: F = \{F_1, \dots F_r\}\)Рассмотим функцию:
+    \[I(F_i, A_\sigma) = \left\{\begin{array}{l}
+        1, F_i \in A_\sigma \\
+        10, F_i \notin A_\sigma \\
+    \end{array}\right.\]
+
+    Посчитаем следующую сумму:
+    \[\sum_{i = 1}^r \sum_{\sigma \in S_n} I(F_i, A_\sigma) = \sum_{\sigma \in S_n}\left( \sum_{i = 1}^r I(F_i, A_\sigma) \right) \le kn!\]
+    С другой стороны:
+    \[\sum_{i = 1}^r\left( \sum_{\sigma \in S_n} I(F_i, A_\sigma)\right) = \sum_{i = 1}^r k!(n - k)!\cdot n = r\cdot k!(n - k)!\cdot n\]
+    Получаем:
+    \[r\cdot k!(n - k)!\cdot n \le kn!\]
+    \[r\cdot (k - 1)!(n - k)! \le (n - 1)!\]
+    \[r \le C_{n - 1}^{k - 1}\]
+\end{proof}
+
+\subsubsection{Результаты в общем случае}
+\begin{theorem}[б/д, 1979, Франкл]
+    При \(k \ge 15\) в теореме Эрдёша-Ко-Радо \(n_0(k, t) = (k - t + 1)(t + 1)\)
+\end{theorem}
+
+\begin{theorem}[б/д, 1983, Уилсон]
+    Пусть \(n_0(k, t) = (k - t + 1)(t + 1)\). Тогда \(n < n_0(k, t) \Ra f(n, k, t) > C_{n - k}^{k - t}\).
+\end{theorem}
+
+\begin{theorem}[Алсведе-Хачатаряна]
+    Пусть \(n\) удовлетворяет следующему условию:
+    \[(k - t + 1)\left( 2 + \frac{t - 1}{r + 1} \right) \le n < (k - t + 1)\left( 2 + \frac{t - 1}{r} \right)\]
+    Тогда: \(f(n, k, t) = \mathcal{F}\), где \(\mathcal{F} = \{F \subset \{1, \dots n\}, |F| = k, |F \cap \{1, 2, \dots t + 2r\}| \ge t + r\}\).
+\end{theorem}
+
+\begin{note}
+    Таким образом, мы получили точное значение для \(f(n, k, t)\). Действительно, при \(n \ge n_0(k, t)\) ответ находится по теореме Эрдёша-Ко-Радо и равен \(C_{n - t}^{k - t}\). В противном случае, \(f(n, k, t)\) находится по теореме Алсведе-Хачатаряна: нужно подобрать такой \(r\), чтобы выполнялось соответствующее равенство (получается, что отрезкок \(\{1, \dots n\}\) разбивается на части при \(r = 0, r = 1, \dots r = k\)) и из неё получаем ответ.
+\end{note}
+
+\begin{note}
+    Если нам не нужна точная оценка на \(f(n, k, t)\), то можно не искать соответствующее \(r\), а просто взять максимальную из оценок.
+\end{note}
+
+\subsection{Изучение \(m(n, k, t)\)}
+\subsubsection{Случай \(m(n, 3, 1)\)}
+\begin{reminder}
+    Мы уже считали \(\alpha(G(n, 3, 1))\): \ref{linalg_method}
+\end{reminder}
+
+\subsubsection{Случай \(m(n, 5, 2)\)}
+\begin{proposition}
+    \(m(n, 5, 2) \le C_n^2 + 2C_n^1 \sim \frac{n^2}{2}\)
+\end{proposition}
+\begin{proof}
+    Рассмотрим \(\mathcal{F}\) --- набор \(5\)-элементных множеств, таких, что \(\forall A, B \in \mathcal{F}: |A \cap B| \ne 2, |F| = m(n, 5, 2)\). Опять сопоставим маску \(\vec{x_1}, \dots \vec{x_r}\) (пусть \(r\) таково, что \(\mathcal{F} = \{F_1, \dots F_r\}\)) каждому множеству, \(\vec{x_i} \in \Z_3^n\). Положим \(f_i(\vec{y_1}, \dots \vec{y_n}) = (\vec{x_i}, \vec{y}) ((\vec{x_i}, \vec{y}) - 1)\). Заметим, что \(f_i \in Z_3[y_1, \dots y_n]\). Также, \(\deg f_i \le 2\). Таким образом, если \(f_1, \dots f_r\) линейно независимы, то \(r \le \dim \Z_3[y_1, \dots y_n]^{1 \le \deg \le 2} = C_n^2 + 2C_n^1\).  Последнее верно в силу того, что \(f_i\) --- точно не константа, а базис в пространстве таких многочленов --- это \(y_1, \dots y_n, y_1^2 \dots y_n^2, \underbrace{y_1y_2, \dots y_{n - 1}y_{n}}_{\text{всевозможыне попарные произведения}}\).
+    Пусть \(\exists \lambda_1, \dots \lambda_r\) такие, что:
+    \[\lambda_1 f_1 + \dots + \lambda_r f_r = 0\]
+    Заметим, что \(f_i(x_j) = \left\{\begin{array}{l}
+        0 \mod 3, i \ne j \\
+        2 \mod 3, i = j \\
+    \end{array}\right.\). Тогда
+    \[\lambda_1 f_1(x_j) + \dots + \lambda_r f_r(x_j) = 0\]
+    \[\lambda_j \cdot 2 = 0 \Ra \lambda_j = 0 \forall j\]
+\end{proof}
+
+\begin{note}
+    В утвержении выше верна оценка \(m(n, 5, 2) \le C_n^2 + C_n^1\).
+\end{note}
+\begin{proof}
+    Заметим, что так как мы подставляем в многочлены \(f_i\) только \(0\) и \(1\), то можно заменить все одночлены \(y_i^2\) на \(y_i\) и сумма не поменяется. Поэтому базис на самом деле будет  \(y_1, \dots y_n, \underbrace{y_1y_2, \dots y_{n - 1}y_{n}}_{\text{всевозможыне попарные произведения}}\)
+\end{proof}
+
+\begin{theorem}[1981, Франкл, Уилсон]
+    Пусть \(k - t = p^\alpha, k < 2p^\alpha, p\) --- простое. Тогда \(m(n, k, t) \le \sum_{j = 1}^{p^\alpha - 1}C_n^j\)
+\end{theorem}
+\begin{proof}[Доказательство при \(\alpha = 1\), иначе --- б/д]
+    Рассмотрим множества \(A_1, \dots A_n \subset \{1, \dots n\}, |A_i| = k, |A_i \cap A_j| \ne t\). Каждому множеству \(A_i\) сопоставим маску \(\vec{x_i}\). Теперь рассмотрим многочлены \(f_i\):
+    \[f_i(y_1, \dots y_n) = \prod_{l = 1, l \ne t}^p ((\vec{x}, \vec{y}) - l), f_i \in \Z_p[y_1, \dots y_n]\]
+    Рассмотрим теперь \(\tilde{f_i} = f_i\), в котором мы заменили все мономы \(y_i^2\) на \(y_i\). Тогда базис в пространстве, таких многочленов:
+    \[y_1, \dots y_n, \underbrace{y_1y_2, \dots y_{n - 1}y_{n}}_{\text{всевозможыне попарные произведения}}, \dots \underbrace{y_1y_2\dots y_{p - 1}, \dots y_{n - p + 1}\dots y_{n - 1}y_{n}}_{\text{всевозможыне произведения \(p-1\) переменных}}\]
+    Осталось проверить, что \(\tilde{f_i}\) линейно независимы. Тогда \(r \le \dim V = \sum_{j = 1}^{p - 1}C_n^j\), где \(V\) --- пространство соответствующих многочленов. Действительно:
+    \[\lambda_1 \tilde{f_1}(\vec{y}) + \dots + \lambda_r \tilde{f_r}(\vec{y}) = 0\]
+    Подставляя \(\vec{x_i}\), получаем:
+    \[\lambda_1 \tilde{f_1}(\vec{x_i}) + \dots + \lambda_r \tilde{f_r}(\vec{x_i}) = 0\]
+    При этом, \(\tilde{f_j}(\vec{x_i}) = f_j(\vec{x_i}) = \left\{\begin{array}{l}
+        0, j \ne i \\
+        \ne 0, j = i \\
+    \end{array}\right.\)
+    Получаем, что \(\lambda_i = 0 \forall i\), т.е. линейную независимость \(\tilde{f_i}\).
+\end{proof}

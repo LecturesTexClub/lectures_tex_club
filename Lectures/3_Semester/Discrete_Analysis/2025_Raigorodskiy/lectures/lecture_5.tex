@@ -1,0 +1,33 @@
+
+
+\section{Случайные графы}
+\begin{theorem}[Кучера]
+    \(\forall \epsilon > 0 \forall \delta > 0 \exists \) последовательность графов \(G_n\) на \(n\) вершинах, \(\exists n_0: \forall n > n_0\) доля тех нумераций, в которых окажется, что \(\frac{\alpha(G)}{\alpha_{\text{ж}, \sigma}} \ge n^{1 - \epsilon}\), не меньше, чем \(1 - \delta\).
+\end{theorem}
+
+\begin{definition}
+    \(g(G)\) \textit{(от английского girth)} --- обхват графа --- длина кратчайшего простого цикла.
+\end{definition}
+
+\begin{definition}
+    \(G(n, p)\) --- модель случайного графа Эрдеша и Реньи (также называется биномиальная модель). В данной модели граф выбирается случайно, каждое ребро проводится с вероятностью \(p\)
+\end{definition}
+
+\begin{theorem}[Эрдеш]
+    \(\forall k, l \in \N: \exists G: \chi(G) > k, g(G) > l\).
+\end{theorem}
+\begin{proof}
+    Положим \(\theta = \frac{1}{2l}, p = p(n) = n^{\theta - 1}\). Пусть \(X_l(G)\) --- количество простых циклов длины \(\le l\) в \(G\). \(\E X_l = \sum_{r = 3} \E(\text{число циклов длины \(r\)})\). Представив каждое из слагаемых как индикаторы конкретных циклов, получаем:
+    \[\E X_l = \sum_{r = 3}^l \E(\text{число циклов длины \(r\)}) = \sum_{r = 3}^l\underbrace{C_n^r \frac{(r - 1)!}{2}}_{\text{максимальное количество циклов длины \(r\)}}p^r \le \]
+    \[\le \sum_{r = 3}^l \frac{n^r}{r!}\cdot\frac{(r - 1)!}{2}p^r \le \sum_{r = 3}^l (np)^r = \sum_{r = 3}^l n^{\theta r} < ln^{\theta l} = l \sqrt{n}\]
+    По неравенству Маркова, имеем:
+    \[P\left( X_l > \frac{n}{2} \right) \le \frac{l\sqrt{n}}{n/2} \ra 0 \Ra \exists n_1: \forall n \ge n_1 P\left( X_l \le \frac{n}{2} \right) > \frac{1}{2}\]
+    Рассмотрим \(x = \left\lceil \frac{3\ln n}{p}\right\rceil \ra \infty\). Т.к. \(p = n^{1 - \theta}\), то \(x \ra \infty, n \ra \infty\). Докажем, что \(P(\alpha(G) \ge x) \ra 0\). Положим \(Y_x(G)\) ---количество независимых множеств на \(x\) вершинах в \(G\). Тогда \(P(\alpha(G) \ge x) \Lra P(Y_x \ge 1)\). По неравенству Маркова, имеем:
+    \[P(Y_x \ge 1) \le EY_x = C_n^x(1 - p)^{C_x^2} \le n^x e^{-pC_x^2} = e^{x\ln n - p\frac{x(x - 1)}{2}} = e^{x \left( \ln n - \frac{p(x - 1)}{2} \right)}\]
+    При этом, \(x \sim \frac{3\ln n}{p}\), поэтому \(\ln n - \frac{p(x - 1)}{2} = \ln n - (1 + o(1))\cdot\frac{p}{2}\cdot\frac{3\ln n}{p} \ra -\infty\), но тогда 
+    \[e^{x \left( \ln n - \frac{p(x - 1)}{2} \right)} \ra 0\]
+
+    Тогда \(P(\alpha(G) < x) \ra 1 \Ra \forall n > n_2 P(\alpha(G) < x) > \frac{1}{2}\). Но тогда \(\forall n > \max \{n_1, n_2\} \exists G: X_l(G) \le \frac{n}{2}, \alpha(G) < x\). Получим граф \(G'\), удалив по одной вершине из каждого ''плохого'' цикла. Тогда: \(g(G') > l, |V(G')| > \frac{n}{2}\). Тогда:
+    \[\alpha(G') < x \Ra \chi(G') \ge \frac{n/2}{x} \sim \frac{np}{2\cdot 3 \ln p} = \frac{n^\theta}{6\ln n} > k\text{ начиная с какого-то \(n_3\)}\]
+    Но тогда \(\forall n > \max\{n_1, n_2, n_3\} g(G') > l, \chi(G') > k\)
+\end{proof}

@@ -1,0 +1,62 @@
+
+
+\begin{proposition}
+        \(\exists k_1 = k_1(n)\), такая, что:
+        \begin{enumerate}
+            \item \(k_1(n) \sim 2\log_2n\)
+            \item \(f_{k_1(n)}(n) = C_n^{k_1(n)}2^{-C_{k_1(n)}^2}= n^{3 + o(1)}\).
+        \end{enumerate}
+    \end{proposition}
+    \begin{proof}[Набросок доказательства]
+        Мы знаем, что \(\E X_k \ra 0\), если \(k = [2\log_2n] - 2\log_2n\). Положим \(k_0(n) = \min\{k: f_k(n) < 1\}\) и \(k_1(m) = k_0(m) - 3\). Нетрудно проверить, что \(k_0(n) \sim 2\log_2n\). Тогда \(k_1\) будет подходить.
+    \end{proof}
+
+    Тогда \(k_1(m) \sim 2\log_2m \sim 2\log_2n\).
+
+    \begin{lemma}
+        а.п.н. \(\forall S \subset V, |S| = m: \alpha\left( G|_S \right) \ge k_1(m)\)
+    \end{lemma}
+    \begin{proof}
+        \[P\left(\exists S \subset V, |S| = m: \alpha\left(G|_S\right) < k_1(m)\right) \le \sum_{S \subset V, |S| = m} P(\alpha\left( G|_S \right) < k_1(m)) \le \]
+        \[C_n^m P(\alpha(H) < k_1) < 2^nP(\alpha(H) < 1) = 2^nP(X_{k_1}(H) = 0)\]
+        Далее можно применить неравенство Чебышева, но это очень долго и муторно. Вместо этого рассмотрим:
+        \[Y_k(H) = \max\{s: \exists K_1, \dots K_s \subset V \forall i: K_i \text{ --- независимые мн-ва}, \forall i |K_i| = k, \forall i, j |K_j \cap K_i| \le 1\}\]
+        Но тогда: \(\alpha(H) < k_1 \Lra Y_{k_1}(H) = 0\). При этом, \(Y_{k_1}\) --- липшицева.
+        Нам уже известно:
+        \[P\left(\exists S \subset V, |S| = m: \alpha\left(G|_S\right) < k_1(m)\right) < 2^nP(\alpha(H) < 1)= \]
+        \[= 2^nP(Y_{k_1}(H) = 0) = 2^nP(Y_{k_1}(H) \le 0) = 2^nP(-Y_{k_1}(H) \ge 0) = \]
+        \[2^nP(\E Y_{k_1} - Y_{k_1} \ge \E Y_{k_1}) \le 2^n e^{-\frac{(\E Y_{k_1}^2)}{2C_m^2}}\]
+
+        \begin{lemma}
+            \(\E Y_{k_1} \ge \frac{m^2}{2k_1^4}(1 + o(1))\).
+        \end{lemma}
+        \begin{proof}
+            Рассотрим \(G \ra \mathcal{K}(K_1, K_2, \dots K_{X_k(G)})\) --- совокупность всех независимых множеств \(G\) с \(k\) вершинами. Рассмотрим \(q^* \in [0, 1]\) --- вероятность выбора \(K_i\) из \(\mathcal{K}\). Получим таким выбором множество \(C(G) \subset \mathcal{K}(G)\). Теперь положим \(W(G) = \{\{K_i, K_j\}: K_i, K_j \in \mathcal{K}(G): |K_i \cap K_j| \ge 2\}\), \(W(G) = \{\{K_i, K_j\}: K_i, K_j \in C(G): |K_i \cap K_j| \ge 2\}\). Пололжим \(\E |W| = \frac{\Delta}{2}\). Из \(C(G)\) удалим по одному \(K_i\) из каждой пары из \(W'(G)\). Получится \(C^*(G)\). Заметим, что \(Y_k(G) \ge C^*(G)\). Тогда:
+            \[\E Y_k \ge \E |C^*| \ge \E |C| - \E |W'|\]
+            Положим для удобства \(\mu = \E X_k\). Тогда \(\E |C| = q^*\mu, \E |W'| = \frac{\Delta}{2}\left( q^* \right)^2\). Но тогда:
+            \[\E Y_k \ge \mu^*q - \frac{\Delta}{2}\left( q^* \right)^2 = (*)\]
+            Положим \(q^* = \frac{\mu}{\Delta}\). Это можно сделать, т.к. \(\mu = \E X_{k_1} = C_m^{k_1}2^{-C_{k_1}^2 = m^{3 + o(1)}}\). Тогда:
+            \[(*) = \frac{\mu^2}{2\Delta}\]
+
+            Докажем, что \(\Delta \sim \frac{\mu^2 k_1^4}{m^2} \).
+
+            \[\Delta = \sum_{t = 2}^{k - 1}C_m^kC_k^tC_{m - k}^{k - t}\left( \frac{1}{2} \right)^{2C_k^2 - C_t^2}\]
+            
+            Разделим все на \(\mu^2k^4\). Тогда слагаемое при \(t = 2\):
+            \[\frac{C_m^kC_k^2C_{m - k}^{k - 2}2^{-2C_k^2 + 1}}{\left( C_m^k \right)^22^{-2C_k^2}k^4}m^2 = \frac{C_k^2C_{m - k}^{k - 2}\cdot 2}{C_m^kk^4}m^2 \sim \frac{C_{m - k}^{k - 2}m^2}{C_m^kk^2} \sim (*)\]
+            При этом, \(C_{m - k}^{k - 2} \sim \frac{(m - k)^{k - 2}}{(k - 2)!}, C_m^k \sim \frac{m^k}{k!}\). Тогда:
+
+            \[(*) \sim \frac{C_{m - k}^{k - 2}m^2}{C_m^k k^2}\]
+            \[\frac{C_{m - k}^{k - 2}}{C_m^k} \sim \frac{k^2(m - k)^{k - 2}}{m^k} \sim \frac{k^2m^{k - 2}}{m^k} = \frac{k^2}{m^2}\]
+
+            Оставшуюся часть суммы расписывать не будем и просто поверим, что там все сойдется.
+
+            Тогда \(\frac{\mu^2}{2\Delta} \sim \frac{m^2}{k_1^4}\), что и требовалось
+        \end{proof}
+
+        Тогда
+        \[2^n e^{-\frac{(\E Y_{k_1}^2)}{2C_m^2}} \le 2^ne^{-\frac{m^4}{4k_1^8m^2}(1 + o(1))} = 2^ne^{-\frac{m^2}{4k_1^8}(1 + o(1))} = 2^ne^{-\frac{n^2}{(\ln^4)\cdot 256 \log_2^8n}(1 + o(1))} = (*)\]
+        Заметим, что \(n^{\frac{\ln\ln n}{\ln n}} = n^{o(1)} = \ln n\). Тогда:
+        \[(*) = 2^ne^{-n^{2 + o(1)}} \ra 0\]
+    \end{proof}
+    Теперь возьмем любой граф, обладающий свойством из леммы. Тогда мы можем удалять из графа независимые подграфы размера \(k_1(m)\), пока количество вершин \(\ge m\) и красить каждый из них в новый цвет. Тогда, после того, как осталось \(< m\) вершин, мы задействуем \(\left[ \frac{n - m}{k_1(m)} \right]\) цветов. Оставшиеся вершины покрасим в новые цвета каждую. Тогда \(\chi(G) \le \left[ \frac{n - m}{k_1(m)} \right] = \frac{n}{2\log_2n} + \phi(n)\), что и требовалось доказать.

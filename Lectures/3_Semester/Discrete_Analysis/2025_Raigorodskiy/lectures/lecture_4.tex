@@ -1,0 +1,110 @@
+
+\section{Гамильтоновость графа}
+\begin{definition}
+    Граф \(G - \)гамильтонов, если \(\exists\) простой цикл, проходящий по всем вершинам графа.
+\end{definition}
+
+\begin{theorem}{Дирака}
+    Пусть \(G = (V, E), n = |V|, \forall v \in V \ deg \  v \ge \frac{n}{2}\). Тогда граф \(G\) гамильтонов.
+\end{theorem}
+
+\begin{definition}
+    \(\varkappa\) - вершинная связность, то есть минимальное количество вершин, которое нужно удалить из графа, чтобы нарушить его связность:
+    \[\varkappa(G) = min \{k : \exists W \subseteq V: |W| = k, G |_{V 
+    \setminus W} \text{несвязный}\}\]
+\end{definition}
+
+\begin{theorem}{(Эрдеш, Хватал)}
+    Пусть \(\varkappa(G) \ge \alpha(G)\). Тогда \(G\) гамильтонов. 
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Случай, когда в \(G\) нет циклов. Тогда \(G\) --- дерево \(\Ra\) есть хотя бы \(2\) висячих вершины \(\Ra \alpha(G) \ge 2\), но есть и не висячие вершины \(\Ra \kappa(G) \le 1\).
+        \item Случай, когда в \(G\) есть циклы. Рассмотрим любой самый длинный простой цикл \(C = \{x_1, x_2, \dots x_k\}, k < n\) (при \(k = n\) граф будет гамильтонов). Тогда удалим \(C\) из \(G\), получим граф \(G'\). Пусть \(W\) --- связная компонента в \(G'\). Положим \(N_W(G) = \{x \in V \setminus W: \exists y \in W: (x, y) \in E\}\).
+        \begin{proposition}
+            \(N_W(G) \subset C\).
+        \end{proposition}
+        \begin{proof}
+            Это правда, т.к. ребра не могут вести в другие компоненты связности графа \(G'\).
+        \end{proof}
+        \begin{proposition}
+            Если \(x_i = N_W(G) \Ra x_{i + 1} \notin N_W(G)\).
+        \end{proposition}
+        \begin{proof}
+            Пусть \(\exists i: x_i \in N_W(G), x_{i + 1} \in N_W(G)\). Тогда существует цикл большей длины, проходящий через \(x_i\), заходящий в компоненту \(W\) и выходящий через \(x_{i + 1}\).
+        \end{proof}
+        \begin{corollary}
+            \(N_W(G) \subsetneq C\)
+        \end{corollary}
+        \begin{proposition}
+            \(\kappa(G) \le |N_W(G)|\).
+        \end{proposition}
+        \begin{proof}
+            Удалим \(N_W(G)\). Т.к. \(C \setminus N_W(G) \ne \emptyset\), то граф распался на \(\ge 2\) компоненты связности. Но тогда \(\kappa(G) \le |N_W(G)|\).
+        \end{proof}
+        \begin{proposition}
+            Рассмотрим \(M = \{x_{i + 1} | x_i \in N_W(G)\}\). Тогда \(M\) --- независимое множество.
+        \end{proposition}
+        \begin{proof}
+            Заметим, что \(|M| = |N_W(G)|, M \cap N_W(G) = \emptyset\). Предположим, что \(\exists x_{i + 1}, x_{j + 1} \in M: (x_{i + 1}, x_{j + 1}) \in E\). Но т.к. \(x_i, x_j \in N_W(G)\), то существует путь \(x_{i + 1} \ra x_{j + 1} \ra \text{по циклу} \ra x_{i} \ra \text{по \(W\)} \ra x_j \ra \text{обратно по циклу} \ra x_{i + 1}\).
+        \end{proof}
+        Рассмотрим \(x \in W\). Заметим, что \(M \cup \{x\}\) --- тоже независимое множество. Но тогда \(\alpha(G) \ge |M| + 1 = |N_W(G)| + 1 > \kappa(G)\). Пришли к противоречию.
+    \end{enumerate}
+\end{proof}
+
+\begin{note}
+    В 2 предыдущих теоремах связность графа следует из условия. В теореме Дирака все компоненты связности должны быть \(ge \frac{n}{2} + 1 \Longrightarrow \) их не более 1. А в теореме Эрдеша-Хватала \(\alpha(G) \ge 1 \Longrightarrow \kappa(G) \ge 1\)
+\end{note}
+
+\begin{example}
+    Рассмотрим граф \(G(n, 3, 1): V = \{A \subset \{1, 2, \dots n\}: |A| = 3\} \Ra |V| = C_n^3, E = \{(A, B): |A \cap B| = 1\}\). Известно, что \(\alpha(G(n, 3, 1)) \le n\).
+
+    Признак дирака на таком графе не работает, т.к. граф разреженный, т.е. \(\deg \text{каждой вершины} = 3C_{n - 3}^2 \sim \frac{3n^2}{2}\).
+
+    Однако, \(\kappa(G) \ge \min_{v, w \in V} f(v, w)\), где \(f\) --- количество общих соседей у \(v, w\). Рассмотрим, какие тройки могут быть аргументами \(f\). Б.О.О, положим первую тройку \(1, 2, 3\), вторую будем подбирать для того, чтобы было \(0, 1, 2\) пересечений с первой тоже не ограничивая общность.
+    \[\begin{array}{c|c|c}
+        A & B & f(A, B) \\
+        \hline
+        \{1, 2, 3\} & \{4, 5, 6\} & 9(n - 6) \\ 
+        \{1, 2, 3\} & \{3, 4, 5\} & C_{n - 5}^2 + 4(n - 5) \\ 
+        \{1, 2, 3\} & \{2, 3, 4\} & 2C_{n - 4}^2 + n - 4 \\ 
+    \end{array}\]
+    Теперь заметим, что теорема Эрдеша-Хватала доказывает гамильтоновость графа (т.к. \(\kappa(G) \ge n \ge \alpha(G)\)), в то время, как Дирак тут бессилен :(((.
+\end{example}
+
+Рассмотрим жадный алгоритм: будем красить вершины последовательно, причем каждую новую вершину будем красить в минимальный возможный цвет (иначе, добавляем новый цвет). Пусть \(\chi_\text{ж}(G)\) --- количество цветов, в которое наш алгоритм покрасил граф, \(\alpha_\text{ж}(G)\) --- максимальное количество вершин одного цвета при покраске жадным алгоритмом. 
+
+\begin{note}
+    \(\alpha_\text{ж}(G) \le \alpha(G), \chi_\text{ж}(G) \ge \chi(G)\).
+\end{note}
+
+\begin{note}
+    Когда \(P(\dots) \ra 1\), говорят, что \(\dots\) происходит ''асимптотически почти наверное'' (а.п.н.)
+\end{note}
+
+\begin{theorem}
+    Тогда \(\forall \epsilon > 0 P\left( \frac{\alpha(G)}{\alpha_\text{ж}(G)} \le 2 + \epsilon \right) \ra 1, n \ra \infty\), т.е. \(\frac{\alpha(G)}{\alpha_\text{ж}(G)} \le 2 + \epsilon\) (а.п.н.)
+\end{theorem}
+\begin{proof}
+    Известно, что а.п.н. \(\alpha(G) \le 2\log_2n \Ra\) достаточно доказать, что \(\forall \epsilon > 0\) а.п.н. \(\alpha_{\text{ж}} \ge (1 - \epsilon)\log_2n\). Докажем, что \(P(\alpha_{\text{ж}}(G) < (1 - \epsilon)\log_2n) \ra 0\). Положим за \(A\) событие \(\alpha_{\text{ж}}(G) < (1 - \epsilon)\log_2n\). Положим \(m = \left[ \frac{n}{2(1 - \epsilon)\log_2n}\right]\) и рассмотрим следующее событие \(B\):
+    \[B = \left\{\begin{array}{l}
+        \exists a_1, a_2, \dots a_m: \forall i: a_i < (1 - \epsilon)\log_2n \\
+        \exists C_1, C_2, \dots C_m: \forall i: |C_i| < a_i, \forall i, j: C_i \cap C_j = \emptyset \\
+        \forall x \notin \bigcup_{i = 1}^m C_i \forall i \exists y \in C_i: (x, y) \in E
+    \end{array}\right.\]
+    Зафиксируем \(x, i\). \(P(\exists y \in C: (x, y) \in E) = 1 - \left(\frac{1}{2}\right)^{a_i}\). Т.к. ребра выбираются независимо, множества ребер, ведущие в \(C_i, C_j\) выбираются тоже независимо. Тогда:
+    \[P(\forall i \exists y \in C_i (x, y) \in E) = \prod_{i = 1}^nP(\exists y \in C: (x, y) \in E) = \prod_{i = 1}^n\left( 1 - \left( \frac{1}{2} \right)^{a_i} \right)\]
+    События \(\forall i \exists y \in C_i (x, y) \in E\) также независимы по всем вершинам \(x\), т.к. ребра ведущие из одной вершины в \(\bigcup_{i = 1}^n C_i\) выбираются независимо от ребер другой такой же вершины. Тогда:
+    \[P\left(\forall x \notin \bigcup_{i = 1}^n C_i \forall i \exists y \in C_i (x, y) \in E\right) = \left( \prod_{i = 1}^n\left( 1 - \left( \frac{1}{2} \right)^{a_i} \right) \right)^{n - a_1 - a_2 - \dots - a_m} <\]
+    \[< \left( \prod_{i = 1}^n\left( 1 - \frac{1}{2^{(1 - \epsilon)\log_2n}} \right) \right)^{\frac{n}{2}} = \left( 1 - \frac{1}{n^{1 - \epsilon}} \right)^{\frac{mn}{2}} \le e^{-\frac{1}{n^{1 - \epsilon}}\cdot\frac{n}{2}\cdot\frac{n}{2\log_2n}} = e^{-\frac{n^{1 + \epsilon}}{4\log_2n}}\]
+    Итого, получаем:
+    \[P(B) \le \sum_{a_1 = 1}^{(1 - \epsilon)\log_2n}\dots \sum_{a_m = 1}^{(1 - \epsilon)\log_2n}\sum_{\begin{array}{l}
+        C_1, C_2, \dots C_m: \forall i: |C_i| = a_i\\
+        \forall i, j: C_i \cap C_j = \emptyset
+    \end{array}} e^{-\frac{n^{(1 + \epsilon)}}{4\log_2n}} \le\]
+    \[ \le e^{-\frac{n^{1 + \epsilon}}{4\log_2n}}\sum_{a_1 = 1}^{(1 - \epsilon)\log_2n}\dots \sum_{a_m = 1}^{(1 - \epsilon)\log_2n}C_n^{a_1}C_n^{a_2}\dots C_n^{a_m} < e^{-\frac{n^{1 + \epsilon}}{4\log_2n}}\sum_{a_1 = 1}^{(1 - \epsilon)\log_2n}\dots \sum_{a_m = 1}^{(1 - \epsilon)\log_2n}n^{a_1 + a_2 + \dots + a_m} \le\]
+    \[\le e^{-\frac{n^{1 + \epsilon}}{4\log_2n}}\cdot n^{\frac{n}{2}}\sum_{a_1 = 1}^{(1 - \epsilon)\log_2n}\dots \sum_{a_m = 1}^{(1 - \epsilon)\log_2n} 1 =\]
+    \[= e^{-\frac{n^{1 + \epsilon}}{4\log_2n} + \frac{n}{2}\ln n}(\log_2n)^n \le e^{-\frac{n^{1 + \epsilon}}{4\log_2n} + \frac{n}{2}\ln n + \frac{n}{(1 - \epsilon)\log_2n}\ln(\log_2n)} \ra 0\]
+\end{proof}
+
+Заметим, что жадный алгоритм полиномиальный (работает за \(O(n^2)\)), причем он ошибается всего в 2 раза. Возникает вопрос: можно ли придумать полиномиальный алгоритм лучше, который может ошибаться в меньшее количество раз. Ответ: никто не знает. Кокнуло?

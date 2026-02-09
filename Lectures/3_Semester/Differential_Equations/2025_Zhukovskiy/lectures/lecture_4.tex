@@ -1,0 +1,121 @@
+
+
+\section{Существование решений задачи Коши}
+\begin{problem}[Коши]
+    Пусть \(\Gamma \subset \R \times \R^n\) --- открыто, \((t_0, x_0) \in \Gamma, f: \Gamma \ra \R^n\).
+    Найти все \(x\), удовлетворяющие системе:
+    \begin{equation}
+        \begin{cases}
+            x' = f(x, t) \\
+            x(t_0) = x_0
+        \end{cases}
+    \end{equation}
+\end{problem}
+
+\begin{theorem}[О существовании и единственности решения задачи Коши]
+    В задаче Коши (4.1), Положим \(r > 0: B = B((t_0, x_0), r) \subset \Gamma, M = \sup_{(t, x) \in B}|f(t, x)|, d = \frac{r}{\sqrt{1 + M^2}}\). Тогда, если \(f\) --- непрерывна, а \(\frac{\partial f_i}{\partial x_j}\) существуют и непрерывны, то 
+    \begin{enumerate}
+        \item \(\exists\) решение \(x: (t_0 - d, t_0 + d) \ra \R^n\) задачи Коши (4.1).
+        \item \(\forall\) решения \(y: I \ra \R^n\) задачи Коши (4.1), верно: \(y(t) = x(t) \forall t \in I \cap (t_0 - d, t_0 + d)\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Положим \(T \subset (t_0 - d, t_0 + d), t_0 \in T, R = \sqrt{r^2 - d^2}, L = \max_{(t, x) \in B}\left\|\frac{\partial f_i}{\partial x_j}\right\|, X = C(T, B(x_0, R))\). Тогда:
+    \begin{enumerate}
+        \item \(x \in X \Ra (t, x(t)) \in B \forall t \in T\).
+        \[\forall t \in T: |t - t_0|^2 + |x(t) - x_0|^2 \le d^2 + r^2 - d^2 = r^2\]
+        \item Рассмотрим \(\Phi: X \ra X, \Phi(x)(t) = x_0 + \int_{t_0}^t f(s, x(s))ds, x \in X, t \in T\).
+        \[\forall x \in X, t \in T: |\Phi(x)(t) - x_0| = \left| \int_{t_0}^t f(s, x(s))ds \right| \le \left| \int_{t_0}^{t} |f(s, x(s))|ds \right| \le \left| \int_{t_0}^r M ds \right| \le \]
+        \[Md = M \frac{r}{\sqrt{1 + M^2}} = R\]
+        \[M^2r^2 = R^2(1 + M^2)\]
+        \[M^2r^2 = (r^2 - d^2)(1 + M^2)\]
+        \[0 = r^2 - d^2 - d^2M^2\]
+        \[d^2(1 + M^2) = r^2\]
+        \item \(x \in X \La x \in C(T, R^n)\).
+        \[x = \Phi(x) \Ra x(t) \equiv x_0 + \int_{t_0}^t f(s, x(s))ds \Lra \left\{\begin{array}{l}
+            x \in C(T, \R^n) \\
+            x'(t) \equiv f(t, x(t)) \\
+            x(t_0) = x_0
+        \end{array}\right. \Lra \left\{\begin{array}{l}
+            x \in C(T, \R^n) \\
+            \text{\(x\) --- решение (4.1)}
+        \end{array}\right.\]
+        Заметим, что достаточно доказать, что \(x \in X\), то есть, что \(|x(t) - x_0| \le R \forall t \in T\).
+        Пусть \(\exists t \in T: t > t_0: |x(t) - x_0| > R\). Тогда \(\exists \tau > t_0: |x(\tau) - x_0| > R\) и \(|x(t) - x_0| < R, t \in [t_0, R)\).
+        \[|x(\tau) - x_0| = \left| \int_{t_0}^\tau f(s, x(s))sx \right| \le M\int_{t_0}^\tau ds \le Md = R\]
+        \item Докажем, по индукции, что \(|\Phi^N(x_1)(t) - \Phi^N(x_2)(t)| \le \frac{L^N}{N!}|t - t_0|^N \rho(x_1, x_2) \forall x_1, x_2 \in X, \forall t \in T, \forall N\).
+        \begin{enumerate}
+            \item[] \textbf{База:} \(N = 1\).
+            \[|\Phi(x_1)(t) - \Phi(x_2)(t)| = \left| \int_{t_0}^t \left( f(s, x_1(s)) - f(s, x_2(s)) \right)ds \right| \le \left| \int_{t_0}^t \left| f(s, x_1(s)) - f(s, x_2(s)) \right|ds \right|\]
+            \[\le \left| \int_{t_0}^t L|x_1(s) - x_2(s)|ds \right| \le L|t - t_0|\rho(x_1, x_2)\]
+            \item[] \textbf{Переход:}
+            \[|\Phi^N(x_1)(t) - \Phi^N(x_2)(t)| = \left| \int_{t_0}^t \left( f(s, \Phi^{N - 1}(s)) - f(s, \Phi^{N - 1}(x_2)(s)) \right)ds \right| \le \]
+            \[\le L\left| \int_{t_0}^t |\Phi(x_1)^{N - 1}(s) - \Phi(x_2)^{N - 1}(s)| \right| \le L\left| \frac{L^{N - 1}}{(N - 1)!}|s - t_0|^N\rho(x_1, x_2)ds \right| = \]
+            \[= \frac{L^N}{(N - 1)!}\rho(x_1, x_2)\left| \int_{t_0}^t |s - t_0|^{N - 1}ds \right| = \frac{L^N}{N!}|t - t_0|^N\rho(x_1, x_2)\]
+        \end{enumerate}
+
+        \item Тогда \(\Phi: \exists N: \Phi^N: X \ra X\) является сжимающим отображением, т.к. \(\frac{L^N}{N!}|t - t_0|^N \le \frac{L^N}{N!}d^N < 1\) при достаточно больших \(N\). Тогда \(\exists! x \in X: x = \Phi(x) \Ra \exists!\) на \(T\) решение \(x\) задачи Коши (4.1). Возьмем любое решение \(y: I \ra \R^n\). Положим \(T = I \cap (t_0 - d, t_0 + d)\). Тогда на \(T\) верно, что \(x(t) = y(t)\)
+    \end{enumerate}
+\end{proof}
+
+\subsection{В общем случае}
+\(\Gamma \subset \R^n\) --- открытое, \(g: \Gamma \ra \R^n, x_0, x_0^1, \dots, x_0^{n - 1} \in \R\)
+\begin{equation}
+    \begin{cases}
+        x^{(n)} = g(t, x', x'', \dots, x^{(n - 1)}) \\
+        x(t_0) = x_0, x'(t_0) = x_0^1, \dots, x^{(n - 1)}(t_0) = x_0^{(n - 1)}
+    \end{cases}
+\end{equation}
+Сделаем замену \(y_1 = x, y_2 = x', \dots y_n = x^{(n - 1)}\). Тогда мы получим систему:
+\begin{equation}
+    \begin{cases}
+        y_1' = y_2 \\
+        y_2' = y_3 \\
+        \vdots \\
+        y'_n = g(t, y_1, y_2, \dots y_n)
+    \end{cases}
+\end{equation}
+
+Покажем, что полученная система в действительности эквивалентна задаче Коши (4.2). Заметим, что 
+\[\left\{\begin{array}{l}
+    y_1(t_0) = x_0 \\
+    y_2(t_0) = x_0^1 \\
+    \vdots \\
+    y_n(t_0) = x_0^{n - 1}
+\end{array}\right.\]
+Тогда:
+\[x\text{ --- решение (4.2) }\Ra \left( \begin{array}{c}
+    x(\cdot) \\
+    x'(\cdot) \\
+    x''(\cdot) \\
+    \vdots \\
+    x^{(n - 1)}(\cdot) \\
+\end{array} \right)\text{ --- решение (4.3)}\]
+\[y_1\text{ --- решение (4.2) }\La \left( \begin{array}{c}
+    y_1(\cdot) \\
+    y_2(\cdot) \\
+    y_3(\cdot) \\
+    \vdots \\
+    y_n(\cdot) \\
+\end{array} \right)\text{ --- решение (4.3)}\]
+\begin{corollary}
+    Если \(g\) --- непрервна, и \(\frac{\partial g}{\partial x_k}\) существуют и непрерывны, то 
+    \begin{enumerate}
+        \item \(\exists d > 0: \exists\) решение \(x: (t_0 - d, t_0 + d) \ra \R\) задачи Коши (4.2)
+        \item \(\forall\) решения \(\tilde{x}: I \ra \R^n\) задачи Коши (4.3), \(x(t) \equiv \tilde{x}(t), t \in I \cap (t_0 - d, t_0 + d)\).
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    \[f(t, y) = \left( \begin{array}{c}
+        y_2 \\
+        y_3 \\
+        \vdots \\
+        g(t, y_1, y_2, \dots y_n)
+    \end{array} \right), (t, y) \in \Gamma\]
+    Положим \(y_0 = \left( \begin{array}{c}
+        x_0 \\
+        x_0^1 \\
+        \vdots \\
+        x_0^{n - 1}
+    \end{array} \right)\). Но тогда по теореме о существовании и единственности решений, \(\exists d, x\), удовлетворяющие условию.
+\end{proof}
