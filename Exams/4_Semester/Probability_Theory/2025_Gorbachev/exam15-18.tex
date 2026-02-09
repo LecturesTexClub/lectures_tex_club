@@ -1,0 +1,812 @@
+
+\section{Предельные теоремы.}
+\subsection{Последовательности случайных величин.}
+% Где-то здесь (или в ЦПТ) надо доказать теорему Леви о непрерывности
+\subsubsection{Типы сходимости, соотношения между ними.}
+Пусть у нас есть последовательность случайных величин $\{\xi_n\}_{n \in \N}$ на вероятностном пространстве $(\Omega, \mathcal{F}, \P)$.
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{a.s.} \xi$, если $\P(\{x \in \Omega \mid \  \xi_n(x) \not\ra \xi(x), n \ra +\infty\})$.
+\end{definition}
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{\P} \xi$, если \[\forall \epsilon > 0 \hookrightarrow \P(\{x \mid |\xi_n(x) - \xi(x)| \geq \epsilon \}) \ra 0, n \ra +\infty.\]
+\end{definition}
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{p} \xi$, если $\|\xi_n - \xi\|_{L_p} \ra 0, n \ra +\infty$.
+\end{definition}
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{d} \xi$, если $F_{\xi_n} \ra X_{\xi}, n \ra +\infty$ во всех точках непрерывности $F_{\xi}$.
+\end{definition}
+\begin{note}
+    Заметим, что слабая сходимость корректно определена в том числе и для случайных величин, заданных на различных вероятностных пространствах.
+\end{note}
+\begin{theorem}
+    Справедливы следующие соотношения между типами сходимости:
+    \begin{enumerate}
+        \item $a.s. \Ra \P$.
+        \item $p \Ra \P$.
+        \item $\P \Ra d$.
+        \item $d \not\Ra \P$.
+        \item $\P \not\Ra a.s.$
+        \item $\P \not\Ra p$.
+        \item $p \not\Ra a.s.$.
+        \item $a.s. \not\Ra p$.
+        \item Если $a.s.$ + равномерная интегрируемость $p$-го момента величин последовательности, то $p$.
+        \item Если $\xi_n \xrightarrow{d} c$, где $c$ -- некоторая константа, то $\xi_n \xrightarrow{\P} c$.
+        \item Если для последовательности $\xi_n \xrightarrow{\P} \xi$ верно, что $\forall \epsilon > 0 \hookrightarrow \sum\limits_{k = 1}^{+\infty} \P(|\xi_k - \xi| > \epsilon) < +\infty$, то $\xi_n \xrightarrow{a.s.} \xi$.
+        \item Если $\xi_n \xrightarrow{p} \xi$ и $\sum\limits_{k = 1}^{+\infty} \Ex |\xi_n - \xi|^{p} < +\infty$, то $\xi_n \xrightarrow{a.s.} \xi$.
+        \item Если $\xi_n \xrightarrow{\P} \xi$ и $\P(|\xi_n| \leq M) = 1$ то $\xi_n \xrightarrow{p} \xi$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Покажем каждую из посылок.
+    \begin{enumerate}
+        \item Пусть есть сходимость почти наверное $\xi_n \xrightarrow{a.s.} \xi$. По определению, \[\P(\{x \in \Omega \mid \xi_n(x) \not\ra \xi(x)\}) = 0.\]
+        Для начала рассмотрим частный случай. Пусть $\xi_n \xrightarrow{a.s.} 0$, причём -- монотонно убывая, и $\xi_n \geq 0$. Тогда $\forall \epsilon > 0$ множество точек $E_n(\epsilon) = \Omega(\xi_n > \epsilon)$ является убывающей последовательностью множеств: $E_{n + 1}(\epsilon) \subset E_{n}(\epsilon)$, причём $\P(\lim E_n(\epsilon)) = 0$ -- из сходимости почти наверное. Но, в силу непрерывности меры, это и означает сходимость по вероятности $\xi_n$ к 0.
+        Теперь доказательство общего случая заключается в применении первого шага к последовательности $\eta_n = \sup\limits_{k \geq n}|\xi_k - \xi|$ и том, что $|\xi_n - \xi| \leq \eta_n$. \\
+        А значит $\xi_n \xrightarrow{\P} \xi$.
+        \item Пусть есть сходимость в среднем порядка $p$: $\xi_n \xrightarrow{p} \xi$. Согласно неравенству Чебышёва $\P(|\xi_n - \xi| > \epsilon) \leq \dfrac{\Ex|\xi_n - \xi|^p}{\epsilon^p} \ra 0, n \ra +\infty$, что и показывает сходимость по вероятности.
+        \item Пусть $\xi_n \xrightarrow{\P} \xi$. Заметим, что $\P(\xi_n \leq a) \leq \P(\xi \leq a + 2\epsilon) + \P(|\xi_n - \xi| > \epsilon)$.
+        При $n \ra +\infty$ второе слагаемое обращаеся в 0 -- из сходимости по вероятности. А в силу непрерывности функций распределения справа (а левая часть неравенства -- просто $F_{\xi_n}(a)$ и справа -- $F_{\xi}(a + 2\epsilon)$) и в силу непрерывности справа: $F_{\xi_n}(a) \leq F_{\xi}(a), n \ra +\infty$.
+        Теперь сделаем оценку с другой стороны: $\P(\xi \leq a - 2\epsilon) \leq \P(\xi_n \leq a) + \P(|\xi_n - \xi| > \epsilon)$. Таким образом, если $a$ -- точка непрерывности $F_{\xi}$, то предельный переход даёт нам оценку с другой стороны $F_{\xi} \leq F_{\xi_n}, n \ra +\infty$ -- и, тогда, $F_{\xi_n}(a) \ra F_{\xi}(a), n \ra +\infty$ (если $a$ -- точка непрерывности), что и является нашим определением сходимости по распределению.
+        \item Пусть $(\Omega, \mathcal{F}, \P) = ([0, 1], \mathcal{B}([0, 1]), \lambda^1)$. Рассмотрим случайные величины $\xi(w) = w$ и $\eta(w) = 1 - w$. Их функцией распределения является: $F_{\xi}(x) = \P(\xi \leq x) = x \cdot I_{[0, 1]} + I_{(1, +\infty)}$ и $F_{\eta}(x) = \P(\eta \leq x) = x \cdot I_{[0, 1]} + I_{(1, +\infty)}$. Тогда, если мы возьмём последовательность вида $\xi, \eta, \xi, \ldots$ то она очевидно сходится по распределению, но, при этом, сходимости по вероятности очевидно нет.
+        \item Очевидно: берём $X^{(i)}_{n} = I_{[i/n, (i + 1)/n]}$ и последовательность, перебирающие все $(i, n) \in \N_0^2$. Она сходится по мере к 0, но расходится во всякой точке.
+        \item Очевидно: берём $X_n = nI_{[0, 1/n]}$. По мере сходимся к 0, но момент любого порядка равен единице -- следовательно сходимости к 0 в среднем произвольного порядка нет.
+        \item Последовательность из 5 пункта сходится к нулю в среднем любого порядка.
+        \item Последовательность из 6 пункта сходится к нулю почти всюду.
+        \item Доказательство заключается в применении теоремы Лебега о мажорируемой сходимости -- а мажоранта у нас есть в силу равномерной интегрируемости.
+        \item Пусть $\xi_n \xrightarrow{d} c$, где $c$ -- некоторая константа. Зафиксируем некоторый $\epsilon$ и рассмотрим $\P(|\xi_n - c| \leq \epsilon) = \P(c - \epsilon \leq \xi_n \leq c + \epsilon) \geq \P(c - \epsilon < \xi_n \leq c + \epsilon) = F_{\xi}(c + \epsilon) - F_{\xi}(c - \epsilon) \ra 1, \epsilon \ra +0$ -- что и завершает доказательство.
+        \item Доказательство заключается в применении следствия из леммы Бореля-Кантелли к подходящей последовательности.
+        \item Доказательство заключается в использовании неравенства Чебышёва и критерия сходимости почти всюду.9
+        \item Пусть $\xi_n \xrightarrow{\P} \xi$ и $\xi_n$ -- ограниченная последовательность. Тогда $\Ex |\xi_n - \xi|^p = \int |\xi_n - \xi|^p d\P \leq \epsilon + \int_{|\xi_n - \xi| > \epsilon} |\xi_n - \xi|^p d\P \leq \sup\limits_{\Omega} |\xi_n - \xi|^p \cdot \P(|\xi_n - \xi| > \epsilon) \ra 0, n \ra +\infty$.
+    \end{enumerate}
+\end{proof}
+\subsubsection{Необходимое и достаточное условие сходимости почти наверное.}
+\begin{theorem}[Критерий сходимости почти наверное.]
+    Пусть есть последовательность случайных величин $\xi_n$ и случайная величина $\xi$.
+    Следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\xi_n \xrightarrow{a.s.} \xi$.
+        \item $\forall \epsilon > 0 \hookrightarrow \P(\sup\limits_{k \geq n} |\xi_k - \xi| > \epsilon) \ra 0, n \ra +\infty$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Покажем импликацию $1) \Ra 2)$. \\
+    Для начала рассмотрим частный случай. Пусть $\xi_n \xrightarrow{a.s.} 0$, причём -- монотонно убывая, и $\xi_n \geq 0$. Тогда $\forall \epsilon > 0$ множество точек $E_n(\epsilon) = \Omega(\xi_n > \epsilon)$ является убывающей последовательностью множеств: $E_{n + 1}(\epsilon) \subset E_{n}(\epsilon)$, причём $\P(\lim E_n(\epsilon)) = 0$ -- из сходимости почти наверное. Но, в силу непрерывности меры, это означает сходимость по вероятности $\xi_n$ к 0.
+    Теперь доказательство общего случая заключается в применении первого шага к последовательности $\eta_n = \sup\limits_{k \geq n}|\xi_k - \xi|$ и том, что $|\xi_n - \xi| \leq \eta_n$. \\
+    Покажем имплликацию $2) \Ra 1)$. \\
+    Заметим, что условие $2)$ в точности означает сходимость последовательности $\eta_n = \sup\limits_{k \geq n}|\xi_k - \xi|$ к нулю по вероятности.
+    Пусть $\eta_n \not\xrightarrow{a.s.} 0$.
+    Тогда $\exists \epsilon > 0 \wedge \exists A: \P(A) = \delta > 0$ такие, что $\forall w \in A \forall n \in \N \hookrightarrow \sup\limits_{k \geq n} \eta_k \geq \epsilon$.
+    В силу монотонности последовательности $\sup\limits_{k \geq n} \eta_k = \eta_n$.
+    Но, тогда, $\eta_n \not\xrightarrow{\P} 0$ (поскольку мера $A$ -- положительна и не стремится к нулю) -- противоречие.
+\end{proof}
+\subsubsection{Теорема Рисса.}
+\begin{lemma}[Следствие из первой леммы Бореля-Кантелли]
+    Пусть дана последовательность неотрицательных случайных величин $\xi_n$, и последовательность $\epsilon_n \ra 0, n \ra +\infty$, причём все $\epsilon_n \geq 0$.
+    Тогда, если выполнено следующее условие:
+    \[
+        \sum\limits_{n = 1}^{+\infty} \P(\xi_n > \epsilon_n) < +\infty.
+    \]
+    То последовательность $\xi_n \xrightarrow{a.s.} 0$.
+\end{lemma}
+\begin{proof}
+    Введём следующее обозначение: $X_n = \Omega\{\xi_n > \epsilon_n\}$.
+    Зафиксируем $\epsilon > 0$.
+    Поскольку $\epsilon_n \ra 0, n \ra +\infty$, то $\exists N_\epsilon \in \N$ такое, что $\forall n \geq N_\epsilon \hookrightarrow \epsilon_n < \epsilon$.
+    Тогда $E_n(\epsilon) = \Omega\{\xi_n > \epsilon\} \subset X_n$ и ряд $\sum\limits_{N}^{+\infty} \P(E_n) \leq \sum\limits_{N}^{+\infty} \P(X_n) < +\infty$ сходится.
+    А значит, по лемме Бореля-Кантелли, $\P(\limsup E_n(\epsilon)) = 0$.
+    Поскольку $G = \Omega\{\xi_n(x) \not\ra \xi\} \subset \bigcup\limits_{k = 1}^{+\infty} \limsup E_n(1/k)$, то $\P(G) = 0$ -- что и показывает сходимость почти наверное.
+\end{proof}
+\begin{theorem}[Рисс]
+    Пусть $\xi_n \xrightarrow{\P} \xi$.
+    Тогда существует подпоследовательность $\xi_{n_k} \xrightarrow{a.s.} \xi$.
+\end{theorem}
+\begin{proof}
+    По определению сходимости по вероятности:
+    \[
+        \forall \epsilon > 0 \hookrightarrow \P(|\xi_n - \xi| > \epsilon) \ra 0, n \ra \infty.
+    \]
+    Тогда, $\forall k \in \N \exists n_k \in \N$:
+    \[
+        \P(|\xi_{n_k} - \xi| > 1/k) < 2^{-k}.
+    \]
+    Но, тогда,
+    \[
+        \sum\limits_{k = 1}^{+\infty} \P(|\xi_{n_k} - \xi| > 1/k) < +\infty.
+    \]
+    И применение следствия из леммы Бореля-Кантелли завершает доказательство.
+\end{proof}
+\subsubsection{Фундаментальность по Коши различных типов сходимости. Критерий Коши сходимости почти наверное.}
+\begin{definition}
+    Будем называть последовательность случайных величин $\xi_n$ фундаментальной почти наверное, если
+    \[
+        \forall \epsilon > 0 \hookrightarrow \P\biggr(\sup\limits_{n \geq m}|\xi_n - \xi_m| > \epsilon\biggr) \ra 0, m \ra +\infty.
+    \]
+\end{definition}
+\begin{definition}
+    Будем называть последовательность случайных величин $\xi_n$ фундаментальной по вероятности, если
+    \[
+        \forall \epsilon > 0 \hookrightarrow \P(|\xi_n - \xi_m| > \epsilon) \ra 0, m, n \ra +\infty.
+    \]
+\end{definition}
+\begin{definition}
+    Будем называть последовательность случайных величин $\xi_n$ фундаментальной в среднем порядка $p$, если
+    \[
+        \|\xi_n - \xi_m\|_{L_p} \ra 0, n, m \ra +\infty.
+    \]
+\end{definition}
+\begin{theorem}[Критерий Коши.]
+    Для последовательности случайных величин $\{\xi_n\}$ верны следующие утверждения:
+    \begin{enumerate}
+        \item $\exists \xi: \xi_n \xrightarrow{a.s.} \xi \Longleftrightarrow$ последовательность $\{\xi_n\}$ -- фундаментальна почти наверное.
+        \item $\exists \xi: \xi_n \xrightarrow{\P} \xi \Longleftrightarrow$ последовательность $\{\xi_n\}$ -- фундаментальна по вероятности.
+        \item $\exists \xi: \xi_n \xrightarrow{p} \xi \Longleftrightarrow$ последовательность $\{\xi_n\}$ -- фундаментальна в среднем порядка $p$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Фундаментальность следует из сходимости тривиальным образом из выполнения неравенства треугольника:
+    \[
+        \sup\limits_{n \geq m}|\xi_n - \xi_m| \leq  \sup\limits_{n \geq m} |\xi_n - \xi| + \sup\limits_{n \geq m} |\xi_m - \xi| \leq 2\sup\limits_{n \geq m}|\xi_m - \xi| \ra 0, m \ra +\infty.
+    \]
+    (предельный переход сделан в силу критерий сходимости почти наверное)
+    \[
+        |\xi_n - \xi_m| \leq |\xi_n - \xi| + |\xi_m - \xi|, \quad \|\xi_n - \xi_m\|_{L_p} \leq \|\xi_n - \xi\|_{L_p} + \|\xi_m - \xi\|_{L_p}.
+    \]
+    А вот здесь нам достаточно воспользоваться определением сходимости. \\
+    Покажем, что из фундаментальности почти наверное следует сходимость почти наверное. \\
+    Пусть $G = \{w \in \Omega \mid \xi_{n}(w) \text{ -- не фундаментальна (в обычном смысле) }\}$.
+    $\forall w \in \Omega \setminus G \hookrightarrow \xi_n(w)$ -- фундаментальна, в обычном смысле, а следовательно -- сходится к некоторому $\xi(w)$.
+    Введём теперь случайную величину $\xi$ следующим образом:
+    \[
+        \xi(w) =
+        \begin{cases}
+            \xi(w), & w \in \Omega \setminus G \\
+            0, & w \in G.
+        \end{cases}
+    \]
+    Поскольку $\xi$ -- корректно определена, и, очевидно, есть поточечная сходимость $\xi_n$ к $\xi$ на $\Omega \setminus G$, то для доказательства $a.s.$ сходимости на всём пространстве достаточно показать то, что $\P(G) = 0$.
+    Но, если $\P(G) = \delta > 0$, то $\exists \epsilon > 0$ такой, что на некотором подмножестве положительной меры $\sup\limits_{n \geq m}|\xi_n - \xi_m| > \epsilon, m \rightarrow +\infty$ -- противоречие и тогда $\P(G) = 0$ и сходимость почти наверное доказана. \\
+    Докажем теперь, что из фундаментальности по вероятности следует сходимость по вероятности. \\
+    Выберем подпоследовательность $\xi_{n_k}$ таким образом, чтобы
+    \[
+        \forall k \in \N \forall n, m \geq n_k \hookrightarrow \P(|\xi_n - \xi_m| > 2^{-k}) < 2^{-k}.
+    \]
+    Обозначим за $\eta_k = \xi_{n_k}$ и $A_{k} = \{|\eta_k - \eta_{k + 1}| > 2^{-k}\}$.
+    Поскольку $\sum\limits_{k = 1}^{+\infty} \P(A_k) \leq 1 < +\infty$, то $\P(\limsup A_k) = 0$ -- по лемме Бореля-Кантелли и тогда мера точек, где $\eta_k$ -- фундаментальна равна единице, а следовательно, $\eta_k \xrightarrow{a.s.} \eta$ -- по предыдущему пункту.
+    Но, тогда
+    \[
+        \P(|\xi_n - \eta| > \epsilon) \leq \P(|\xi_n - \xi_{n_k}| > \epsilon /2) + \P(|\xi_{n_k} - \eta| > \epsilon /2) \ra 0, n, k \ra +\infty.
+    \]
+    Что и показывает сходимость по вероятности к $\eta$. \\
+    И, наконец, покажем, что из фундаментальности в среднем порядка $p$ следует сходимость в среднем порядка $p$. \\
+    В силу неравенства Чебышёва, последовательность является фундаментальной и по вероятности, а следовательно существует $\xi$ такая, что $\xi_n \xrightarrow{\P} \xi$.
+    Но, тогда, у нас есть подпоследовательность, которая сходится $a.s.$ к $\xi$: $\xi_{n_k} \xrightarrow{a.s.} \xi$. \\
+    Зафиксируем $\epsilon > 0$. Из фундаментальности в среднем следует существование $s$ такого, что $\forall m, n \geq s \hookrightarrow \Ex |\xi_m - \xi_n|^p < \epsilon$.
+    По лемме Фату:
+    \[
+        \Ex |\xi_n - \xi|^{p} = \Ex \lim |\xi_{n_k} - \xi|^{p} = \Ex \liminf |\xi_{n_k} - \xi|^{p} \leq \liminf \Ex |\xi_{n_k} - \xi| \leq \epsilon.
+    \]
+    Из чего и следует последнее утверждение.
+\end{proof}
+\begin{note}
+    Доказательство критерия Коши для сходимости в среднем некорректно.
+\end{note}
+\subsubsection{Наследование сходимости.}
+\begin{theorem}[О наследовании сходимости]
+    Пусть $\{\xi_n\}$ -- последовательность случайных величин, $\xi$ -- случайная величина и $g$ -- борелевская функция, непрерывная почти всюду относительно распределения случайной величины (то есть $g$  непрерывна в каждой точке множества $B$ такого, что $\P(\xi(w) \in B) = 1$).
+    Тогда справедливы следующие утверждения:
+    \begin{enumerate}
+        \item Если $\xi_n \xrightarrow{\P} \xi$, то $g(\xi_n) \xrightarrow{\P} g(\xi)$.
+        \item Если $\xi_n \xrightarrow{a.s.} \xi$, то $g(\xi_n) \xrightarrow{a.s.} g(\xi)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof} \leavevmode
+    \begin{enumerate}
+        \item Пусть $\xi_n \xrightarrow{\P} \xi$ и нет сходимости $g(\xi_n) \xrightarrow{\P} g(\xi)$. Тогда найдутся $\epsilon > 0$, $\delta > 0$ и подпоследовательность $\xi_{n_k}$ такие, что $\P(|g(\xi_{n_k}) - g(\xi)| > \epsilon) > \delta, k \ra \infty$. В то же время, $\xi_{n_k} \xrightarrow{\P} \xi$, а значит по теореме Рисса есть подпоследовательность $\xi_{n_{k_j}} \xrightarrow{a.s.} \xi$. Но, тогда, в силу непрерывности $g$, сходятся и $g(\xi_{n_{k_j}}) \xrightarrow{a.s.} g(\xi)$. Таким образом мы приходим к противоречию.
+        \item Пусть $A = \{\xi_n(w) \ra \xi(w)\}$ и $C = \{\xi(w) \in B\}$. Тогда $\P(A) = 1$ -- по условию теоремы и $\P(C) = 1$ -- аналогично, по условию теоремы. Но, тогда, $\P(AC) = \P(A) + \P(C) - \P(A \cup C) = 1$, а значит, так как $\forall w \in AC \hookrightarrow g(\xi_n)(w) \ra g(\xi)$, то у нас есть поточечная сходимость на множестве полной вероятности -- что и требуется показать.
+    \end{enumerate}
+\end{proof}
+\subsubsection{Теорема Слуцкого.}
+\begin{theorem}[Об эквивалентных определениях сходимости по распределению]
+    Пусть есть последовательность $\{\xi_n\}$ и случайная величина $\xi$.
+    Следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\xi_n \xrightarrow{d} \xi$.
+        \item Для всякой непрерывной ограниченной функции $g \hookrightarrow \Ex g(\xi_n) \ra \Ex g(\xi)$.
+        \item $\forall t \in \R \phi_{\xi_n}(t) \ra \phi_{\xi}(t)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Докажем $2) \Ra 1)$. \\
+    Пусть есть некоторый $\epsilon > 0$ и $x \in \R$ -- точка непрерывности функции $F_{\xi}$. Рассмотрим функцию $f_\epsilon$, которая определяется как
+    \[
+        f_{\epsilon, x}(t) =
+        \begin{cases}
+            1, & t < x; \\
+            0, & t \geq x + \epsilon; \\
+            t - x, & t \in [x, x + \epsilon).
+        \end{cases}
+    \]
+    Тогда, для функции распределения $\xi_n$:
+    \[
+        F_{\xi_n}(x) = \int_{-\infty}^x f_{\epsilon, x}(t)dF_{\xi_n}(t) \leq \int_{\R} f_{\epsilon, x}dF_{\xi_n}.
+    \]
+    Перейдём к верхнему пределу в неравенству и, в силу сходимости $\Ex f_{\epsilon, x}(\xi) \ra \Ex f_{\epsilon, x}(\xi)$, мы приходим к
+    \[
+        \limsup F_{\xi_n}(x) \leq \int_{\R} f_{\epsilon, x}(t)dF_{\xi}(t) \leq F_{\xi}(x + \epsilon).
+    \]
+    В силу произвольного выбора $\epsilon$ и непрерывности $F_{\xi}$ в точке $x$ мы приходим к следующему неравенству:
+    \[
+        \limsup F_{\xi_n}(x) \leq F_{\xi}(x).
+    \]
+    Аналогично, с использованием функции $f^*_{\epsilon, x}(t)$ мы получаем неравенство
+    \[
+        \liminf F_{\xi_n}(x) \geq F_{\xi}(x).
+    \]
+    Что и завершает доказательство этой импликации. \\
+    Покажем $1) \Ra 2)$. \\
+    Зафиксируем $\epsilon > 0$.
+    Пусть $-M$ и $N$ -- такие точки непрерывности $F_{\xi}$, что
+    \[
+        F_\xi(-M) < \epsilon/5, \quad 1 - F_\xi(N) < \epsilon/5.
+    \]
+    При достаточно больших $n$ верно, что $F_{\xi_n}(-M) < \epsilon/4$ и $1 - F_{\xi_n}(N) < \epsilon/4$.
+    Считая, без ограничения общности, что $f$ -- непрерывная ограниченная функция -- ограничена $1$, получим
+    \[
+        \biggr|\int fdF_{\xi_n} - \int_{-M}^{N} f fdF_{\xi_n}\biggr| < \epsilon/2, \quad \biggr|\int fdF_{\xi} - \int_{-M}^{N} f fdF_{\xi}\biggr| < \epsilon/2
+    \]
+    \ldots
+
+    Потом докажу.
+\end{proof}
+\begin{theorem}[Слуцкий]
+    Пусть есть последовательность $\xi_n \xrightarrow{d} \xi$ и $\eta_n \xrightarrow{\P} c$, где $c$ -- некоторая константа.
+    Тогда справедливы следующие утверждения:
+    \begin{enumerate}
+        \item $\xi_n + \eta_n \xrightarrow{d} \xi_n + c$.
+        \item $\xi_n \cdot \eta_n \xrightarrow{d} c\xi_n$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Докажем первое утверждение, доказательство второго -- аналогично. \\
+    Заметим, что $\xi_n + c \xrightarrow{d} \xi + c$. \\
+    Теперь, заметим, что для всяких случайных величин $X$ и $Y$ и произвольного $\epsilon > 0$ справедливо, что
+    \[
+        \{Y \leq a\} \subset \{X < a + \epsilon\} \cup \{ |X - Y| > \epsilon \}.
+    \]
+    Теперь рассмотрим два случая:
+    \[
+        Y = \xi_n + \eta_n, \quad X = \xi_n + c.
+    \]
+    Тогда
+    \[
+        \P(\xi_n + \eta_n < a) \leq \P(\xi_n + c < a + \epsilon) + \P(|\eta_n - c| > \epsilon).
+    \]
+    Устремим $n \ra +\infty$ и $\epsilon \ra +0$ и получим
+    \[
+        F_{\xi_n + \eta_n}(a) \leq F_{\xi_n + c}(a).
+    \]
+    Теперь если мы возьмём в качестве $a$ -- $a - \epsilon$, а $X$ и $Y$ поменяем местами и перейдём к пределу, то мы получим противоположное неравенство (если $a$ -- точка непрерывности $F_{\xi_n + c}$):
+    \[
+        F_{\xi_n + c}(a) \leq F_{\xi_n + \eta_n}(a).
+    \]
+    Это и завершает доказательство первого пункта.
+\end{proof}
+\subsection{Законы больших чисел.}
+Пусть дана некоторая последовательность случайных величин $\{\xi_n\}$.
+Будем обозначать за $\overline{\xi}_n$ следующую случайную величину:
+\[
+    \overline{\xi_n} = \dfrac{1}{n}\sum\limits_{k = 1}^{n}\xi_k.
+\]
+Далее мы будем говорить что $\xi_n$ подчиняется ЗБЧ, если существует числовая последовательность $a_n$ такая, что
+\[
+    \overline{\xi}_n - a_n \xrightarrow{\P} 0.
+\]
+Здесь и далее будем работать с $a_n = \Ex \overline{\xi_n} = \dfrac{1}{n}\sum\limits_{k = 1}^n \Ex \xi_k$.
+С такой последовательностью $a_n$ среднее $\xi_n$ примет вид
+\[
+    \overline{\xi_n} - a_n = \overline{\xi_n} - \dfrac{1}{n}\sum\limits_{k = 1}^{n} \Ex \xi_k = \overline{\overset{\circ}{\xi_n}}.
+\]
+По сути, глобальной задачей является описание необходимых и достаточных условий для выполнения ЗБЧ.
+\subsubsection{Достаточные условия выполнення ЗБЧ в форме Маркова, Чебышёва и Хинчина.}
+\begin{theorem}[ЗБЧ в форме Маркова]
+    Если выполнено следующее условие на дисперсии $\xi_n$, то выполнен ЗБЧ:
+    \[
+        \dfrac{1}{n^2}\D\biggr(\sum\limits_{k = 1}^{n} \xi_k\biggr) \ra 0, n \ra +\infty.
+    \]
+\end{theorem}
+\begin{proof}
+    Пусть $\epsilon > 0$.
+    Используем неравенство Чебышёва для последовательности $\overline{\overset{\circ}{\xi_n}}$ и получим:
+    \[
+        \P(|\overline{\xi_n} - \Ex \overline{\xi_n}| > \epsilon) \leq \dfrac{\D\biggr( \sum\limits_{k = 1}^{n} \xi_k  - \Ex \xi_k \biggr)}{n^2\epsilon^2} \ra 0, n \ra +\infty.
+    \]
+    Что и означает выполнение ЗБЧ.
+\end{proof}
+\begin{corollary}[ЗБЧ в форме Чебышёва]
+    Если $\{\xi_n\}$ -- некоррелированные случайные величины и существуют $\alpha \in (0, 1)$ и $C > 0$ такие, что $\D \xi_n \leq C n^{\alpha}$, то выполнен ЗБЧ.
+\end{corollary}
+\begin{proof}
+    Проверим выполнение условия Маркова:
+    \[
+        \dfrac{\D \overline{\xi_n}}{n^2} = \dfrac{\sum\limits_{k = 1}^n \D\xi_k}{n^2} \leq \dfrac{C}{n^2}\biggr(\sum\limits_{k = 1}^{n} k^\alpha\biggr) \leq \dfrac{C}{n^2}\int_0^{n} x^{\alpha} dx = \dfrac{C n^{\alpha + 1}}{n^2 (\alpha + 1)} = \dfrac{C}{n^{1 - \alpha}(\alpha + 1)} \ra 0, n \ra +\infty.
+    \]
+\end{proof}
+\begin{theorem}[ЗБЧ в форме Хинчина]
+    Если $\{\xi_n\}$ -- $i.i.d$ с $\Ex \xi = a$, то выполнен ЗБЧ.
+\end{theorem}
+\begin{proof}
+    Рассмотрим характеристическую функцию $\overline{\xi_n}$:
+    \[
+        \phi_{\overline{\xi_n}}(t) = \prod\limits_{k = 1}^{n} \phi_{\xi_k/n}(t) = (\phi_{\xi}(t/n))^n = (1 + it \Ex \xi/n + o(1/n)) \ra e^{it \Ex \xi}.
+    \]
+    В силу сходимости по распределению к константе, мы получаем сходимость к ней и по вероятности, что и является выполнением ЗБЧ.
+\end{proof}
+\subsubsection{<<Метризация>> различных типов сходимости.}
+\begin{theorem}[Метризуемость сходимости по вероятности.]
+    Для последовательности случайных величин $\{Z_n\}$ и случайной величины $Z$ следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $Z_n \xrightarrow{\P} Z$.
+        \item $d(Z_n, Z) = \Ex\biggr( \dfrac{|Z_n - Z|}{1 + |Z_n - Z|}\biggr) \ra 0, n \ra +\infty$.
+    \end{enumerate}
+    Причём $d(\cdot, \cdot)$ -- действительно является метрикой на пространстве случайных величин.
+\end{theorem}
+\begin{proof}
+    Покажем $1) \Ra 2)$. \\
+    Очевидно, что $\frac{|Z_n - Z|}{1 + |Z_n - Z|} \leq 1$ и что $\frac{|Z_n - Z|}{1 + |Z_n - Z|} \leq |Z_n - Z|$.
+    Заметим, что
+    \begin{multline*}
+        d(Z_n, Z) = \\ = \int\limits_{|Z_n - Z| \leq \epsilon} \dfrac{|Z_n - Z|}{1 + |Z_n - Z|}d\P + \int\limits_{|Z_n - Z| > \epsilon} \dfrac{|Z_n - Z|}{1 + |Z_n - Z|}d\P \leq \\ \leq \epsilon + \P(|Z_n - Z| > \epsilon) \ra 0, n \ra +\infty, \epsilon \ra +0.
+    \end{multline*}
+    Теперь покажем в обратную сторону. \\
+    Докажем от противного. Пусть нет сходимости по мере. Тогда $\exists \epsilon > 0$ и $\delta > 0$ такие, что $\forall N \in \N \exists n \geq N$ такой, что $\P(|\xi_n - \xi| > \epsilon) > \delta$.
+    В силу монотонного возрастания $g(y) = \frac{y}{1 + y}$, мы получаем
+    \[
+        d(Z_n, Z) \geq \int_{|Z_n - Z| > \epsilon} \dfrac{|Z_n - Z|}{1 + |Z_n - Z|}d\P \geq \dfrac{\delta \epsilon}{1 + \epsilon} > 0.
+    \]
+    Что противоречит предположению о $d(Z_n, Z) \ra 0, n \ra \infty$.
+    Значит $Z_n \xrightarrow{\P} Z$.
+\end{proof}
+\begin{note}
+    Нетрудно показать, что $d(\cdot, \cdot)$ -- действительно определяет метрику. \\
+    Аналогичным образом мы можем метризовать сходимость в среднем; в ней в качестве метрики берётся метрика, порождённая $L_p$-нормой.
+\end{note}
+\begin{note}
+    Также можно показать, что модуль мы можем заменить на произвольную положительную степень $\alpha$, и это также будет эквивалентно сходимости по вероятности (но, возможно, уже не будет метрикой). \\
+    Покажем это.
+    Заметим, что $Z_n \xrightarrow{\P} Z \Longleftrightarrow |Z_n - Z| \xrightarrow{\P} 0$.
+    В силу свойства наследования сходимости $|Z_n - Z|^\alpha \xrightarrow{\P} 0$.
+    А значит и $d(|Z_n - Z|^\alpha, 0) \ra 0, n \ra +\infty$ -- что нам и требовалось показать. \\
+    Покажем теперь обратную импликацию. Поскольку из $\L_1$ сходимости следует $\P$, то
+    \[
+        \dfrac{|Z_n - Z|^\alpha}{1 + |Z_n - Z|^\alpha} \xrightarrow{\P} 0.
+    \]
+    Заметим, что функция $g(y) = \frac{y}{1 + y}$ -- обратима и обратная функция также непрерывна: $y = \frac{g(y)}{1 - g(y)}$.
+    Тогда, используя свойство наследования сходимости, мы получаем что $|Z_n - Z|^\alpha \xrightarrow{\P} 0 \Ra |Z_n - Z|\xrightarrow{\P}$, что и требовалось показать.
+\end{note}
+\begin{note}
+    Для слабой сходимости случайных величин с непрерывными функциями распределения определена метрика Леви -- просто как $\sup$-метрика на функциях распределения:
+    \[
+        \xi_n \xrightarrow{d} \xi \Longleftrightarrow d_L(\xi_n, \xi) = \sup\limits_{x \in \R} |F_{\xi_n}(x) - F_{\xi}(x)| \ra 0, n \ra +\infty.
+    \]
+\end{note}
+\subsubsection{Критерий Колмогорова.}
+\begin{theorem}[Колмогоров, критерий выполнимости ЗБЧ]
+    Для последовательности случайных величин $\xi_n$ следующие условия эквивалентны:
+    \begin{enumerate}
+        \item Для $\{\xi_n\}$ выполнен ЗБЧ.
+        \item $\Ex \biggr( \dfrac{(\overline{\overset{\circ}{\xi_n}})^2}{1 + (\overline{\overset{\circ}{\xi_n}})^2}\biggr) \ra 0, n \ra +\infty$.
+    \end{enumerate}
+    Если же $\xi_n$ являются, вдобавок ко всему, независимыми случайными величинами, то второе условие упрощается до
+    \[
+        \sum\limits_{k = 1}^{n} \Ex \biggr(\dfrac{ (\overset{\circ}{\xi_k})^2}{1 + (\overset{\circ}{\xi_k})^2}\biggr) \ra 0, n \ra +\infty.
+    \]
+\end{theorem}
+\begin{proof}
+    Доказательство заключается в применении примечания к метризации сходимости по вероятности при $\alpha = 2$. \\
+    В случае независимых случайных величин мы получаем из того, что применение борелевских функций не портит независимость случайных величин.
+\end{proof}
+\subsubsection{Неравенство Колмогорова.}
+\begin{lemma}[Лемма Колмогорова]
+    Пусть дана последовательность независимых случайных величин $\{\xi_n\}$.
+    Обозначим за $S_n$ частичную сумму первых $n$ центрированных случайных величин последовательности.
+    Тогда выполняется следующее неравенство:
+    \[
+        \P(\sup\limits_{k = \overline{1, n}}|S_k| > \epsilon) \leq \dfrac{\Ex S_n^2}{\epsilon^2} = \dfrac{\D S_n}{\epsilon^2} = \dfrac{\sum_{k = 1}^{n} \D \xi_k}{\epsilon^2}.
+    \]
+\end{lemma}
+\begin{proof}
+    Зафиксируем некоторое $\epsilon > 0$.
+    Введём следующую последовательность множеств $A_k$:
+    \[
+        A_k = \{w \in \Omega \mid \bigcap\limits_{j = 1}^{k - 1} |S_j(w)| \leq \epsilon \cap |S_{k}(w)| > \epsilon\}.
+    \]
+    Очевидно, что $i \neq j \Ra A_{i}A_j = \emptyset$.
+    Пусть
+    \[
+        \bigcup\limits_{k = 1}^n A_k = A = \{w \in \Omega \mid \sup\limits_{k = \overline{1, n}} |S_k| > \epsilon\}.
+    \]
+    Заметим, что для индикаторов $A_k$ (ввиду их дизъюнктивности) верно следующее:
+    \[
+        I_{A} = \sum\limits_{k = 1}^n I_{A_k}.
+    \]
+    Так как
+    \[
+        \Ex S_n^2 = \int_{\Omega} S^2_n d\P \geq \int_{A} S^2_n d\P = \sum\limits_{k = 1}^{n} \int_{A_k} S^2_n d\P.
+    \]
+    Заметим что для любого $k$ выполняется
+    \[
+        \Ex S_n^2 I_{A_k} \geq \Ex S_{k}^2 I_{A_k}.
+    \]
+    И действительно:
+    \[
+        \Ex S_n^2 I_{A_k} = \Ex S_k^2 I_{A_k} + \Ex \sum\limits_{i, j = k + 1, k + 1}^{n, n} \Ex \biggr(\overset{\circ}{\xi_i} \overset{\circ}{\xi_j} I_{A_k}\biggr) + \Ex \biggr( S_k \sum\limits_{i = k + 1}^{n} \overset{\circ}{\xi_i} I_{A_k}\biggr) \geq \Ex S_k^2 I_{A_k}.
+    \]
+    (переход сделан в силу независимости $S_k$ от $\xi_{i}$ при $i > k$ и независимости $I_{A_k}$ от $\xi_{i}$, аналогично, при $i \geq k + 1$).
+    Но на $A_k$ верно, что $S_k^2 > \epsilon^2$, а значит
+    \[
+        \Ex S_n^2 = \sum\limits_{k = 1}^{n} \Ex S_n^2 I_{A_k} \geq \sum\limits_{k = 1}^{n} \Ex S_k^2 I_{A_k} \geq \sum\limits_{k = 1}^{n} \P(A_k)\epsilon^2 = \P(A) \epsilon^2.
+    \]
+    На этом доказательство леммы завершено.
+\end{proof}
+\subsubsection{Теорема Колмогорова-Хинчина.}
+\begin{theorem}[Колмогоров, Хинчин]
+    Пусть дана последовательность независимых случайных величин $\{\xi_n\}$ таких, что $\sum\limits_{k = 1}^{+\infty} \D \xi_k < +\infty$.
+    Введём следующее обозначение: $S_n = \sum\limits_{k = 1}^{n} \overset{\circ}{\xi_k}$.
+    Тогда существует такая случайная величина $S$, что $S_n \xrightarrow{a.s.} S$.
+\end{theorem}
+\begin{proof}
+    Зафиксируем $\epsilon > 0$.
+    Определим последовательность множеств следующим образом:
+    \[
+        A^n_N = \{w \in \Omega \mid \max\limits_{k = 1, N} |S_{n + k} - S_n| > \epsilon\}.
+    \]
+    При всяком фиксированном $n$ эта последовательность не убывает по $N$.
+    Объединение при фиксированном $n$ является следующим множеством:
+    \[
+        A^n = \bigcup\limits_{k = 1}^{+\infty} A^n_k = \{\sup\limits_{k \in \N} |S_{n + k} - S_n| > \epsilon\}.
+    \]
+    По теореме о непрерывности меры
+    \[
+        \P(A^n) = \lim \P(A^n_N), N \ra \infty.
+    \]
+    С другой стороны,
+    \[
+        \P(A^n_N) = \P(\max\limits_{k = 1, N} |\sum\limits_{j = 1}^{k} \overset{\circ}{\xi}_{j + n}| > \epsilon).
+    \]
+    Применим неравенство Колмогорова и получим
+    \[
+        \P(A^n_N) \leq \dfrac{\sum_{j = n}^{n + N} \D \xi_j}{\epsilon^2} \ra \dfrac{\sum_{j = n}^{+\infty} \D \xi_j}{\epsilon^2}, N \ra +\infty.
+    \]
+    Таким образом
+    \[
+        \P(A^n) \leq \dfrac{\sum_{j = n}^{+\infty} \D\xi_j}{\epsilon^2}.
+    \]
+    Заметим, теперь, что последовательность $S_n$ -- фундаментальна почти наверное, поскольку остаток сходящегося ряда стремится к нулю.
+    В силу критерия Коши сходимости почти наверное существует $S$ такая, что $S_n \xrightarrow{a.s.} S$.
+\end{proof}
+\subsubsection{Теорема Колмогоровы о двух и трёх рядах (доказательство достаточности).}
+\begin{theorem}[Колмогоров, о двух рядах.]
+    Пусть есть последовательность независимых случайных величин $\{\xi_n\}$ такая, что
+    \[
+        \sum\limits_{k = 1}^{+\infty} \Ex \xi_k < +\infty, \quad \sum\limits_{k = 1}^{+\infty} \D \xi_k < +\infty.
+    \]
+    Тогда $\sum\limits_{k = 1}^{+\infty} \xi_k < \infty$ (почти наверное).
+\end{theorem}
+\begin{proof}
+    По теореме Колмогорова-Хинчина ряд $\sum\limits_{k = 1}^{+\infty} \xi_k - \Ex \xi_k$ -- сходится почти наверное.
+    В силу сходимости ряда из математических ожиданий величин последовательности, почти наверное сходится и ряд из случайных величин.
+\end{proof}
+\begin{theorem}[Колмогоров, о трёх рядах.]
+    Пусть есть последовательность независимых случайных величин $\{\xi_n\}$ и $\exists c > 0$ такое, что для последовательности усечённых случайных величин $\xi^c_n$, где срезка определяется как
+    \[
+        \xi_n^c(w) = \begin{cases}
+                      \xi_n(w), & |\xi_n(w)| < c \\
+                         0, & |\xi_n(w)| \geq c.
+        \end{cases}
+    \]
+    выполнены условия теоремы Колмогорова о двух рядах:
+    \[
+        \sum\limits_{k = 1}^{+\infty} \Ex \xi_k^c < +\infty, \quad \sum\limits_{k = 1}^{+\infty} \D \xi_k^c < +\infty.
+    \]
+    И сходится ещё один ряд:
+    \[
+        \sum\limits_{k = 1}^{+\infty} \P(|\xi_n| \geq c) < +\infty.
+    \]
+    Тогда $\sum\limits_{k = 1}^{+\infty} \xi_k$ сходится почти наверное.
+\end{theorem}
+\begin{proof}
+    По теореме Колмогорова о двух рядах ряд $\sum\limits_{k = 1}^{+\infty} \xi_k^c$ сходится почти наверное. \\
+    С другой стороны,
+    \[
+        |\xi_n| \geq c \Longleftrightarrow \xi_n \neq \xi_n^c.
+    \]
+    По лемме Бореля-Кантелли
+    \[
+        \P(\limsup \{|\xi_n| \geq c\}) = 0.
+    \]
+    То есть с вероятностью единица
+    \[
+        \sum\limits_{k = 1}^{+\infty} I_{|\xi_k| \geq c} < +\infty.
+    \]
+    Тогда $\xi_n = \xi_n^c$ (почти наверное) для всех $n$ за исключением, быть может, конечного числа.
+    А значит и ряд $\sum\limits_{k = 1}^{+\infty} \xi_k$ также сходится почти наверное.
+\end{proof}
+\begin{note}
+    Для равномерно ограниченных последовательностей случайных величин мы можем обратить посылки теорем Колмогоров о двух и трёх рядах -- то есть если ряд сходится почти наверное, то в первом случае сойдутся ряды из математических ожиданий и дисперсий для последовательности, а во втором -- для всякого $c$ сойдутся ряды из математических ожиданий и дисперсий усечённых случайных величин.
+\end{note}
+\subsubsection{Усиленный закон больших чисел. Теоремы Колмогорова.}
+Будем говорить, что для данной последовательности случайных величин $\xi_n$ выполнен усиленный закон больших чисел, если $\exists \{a_n\}$ такая, что
+\[
+    \overline{\xi_n} - a_n \xrightarrow{a.s.} 0, n \ra \infty.
+\]
+Традиционно, мы будем полагать $a_n = \Ex \overline{\xi_n}$, и тогда условием выполнимости УЗБЧ будет сходимость последовательности центрированных средних к нулю почти наверное.
+\begin{reminder}[лемма Абеля]
+    Если $\{x_n\}$ -- числовая последовательность такая, что $\sum x_k < +\infty$ и $b_n$ -- строго возрастающая числовая последовательность такая, что $b_n \ra +\infty$, то тогда
+    \[
+        \dfrac{1}{b_n} \sum\limits_{k = 1}^{n} x_k b_k \ra 0, n \ra +\infty.
+    \]
+    Пусть $\{\xi_n\}$ -- последовательность независимых случайных величин и $\eta_n = \dfrac{\overset{\circ}{\xi_n}}{b_n}$.
+    Тогда, если
+    \[
+        \sum \D \eta_n = \sum \dfrac{\D \xi_n}{b_n^2} < +\infty.
+    \]
+    то для ряд $\sum \eta_n = \sum \dfrac{\overset{\circ}{\xi_n}}{b_n} < +\infty$ почти наверное.
+    Тогда, по лемме Абеля
+    \[
+        \dfrac{1}{b_n} \sum\limits_{k = 1}^{n} \eta_k b_k \ra 0, n \ra \infty.
+    \]
+    Что, после подстановки $\eta_k$ превращается в
+    \[
+        \dfrac{1}{b_n} \sum\limits_{k = 1}^{n} \overset{\circ}{\xi_k} \ra 0, n \ra \infty.
+    \]
+\end{reminder}
+\begin{note}
+    Лемма Абеля в некоторых источниках называется леммой Кронекера; она доказывается при помощи преобразования Абеля и леммы Теплица.
+\end{note}
+\begin{theorem}[Первая теорема Колмогорова]
+    Если для последовательности независимых случайных величин $\{\xi_n\}$ ряд $\sum \dfrac{\D \xi_n}{n^2}$ сходится, то для неё выполнен УЗБЧ.
+\end{theorem}
+\begin{proof}
+    В условиях леммы Абеля рассмотрим последовательность $b_n = n$.
+\end{proof}
+\begin{theorem}[Вторая теорема Колмогорова.]
+    Если $\xi_n$ -- $i.i.d$ последовательность, то следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\Ex \xi = a$.
+        \item Для $\{\xi_n\}$ выполнен УЗБЧ с $a_n = a$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Рассмотрим последовательность $\{\xi_n^*\}$, случайные величины в которой определим как
+    \[
+        \xi_n^*(w) =
+        \begin{cases}
+            \xi_n(w), & |\xi_n(w)| < n \\
+            0, & |\xi_n(w)| \geq n.
+        \end{cases}
+    \]
+    Мне лень это техать, идея вроде понятна -- разбиваем на полоски, оцениваем интегралом, и пользуясь одиновостью распределения диагонально оцениваем что нужно математическим ожиданием.
+\end{proof}
+\subsection{Асимптотическая сходимость.}
+\begin{definition}
+    Серией будем называть двух-индексную последовательность случайных величин
+    \[
+        \{\eta_{n, k}\}_{k = 1}^{n}
+    \]
+    Будем считать, что случайные величины внутри серии независимы (между сериями случайные величины могут быть зависимы).
+\end{definition}
+\subsubsection{Теорема об асимптотической сходимости к распределению Пуассона.}
+\begin{theorem}[Пуассон]
+    Пусть есть некоторая серия $\{\eta_{nk}\} \subset Be(p_n)$, внутри серии с номером $n$.
+    Будем считать что $np_n \ra \lambda > 0, n \ra \infty$.
+    Определим случайную величину $\eta_n = \sum\limits_{k = 1}^{n} \eta_{nk} \sim Binom(n, p_n)$.
+    Тогда $\eta_n \xrightarrow{d} Poisson(\lambda)$.
+\end{theorem}
+\begin{proof}
+    Воспользуемся методом характеристических функций.
+    Для $\eta_n$ характеристическая функция имеет вид:
+    \[
+        \phi_{\eta_n}(t) = (q_n + e^{it}p_n)^n = (1 + \frac{n p_n}{n}(e^{it} - 1))^n \ra e^{\lambda(e^{it} - 1)}, n \ra +\infty.
+    \]
+    Что и является характеристической функцией распределения Пуассона.
+    В силу эквивалентности слабой сходимости сходимости характеристический функций поточечно, утверждение теоремы доказано.
+\end{proof}
+\subsubsection{Критерий асимптотической нормальности. Теорема Линдберга-Леви.}
+\begin{theorem}[Линдберг, Леви]
+    Пусть есть серия случайных величин $\{\eta_{nk}\}_{k = 1}^n$ (стандартно -- случайные величины внутри одной серии являются независимыми).
+    Пусть $ \forall n \in \N \hookrightarrow \Ex \eta_{nk} = 0, k = \overline{1, n}$ и $\sum\limits_{k = 1}^{n} \D \eta_{nk} = 1$.
+    Тогда следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\forall \tau > 0 \hookrightarrow \sum\limits_{k = 1}^{n} \int_{|x| > \tau} x^2 dF_{nk} \ra 0, n \ra \infty$ (это условие называется условием Линдберга).
+        \item \begin{itemize}
+                  \item $\forall \epsilon > 0 \hookrightarrow \max\limits_{k = \overline{1, n}} \P(|\eta_{nk}| > \epsilon) \ra 0, n \ra \infty$ (будем называть это условие (*)).
+                  \item $\eta_n = \sum\limits_{k = 1}^{n} \eta_{nk} \xrightarrow{d} N(0, 1)$.
+        \end{itemize}
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Для начала, запишем некоторые технические факты, необходимые для доказательства теоремы:
+    \begin{itemize}
+        \item Так как $e^{i \alpha} = 1 + i \alpha - i \alpha^2/2 + i \alpha^3/6 + \ldots$, то справедливы следующие три неравенства:
+        \[
+            |e^{i\alpha} - 1| \leq |\alpha|, \quad |e^{i\alpha} - 1 - i \alpha| \leq \alpha^2/2, \quad |e^{i\alpha} - 1 - i\alpha + i \alpha^2/2| \leq |\alpha|^3/6.
+        \]
+        \item И ряд Меркатора для логарифма:
+        \[
+            \ln 1 + z = \sum\limits_{s = 1}^{+\infty} (-1)^{s - 1}\dfrac{z^s}{s}.
+        \]
+        Ряд сходится при $|z| < 1$.
+    \end{itemize}
+    Теперь покажем, что $1) \Ra 2)$.
+    Поскольку
+    \[
+        \P(|\eta_{nk}| > \epsilon) = \int_{|x| > \epsilon} dF_{nk} \leq \dfrac{1}{\epsilon^2} \int_{|x| > \epsilon}x^2 dF_{nk}.
+    \]
+    То возьмём максимум по $k$ слева, а справа оценим всё суммой. Тогда мы получаем
+    \[
+        \max\limits_{k = \overline{1, n}} \P(|\eta_{nk}| > \epsilon) \leq \sum\limits_{k = 1}^{n} \int_{|x| > \epsilon} x^2 dF_{nk} \ra 0, n \ra +\infty.
+    \]
+    с использованием условия Линдберга. \\
+    Покажем теперь слабую сходимость к стандартному нормальному распределению.
+    Заметим, что
+    \[
+        |\phi_{nk}(t) - 1| = |\int e^{itx} - 1 - itx dF_{nk}| \leq \int \dfrac{(tx)^2}{2}dF_{nk} = \dfrac{t^2}{2}\D \eta_{nk}.
+    \]
+    Просуммируем по серии и получим:
+    \[
+        \forall t \in \R \hookrightarrow \sum\limits_{k = 1}^{n} |\phi_{nk}(t) - 1| \leq \dfrac{t^2}{2}\sum\limits_{k = 1}^{n} \D\eta_{nk} = \dfrac{t^2}{2}.
+    \]
+    А теперь оценим другим образом:
+    \begin{multline*}
+        |\phi_{nk} - 1| \leq \int |e^{itx} - 1|dF_{nk} = \int_{|x| \leq \epsilon} |e^{itx} - 1|dF_{nk} + \int_{|x| > \epsilon} |e^{itx} - 1|dF_{nk} \leq \\ \leq 2\int_{|x| > \epsilon}dF_{nk} + |t|\int_{|x| \leq \epsilon} |x|F_{nk}(x) \leq 2\P(\eta_{nk} > \epsilon) + |t|\epsilon.
+    \end{multline*}
+    В силу условия Линденберга и, уже доказанного, условия (*) возьмём максимум $|\phi_{nk} - 1|$ слева и просуммируем по $k$ справа и получим
+    \[
+        \max\limits_{k = \overline{1, n}}|\phi_{nk} - 1| \ra 0, n \ra \infty.
+    \]
+    Будем доказывать утверждение используя метод характеристических функций.
+    Рассмотрим следующую величину:
+    \[
+        \ln \phi_{\eta_n}(t) = \sum\limits_{k = 1}^{n} \ln \phi_{\eta_{nk}}(t) = (**).
+    \]
+    (в силу независимости случайных величин внутри серии характеристическая функция их суммы является произведением их характеристических функций, и логарифм переводит это в сумму).
+    Добавим и вычтем единицу внутри логарифма:
+    \[
+        (**) = \sum\limits_{k = 1}^{n} \ln (1 + (\phi_{\eta_{nk}}(t) - 1)) = (**).
+    \]
+    Без ограничения общности будем считать, что $\max |\phi_{\eta_{nk}} - 1| \leq 1/2$ -- поскольку он стремится к нулю.
+    Тогда мы можем разложить в ряд и получить
+    \[
+        (**) = \sum\limits_{k = 1}^{n} \sum\limits_{s = 1}^{+\infty} (-1)^{s - 1} \dfrac{(\phi_{\eta_{nk}} - 1)^s}{s} = \sum\limits_{k = 1}^{n} (\phi_{\eta_{nk}} - 1) + \sum\limits_{k = 1}^{+\infty} \sum\limits_{s = 2} (-1)^{s - 1} \dfrac{(\phi_{\eta_{nk}} - 1)^s}{s} = \sum\limits_{k = 1}^{n} (\phi_{\eta_{nk}} - 1) + R_n = (**).
+    \]
+    Оценим остаток ряда. Поскольку $s \geq 2$, то $1/s \leq 1/2$ и
+    \[
+        |R_n| \leq \sum\limits_{k = 1}^{n} \dfrac{1}{2} \sum\limits_{s = 2}^{+\infty} |\phi_{\eta_{nk}} - 1|^s = \sum\limits_{k = 1}^{n} \dfrac{|\phi_{\eta_{nk}} - 1|^2}{2(1 - |\phi_{\eta_{nk}} - 1|)} \leq \sum\limits_{k = 1}^{n} |\phi_{\eta_{nk}} - 1|^2 \leq \max\limits_{k = \overline{1, n}} |\phi_{\eta_{nk}} - 1| \sum\limits_{k = 1}^{n}|\phi_{\eta_{nk}} - 1| \ra 0.
+    \]
+    Таким образом,
+    \[
+        \ln \phi_{\eta_n} = -\dfrac{t^2}{2} + (\dfrac{t^2}{2} - \sum\limits_{k = 1}^n (\phi_{\eta_{nk}} - 1)) + R_n = -\dfrac{t^2}{2} + \rho_n + R_n.
+    \]
+    Теперь оценим поведение $\rho_n$:
+    \begin{multline*}
+        \rho_n = \sum\limits_{k = 1}^{n} \int \dfrac{(tx)^2}{2}dF_{nk} + \sum\limits_{k = 1}^{n} \int (e^{itx} - 1 - itx)dF_{nk} = \\
+        = \sum\limits_{k = 1}^{n} \int_{|x| \leq \epsilon} \dfrac{(tx)^2}{2}dF_{nk} + \int_{|x| \leq \epsilon} (e^{itx} - 1 - itx)dF_{nk} + \\
+        + \sum\limits_{k = 1}^{n} \dfrac{t^2}{2} \int_{|x| > \epsilon} x^2 dF_{nk} + \int_{|x| > \epsilon} (e^{itx} - 1 - itx)dF_{nk}  = \rho_n' + \rho_n''.
+    \end{multline*}
+
+    (где $\rho_n'$ -- первое пара слагаемых, а $\rho_n''$ -- вторая).
+    В силу кубической оценки из разложения экспоненты в ряд
+    \[
+        |\rho_n'| \leq \sum\limits_{k = 1}^{n}\int_{|x| \leq \epsilon} \dfrac{|tx|^3}{6}dF_{nk} \leq \dfrac{|t|^3\epsilon}{6}\sum\limits_{k = 1}^{n} \int_{|x| \leq \epsilon} x^2 dF_{nk} \leq \dfrac{|t|^3 \epsilon}{6}.
+    \]
+    И теперь оценим $\rho_n''$:
+    \[
+        |\rho_n''| \leq \sum\limits_{k = 1}^{n} \dfrac{t^2}{2} \int_{|x| > \epsilon} dF_{nk} + \int_{|x| > \epsilon} \dfrac{(tx)^2}{2}dF_{nk} = t^2 \sum\limits_{k = 1}^{n}\int_{|x| > \epsilon} x^2 dF_{nk}.
+    \]
+    Теперь, в силу полученных оценок, $\ln \phi_{\eta_n} \ra -\dfrac{t^2}{2}, n \ra +\infty$ -- что и показывает искомую сходимость по распределению. \\
+    Теперь докажем в обратную сторону.
+    Тогда $\ln \phi_{\eta_n}$ может быть представлено в следующем виде:
+    \[
+        \ln \phi_{\eta_n} = \sum\limits_{k = 1}^{n} (\phi_{\eta_{nk}} - 1) + R_n \ra -\dfrac{t^2}{2}.
+    \]
+    где $R_n \ra 0, n \ra +\infty$.
+    А значит
+    \[
+        \sum\limits_{k = 1}^{n} \phi_{\eta_{nk}} - 1 + \dfrac{t^2}{2} \ra 0, n \ra \infty.
+    \]
+    То есть
+    \[
+        \Delta_n = \sum\limits_{k = 1}^{n} \int e^{itx} - 1 + \dfrac{(tx)^2}{2} dF_{nk} \ra 0, n \ra _{\infty}.
+    \]
+    Заметим, что $\forall \tau \exists K(\tau): \cos x - 1 + \dfrac{x^2}{2} \geq K(\tau)x^2$ на $|x| > \tau$.
+    Поскольку стремление к нулю комплекснозначной функции означает стремление к нули и её действительной части, то при $t = 1$ верно следующее:
+    \[
+        (**) =\sum\limits_{k = 1}^{n} \int \cos x - 1 + \dfrac{x^2}{2} dF_{nk} \ra 0, n \ra \infty.
+    \]
+    В тоже время, верна следующая оценка:
+    \[
+        (**) \geq \sum\limits_{k = 1}^{n} \int_{|x| > \tau} \cos x - 1 + \dfrac{x^2}{2} dF_{nk} \geq K(\tau) \sum\limits_{k = 1}^{n} \int_{|x| > \tau} x^2 dF_{nk}.
+    \]
+    Переход к пределу завершает доказательство.
+\end{proof}
+\begin{note}
+    Серии, к которым мы будем применять теорему Линдберга-Леви (и прочие предельные теоремы) строятся следующим образом.
+    Пусть $\{\xi_n\}$ -- последовательность независимых случайных величин.
+    Тогда определим $\eta_{nk}$ как
+    \[
+        \eta_{nk} = \dfrac{\xi_k - a_k}{B_n}.
+    \]
+    где $B_n^2 = \sum\limits_{k = 1}^{n} \D \xi_k, \ a_k = \Ex\xi_k$. \\
+    По определению функции распределения:
+    \[
+        F_{nk}(x) = \P(\eta_{nk} < x) = \P(\xi_k < B_n x + a_k) = F_{k}(B_n x + a_k).
+    \]
+    Тогда, интеграл из условия Линдберга распишется как
+    \[
+        \int_{|x| > \tau} x^2 dF_{k}(B_n x + a_k)\biggr|_{y = B_n x + a_k} = \dfrac{1}{B_n^2} \int_{|y - a_k| > \tau B_n} (y - a_k)^2 dF_k(y).
+    \]
+    Тогда теорема Линдберга-Леви в <<ретро>> форме формулируется как:
+    \begin{theorem}[Линдберг, Леви, <<ретро>>]
+        Если $\{\xi_n\}$ -- последовательность независимых случайных величин, таких, что
+        \[
+            \dfrac{1}{B_n^2}\sum\limits_{k = 1}^{n} \int_{|x - a_k| > \tau B_n} (x - a_k)^{2}dF_k  \ra 0, n \ra +\infty.
+        \]
+        То 
+        \[
+            \dfrac{\sum_{k = 1}^n (\xi_k - a_k)}{B_n} \xrightarrow{d} N(0, 1).
+        \]
+    \end{theorem}
+\end{note}
+\subsubsection{Достаточные условия асимптотической нормальности: ЦПТ, условие Ляпунова, теорема Натана.}
+\begin{theorem}[ЦПТ]
+    Пусть есть последовательность $i.i.d.$ случайных величин $\{\xi_n\}$ и $0 < \D \xi < +\infty$.
+    Тогда есть асимптотическая нормальность.
+\end{theorem}
+\begin{proof}
+    Проверим выполнений условие Линдберга. \\
+    Последовательность $B_n^2 = n \D \xi_k$, $a = \Ex \xi$.
+    Тогда
+    \[
+        \Delta_n  =\dfrac{1}{n \D \xi_k} \sum\limits_{k = 1}^{n} \int_{|x - a| > \tau \sqrt {n \D \xi}} (x - a)^2 dF_k = \dfrac{1}{\D \xi} \int_{|x - a| > \tau \sqrt {n \D \xi}} (x - a)^2 dF_k \ra 0, n \ra \infty.
+    \]
+    Значит условие Линдберга выполнено и $\{\xi_n\}$ асимптотически нормальна по теореме Линдберга-Леви.
+\end{proof}
+\begin{theorem}[ЦПТ в форме Ляпунова]
+    Пусть есть последовательность независимых случайных величин $\{\xi_n\}$ и $\exists \delta > 0$ такое, что 
+    \[
+        \dfrac{1}{B_n^{2 + \delta}}\sum\limits_{k = 1}^{n} \Ex|\xi_k - a_k|^{2 + \delta} \ra 0, n \ra +\infty.
+    \]
+    Тогда есть асимптотическая нормальность.
+\end{theorem}
+\begin{proof}
+    Проверим выполнение условия Линдберга. \\
+    Запишем его и оценим сверху:
+    \[
+        \dfrac{1}{B_n^2}\sum\limits_{k = 1}^{n} \int_{|x - a_k| > \tau B_n} (x - a_k)^{2}dF_k \leq \dfrac{1}{B_n^2}\sum\limits_{k = 1}^{n} \int_{|x - a_k| < \tau B_n} \dfrac{|x - a_k|^{2 + \delta}}{\tau^\delta B_n^{\delta}} \leq \dfrac{1}{\tau^\delta} \Delta_n \ra 0, n \ra  +\infty
+    \]
+\end{proof}
+\begin{note}
+    Заметим, что при $\delta = 1$ условие Ляпунова принимает особенно простой вид:
+    \[
+        L_3 = \dfrac{\sum\limits_{k = 1}^{n} \Ex |\xi_k - a_k|^3}{(\sum \D \xi_k)^{3/2}} \ra 0, n \ra \infty.
+    \]
+    Справедлива следующая оценка на скорость сходимости:
+    \[
+        \sup\limits_{x} |F_{\eta_n}(x) - F_{N(0, 1)}(x)| \leq cL_3(n).
+    \]
+    Частный случай этой оценки для одинаково распределённых случайных величин имеет собственное название -- неравенство Берри-Эссеена и константа $L_3$ имеет вид:
+    \[
+        L_3 = \dfrac{\Ex |\xi - a|^3}{\sqrt {n} (\D \xi)^{3/2}}.
+    \]
+\end{note}
+\begin{theorem}[теорема Натана]
+
+\end{theorem}
+\subsection{Эмпирическая функция распределения. Теорема Гливенко.}
+
+\subsection{Субнормальные случайные величины.}
+
+\subsubsection{Неравенство Хёфдинга, обобщённое неравенство Хёфдинга.}
+
+\subsubsection{Неравенства концентрации меры.}
