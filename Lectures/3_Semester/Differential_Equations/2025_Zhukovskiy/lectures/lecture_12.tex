@@ -1,0 +1,93 @@
+
+
+\section{Преобразование Лапласа и Операционный метод}
+\subsection{Преобразование Лапласа}
+\begin{definition}
+    \(f: \R \ra \Cm\) называется оригиналом, если 
+    \begin{enumerate}
+        \item \(f(t) = 0 \forall t < 0\)
+        \item \(\forall a, b \in \R, a < b: f\) имеет конечное число точек разрыва на \([a, b]\), причем все точки разрыва --- I рода.
+        \item \(\exists M \ge 0, \alpha \in \R: |f(t)| \le Me^{\alpha t}, \forall t \in \R\)
+    \end{enumerate}
+\end{definition}
+
+Положим:
+\[F(p) = \int_0^{+\infty} e^{-pt}f(t)dt\]
+
+\begin{lemma}
+    \(F(p)\) сходится при \(p \in \Cm\), таких, что \(\Re p > \alpha\)
+\end{lemma}
+\begin{proof}
+    \[|e^{-pt}f(t)| = |e^{-pt}||f(t)| \le e^{-t\Re p}Me^{\alpha t} = Me^{\alpha - \Re p}\]
+    Но тогда \(\alpha - \Re p < 0\).
+\end{proof}
+
+\textit{Я, конечно, гений \LaTeX, но даже я не знаю, как написать значок из лекции. Поэтому пока что преобразование Лапласа будет обозначаться \(\eqsim\)}
+\begin{definition}
+    \(f(t) \eqsim F(p), p > \Re \alpha\) --- Преобразование Лапласа
+\end{definition}
+
+\begin{note}
+    Пусть \(f_1, f_2\) --- оригиналы и \(|f_1(t)| \le M_1e^{\alpha_1 t}, |f_2(t)| \le M_2e^{\alpha_2 t}, \forall t \in \R\). Пусть также  \(c_1, c_2 \in \Cm, f_i \eqsim F_i(p)\). Тогда:
+    \[c_1f_1(t) + c_2f_2(t) = c_1F_1(p) + c_2F_2(p)\]
+\end{note}
+
+\begin{note}
+    Пусть \(f, f'\) --- оригиналы, \(|f(t)|, |f'(t)| \le Me^{\alpha t} \forall t \in \R\). Тогда:
+    \[f(t) \eqsim F(p) \Ra f'(t) \eqsim \]
+    \[f'(t) \eqsim \int_0^{+\infty}\underbrace{e^{-pt}}_{u}\underbrace{f'(t)dt}_{dv} = \left.e^{-pt}f(t)\right|_0^{+\infty} + \int_0^{+\infty}pe^{-pt}f(t)dt = -f(0+) + pF(p)\]
+
+    Тогда общем случае:
+    \[f^{(n)}(t) \eqsim p^nF(p) - f^{(n - 1)}(0 + ) - pf^{(n - 2)}(0 + ) - \dots p^{n - 1}f(0 +)\]
+\end{note}
+
+\begin{proposition}[б/д]
+    Оригинал \(f(t)\) определен однозначно образом \(F(p)\) при \(t > 0\), в которых \(f\) дифференцируема
+\end{proposition}
+
+\begin{note}
+    Если \(f(t) = t^ke^{\lambda t}, t > 0\), то
+    \[f(t) \eqsim \int_0^{+\infty} e^{-pt}t^ke^{\lambda t}dt = \int_0^{+\infty} e^{-(p - \lambda)t}t^k dt = t^k\underbrace{\left.\frac{e^{-(p - \lambda)t}}{\lambda - p}\right|_0^{+\infty}}_{= 0} + \frac{k}{p - \lambda} \int_0^{+\infty} e^{-(p - \lambda)t}t^{k - 1}dt = \]
+    \[= \frac{k!}{(p - \lambda)^k}\int_0^{+\infty}e^{-(p - \lambda)t}dt = \frac{k!}{(p - \lambda)^k} \cdot \left.\frac{e^{-(p - \lambda)t}}{\lambda - p}\right|_0^{+\infty} = \frac{k!}{(p - \lambda)^{k + 1}}\]
+\end{note}
+
+\begin{proposition}
+    \(\cos(\beta t) \eqsim \frac{p}{p^2 + \beta^2}, \sin(\beta t) \eqsim \frac{\beta}{p^2 + \beta^2}, \Re p > 0\)
+\end{proposition}
+\begin{proof}
+    \[\cos(\beta t) = \frac{1}{2}\left( e^{i\beta t} + e^{-i\beta t} \right) \eqsim \frac{1}{2}\left( \frac{1}{p - i\beta} + \frac{1}{p + i\beta} \right) = \frac{p}{p^2 + \beta^2}\]
+    \[\sin(\beta t) = \frac{1}{2i}\left( e^{i\beta t} - e^{-i\beta t} \right) \eqsim \frac{1}{2i}\left( \frac{1}{p - i\beta} - \frac{1}{p + i\beta} \right) = \frac{\beta}{p^2 + \beta^2}\]
+\end{proof}
+
+\subsection{Операционный метод}
+Рассмотрим уравнение:
+\begin{equation}
+    \begin{cases}
+        a_0x^{(n)} + a_1x^{(n - 1)} + \dots + a_{n - 1}x' + a_nx = f(t) \\
+        x(0 +) = x_0 \\
+        x'(0 +) = x_1 \\
+        \vdots \\
+        x^{(n - 1)}(0 +) = x_{n - 1} \\
+    \end{cases}, x_1, \dots x_n \in \Cm
+\end{equation}
+Где \(a_0, \dots a_n \in \Cm, f\) --- оригинал, \(f(t) \eqsim F(p), p > \Re \alpha\), где \(\alpha\) соответствует оригиналу \(f\).
+
+Пусть \(x(t) \eqsim X(p)\). Тогда:
+\begin{equation*}
+    \begin{cases}
+        x'(t) \eqsim -x(0 +) + pX(p) \\
+        \vdots \\
+        x^{(n)}(t) \eqsim p^nX(p) - p^{n - 1}x(0 +)  - p^{n - 2}x'(0 +) - \dots - x^{(n - 1)}(0 +)\\
+    \end{cases}
+\end{equation*}
+
+Тогда, если применить преобразование Лапласа к обеим частям (11.1), получим:
+\begin{equation*}
+    a_0(p^nX(p) - p^{n - 1}x(0 +)  - p^{n - 2}x'(0 +) - \dots - x^{(n - 1)}(0 +)) + \dots + a_nX(p) = F(p)
+\end{equation*}
+
+\begin{equation*}
+    \underbrace{(a_0p^n + a_1p^{n - 1} + \dots + a_n)}_{L(p)}X(p) - M(p) = F(p)
+\end{equation*}
+
+Тогда \(X(p) = \frac{F(p) + M(p)}{L(p)}, \Re p > \alpha, \Re p > \Re \lambda_j\), где \(\lambda_j\) --- корни \(L\). Тогда необходимо сделать обратное преобразование Лапласа и по \(X(p)\) получить \(x(t)\), которое будет являться решением (11.1)

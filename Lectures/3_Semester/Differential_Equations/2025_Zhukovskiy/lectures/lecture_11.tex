@@ -1,0 +1,216 @@
+
+
+\section{Матричная экспонента}
+Пусть \(n \in \N, A \in \Cm^{n \times n}, B \in \Cm^{n \times n}\)
+\begin{lemma}
+    Ряд \(\sum_{j = 0}^\infty \frac{t^j}{j!}A^j\) сходится равномерно и абсолютно на любом ограниченном \(I \subset \R\).
+\end{lemma}
+\begin{proof}
+    \[\left\|\frac{t^j}{j!}A^j\right\| \le \frac{|t|^j}{j!}\|A\|^j, t \in (-r, r)\]
+    \[\sum_{j = 0}^\infty \frac{|t|^j}{j!}\|A\|^j = e^{|t|\cdot\|A\|} < e^{r\cdot\|A\|} < \infty\]
+\end{proof}
+
+\begin{definition}
+    Пусть \(A \in \Cm^{n \times n}\). Положим:
+    \[e^A = \sum_{j = 0}^\infty \frac{A^j}{j!}\]
+\end{definition}
+
+\begin{proposition}
+    \(AB = BA \Ra e^Ae^B = e^{A + B}\)
+\end{proposition}
+\begin{proof}
+    \[e^Ae^B = \sum_{j = 0}^\infty \frac{A^j}{j!}\left( \sum_{k = 0}^\infty \frac{B^k}{k!} \right) = \sum_{j, k = 0}^\infty \gamma_{j, k}A^jB^k\]
+    \[e^{A + B} = \sum_{j = 0}^\infty \frac{(A + B)^j}{j!} = E + A + B + \frac{A^2 + AB + BA + B^2}{2!} + \dots = (*)\]
+    Т.к. \(AB = BA\), заключаем:
+    \[(*) = \sum_{j, k = 0}^\infty \theta_{j, k}A^jB^k\]
+    Далее заметим, что \(\gamma_{j, k}, \theta_{j, k}\) не зависят от \(n\). Также, при \(n = 1\) выполняется \(\theta_{j, k} = \gamma_{j, k}\) по свойству численной экспоненты. Т.к. от \(n\) эти коэффициенты не зависят, получили желаемое.
+\end{proof}
+
+\begin{example}[Условие коммутирования существенно]
+    Покажем, что условие коммутирования матриц существенно в предыдущем утверждении
+    \[A = \left( \begin{array}{cc}
+        0 & 1 \\
+        0 & 0 \\
+    \end{array} \right), B = \left( \begin{array}{cc}
+        0 & 1 \\
+        0 & 0 \\
+    \end{array} \right)\]
+    Тогда:
+    \[AB = \left( \begin{array}{cc}
+        1 & 0 \\
+        0 & 0 \\
+    \end{array} \right), B = \left( \begin{array}{cc}
+        0 & 0 \\
+        0 & 0 \\
+    \end{array} \right)\]
+    Получаем:
+    \[e^Ae^B = (E + A)(E + B) = E + A + B + AB\]
+    \[e^Be^A = (E + A)(E + B) = E + A + B + BA\]
+    В таком случае, либо \(e^Ae^B \ne e^{A + B}\), либо \(e^Be^A \ne e^{A + B}\).
+\end{example}
+
+\begin{proposition}
+    \(\frac{d}{dt}e^{tA} = Ae^{tA}\)
+\end{proposition}
+\begin{proof}
+    Рассмотрим \(\frac{d}{dt} \frac{t^jA^j}{j!}\).
+    \[\frac{d}{dt} \frac{t^jA^j}{j!} = \left\{\begin{array}{l}
+        \frac{t^{j - 1}}{(j - 1)!}A^j, j \ge 1 \\
+        0, j = 0
+    \end{array}\right.\]
+    Заметим, что:
+    \[\left\|\frac{t^{j - 1}}{(j - 1)!}A^j\right\| \le \frac{|t|^{j - 1}}{(j - 1)!}\|A\|^j\]
+    Получаем:
+    \[\sum_{j = 0}^\infty \frac{|t|^{j - 1}}{(j - 1)!}\|A\|^j = \|A\|e^{t\cdot\|A\|} < \|A\|e^{r\cdot\|A\|} < \infty\]
+    Получили, что ряд из частных производных сходится абсолютно и равномерно при \(t \in (-r, r)\). Тогда по теореме о дифференцировании рядов, получаем
+    \[\frac{d}{dt}e^{tA} = \frac{d}{dt}\left( \sum_{j = 0}^\infty \frac{t^{j}}{j!}A^j \right) = \sum_{j = 0}^\infty \frac{d}{dt}\left( \frac{t^{j}}{j!}A^j \right) = \sum_{j = 0}^\infty \frac{t^{j - 1}}{(j - 1)!}A^j = Ae^{tA}\]
+\end{proof}
+
+\begin{corollary}
+    \(X(t) = e^{tA}\) является решением Задачи коши: \(X' = AX, X(0) = E\). В частности, \(X(t)\) является ФСР системы \(x' = Ax\)
+\end{corollary}
+
+\begin{proposition}
+    \(\det(e^{tA}) = e^{t \cdot tr\;A}\).
+\end{proposition}
+\begin{proof}
+    Следует из свойств определителя Вронского
+\end{proof}
+
+\subsection{Вычисление матричной экспоненты}
+Пусть
+\[K = \left( \begin{array}{ccccc}
+    \lambda & 1 & 0 & \dots & 0 \\
+    0 & \lambda & 1 & \dots & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \dots & 1 \\
+    0 & 0 & 0 & \dots & \lambda \\
+\end{array} \right), F = \left( \begin{array}{ccccc}
+    0 & 1 & 0 & \dots & 0 \\
+    0 & 0 & 1 & \dots & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \dots & 1 \\
+    0 & 0 & 0 & \dots & 0 \\
+\end{array} \right) \Ra K = \lambda E + F\]
+Найдем \(e^{tK}\).
+\[e^{t\lambda E} = e^{\lambda t}E\]
+\[e^{tF} = \left( \begin{array}{cccccc}
+    1 & t & \frac{t^2}{2} & \dots & \frac{t^{n - 2}}{(n - 2)!} & \frac{t^{n - 1}}{(n - 1)!} \\
+    0 & 1 & t & \dots & \frac{t^{n - 3}}{(n - 3)!} & \frac{t^{n - 2}}{(n - 2)!} \\
+    
+    \vdots & \vdots & \vdots & \ddots & \vdots &\vdots \\
+    0 & 0 & 0 & \dots & t & \frac{t^2}{2} \\
+    0 & 0 & 0 & \dots & 1 & t \\
+    0 & 0 & 0 & \dots & 0 & 1 \\
+\end{array} \right)\]
+
+Тогда 
+\[e^{tK} = e^{t\lambda E} e^{tF} = e^{\lambda t}\left( \begin{array}{cccccc}
+    1 & t & \frac{t^2}{2} & \dots & \frac{t^{n - 2}}{(n - 2)!} & \frac{t^{n - 1}}{(n - 1)!} \\
+    0 & 1 & t & \dots & \frac{t^{n - 3}}{(n - 3)!} & \frac{t^{n - 2}}{(n - 2)!} \\
+    
+    \vdots & \vdots & \vdots & \ddots & \vdots &\vdots \\
+    0 & 0 & 0 & \dots & t & \frac{t^2}{2} \\
+    0 & 0 & 0 & \dots & 1 & t \\
+    0 & 0 & 0 & \dots & 0 & 1 \\
+\end{array} \right)\]
+
+Также, если \(B = \left( \begin{array}{cccc}
+    K_1 & 0 & \dots & 0 \\
+    0 & K_2 & \dots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots & K_s \\
+\end{array} \right)\), то:
+\[e^{tB} = \left( \begin{array}{cccc}
+    e^{tK_1} & 0 & \dots & 0 \\
+    0 & e^{tK_2} & \dots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \dots & e^{tK_s} \\
+\end{array} \right)\]
+
+\begin{proposition}
+    Пусть \(A = C^{-1}BC, B\) --- ЖНФ матрицы \(A\), \(\det C \ne 0\). Тогда \(e^{tA} = C^{-1}e^{tB}C\).
+\end{proposition}
+\begin{proof}
+    \[e^{tA} = \sum_{j = 0}^\infty \frac{(C^{-1}BC)^j}{j!} = \sum_{j = 0}^\infty \frac{C^{-1}B^jC}{j!} = C^{-1}\left( \sum_{j = 0}^\infty \frac{B^j}{j!} \right)C\]
+\end{proof}
+
+\section{Теорема Штурма}
+Рассмотрим уравнение:
+\begin{equation}
+    x'' + a(t)x' + b(t)x = 0, a, b \in C^1(I, \R)
+\end{equation}
+
+При помощи замены \(x(t) = u(t)y(t)\) данное уравнение можно свести к следующему:
+\begin{equation}
+    y'' + q(t)y = 0
+\end{equation}
+
+Действительно, заметим, что \(x' = u'y + y'u, x'' = u''y + 2u'y' + uy''\). Тогда уравнение (10.1) преобразится следующим образом:
+\[y''u + 2y'u' + yu'' + au'y + auy' + buy = 0\]
+
+Подберем такое \(u\), что \(2u' + au = 0\), имеем:
+\[u = \exp\left( -\int_{t_0}^t a(s)ds \right)\]
+Тогда:
+\[y''u + 2y'u' + yu'' + au'y + auy' + buy = 0\]
+\[y''u + yu'' + au'y + buy = 0\]
+\[y'' + \underbrace{\frac{u'' + au' + bu}{u}}_{q(t)}y = 0\]
+
+\begin{note}
+    \(x(t) = 0 \Ra y(t) = 0\)
+\end{note}
+\begin{proposition}
+    Пусть \(y\) --- нетривиальное решение (10.2), \(\hat{t} \in I, y(\hat{t}) = 0 \Ra y'(\hat{t}) \ne 0\)
+\end{proposition}
+\begin{proposition}
+    Рассмотрим соответствующую задачу Коши и начальные условия \(y(\hat{t}) = 0, y'(\hat{t}) = 0\). Тогда в некоторой окрестности, решение единственно и тривиально.
+\end{proposition}
+
+\begin{proposition}
+    Пусть \(y(t)\) --- нетривиальное решение (10.2). Тогда \(y^{-1}(0) = \{t \in I: y(t) = 0\}\) не имеет предельных точек.
+\end{proposition}
+\begin{proof}
+    Рассмотрим \(\hat{t}: y(\hat(t)) = 0 \Ra y'(\hat{t}) \ne 0\). Тогда \(\exists \epsilon > 0: \forall \delta \in (-\epsilon, \epsilon)\)
+    \[|y(\hat{t} + \delta)| = |y'(\hat{t})\delta + o(\delta)| \ge |y'(\hat{t})|\cdot|\delta| - |o(\delta)| \ge |y'(\hat{t})|\cdot|\delta| - \frac{|y'(\hat{t})|}{2}|\delta| > 0\]
+    Получили желаемое
+\end{proof}
+
+Пусть \(Q \in C(I, \R)\). Рассмотрим уравнение:
+\begin{equation}
+    z'' + Q(t)z = 0
+\end{equation}
+
+\begin{theorem}[Штурма]
+    Пусть \(q(t) \le Q(t) \forall t \in I, t_1, t_2 \in I, t_1 < t_2\) (\(q, Q\) берутся из уравнений (10.2), (10.3)). Пусть \(y\) --- решение (10.2), такое, что \(y(t_1) = y(t_2) = 0, y(t) \ne 0 \forall t \in (t_1, t_2)\). Тогда если \(z\) --- нетривиальное решение (10.3), то:
+    \[\left[\begin{array}{l}
+        \exists t \in (t_1, t_2): z(t) = 0 \\
+        z(t_1) = z(t_2) = 0
+    \end{array}\right.\]
+\end{theorem}
+\begin{proof}
+    Рассмотрим случай \(y(t) > 0 \forall t \in I\) (другой случай доказывается аналогично). Тогда: \(y'(t_1) \ge 0, y'(t_2) \le 0 \Ra y'(t_1) > 0, y'(t_2) < 0\) (не могут равняться нулю по утверждению выше).
+    Рассмотрим:
+    \[(10.2)z - (10.3)y\]
+    \[y''z - yz'' = (Q - q)yz\]
+    \[\frac{d}{dt}(y'z - yz') = (Q - q)yz\]
+    \[y'(t_2)z(t_2) - y(t_2)z'(t_2) - y'(t_1)z(t_1) + y(t_1)z'(t_1) = \int_{t_1}^{t_2}(Q(s) - q(s))y(s)z(s)ds\]
+    \[y'(t_2)z(t_2) - y'(t_1)z(t_1) = \int_{t_1}^{t_2}(Q(s) - q(s))y(s)z(s)ds\]
+    Предположим, что \(z(t)\) постоянного знака на \(I\) (в противном случае получаем, что \(z(t) = 0\) для какого-то \(t \in (t_1, t_2)\)). Рассмотрим только случай \(z > 0\) (другой случай будет доказываться аналогично). Тогда существует несколько возможных случаев:
+    \[\left[\begin{array}{l}
+        z(t) > 0 \forall t \in [t_1, t_2] \\
+        z(t) > 0 \forall t \in (t_1, t_2], z(t_1) = 0 \\
+        z(t) > 0 \forall t \in [t_1, t_2), z(t_2) > 0 \\
+        z(t_1) = z(t_2) = 0 \\
+    \end{array}\right.\]
+    Покажем, что первые три случая невозможны заметим, что 
+    \[\int_{t_1}^{t_2}(Q(s) - q(s))y(s)z(s)ds \ge 0\]
+    Но в первых трех случаях получаем, что \(y'(t_2)z(t_2) - y'(t_1)z(t_1) < 0\). Но тогда \(z(t_1) = z(t_2) = 0\).
+\end{proof}
+
+\begin{corollary}
+    Пусть \(q(t) \le 0 \forall t \in I\), \(y\) --- нетривиальное решение (10.2). Тогда \(|y^{-1}(0)| \le 1\)
+\end{corollary}
+
+\begin{corollary}
+    Пусть \(y_1, y_2\) --- линейно независимые решения (10.2), \(y_1(t_1) = y_1(t_2) = 0, y_1(t) \ne 0 \forall t \in (t_1, t_2)\). Тогда существует единственное \(t \in (t_1, t_2): y_2(t) = 0\).
+\end{corollary}

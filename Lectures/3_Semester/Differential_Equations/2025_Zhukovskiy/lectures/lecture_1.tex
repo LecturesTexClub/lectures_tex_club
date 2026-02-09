@@ -1,0 +1,139 @@
+
+
+\section{Введение}
+\subsection{Определения}
+\begin{definition}
+    Пусть даны \(n, m, k \in \N, \Omega \subset \R \times \underbrace{\R^n \times \R^n}_{k + 1}, F: \Omega \ra \R\). \(F(t, x, \stackrel{.}{x}, \stackrel{..}{x}, \dots x^{(k)}) = 0\) называется Обыкновенным Дифференциальным Уравнением.
+\end{definition}
+
+\begin{definition}
+    \(x: I \ra \R^n\) --- называется решением, если
+    \begin{enumerate}
+        \item \(I \subset \R^n\)
+        \item \(x \in C^k(I, \R^n)\)
+        \item \(F(t, x, \stackrel{.}{x}, \stackrel{..}{x}, \dots x^{(k)}) \equiv 0, t \in I \Lra = 0 \forall t \in I 
+        \)
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Пусть \(\Gamma \subset \R \times \underbrace{\R^n \times \R^n}_{k}\)
+    \(x^{(k)} = f(t, x, \stackrel{.}{x}, \stackrel{..}{x} \dots x^{(k - 1)})\) называется Нормальным Обыкновенным Дифференциальным Уравнением.
+\end{definition}
+
+\subsection{Примеры}
+\begin{example}
+    \(t^2 + x^2 + \stackrel{.}{x}^2 = 0\) --- нет решений
+\end{example}
+
+\begin{example}
+    \(\stackrel{.}{x} = x \Ra x = ce^t, t \in I\).
+\end{example}
+
+\begin{definition}[Задача Коши]
+    Пусть даны \(x_0, \stackrel{.}{x_0}, \stackrel{..}{x_0}, \dots x_0^{(k)} \in \R^n, t_0 \in \R\).
+    \begin{equation}
+        \begin{cases}
+            F(t, x, \stackrel{.}{x}, \stackrel{..}{x}, \dots x^{(k)}) = 0\\
+            x(t_0) = x_0,  \stackrel{.}{x}(t_0) = \stackrel{.}{x_0}, \dots x^{(k)}(t_0) = x_0^{(k)}    
+        \end{cases}
+    \end{equation}
+    Называется Задаей Коши.
+\end{definition}
+
+\begin{note}
+    \(x(\cdot)\) --- решение задачи Коши, если \(x(\cdot)\) --- решение (1.1) и \(x(t_0) = x_0,  \stackrel{.}{x_0}(t_0) = \stackrel{.}{x_0}, \dots x_0^{(k)}(t_0) = x_0^{(k)}\)
+\end{note}
+
+\begin{theorem}
+    Пусть \(n \in \N, k = 1, \Gamma = \subset \R \times \R^n, (t_0, x_0) \in \Gamma \Ra \)
+    \begin{equation}
+        \begin{cases}
+            \stackrel{.}{x} = f(t, x) \\
+            x(t_0) = x_0    
+        \end{cases}
+    \end{equation}
+    Рассмотрим \(B((t_0, x_0), r) = \{(t, x) : |t - t_0|^2 + |x - x_0|^2 \le r^2\} \subset \Gamma\). Пололжим \(M = \sup_{(t, x) \in B}(f(t, x)), d = \frac{r}{\sqrt{1 + M^2}}\)
+
+    \(\Gamma\) --- открыто, \(f\) --- непрерывно \(\Ra \exists \) решение \(x: (t_0 - d, t_0 + d) \ra \R^n\)
+\end{theorem}
+
+\begin{example}[Условие непрерывности критично]
+    Рассмотрим \(f: \R \ra \R: f(x) = \left\{\begin{array}{l}
+        1, x \le 0 \\
+        -1, x > 0
+    \end{array}\right.\) и задачу Коши:
+    \[\left\{\begin{array}{l}
+        \stackrel{.}{x} = f(x) \\
+        x(0) = 0
+    \end{array}\right.\]
+    Тогда не существует решений.
+\end{example}
+\begin{proof}
+    Пусть существует решение \(x(\cdot)\). Тогда \(\stackrel{.}{x}(0) = f(x(0)) = f(0) = 1 \Ra \exists \epsilon > 0: \stackrel{.}{x}(t) > 0 \forall t \in [0, \epsilon) \Ra \stackrel{.}{x}(0) = 1, x(0) = 0 \Ra x(t) > 0 \forall t \in (0, \epsilon) \Ra \stackrel{.}{x}(t) = f(x(t)) < 0 \forall t \in (0, \epsilon)\).
+\end{proof}
+
+\begin{theorem}
+    Пусть \(\Gamma\) --- открыто, \(f\) --- непрерывна, \(\frac{\delta f_i}{\delta x_j} \exists\) и непрерывна \(\Ra \exists \) решение \(x\) задачи Коши (1.2) и \(\forall\) решения \(\tilde{x}: I \ra \R^n\) задачи Коши (1.2) \(x(t) = \tilde{x}(t), t \in I \cap (t_0 - d, t_0 + d)\).
+    % \[f(t, x) = \left(\begin{array}{c}
+    %     f_1(t, x) \\
+    %     f_2(t, x) \\
+    %     \vdots \\
+    %     f_n(t, x) \\
+    % \end{array}\right), f_i(t, x) = f_i(t, \underbrace{x_1, x_2, \dots x_n}_x)\]
+\end{theorem}
+
+\begin{example}[Существенность непрерывность производной (гладкости функции)]
+    \[\left\{\begin{array}{l}
+        \stackrel{.}{x} = \sqrt[3]{x} \\
+        x(0) = 0
+    \end{array}\right.\]
+    \begin{enumerate}
+        \item \(x \equiv 0\) --- решение
+        \item \(x(t) \equiv at^b\)
+        \item \(abt^{b - 1} \equiv a^{\frac{1}{3}}b^{\frac{1}{3}}\).
+    \end{enumerate}
+    \[\left\{\begin{array}{l}
+        b - 1 = \frac{b}{3} \\
+        ab = a^{\frac{1}{3}}
+    \end{array}\right. \Ra \left\{\begin{array}{l}
+        b = \frac{3}{2} \\
+        a^{\frac{2}{3}} = \frac{3}{2}
+    \end{array}\right. \Ra \left\{\begin{array}{l}
+        b = \frac{3}{2} \\
+        a = \left(\frac{2}{3}\right)^{\frac{3}{2}}
+    \end{array}\right.\]
+    \[\Ra x(t) = \left(\frac{2}{3}\right)^{\frac{3}{2}}t^{\frac{3}{2}}, t > 0\text{ --- решение} \stackrel{.}{x} = \sqrt[3]{x}\]
+    Теперь рассмотрим \(\tau \in \R\). По нему можно построить \(a(t - \tau)^b\), удовлетворяющая решению.
+\end{example}
+
+\section{Решения различных дифференциальных уравнений}
+\subsection{Уравнения с разделяющимися переменными}
+\begin{definition}
+    Пусть дана \(h \in \mathcal{G} \ra \R, g: I \ra \R, \mathcal{G}, I \subset \R\) --- интервалы. 
+\end{definition}
+
+\begin{example}
+    \[(3) \stackrel{.}{x} = h(x) \cdot g(t)\]
+    \[\frac{dx}{dt} = h(x) \cdot g(t)\]
+    \[\frac{dx}{h(x)} = g(t)dt\]
+    \[\int \frac{dx}{h(x)} = \int g(t)dt\]
+    \[H(x) = G(x) + c\]
+    И далее алгебраически находим \(x\).
+\end{example}
+\begin{proof}[Почему так можно делать]
+    Пусть \(h(x) \ne 0 \forall x \in \mathcal{G}, H(x)\) --- первообразная \(x = \frac{1}{h(x)}, G(x)\) --- первообразная \(g(x), x\) --- непрерывная дифференцируемая функция \((t, x(t)) \in I \times \mathcal{G}\). Заметим, что \(x\) --- решение \(\Lra \stackrel{.}{x}(t) \equiv h(x(t)) g(t) \Lra \frac{\stackrel{.}{x}(t)}{h(x(t))} \equiv g(t) \Lra \exists c \in \R: H(x(t)) \equiv G(t) + c\).
+
+\end{proof}
+
+Пусть \(x_0 \in \mathcal{G}, t_0 \in I\) даны, \(h(x_0) = 0, h(x) \ne 0\) при \(x \ne x_0, g(t_0) \ne 0, H(x) = \int_{x_0}^x \frac{d\xi}{h(\xi)}\) сходится при всех \(x \in \mathcal{G}\). Тогда 
+\begin{enumerate}
+    \item \(x(t) \equiv x_0, t \in I\) является решением \((3)\).
+    
+    \item \(\tilde{x}(t): H(x(t)) = G(t)\) является решением \((3)\) (\(G(t) = \int_{t_0}^t g(s)ds\)).
+    
+    \item \(x(t) = \left\{\begin{array}{l}
+        x_0, t \le t_0 \\
+        \tilde(x)(t), t > t_0
+    \end{array}\right.\)
+\end{enumerate}

@@ -1,0 +1,121 @@
+
+
+\section{Ну-с, начнем}
+\subsection{Определения}
+\begin{definition}
+    Граф --- \(G = (V, E)\), \(|V| < \infty\). \(V\) --- множество вершин, \(E\) --- множество ререр (подмножество \(V\times V\)). По умолчанию, граф неориентированный, в нем нет петель и ребер. Приставка \textbf{ор} будет означать, что граф ориентированный, приставка \textbf{мульти} будет означать, что разрешены кратные ребра, а приставка \textbf{псевдо} будет означать, что граф разрешены петли. Другими словами, псевдомультиорграф --- граф, в котором разрешено все.
+\end{definition}
+
+\begin{definition}
+    Маршрут --- последовательность \(v_1e_1v_2e_2\dots v_{n-1}e_{n-1}v_n\), где \(e_i = (v_i, v_{i + 1}) \in E\)
+\end{definition}
+
+\begin{definition}
+    Путь (цепь) --- незамкнутый маршрут, в котором все ребра разные.
+\end{definition}
+
+\begin{definition}
+    Цикл --- замкнутый маршрут, в котором все ребра разные.
+\end{definition}
+
+\begin{definition}
+    Простой путь (цепь) --- путь, в котором все вершины разные.
+\end{definition}
+
+\begin{definition}
+    Простой цикл --- цикл, в котором все вершины разные (кроме, возможно, начальной и конечной).
+\end{definition}
+
+\begin{definition}
+    Граф связен, если \(\forall v, u \in V\) существует простая цепь с концами в \(v, u\).
+\end{definition}
+
+\begin{note}
+    Отношние \(u \sim v\), где \(\sim\) --- ''связны ли две вершины'' является отношением эквивалентности.
+\end{note}
+
+\begin{definition}
+    Классы эквивалентности по отношению выше называются компонентами связности.
+\end{definition}
+
+\begin{definition}
+    Пусть \(v \in V\). Степень вершины \(v\) --- \(\deg v\) --- количество ребер, которое исходит из данной вершины (петля добавляет 2 к степени вершины). \(indeg\ v, outdeg\ v\) --- входящие и исходящие степени для орграфов.
+\end{definition}
+
+\begin{note}
+    \[\sum_{v \in V} \deg v = 2|E|\]
+\end{note}
+
+\begin{definition}
+    Граф называется \(d\)-регулярным, если \(\forall v \in V \deg v = d\).
+\end{definition}
+
+\begin{note}
+    Всего существует \(2^{C_n^2}\) графов на \(n\) вершинах (верны пронумерованы числами от \(1\) до \(n\)).
+\end{note}
+
+\begin{definition}
+    Граф называется деревом, если он связен и в нем нет циклов.
+\end{definition}
+
+\begin{note}
+    В дереве на \(n\) вершинах \(n - 1\) ребро.
+\end{note}
+
+Положим \(\tau_n\) --- количество деревьев на \(n\) вершинах.
+
+\begin{proposition}
+    \(\tau_n = n^{n - 2}\)
+\end{proposition}
+\begin{proof}(Коды Прюфера)
+    Построим по дереву следующую последовательность: на каждой итерации будем находить лист с самым маленьким номером, запишем его соседа, а лист удалим. Далее нужно доказать, что по кодам Прюфера однозначно восстанавливается дерево и получить биекцию между кодами длины \(n - 2\) и деревьями на \(n\) вершинах.
+\end{proof}
+
+\begin{definition}
+    Унициклический граф --- связный граф, в котором \(n\) вершин и \(n\) ребер.
+\end{definition}
+
+Положим \(u_n\) --- количество унициклических графов на \(n\) вершинах
+
+\begin{lemma}
+    \(F(n, r)\) --- количество лесов с \(r\) деревьями на \(n\) вершинах. \(F(n, r) = r\cdot n^{n - 1 - r}\).
+\end{lemma}
+
+Пусть \(r = 3, \dots n\) --- количество вершин в цикле. Тогда
+\[u_n = \sum_{r = 3}^n \left(C_n^r \frac{(r - 1)!}{2}F(n, r)\right) = \sum_{r = 3}^n \left(C_n^r \frac{(r - 1)!}{2}r \cdot n^{n - 1 - r}\right)\]
+
+\begin{proposition}
+    \(u_n \sim \sqrt{\frac{\pi}{8}}\cdot n^{n - \frac{1}{2}}\)
+\end{proposition}
+
+\begin{proof}
+    \[C_n^r = \frac{n!}{r!(n - r)!} = \frac{n(n - 1)\dots(n - r + 1)}{r!} = \frac{n^r}{r!}\left(1 - \frac{1}{n}\right)\left(1 - \frac{2}{n}\right)\dots \left(1 - \frac{r-1}{n}\right) = \]
+    \[= \frac{n^r}{r!}e^{\ln\left(1 - \frac{1}{n}\right) + \ln\left(1 - \frac{2}{n}\right) + \dots + \ln\left(1 - \frac{r-1}{n}\right)}  = (*) \le \frac{n^r}{r!}e^{-\frac{1}{n}-\frac{2}{n} - \dots - \frac{r - 1}{n}} = \frac{n^r}{r!}e^{-\frac{r(r-1)}{2n}}\]
+    С другой стороны
+    \[(*) = \frac{n^r}{r!}e^{-\frac{1}{n}-\frac{2}{n} - \dots - \frac{r - 1}{n} + O\left(\frac{1}{n^2} + \frac{4}{n^2} + \dots + \frac{(r - 1)^2}{n^2}\right)} = \frac{n^r}{r!}e^{-\frac{r(r-1)}{2n} + O\left(\frac{r^3}{n^3}\right)}\]
+
+    Итого
+    \[u_n = \sum_{r = 3}^n \left(C_n^r \frac{(r - 1)!}{2}r \cdot n^{n - 1 - r}\right) \le \frac{1}{2}n^{n - 1}\sum_{r = 3}^n e^{-\frac{r(r-1)}{2n}}\]
+    \[u_n = \sum_{r = 3}^n \left(C_n^r \frac{(r - 1)!}{2}r \cdot n^{n - 1 - r}\right) = \frac{1}{2}n^{n - 1}\sum_{r = 3}^n e^{-\frac{r(r-1)}{2n} + O\left(\frac{r^3}{n^3}\right)}\]
+    
+    % При этом, \(r^3 = o(n^2) \Lra r = o(n^{\frac{2}{3}})\).
+    
+    \[u_n = \sum_{r = 3}^n \left(C_n^r \frac{(r - 1)!}{2}r \cdot n^{n - 1 - r}\right) = \frac{1}{2}n^{n - 1}\left(\underbrace{\sum_{r = 3}^{[n^{0.6}]} C_n^r r! n^{-r}}_{S_1} + \underbrace{\sum_{r = [n^{0.6}] + 1}^{n} C_n^r r! n^{-r}}_{S_2}\right)\]
+
+    \[S_2 \le \sum_{r = [n^{0.6} + 1]}^ne^{-\frac{r(r-1)}{2n}} \le n \cdot e^{\frac{n^{0.2}}{2}(1 + o(1))}\]
+    
+    Помним, что \(r \ge n^{0.6}\).
+
+    \[e^{-\frac{r(r-1)}{2n}} = e^{-\frac{r^2}{2n}(1 + o(1))} \le e^{-\frac{n^{1.2}}{2n}(1 + o(1))} = e^{-\frac{n^{0.2}}{2}(1 + o(1))}\]
+
+    Докажем, что \(\sum_{r = 3}^{[n^{0.6}]}e^{-\frac{r^2}{2n}} \sim \sum_{r = 0}^{\infty}e^{-\frac{r^2}{2n}}\).
+    \[\sum_{r = 0}^2e^{\frac{-r^2}{2n}} = O(1)\]
+    \[\sum_{r = [n^{0.6}] + 1}^\infty e^{\frac{-r^2}{2n}} = \underbrace{\sum_{r = [n^{0.6}] + 1}^{n^2} e^{\frac{-r^2}{2n}}}_{(1)} + \underbrace{\sum_{r = n^2 + 1}^\infty e^{\frac{-r^2}{2n}}}_{(2)}\]
+    Для \((1)\):
+    \[r \ge n^{0.6} \Ra e^{\frac{-r^2}{2n}} \le e^{\frac{-n^2}{2n}} = e^{-\frac{n}{2}} \Ra (1) \le n^2e^{-\frac{n}{2}}\]
+    Для \((2)\):
+    \[\frac{e^{\frac{-(r + 1)^2}{2n}}}{e^{\frac{-r^2}{2n}}}= e^{\frac{-(r+1)^2 + r^2}{2n}} = e^{\frac{-2r - 1}{2n}} = e^{-\frac{r}{n} - \frac{1}{2n}} < e^{-\frac{r}{n}} < e^n\]
+    Тогда \((2) \le e^{-\frac{-(n^2 + 1)^2}{2n}}\) (ограничили сверху геометрической прогрессией). Тогда:
+    \[S_1 = \sum_{r = 3}^{[n^{0.6}]}e^{-\frac{r(r-1)}{2n} + O\left(\frac{r^3}{n^3}\right)} \sim \sum_{r = 3}^{[n^{0.6}]}e^{-\frac{r(r-1)}{2n}} \sim \sum_{r = 3}^{[n^{0.6}]}e^{-\frac{r^2}{2n}} \sim \sum_{r = 0}^{\infty}e^{-\frac{r^2}{2n}} \sim_{\text{сх.}} \int_0^\infty e^{-\frac{r^2}{2n}}dr = \]
+    \[ = \int_0^\infty e^{-\frac{x^2}{2}}\sqrt{n}dx = \sqrt{n}\int_{0}^{+\infty} e^{-\frac{x^2}{2}}dx = \sqrt{n}\frac{\int_{-\infty}^{+\infty} e^{-\frac{x^2}{2}}dx}{2} = \sqrt{n}\frac{\sqrt{2\pi}}{2}\]
+\end{proof}
