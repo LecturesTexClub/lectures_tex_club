@@ -1,0 +1,70 @@
+
+
+\begin{definition}
+    Пусть \(n, r, s \in \N, r < n, s \in \{0, 1, \dots r- 1\}\). \(G(n, r, s)\) --- такой, граф, что \(V = \{A \subset \{1, 2, \dots n\}: |A| = r\}\), \(E = \{(A, B) : |A \cap B| = s\}\).
+\end{definition}
+
+\begin{definition}
+    Клика в графе \(G\) --- полный подграф
+\end{definition}
+\begin{definition}
+    Кликовое число \(\omega(G)\) --- количесто вершин в самой большой клике.
+\end{definition}
+\begin{definition}
+    Независимое множество --- такое множество вершин \(W\), что \(\forall x, y \in W (x, y) \notin E\).
+\end{definition}
+\begin{definition}
+    Число независимости \(\alpha(G)\) --- количесто вершин в самом большом независимом множестве.
+\end{definition}
+
+
+Рассмотрим \(\omega\left(G\left(n, \frac{n}{2}, \frac{n}{4}\right)\right)\). Заметим, что если записать матрицу Адамара в нормальной форме, то у нас получится следующее:
+\[A = \left(\begin{array}{cccc}
+    1 & 1 & \dots & 1 \\
+    1 & & & \\
+    1 & & B & \\
+    1 & & & \\
+\end{array}\right)\]
+Тогда в \(A\) все столбцы будут ортогональны. При этом, каждые две строки \(B\) (если не рассматривать первую) пересекаются по \(\frac{n}{4}\) элементам. При этом, попарно ортогональные векторы с \(\frac{n}{2}\) единичками и \(\frac{n}{2}\) минус единичками живут в \(n - 1\) мерном пространстве. Таким образом, \(\omega\left(G\left(n, \frac{n}{2}, \frac{n}{4}\right)\right) \le n - 1\), а матрица Адамара позволяет привести пример для \(n - 1\). Таким образом, Гипотеза Адамара равносильна тому, что \(\omega\left(G\left(n, \frac{n}{2}, \frac{n}{4}\right)\right) = n - 1\).
+
+Посчитаем теперь число ребер \(\left|E\left(G\left(n, \frac{n}{2}, \frac{n}{4}\right)\right)\right| = \frac{C_n^{\frac{n}{2}}\left(C_{\frac{n}{2}}^{\frac{n}{4}}\right)^2}{2}\). Это верно, т.к. \(\forall v \in V: \deg v = \left(C_{\frac{n}{2}}^{\frac{n}{4}}\right)^2\).
+
+Посчитаем теперь число треугольников в данном графе. Для этого выберем ребро и посчитаем количество треугольников, присоединенных к этому ребру. Просуммируем полученные числа и разделим на \(3\).
+Для каждого конкретного ребра \(AB\) рассмотрим вершину \(C\), которая соединена с ними обоими. Тогда: пусть \(|C \cap (A \setminus B)| = x \Ra |C \cap (A \cap B)| = \frac{n}{4} - x \Ra |C \cap (B \setminus A)| = x \Ra |C \setminus (A \cup B)| = \frac{n}{4} - x\). Тогда для конкретного \(x\), количество вершин \(C\) равняется:
+\[C_{\frac{n}{4}}^xC_{\frac{n}{4}}^{\frac{n}{4} - x}C_{\frac{n}{4}}^xC_{\frac{n}{4}}^{\frac{n}{4} - x} = \left(C_{\frac{n}{4}}^x\right)^4\]
+
+Но тогда число треугольников:
+\[= \frac{C_n^{\frac{n}{2}}\left(C_{\frac{n}{2}}^{\frac{n}{4}}\right)^2 \cdot \sum_{x = 0}^{\frac{n}{4}}\left(C_{\frac{n}{4}}^x\right)^4}{6}\]
+
+\begin{definition}
+    Энтропия --- \(H(a) = -a\ln a - (1 - a)\ln(1 - a)\)
+\end{definition}
+
+\begin{theorem}
+    Пусть \(a \in \left(0, \frac{1}{2}\right)\). Тогда 
+    \[\ln\left(C_n^{[an]}\right) \sim \left(-a\ln a - (1 - a)\ln(1 - a)\right)n = H(a)n\]
+\end{theorem}
+
+\begin{corollary}
+    \[C_n^{[an]} = \left(\frac{1}{a^a(1-a)^{(1-a)}} + o(1)\right)^n\]
+\end{corollary}
+
+\begin{proposition}[Формула Стирлинга]
+    \[n! \sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n\]
+\end{proposition}
+\begin{proof}
+    Было на матане.
+\end{proof}
+
+\begin{definition}
+    \(C(n, k)\) --- количество связных графов на \(n\) верщинах с \(k\) ребрами.
+\end{definition}
+\begin{note}
+    \begin{enumerate}
+        \item \(k \le n - 2 \Ra C(n, k) = 0\)
+        \item \(k = n - 1 \Ra C(n, k) = t_n = n^{n - 2}\)
+        \item \(k = n \Ra C(n, k) = u_n \sim \sqrt{\frac{\pi}{8}}\cdot n^{n - \frac{1}{2}}\)
+        \item (б/д) \(k = n + 1 \Ra C(n, k) \sim \frac{5}{24}n^{n + 1}\)
+        \item (б/д) \(C(n, n + k) \sim \gamma(k)n^{n + \frac{3k + 1}{2}}\), при \(k = O\left(n^{\frac{2}{3}}\right)\)
+    \end{enumerate}
+\end{note}

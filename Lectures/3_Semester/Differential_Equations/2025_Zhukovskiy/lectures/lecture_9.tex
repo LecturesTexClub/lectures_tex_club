@@ -1,0 +1,100 @@
+
+
+\subsection{Линейные неоднородные уравнения}
+Данное уравнение равносильно тому, что \(Lx = b\). В таком случае нетрудно показать, что общее решение \(Lx = b\) получается из суммы частного решения и всех решений \(Lx = 0\).
+
+\subsection{Метод вариации произвольных постоянных}
+Пусть \(x_1(\cdot), \dots x_n(\cdot)\) --- ФСР (8.2). Положим:
+\[X(t) = \left( \begin{array}{cccc}
+    x_1(t) & x_2(t) & \dots & x_n(t) \\
+    x'_1(t) & x'_2(t) & \dots & x'_n(t) \\
+    \vdots & \vdots & \ddots & \vdots \\
+    x^{(n)}_1(t) & x^{(n)}_2(t) & \dots & x^{(n)}_n(t) \\
+\end{array} \right), t \in I\]
+
+Рассмотрим задачу коши:
+\begin{equation}
+    y' = A(t)y + \tilde{b}(t)
+\end{equation}
+\[A(t) = \left( \begin{array}{ccccc}
+    0 & 1 & 0 & \dots & 0 \\
+    0 & 0 & 1 & \dots & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \dots & 1 \\
+    -\frac{a_1(t)}{a_0(t)} & -\frac{a_2(t)}{a_0(t)} & -\frac{a_3(t)}{a_0(t)} & \dots & -\frac{a_n(t)}{a_0(t)}
+\end{array} \right), \tilde{b}(t) = \left( \begin{array}{c}
+    0 \\
+    \vdots \\
+    0 \\
+    \frac{b(t)}{a_0(t)}
+\end{array} \right)\]
+
+Заметим, что тогда \(x\) --- решение (8.1) \(\Ra y = \left( \begin{array}{c}
+    x(t) \\
+    x'(t) \\
+    \vdots \\
+    x^{(n - 1)}(t) \\
+\end{array} \right)\) --- решение (8.6). В обратную сторону, если \(y(t) = \left( \begin{array}{c}
+    y_1(t) \\
+    \vdots \\
+    y_n(t) \\
+\end{array} \right) \Ra x(t) = y_1(t)\) --- решение (8.1). 
+
+Известно, что если \(c(\cdot) = (c_1(\cdot), \dots c_n(\cdot))\), такое, что \((*) = X(t)c'(t) = \tilde(b)(t)\), то \(y(t) = X(t)c(t)\) является решением (8.6). Тогда \(y_1\) является решением (8.1).
+\[(*) \sim \left\{\begin{array}{l}
+    x_1(t)c'_1(t) + x_2(t)c'_2(t) + \dots + x_n(t)c'_n(t) = 0 \\
+    x'_1(t)c'_1(t) + x'_2(t)c'_2(t) + \dots + x'_n(t)c'_n(t) = 0 \\
+    \vdots \\
+    x^{(n - 2)}_1(t)c'_1(t) + x^{(n - 2)}_2(t)c'_2(t) + \dots + x^{(n - 2)}_n(t)c'_n(t) = 0 \\
+    x^{(n - 1)}_1(t)c'_1(t) + x^{(n - 1)}_2(t)c'_2(t) + \dots + x^{(n - 1)}_n(t)c'_n(t) = -\frac{b(t)}{a_0(t)} \\
+\end{array}\right.\]
+И \(y_1(t) = c_1(t)x(t) + \dots + c_n(t)x_n(t)\).
+
+
+\subsection{Решения уравнений специального вида}
+\begin{theorem}
+    Пусть \(a_0 \ne 0, \dots a_n \in \Cm, b(t) = p(t)e^{\gamma t}, \gamma \in \Cm, p(t)\) --- многочлен с комплексными коэффициентами, \(\deg p = m\). Тогда существует частное решение (8.1) в виде:
+    \[x(t) = t^kq(t)e^{\gamma t}, t \in \R\]
+    Где \(k\) --- кратность \(\gamma\) как корня характеристического уравнения, \(q(t)\) --- многочлен, \(\deg q = m\)
+\end{theorem}
+\begin{proof}
+    Ведем индукцию по \(m\)
+    \begin{enumerate}
+        \item[] \textbf{База:} \(m = 0\). Тогда положим \(y(t) = q_0t^ke^{\gamma t}\). Тогда по лемме:
+        \[Ly(t) = q_0e^{\gamma t}d_0 = p_0e^{\gamma t} = p(t)e{^\gamma t}\]
+        \item[] \textbf{Переход:} Положим \(\tilde{y}(t) = q_0t^{k + m}e^{\gamma t}\). Тогда по лемме:
+        \[L\tilde{y}(t) \equiv (q_0d_0t^m + r(t))e^{\gamma t}\]
+        Существует многочлен \(\tilde{q}(t): \deg \tilde{q} \le m - 1\) и 
+        \[L(\tilde{q}(t)t^ke^{\gamma t}) \equiv (\underbrace{p(t) - r(t) - p_0t^m}_{\deg \le m - 1})e^{\gamma t}\]
+        \[L(\tilde{y}(t) + \tilde{q}(t)t^ke^{\gamma t}) \equiv (q_0d_0t^m + r(t) + p(t) - r(t) - p_0t^m) =_{q_0 = \frac{p_0}{d_0}} p(t)e^{\gamma t}\]
+        Тогда:
+        \[\tilde{y}(t) + \tilde{q}(t)t^ke^{\gamma t} \equiv t^k(\underbrace{q_0t^m + \tilde{q}(t)}_{\deg = m})e^{\gamma t}\]
+    \end{enumerate}
+\end{proof}
+
+Пусть теперь \(a_0 \ne 0, \dots a_n \in \R, b(t) = (P_1(t)\cos(\beta t) + P_2(t)\sin(\beta t))e^{\alpha t} , \alpha, \beta \in \R, p(t)\) --- многочлен, \(m = \max\{\deg P_1, \deg P_2\}\).
+Сведем все к комплексному случаю. Рассмотрим
+\[\tilde{b}(t) = e^{(\alpha + i\beta)t}(P_1(t) - P_2(t)) = e^{\alpha t}((P_1(t)\cos (\beta t) + P_2 \sin (\beta t)) + i(P_1(t)\sin (\beta t) - P_2 \cos (\beta t)))\]
+Пусть \(x(t) = t^k(Q_1(t) + iQ_2(t))e^{(\alpha + i\beta)t}\) --- решение (8.1) при данном виде \(b\), \(k\) --- кратность корня характеристического многочлена, \(m = \max\{\deg Q_1, \deg Q_2\}\). \(Lx = \tilde{x} \Ra L(\Re x) = \Re \tilde{x}\). Но тогда \(L(t^ke^{\alpha t}(Q_1(t)\cos(\beta t) - Q_2(t)\sin(\beta t))) = b(t)\).
+
+\begin{corollary}
+    Существует многочлены \(Q_1, Q_2: \max\{\deg Q_1, \deg Q_2\} = m\) такие, что \(x(t) = t^k(Q_1(t)\cos(\beta t) + Q_2\sin(\beta t))e^{\alpha t}\) является решением линейного уравнения при данном \(b\)
+\end{corollary}
+
+\subsection{Уравнение Эйлера}
+Пусть \(a_0, \dots a_n \in \mathbb{K}, n \in \N, b \in C((0, +\infty), \mathbb{K})\). Рассмотрим следующее уравнение:
+\[a_0t^nx^{(n)} + a_1t^{n - 1}x^{(n - 1)} + \dots + a_{n - 1}tx' + a_nx = b(t)\]
+
+Рассмотрим следующую замену: \(t = e^s \Ra y(s) = x(e^s)\). Тогда при подстановке получится линейное уравнение с постоянными коэффициентами.
+
+
+\begin{example}
+    \(a_0t^2x''(t) + a_1tx'(t) + a_2x = b(t), y(s) = x(e^s)\)
+    \[\begin{array}{l}
+        y' = x'(e^s)e^s \\
+        y'' = x''(e^s)e^2s + x'(e^s)e^s \Ra x''(e^s) = e^{-2s}(y''(s) - x'(e^s)e^s) = e^{-2s}(y''(s) - y'(s)) \\
+    \end{array}\]
+    Подставляя, получаем:
+    \[a_0e^{2s} e^{-2s}(y'' - y') + a_1e^se^{-s}y' + a_2y = b(e^s)\]
+    \[a_0y'' + (a_1 - a_0)y' + a_2y = b(e^s), s \in \R\]
+\end{example}

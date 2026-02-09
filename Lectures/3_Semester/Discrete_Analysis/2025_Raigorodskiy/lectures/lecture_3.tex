@@ -1,0 +1,116 @@
+
+
+\begin{definition}
+    \(\chi(G) = \min\{k: V = V_1 \cup V_2 \cup \dots \cup V_k: \forall i \forall x, y \in V_i (x, y) \notin E\}\) --- называется хроматическое число графа.
+\end{definition}
+
+\begin{proposition}
+    \(\chi(G) \ge \omega(G)\)
+\end{proposition}
+\begin{proof}
+    В самом большом полном подграфе точно все вершины должны быть разного цвета, откуда и следует оценка
+\end{proof}
+
+\begin{proposition}
+    \(\chi(G) \ge \frac{|V|}{\alpha(G)}\)
+\end{proposition}
+\begin{proof}
+    \(|V| = |V_1| + |V_2| + \dots + |V_k| \le k\alpha(G) \Ra k \ge \frac{|V|}{\alpha(G)}\)
+\end{proof}
+
+\begin{proposition}
+    \(\chi(G) \le \Delta(G) + 1\), \(\Delta(G)\) --- максимальная степень вершины в \(G\)
+\end{proposition}
+\begin{proof}
+    Ведем индукцию по \(n\) --- количеству вершин
+    \begin{enumerate}
+        \item[] \textbf{База:} \(n = 1\) --- очевидно
+        \item[] \textbf{Переход:} Уберем вершину с максимальной степенью. В оставшемся графе по предположению индукции можно вершины правильным образом покрасить в \(\Delta(G) + 1\) цвет. А новую вершину мы покрасим в тот цвет, которого нет среди ее соседей.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Брукса]
+    Пусть \(G\) --- не клика и не нечетный цикл. Тогда \(\chi(G) \le \Delta(G)\)
+\end{theorem}
+
+\begin{definition}
+    \(G\) называется двудольным графом, если \(\chi(G) = 2\).
+\end{definition}
+
+\begin{proposition}
+    Граф двудолен тогда и только тогда, когда в нем нет нечетных циклов.
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item[\(\Ra\)] Пусть есть, тогда этот цикл нельзя правильным образом покрасить в два цвета
+        \item[\(\La\)] Рассмотрим \(f(s, u)\) --- множество всех длин путей \(s \ra u\). Т.к. в \(G\) нет нечетных циклов, то в \(f(u, v)\) все числа одинаковой четности. Зафиксируем вершину \(s\) и покрасим каждую вершину \(v\) в цвет, равный \(f(s, v) \mod 2\). Тогда \(\forall l \in f(u, v): l \equiv_2 0\)
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+    Доля тех графов, у которых \(\omega(G) < w\log_2 n\), стремится к \(0\) при \(n \ra \infty\)
+\end{theorem}
+\begin{note}
+    Утверждение теоремы равносильно тому, что \(\lim_{n \ra \infty} P(\omega(G) \le 2 \log_2 n)\).
+\end{note}
+\begin{proof}
+    Заметим, что
+    \[P(\omega(G) \ge k) = P(\exists \text{ множество вершин мощности \(k\), которое является кликой в \(G\)}) =\]
+    \[ = P\left(\bigcup_{i = 1}^{C_n^k} \{G: \text{\(i\)-ое \(k\)-элементное множество вершин образуют клику в \(G\)}\}\right) \le\]
+    \[\le \sum_{i = 1}^{C_n^k}P(\text{\(i\)-ое \(k\)-элементное множество образует клику}) = \]
+    \[= \sum_{i = 1}^{C_n^k} \frac{2^{C_n^2 - C_k^2}}{2^{C_n^2}} = \sum_{i = 1}^{C_n^k} 2^{-C_k^2} = C_n^k 2^{-C_k^2} = C_n^k2^{-\frac{k(k - 1)}{2}} \le\]
+    \[\le \frac{n^k}{k!}2^{-\frac{k^2}{2} + \frac{k}{2}} = \frac{2^{k\log_2 n - \frac{k^2}{2} + \frac{k}{2}}}{k!} = \frac{2^{2\log_2^2n - 2\log_2^2n}}{k!} \ra 0\]
+    Для нецелого \(2\log_2n\) используем \(k = [2\log_2n]\), в силу того, что \(k!\) растет сильно быстрее, доказательство не поменяется.
+\end{proof}
+
+Рассмотрим граф \(G = G(n, 3, 1)\), т.е. такой, что \(V = \{A \subset \{1, 2, \dots n\}: |A| = 3\}, E = \{(A, B): |A \cap B| = 1\}\).
+
+\begin{proposition}
+    \(\omega(G) \le n\).
+\end{proposition}
+
+\begin{problem}
+    \(\omega(G) \ge \left[\frac{n - 1}{2}\right], n \ge 7\)
+\end{problem}
+
+\begin{theorem}
+    \(\alpha(G) = \left\{\begin{array}{l}
+        n, n \equiv_4 0 \\
+        n - 1, n \equiv_4 1 \\
+        n - 2, n \equiv_4 2 \text{ или } 3 \\
+    \end{array}\right.\)
+\end{theorem}
+\begin{proof}\indent
+    \begin{enumerate}
+        \item[] \textbf{Пример:}
+        Берем все тройки, являющиеся подмножествами множеств \(\{4k + 1, 4k + 2, 4k + 3, 4k + 4, k \le \frac{n}{4}\}\) и еще тройки из множества \(\{n - mod(n, 4) + 1, \dots,  n\}\)
+        \item[] \textbf{Оценка:} 
+        Ведем индукцию по \(n\)
+        \begin{enumerate}
+            \item[] \textbf{База:} \(n = 1, 2, 3, 4 \Ra \alpha(n) = 0, 0, 1, 4\).
+            \item[] \textbf{Переход:} пусть \(A_1, \dots A_s\) --- вершины независимого множества в \(G(n, 3, 1)\).
+            \begin{enumerate}
+                \item \(\forall i, j A_i \cap A_j = \emptyset \Ra s \le \frac{n}{3}\), это хуже заявленного примера.
+                \item \(\exists i, j: |A_i \cap A_j| = 2\)
+                Тогда Б.О.О. это элементы \(\{1, 2, 3\}, \{1, 2, 4\}\).
+                \begin{enumerate}
+                    \item Больше нет множеств, содержащих \(1, 2\). Тогда все \(A_i\) либо лежат внутри \(\{1, 2, 3, 4\}\), либо лежат внутри \(\{5, 6, \dots n\}\). Тогда по предположению индукции, утверждение верно.
+                    \item Пусть Б.О.О. существуют еще \(r - 2\) множества: \(\{1, 2, 5\}, \{1, 2, 6\}, \dots \{1, 2, r\}, r \ge 5\). Все остальные \(A_i\) находятся среди \(\{r + 1, \dots n\}\) и их \(\le n - r\). Но тогда \(s \le r - 2 + (n - r) \le n - 2\)
+                \end{enumerate}
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+\end{proof}
+\begin{note}
+    \label{linalg_method}
+    Доказать, что \(s \le n\) можно, используя линейную алгебру. Сопоставим каждому множеству вектор из \(n\) нулей или единиц (маску множества). Докажем, что они линейно независимы над \(\Z_2\) (таким образом поймем, что их \(\le n\)).
+    \[c_1x_1 + c_2x_2 + \dots c_sx_s = 0\]
+    \[c_1(x_1, x_i) + c_2(x_2, x_i) + \dots c_s(x_s, x_i) = 0\]
+    \[3c_i = 0 \Ra c_i = 0\]
+\end{note}
+
+\begin{corollary}
+    Для графа \(G(n, 3, 1)\) верно: 
+    \[\omega(G) \le n, \lceil\frac{|V|}{\alpha(G)}\rceil \ge \frac{C_n^3}{n} \sim \frac{n^2}{6}\]
+    Таким образом, графы \(G(n, 3, 1)\) предъявляют пример, в котором оценка \(\chi(G) \ge \lceil\frac{|V|}{\alpha(G)}\rceil\) лучше, чем \(\chi(G) \ge \omega(G)\).
+\end{corollary}

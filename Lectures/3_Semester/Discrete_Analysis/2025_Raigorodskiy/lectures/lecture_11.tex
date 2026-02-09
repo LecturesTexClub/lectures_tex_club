@@ -1,0 +1,53 @@
+
+
+\section{Гиперграфы}
+
+\begin{definition}
+    Гиперграф --- множество \(H = (V, E)\), где \(E \subset 2^V\).
+\end{definition}
+
+\begin{definition}
+    Гиперграф называется \(k\)-однородным, если \(\forall A \in E: |A| = k\).
+\end{definition}
+
+\begin{note}
+    В \(k\)-однородном полном гиперграфе ровно \(C_{|V|}^k\) вершин.
+\end{note}
+
+\begin{definition}
+    \(h(n, r, s) = \max\{h: \exists r\text{-однородный гиперграф \(G\), такой, что } |V| = n, |E| = h, \forall A, B \in E: |A \cap B| \le s\}\)
+\end{definition}
+
+\begin{definition}
+    \(f(n, r, s) = \max\{f: \exists r\text{-однородный гиперграф \(G\), такой, что } |V| = n, |E| = f, \forall A, B \in E: |A \cap B| \ge s\}\)
+\end{definition}
+
+\begin{definition}
+    \(m(n, r, s) = \max\{f: \exists r\text{-однородный гиперграф \(G\), такой, что } |V| = n, |E| = f, \forall A, B \in E: |A \cap B| \ne s\}\)
+\end{definition}
+
+\begin{reminder}
+    \(G(n, r, s)\) --- такой, граф, что \(V = \{A \subset \{1, 2, \dots n\}: |A| = r\}\), \(E = \{(A, B) : |A \cap B| = s\}\).
+\end{reminder}
+\begin{note}
+    \(m(n, r, s) = \alpha(G(n, r, s))\).
+\end{note}
+\begin{proof}
+    \(\alpha(G(n, r, s))\) --- максимальное количество вершин, никакие две из которых не образуют ребра, т.е. что \(|A \cap B| \ne s\). Из этого получаем желаемое.
+\end{proof}
+
+\begin{proposition}
+    \(h(n, r, s) \le \frac{C_n^{s + 1}}{C_r^{s + 1}}\)
+\end{proposition}
+\begin{proof}
+    Пусть \(A_1, \dots A_h\) --- ребра \(r\)-однородного гиперграфа на \(n\) вершинах, такие, что \(|A_i \cap A_j| \le s\). Полоэим \(\mathcal{A}_i\) --- все \((s + 1)\)-элементные подмножества в \(A_i\). Тогда \(\mathcal{A}_i \cap \mathcal{A}_j = \emptyset\), причем \(|\mathcal{A}_i| = C_r^{s + 1}\). Но тогда:
+    \[hC_r^{s + 1} = |\mathcal{A}_1| + |\mathcal{A}_2| + \dots + |\mathcal{A}_h| \le C_n^{s + 1} \Ra h \le \frac{C_n^{s + 1}}{C_r^{s + 1}}\]
+\end{proof}
+
+\begin{theorem}[(б/д) Рёдль, 1980е]
+    Пусть \(r, s\) фиксированны, \(n \ra \infty\). Тогда \(h(n, r, s) \sim \frac{C_n^{s + 1}}{C_r^{s + 1}}\).
+\end{theorem}
+
+\begin{theorem}[(б/д) Киваш, 2010е]
+    При определенных условиях ''делимости'' и при \(n \ge n_0\) верно: \(h(n, r, s) = \frac{C_n^{s + 1}}{C_r^{s + 1}}\).
+\end{theorem}

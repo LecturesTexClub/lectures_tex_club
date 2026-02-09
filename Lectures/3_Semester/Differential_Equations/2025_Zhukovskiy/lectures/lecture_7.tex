@@ -1,0 +1,180 @@
+
+
+\section{Системы линейных однородных дифференциальных уравнений}
+Пусть даны \(I \subset \R\) --- интервал, \(n \in \N, a_{jk}, b_j \in C(I, \mathbb{K})\), где \(\mathbb{K} = \R\) или \(\Cm\). Рассмотрим систему:
+\begin{equation}
+    \begin{cases}
+        x_1' = a_{11}(t)x_1 + \dots + a_{1n}(t)x_n + b_1(t) \\
+        x_2' = a_{21}(t)x_2 + \dots + a_{2n}(t)x_n + b_2(t) \\
+        \vdots \\
+        x_n' = a_{n1}(t)x_n + \dots + a_{nn}(t)x_n + b_n(t) \\
+    \end{cases}
+    \sim x' = A(t)x + b(t)
+\end{equation}
+Где
+\[t \in I, A(t) = \left( \begin{array}{ccc}
+    a_{11}(t) & \dots & a_{1n}(t) \\
+    a_{21}(t) & \dots & a_{2n}(t) \\
+    \vdots & \ddots & \vdots \\
+    a_{n1}(t) & \dots & a_{nn}(t) \\
+\end{array} \right), b(t) = \left( \begin{array}{c}
+    b_1(t) \\
+    b_2(t) \\
+    \vdots \\
+    b_n(t) \\
+\end{array} \right)\]
+
+\begin{corollary}[Из предыдущей теоремы]
+    \(\forall t_0 \in I \forall x_0 \in \R^n\) задача Коши (7.1) имеет единственное решение на \(I\)
+\end{corollary}
+\begin{proof}
+    \[f(t, x) = A(t)x + b(t), t \in I, x \in \R^n\]
+    \[|f(t, x)| = |A(t)x + b(t)| \le \underbrace{\|A(t)\|}_{\alpha(t)}|x| + \underbrace{|b(t)|}_{\beta(t)}\]
+\end{proof}
+
+Пусть теперь \(L \in C^1(I, \R^n) \ra C(I, \R^n)\) и уравнение имеет вид \(Lx(t) = x'(t) - A(t)x(t)\). Тогда (7.1) можно переписать в виде \(Lx = b\) и 
+\[\text{множество решений (7.1)} = \{x: Lx = b\} = \{x: Lx = 0\} + \tilde{x}\]
+Где \(\tilde{x}\) --- любое (одно), такое, что \(L\tilde{x} = b\). Поэтому нам надо решить уравнение
+
+\begin{equation}
+    x' = A(t)x
+\end{equation}
+
+Уравнение выше является системой линейных однородных дифференциальных уравнений.
+
+\begin{definition}
+    Пусть \(x^1, x^2 \dots x^k \in C^1(I, \R^n)\). Тогда они называются линейно независимыми, если \(\forall \lambda_1, \lambda_2, \dots \lambda_k\) верно:
+    \[\sum_{j = 1}^k \lambda_k x^k(t) \equiv 0 \Lra \forall i \lambda_i = 0\]
+\end{definition}
+
+\begin{definition}
+    Пусть \(x^1, x^2 \dots x^k \in C^1(I, \R^n)\). Тогда они называются линейно зависимыми, если \(\exists \lambda_1, \lambda_2, \dots \lambda_k\) такие, что:
+    \[\sum_{j = 1}^k \lambda_k x^k(t) \equiv 0, \exists i: \lambda_i = 0\]
+\end{definition}
+
+\begin{corollary}
+    \(x^1, x^2 \dots x^k\) линейно зависимы, тогда \(\forall t \in I x^1(t), x^2(t) \dots x^k(t)\) линейно зависимы
+\end{corollary}
+
+\begin{example}[Обратное неверно]
+    Рассмотрим:
+    \[x^1(t) = \left( \begin{array}{c}
+        1 \\
+        1
+    \end{array} \right), x^2(t) = \left( \begin{array}{c}
+        t \\
+        t
+    \end{array} \right)\]
+\end{example}
+
+\begin{definition}
+    Пусть \(x^1, x^2 \dots x^k \in C^1(I, \R^n)\). Тогда \(\omega(x^1, x^2 \dots x^k)(t) = \det(x^1(t), x^2(t) \dots x^k(t)), t \in I\) --- определитель Вронского
+\end{definition}
+
+\begin{corollary}
+    \(x^1, x^2 \dots x^k\) линейно зависимы, тогда \(\omega(x^1, x^2 \dots x^k)(t) = 0\)
+\end{corollary}
+
+\begin{proposition}
+    \(x^1, x^2 \dots x^k\) --- решение (7.2) и \(\exists t_0 \in I: x^1(t_0), x^2(t_0) \dots x^k(t_0)\) линейно зависимы, то \(x^1, x^2 \dots x^k\) линейно зависимы и \(\omega(t) = 0\)
+\end{proposition}
+\begin{proof}
+    \[\exists (\lambda_1, \lambda_2 \dots \lambda_n) \in \R^n \setminus \{0\}: \sum_{j = 1}^n \lambda_jx^j(t_0) = 0\]
+    Положим \(x(t) = \sum_{j = 1}^n \lambda_jx^j(t), t \in I\). Тогда \(x(t_0) = 0, x\) --- решение (7.2), из чего следует, что
+    \[\sum_{j = 1}^n \lambda_jx^j(t_0) 
+    \equiv 0 \Ra x^1, x^2, \dots x^k \text{ ЛЗ}, \omega(t) = 0\]
+\end{proof}
+
+\begin{definition}
+    Фундаментальная система решений --- набор из \(n\) независимых решений.
+\end{definition}
+
+\begin{proposition}
+    ФСР существует
+\end{proposition}
+
+\begin{proposition}
+    \(x^1, x^2, \dots x^k\) --- ФСР \(\Ra\) множество решений (7.2) \(=\)
+    \[= \left\{ \sum_{j = 1}^n c_jx^j: (c_1, c_2, \dots c_n) \in \R^n \right\}\].
+\end{proposition}
+\begin{proof}\indent
+    \begin{enumerate}
+        \item[\(\supset\)] очевидно
+        \item[\(\subset\)] \(\forall\) решения \(\tilde{x}\) системы (7.2), \(\forall t_0 \in I\)
+        \(x^1(t_0), x^2(t_0), \dots x^k(t_0)\) --- ЛНЗ \(\Ra \exists ! (c_1, \dots c_k) \in \mathbb{K}^n\), \(\tilde{x}(t_0) = \sum_{j = 1}^nc_jx^j(t_0)\).
+        \(\tilde{x}, \sum_{c_jx^j}\) являются решением задачи Коши \(x' = A(t)x, x(t_0) = \tilde{x}(t_0)\Ra \tilde{x} = \sum_{c_jx^j}\) 
+    \end{enumerate}
+\end{proof}
+
+\begin{note}
+    Пусть \(x^1, x^2, \dots x^n\) --- ФСР уравнения (7.2), \(X(t) = (x^1(t), x^2(t), \dots x^n(t)), t \in I\). Тогда:
+    \begin{enumerate}
+        \item \(X'(t) = A(t)X(t), t \in I\)
+        \item Общий вид решения (7.2) представим как \(Xc, c \in \R^n\)
+        \item \(\omega(t) = \det X(t), t \in I\)
+    \end{enumerate}
+\end{note}
+
+\begin{lemma}
+    Пусть 
+    \[\omega_j(t) = \det\left( \begin{array}{cccc}
+        x_1^1(t) & x_1^2(t) & \dots & x_1^n(t) \\
+        x_2^1(t) & x_2^2(t) & \dots & x_2^n(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        (x_j^1)'(t) & (x_j^2)'(t) & \dots & (x_j^n)'(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        x_n^1(t) & x_n^2(t) & \dots & x_n^n(t) \\
+    \end{array} \right)\]
+    Тогда \(\omega(t) = \sum_{i = 1}^n \omega_i(t)\)
+\end{lemma}
+\begin{proof}
+    \[\omega(t) = \sum_{\pi \in S_n} \sigma(\pi) x_1^{\pi(1)}(t)x_2^{\pi(2)}(t)\dots x_n^{\pi(n)}(t)\]
+    \[\omega'(t) = \sum_{\pi \in S_n} \sigma(\pi) \left( \left( x_1^{\pi(1)} \right)'(t)x_2^{\pi(2)}(t)\dots x_n^{\pi(n)}(t) + x_1^{\pi(1)}(t)\left( x_2^{\pi(2)} \right)'(t)\dots x_n^{\pi(n)}(t) + \dots \right) = \sum_{i = 1}^n \omega_i(t)\]
+\end{proof}
+
+\begin{theorem}[Формула Лиувилля-Остроградского]
+    Пусть \(x^1, x^2, \dots x^n\) --- решение (7.2). Тогда: \(\forall t_0, t \in I: \omega(t) = \omega(t_0)\exp\left( \int_{t_0}^t tr\;A(s) ds \right)\)
+\end{theorem}
+\begin{proof}
+    \[\omega_j(t) = \det\left( \begin{array}{cccc}
+        x_1^1(t) & x_1^2(t) & \dots & x_1^n(t) \\
+        x_2^1(t) & x_2^2(t) & \dots & x_2^n(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        (x_j^1)'(t) & (x_j^2)'(t) & \dots & (x_j^n)'(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        x_n^1(t) & x_n^2(t) & \dots & x_n^n(t) \\
+    \end{array} \right) = (*)\]
+    При этом, \((x^1)' = A(t)x^1(t) \Ra (x_j^1)'(t) = \sum_{k = 1}^n a_{jk}x_k^1(t)\).
+    \[(*) = \det\left( \begin{array}{cccc}
+        x_1^1(t) & x_1^2(t) & \dots & x_1^n(t) \\
+        x_2^1(t) & x_2^2(t) & \dots & x_2^n(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \sum_{k = 1}^n a_{jk}x_k^1(t) & \sum_{k = 1}^n a_{jk}x_k^2(t) & \dots & \sum_{k = 1}^n a_{jk}x_k^n(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        x_n^1(t) & x_n^2(t) & \dots & x_n^n(t) \\
+    \end{array} \right) = \]
+    \[ = \det\left( \begin{array}{cccc}
+        x_1^1(t) & x_1^2(t) & \dots & x_1^n(t) \\
+        x_2^1(t) & x_2^2(t) & \dots & x_2^n(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{jj}(t)x_j^1(t) & a_{jj}(t)x_j^2(t) & \dots & a_{jj}(t)x_j^n(t) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        x_n^1(t) & x_n^2(t) & \dots & x_n^n(t) \\
+    \end{array} \right) \equiv a_{jj}(t)\omega(t)\]
+    \[\omega'(t) = \sum_{j = 1}^n \omega_j(t) = \sum_{j = 1}^n a_{jj}\omega(t) \equiv (tr\;A(t))\omega(t)\]
+    Но тогда:
+    \[\omega(t) = \omega(t_0)\exp\left( \int_{t_0}^t tr\;A(s) ds \right)\]
+\end{proof}
+
+\subsection*{Метод вариации произвольной постоянной}
+Пусть \(X(t)\) --- ФСР. Мы хотим найти решения (7.1) в виде \(X(t)c(t), t \in I\). Чему равно \(c(t)\)?
+\[X'(t)c(t) + X(t)c'(t) = A(t)X(t)c(t) + b(t)\]
+\[A(t)X(t)c(t) + X(t)c'(t) = A(t)X(t)c(t) + b(t)\]
+\[X(t)c'(t) = b(t)\]
+\[c'(t) = b(t)X^{-1}(t)\]
+\[c(t) = \int_{t_0}^{t}X^{-1}(s)b(s)ds\]
+
+То есть частное решение (7.1) имеет вид 
+\[\tilde{x} \equiv \int_{t_0}^t X(t)X^{-1}(s)b(s)ds\]
+Общий вид решения (7.1):
+\[x(t) = X(t)c + \int_{t_0}^tX(t)X^{-1}(s)b(s)ds\]
