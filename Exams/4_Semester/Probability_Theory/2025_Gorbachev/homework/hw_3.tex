@@ -1,0 +1,114 @@
+\subsection{Домашние задачи на третью неделю}
+\begin{problem}
+    Найдите вероятность того, что из 50 студентов хотя бы двое имеют одну и ту же дату рождения (день и месяц).
+\end{problem}
+\begin{solution}
+    Вероятность того, что хотя бы двое студентов имеют совпадающую дату рождения равна 1 минус вероятность того, что даты рождения всех студентов разные, то есть
+    \[
+        \P = 1 - \dfrac{365 \cdot 364 \cdot \ldots \cdot (365 - 49)}{365^{50}} \approx 0.97.
+    \]
+\end{solution}
+\begin{problem}
+    Из множества чисел $\{1, \ldots, N\}$ наудачу выбирают без возвращения три числа $a, b, c$. Найдите условную вероятность $\P(a < b < c|a < c)$.
+\end{problem}
+\begin{solution}
+    По определению
+    \[
+        \P(a < b < c|a < c) = \dfrac{\P(a < b < c \wedge a < c)}{\P(a < c)} = \dfrac{\P(a < b < c)}{1/2!} = \dfrac{1/6!}{1/2!} = \dfrac{1}{3}.
+    \]
+\end{solution}
+\begin{problem}
+    Известно, что площадь круга распределена экспоненциально с параметром $\lambda$.
+    Найдите плотность распределения радиуса круга.
+    Обратно, пусть теперь радиус круг распределён экспоненциально с тем же параметром $\lambda$: найдите как тогда распределена площадь.
+\end{problem}
+\begin{solution}
+    Поскольку $S = \pi r^2$, то $r = \sqrt {S/\pi}$.
+    Тогда (в неотрицательных $x$)
+    \begin{multline*}
+        p_r(x) = (\P(r \leq x))' = (\P(\sqrt{S/\pi} \leq x))' = (\P(0 \leq S \leq \pi x^2))' =\\= (F_S(\pi x^2) - F_S(0))' = 2\pi xp_S(\pi x^2) = 2\pi\lambda xe^{-\lambda\pi x^2}.
+    \end{multline*}
+    В отрицательных плотность равна 0. \\
+    Пусть теперь $r$ распределён экспоненциально.
+    Тогда (при $x \geq 0$)
+    \begin{multline*}
+        p_S(x) = (\P(S \leq x))' = (\P(|r| \leq \sqrt{x/\pi}))' =\\=
+        (F_r(-\sqrt {x/\pi}) - (1 - F_r(\sqrt {x/\pi})))' = \dfrac{1}{2\sqrt{\pi x}}(f_r(\sqrt{x/\pi}) - f_r(-\sqrt{x/\pi})) = \dfrac{\lambda}{2\sqrt {\pi x}}e^{-\lambda\sqrt {x/\pi}}.
+    \end{multline*}
+    В отрицательных $x$ плотность равна 0.
+\end{solution}
+\begin{problem}
+    Пусть $\xi$ имеет равномерное в $[0, 1]$ распределение.
+    Найдите плотность распределения случайной величины $\eta = \dfrac{2 + \xi}{2 - \xi}$.
+\end{problem}
+\begin{solution}
+    Пусть $x \in [1, 3]$ (нетрудно заметить, что $1 \leq \eta \leq 3$, и плотность вне этого отрезка тождественно равна нулю)
+    \begin{multline*}
+        p_{\eta}(x) = \big(\P(\eta \leq x)\big)' = \big(\P(\dfrac{2 + \xi}{2 - \xi} \leq x)\big)' = \\ =
+        \big(\P(2 + \xi \leq 2x - x\xi)\big)' = \big(\P(\xi(x + 1) \leq 2(x - 1))\big)' = \\ = \big(\P(\xi \leq 2\dfrac{x - 1}{x + 1})\big)'  =
+        \big(F_\xi(2\dfrac{x - 1}{x + 1})\big)' = \dfrac{4}{(1 + x)^2}.
+    \end{multline*}
+\end{solution}
+\begin{problem} \leavevmode
+    \begin{enumerate}
+        \item Функция распределения $\xi$ имеет вид $F_\xi(x) = a + b \arctg x$. Найти $a$ и $b$.
+        \item Функция распределения $\xi$ непрерывная и равна $F(x)$. Найдите функцию распределения $\eta = 3 - 2\xi$.
+        \item Пусть на отрезке выбрана борелевская $\sigma$-алгебра, а в качестве вероятностной меры выбрана мера Лебега. Пусть случайная величина $\xi(w)$ равна единице при $w \in [0, 1/2)$ и $2w^2$ при $w \in [1/2, 1]$. Найдите функцию распределения $F_{\xi}$.
+        \item Пусть в квадрате $[0, 1]^2$ с борелевской $\sigma$-алгеброй и мерой Лебега наудачу выбирается точка $z = (x, y)$. Случайная величина $\xi(z) = x + y$. Найдите функцию распределения $\xi$.
+    \end{enumerate}
+\end{problem}
+\begin{solution} \leavevmode
+    \begin{itemize}
+        \item Поскольку $\lim\limits_{x \ra +\infty}F_\xi(x) = 1$ и $\lim\limits_{x \ra -\infty}F_\xi(x) = 0$, то мы получаем систему
+        \[
+            \begin{cases}
+                a + \dfrac{b\pi}{2} = 1 \\ \\
+                a - \dfrac{b\pi}{2} = 0
+            \end{cases}
+        \]
+        Разрешим эту систему и получим $a = 1/2$ и $b = 1/\pi$.
+        \item $F_\eta(x) = \P(\eta \leq x) = \P(3 - 2\xi \leq x) = \P(\xi \geq (3 - x)/2) = 1 - F_\xi((3 - x)/2)$.
+        \item Поскольку
+        \[
+            \xi(w) = \begin{cases}
+                         1, & w \in [0, 1/2); \\
+                         2w^2, & w \in [1/2, 1].
+            \end{cases}
+        \]
+        Тогда функция распределения равна
+        \[
+            F_{\xi}(x) = \P(\xi \leq x) =
+            \begin{cases}
+                0, & x < 1/2; \\
+                \sqrt{x/2} - 1/2, & 1/2 \leq x < 1; \\
+                \sqrt{x/2}, & 1 \leq x \leq 2; \\
+                1, & x > 2.
+            \end{cases}
+        \]
+        \item $F_\xi(t) = \P(\xi \leq t) = \P(x + y \leq t)$. Если $0 \leq x + y \leq 1$, то $F_\xi(z) = z^2/2$. Если же $2 \geq x + y \geq 1$, то $F_\xi(z) = z^2/2 - (z - 1)^2$.
+    \end{itemize}
+\end{solution}
+\begin{problem}
+    Точка случайно бросается в круг радиуса $R$.
+    Найдите плотность распределения её абсциссы.
+\end{problem}
+\begin{solution}
+    Пусть $X, Y$~---~случайный вектор, равномерно распределённый в круге радиуса $R$.
+    Плотностью является $p_{X, Y} = \dfrac{1}{\pi R^2}$ внутри круга и 0 снаружи.
+    Необходимо найти плотность только $X$, то есть
+    \[
+        p_X(x) = \int_{\R} p_{X, Y}(x, y)dy = \int_{-\sqrt{R^2 - x^2}}^{+\sqrt{R^2 - x^2}} \dfrac{1}{\pi R^2}dy = \dfrac{2\sqrt{R^2 - x^2}}{\pi R^2} \cdot I_{[-R, R]}(x).
+    \]
+\end{solution}
+\begin{problem}
+    Пусть $\xi$ имеет распределение Коши.
+    Найдите плотность распределения $\eta = \dfrac{1}{1 + \xi^2}$.
+\end{problem}
+\begin{solution}
+    Поскольку $\xi$ имеет распределение Коши, то она имеет плотность $f_\xi(x) = \dfrac{1}{\pi(1 + x^2)}$.
+    Плотность $\eta$ выражается как (при $0 \leq x \leq 1$: нетрудно заметить, что $0 \leq \eta \leq 1$, а следовательно при $x \geq 1$ и $x \leq 0$ плотность равна 0)
+    \begin{multline*}
+        f_{\eta}(x) = (\P(\eta \leq x))' = \biggr(\P\big(\dfrac{1}{\xi^2 + 1} \leq x\big)\biggr)' = \biggr(\P\big(\dfrac{1}{x} - 1 \leq \xi^2\big)\biggr)' = \biggr(\P(\sqrt{1/x - 1} \leq |\xi|)\biggr)' = \\ =
+        (F_\xi(-\sqrt{1/x - 1}) + 1 - F_\xi(\sqrt{1/x - 1}))' = \dfrac{f_\xi(\sqrt{1/x - 1})}{x^2\sqrt{1/x - 1}} = \dfrac{1}{\pi x\sqrt {1/x - 1}}.
+    \end{multline*}
+\end{solution}

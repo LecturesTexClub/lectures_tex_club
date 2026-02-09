@@ -1,0 +1,140 @@
+\subsection{Домашние задачи на пятую неделю}
+\begin{problem}
+    Независимые случайные величины $X_1, \ldots, X_n$ имеют показательное распределение с $\lambda_1, \ldots, \lambda_n$ соответственно.
+    Доказать что $\min\{X_1, \ldots, X_n\}$ имеет показательное распределение с параметром $\sum\limits_{k = 1}^n \lambda_k$.
+\end{problem}
+\begin{solution}
+    Поскольку $X_i \sim Exp(\lambda_i)$, то $F_{X_i}(x) = (1 - e^{-\lambda_i x})\cdot I_{\R_+}(x)$.
+    Обозначим за $Y = \min\{X_1, \ldots, X_n\}$.
+    По определению:
+    \begin{multline*}
+        F_{Y}(x) = \P(\min\{X_1, \ldots, X_n\} \leq x) = \P(X_1 \leq x \vee \ldots \vee X_n \leq x) = \\ = 1 - \P(\neg(X_1 \leq x \vee \ldots \vee X_n \leq x)) =
+        \\ = 1 - \P\biggr(\prod_{i = 1}^n \{X_i > x\}\biggr) =  1 - \prod_{i = 1}^n(1 - F_{X_i}(x)).
+    \end{multline*}
+    Если $x < 0$, то $F_Y(x) = 0$ (как и должно быть). Если же $x \geq 0$:
+    \[
+        F_{Y}(x) = 1 - \prod_{i = 1}^n(1 - F_{X_i}(x)) = 1 - \prod_{i = 1}^n(1 - (1 - e^{-\lambda_i x})) = 1 - e^{-\sum\limits_{i = 1}^n \lambda_i x}.
+    \]
+    Что и требовалось показать.
+\end{solution}
+\begin{problem}
+    Совместное распределение случайных величин $X$ и $Y$ имеет плотность $p_{X, Y}(x, y) = I_{[0, 1]^2}(x, y)\cdot(x + y)$.
+    Найти $\Ex X, \Ex Y, \D X, \D Y, \cov(X, Y)$.
+\end{problem}
+\begin{solution}
+    Найдём функцию распределения этого случайного вектора.
+    Пусть $(x, y) \in [0, 1]^2$.
+    Тогда
+    \[
+        F_{X, Y}(x, y) = \iint_{0, 0}^{x, y} u + v dudv = \int_0^y \dfrac{x^2}{2} + vxdv = \dfrac{x^2y + xy^2}{2}.
+    \]
+    При $x \in [0, 1], y > 1$ функция распределения имеет вид $F_{X, Y}(x, 1) = \dfrac{x^2 + x}{2}$.
+    А значит
+    \[  F_X(x) =
+        \begin{cases}
+            0, & x \leq 0 \\
+            \dfrac{x^2 + x}{2}, & x \in [0, 1] \\
+            1, & x > 1.
+        \end{cases}
+    \]
+    Функция распределения $Y$ имеет аналогичный вид.
+    Тогда плотность каждого из них выглядит как $p_X(x) = (x + 1/2) \cdot I_{[0, 1]}(x)$.
+    Поэтому
+    \[
+        \Ex X = \Ex Y = \int_0^1 x(x + 1/2)dx = 1/3 + 1/4 = 7/12.
+    \]
+    Тогда
+    \[
+        \D X = \D Y = \int_0^1 x^2(x + 1/2)dx - 49/144 = (1/4 + 1/6) - 49/144 = 11/144.
+    \]
+    Теперь найдём ковариацию:
+    \[
+        \cov(X, Y) = \Ex (X - \Ex X)(Y - \Ex Y) = \Ex XY - \Ex X \Ex Y - \Ex X \Ex Y + \Ex X \Ex Y = \Ex XY - \Ex X \Ex Y.
+    \]
+    Математическое ожидание $XY$:
+    \[
+        \Ex XY = \int_{\R^2} xyp_{X, Y}(x, y)dxdy = \int_{[0, 1]^2} x^2 y + xy^2 dx dy = \int_0^1 y/3 + y^2/2dy = 1/3.
+    \]
+    И таким образом ковариация $\cov(X, Y) = 48/144 - 49/144 = -1/144$.
+\end{solution}
+\begin{problem}
+    Независимые случайные величины $\xi$ и $\eta$ имеют экспоненциальное распределение с параметрами $a$ и $b$ соответственно.
+    Найти вероятность $\P(\xi \leq \eta)$.
+\end{problem}
+\begin{solution}
+    Рассмотрим случайный вектор $(\xi, \eta)$.
+    Его плотность равна произведению плотностей $\xi$ и $\eta$ в силу их независимости.
+    Искомая вероятность вычисляется как
+    \begin{multline*}
+        \P(\xi \leq \eta) = \iint_{{x \leq y}}p_{\xi}(x)p_{\eta}(y)dxdy = \int_0^{+\infty} abe^{-by}dy\int_0^y e^{-ax}dx = \\
+        = -b\int_0^{+\infty}e^{-by}(e^{-ay} - 1)dy = b \int_0^{+\infty} e^{-by} - e^{-(a + b)y}dy = 1 - \dfrac{b}{a + b} = \dfrac{a}{a + b}.
+    \end{multline*}
+\end{solution}
+\begin{problem}
+    Доказать несколько более общие формулы для плотности $X + Y$ и $XY$: пусть совместная плотность $X$ и $Y$ есть $f_{X, Y}(x, y)$.
+    Тогда $f_{X + Y}(u) = \int_\R f_{X, Y}(x, u - x)dx, f_{XY}(u) = \int_\R f_{X, Y}(x, u/x)\dfrac{1}{|x|}dx$.
+\end{problem}
+\begin{solution}
+    Пусть $g: \R^2 \to \R^2, (x, y) \mapsto (u, v)$ где $u = x, v = x + y$.
+    Тогда
+    \[
+        Dg = \begin{pmatrix*} 1 & 0 \\ 1 & 1
+        \end{pmatrix*}.
+    \]
+    и плотность после замены
+    \[
+        f_{U, V}(u, v) = \dfrac{1}{|\det Dg|}f_{X, Y}(g^{-1}(u, v)) = f_{X, Y}(u, v - u).
+    \]
+    Плотность $V = X + Y$ выражается как
+    \[
+        f_V(v) = \int_{\R} f_{U, V}(u, v)du = \int_\R f_{X, Y}(u, v - u)du.
+    \]
+    Что и является искомой формулой для плотности суммы. \\
+    Пусть $h: \R^2 \to \R^2, (x, y) \mapsto (u, v)$ где $u = x, v = xy$.
+    Тогда
+    \[
+        Dh = \begin{pmatrix*}
+            1 & 0 \\ y & x
+        \end{pmatrix*}.
+    \]
+    и плотность после замены
+    \[
+        f_{U, V}(u, v) = \dfrac{1}{|\det Dh|}f_{X, Y}(h^{-1}(u, v)) = \dfrac{1}{|x|}f_{X, Y}(u, v/u) = \dfrac{1}{|u|}f_{X, Y}(u, v/u).
+    \]
+    Тогда плотность $V = XY$ выражается как
+    \[
+        f_V(v) = \int_{\R} f_{U, V}(u, v)du = \int_{\R} \dfrac{1}{|u|}f_{X, Y}(u, v/u)du.
+    \]
+    что и является искомой формулой.
+\end{solution}
+\begin{problem}
+    Случайный вектор $W = (W_1, \ldots, W_n)^T$ имеет плотность распределения
+    \[
+        f_W(w) = \begin{cases}
+                     n!, & \text{ если } 0 \leq w_1 \leq w_2 \leq \ldots \leq w_n \leq 1; \\
+                     0, & \text{ иначе.}
+        \end{cases}
+    \]
+    Найти распределение $U = (U_1, \ldots, U_n)^T$, если $U_1 = W_1, U_2 = W_2 - W_1, \ldots U_n = W_n - W_{n - 1}$.
+\end{problem}
+\begin{solution}
+    Рассмотрим матрицу перехода:
+    \[
+        \begin{pmatrix*}
+            U_1 \\ \ldots \\ U_n
+        \end{pmatrix*} = \begin{pmatrix*} 1 & 0 & 0 & \ldots \\
+                             -1 & 1 & 0 & \ldots \\
+                             0 & -1 & 1 & \ldots \\
+        \end{pmatrix*} \begin{pmatrix*}
+                           W_1 \\ \ldots \\ W_n
+        \end{pmatrix*}.
+    \]
+    Она -- нижнетреугольная, и тогда её определитель равен 1.
+    Поэтому, поскольку условия $\forall i \  u_i \geq 0 \wedge u_1 + \ldots u_n \leq 1$ и $0 \leq w_1 \leq \ldots \leq w_n \leq 1$ эквивалентны, то
+    \[
+        f_U(u) = \begin{cases}
+                  n!, & u_i \geq 0 \wedge u_1 + \ldots u_n \leq 1, \\
+                     0, & \text{ иначе.}
+        \end{cases}
+    \]
+\end{solution}

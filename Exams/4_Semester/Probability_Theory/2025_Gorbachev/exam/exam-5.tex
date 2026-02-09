@@ -1,0 +1,116 @@
+\subsection{Симметрическая разность и её свойства.}
+Пусть фиксировано некоторое вероятностное пространство $(\Omega, \mathcal{F}, \P)$.
+\begin{definition}
+    Симметрической разностью множеств будем называть $A \triangle B = \overline{A}B + A\overline{B}$.
+\end{definition}
+Определим функцию $d: \mathcal{F} \times \mathcal{F} \to \R$ следующим образом:
+\[
+    d(A, B) = \P(A \triangle B).
+\]
+Заметим несколько простых свойств этой функции:
+\begin{enumerate}
+    \item $d(A, A) = 0$;
+    \item $d(A, B) = d(B, A)$;
+    \item $d(A, B) = \P(A \overline{B}(C + \overline{C})) + \P(\overline{A}B(C + \overline{C}))  = \P(A\overline{B}C) + \P(A\overline{B}\overline{C}) + \P(\overline{A}BC) + \P(\overline{A}B\overline{C}) \leq \P(\overline{B}C) + \P(A\overline{C}) + \P(\overline{A}C) + \P(B\overline{C}) = d(B, C) + d(C, A)$.
+\end{enumerate}
+Это свойства показывают, что $(\mathcal{F}, d)$ -- метрическое пространство. Более того, на этом метрическом пространстве справедлива более сильная версия неравенства треугольника:
+\begin{lemma}
+    Для $A, B, C, D \in \mathcal{F}$ выполняется
+    \[
+        d(AB, CD) \leq d(A, C) + d(B, D).
+    \]
+\end{lemma}
+\begin{proof}
+    Поскольку \[AB\triangle CD = AB \overline{CD} + \overline{AB}CD = AB(\overline{C} + \overline{D}) + (\overline{A} + \overline{B})CD = AB\overline{C} + AB\overline{D} + \overline{A}CD + \overline{B}CD\]
+    И $AB\overline{C} \subset A\overline{C}, AB\overline{D} \subset B\overline{D}, \overline{A}CD \subset \overline{A}C, \overline{B}CD \subset \overline{B}D$, то 
+    \begin{multline*}
+        d(AB, CD) = \P(AB \triangle CD) \leq \P(A\overline{C} + \overline{A}C + B\overline{D} + \overline{B}D) \leq \\ \leq \P(A\overline{C} + \overline{A}C) + \P(B\overline{D} + \overline{B}D) = d(A, C) + d(B, D).
+    \end{multline*}
+\end{proof}
+Также справедливы ещё несколько полезных свойств:
+\begin{property}
+    $|\P(A) - \P(B)| \leq d(A, B)$
+\end{property}
+\begin{proof}
+    $|\P(A) - \P(B)| = |\P(A\overline{B}) + \P(AB) - \P(AB) - \P(B \overline{A})| \leq \P(A\overline{B}) + \P(\overline{A}B) = d(A, B)$.
+\end{proof}
+\begin{property}
+    $d(A, B) = d(\overline{A}, \overline{B})$.
+\end{property}
+\subsubsection{Теорема об аппроксимации.}
+Поскольку $(\mathcal{F}, d)$ -- метрическое пространство, то на нём корректно определена операция замыкания системы подмножеств $\mathcal{F}$. Рассмотрим один красивый результат:
+\begin{theorem}[об аппроксимации]
+    Пусть $\mathcal{A} \subset \mathcal{F}$ -- некоторая алгебра. Тогда $\overline{\mathcal{A}}$ -- $\sigma$-алгебра (где черта над $\mathcal{A}$ обозначает метрическое замыкание).
+\end{theorem}
+\begin{proof}
+    В метрических пространствах точка $a$ лежит в замыкании множества $\mathcal{A}$ тогда и только тогда, когда существует $\{a_n\} \subset \mathcal{A}$ такая, что $d(a_n, a) \ra 0, n \ra \infty$. \\
+    Значит $\mathcal{A} \subset \overline{\mathcal{A}}$. В тоже время, поскольку если $a_n \ra a, n \ra \infty$, то и $\overline{a}_n \ra \overline{a}, n \ra \infty$ то $\overline{\mathcal{A}}$ -- симметричная система множеств. \\
+    Покажем, что $\overline{\mathcal{A}}$ имеет структуру алгебры. В силу симметричности для этого достаточно доказать, что если $a, b \in \overline{\mathcal{A}}$, то и $ab \in \overline{\mathcal{A}}$. Поскольку $a, b \in \overline{\mathcal{A}}$, то существуют $a_n \ra a, n \ra \infty$ и $b_n \ra b, n \ra \infty$. Но, тогда, по усиленному неравенству треугольника:
+    \[
+        d(ab, a_nb_n) \leq d(a, a_n) + d(b, b_n) \ra 0, n \ra \infty.
+    \]
+    А значит $ab \in \mathcal{\overline{A}}$. \\
+    Теперь покажем то, что $\overline{\mathcal{A}}$ -- $\sigma$-алгебра. Зафиксируем $\epsilon > 0$.
+    Пусть $\{b_n\} \subset \overline{\mathcal{A}}$. Тогда $\forall n \in \N \ \exists a_{nj} \ra b_n, j \ra \infty$. А значит $\forall n \in \N \ \exists j(n)$ такое, что $d(a_{nj(n)}, b_n) < \epsilon2^{-n}$. Заметим следующий факт: если $\{a_n\}$ и $\{b_n\}$ -- некоторые последовательности элементов $\mathcal{F}$, то
+    \[
+        \bigcup\limits_{j = 1}^\infty a_j \triangle \bigcup\limits_{j = 1}^\infty b_j \subset \bigcup\limits_{j = 1}^{\infty} a_j \triangle b_j.
+    \]
+    И действительно: если $x \in \bigcup\limits_{j = 1}^\infty a_j \triangle \bigcup\limits_{j = 1}^\infty b_j$, то (без ограничения общности) $\exists j: x \in a_j$ и $\forall i \in \N \hookrightarrow x \notin b_i$, а значит $x \in a_j \triangle b_j$. \\
+    Вернёмся к последовательностям $a_{n, j(n)}$ и $b_n$. По показанному включению:
+    \[
+        d\biggr(\bigcup_{n = 1}^\infty a_{n, j(n)}, \bigcup_{n = 1}^\infty b_{n}\biggr) \leq \sum\limits_{n = 1}^\infty d(a_{n, j(n)}, b_n) \leq \epsilon.
+    \]
+    Поскольку $\epsilon$ выбран произвольный, то $\bigcup\limits_{n = 1}^{\infty} b_n \in \overline{\mathcal{A}}$ -- что и показывает то, что $\overline{\mathcal{A}}$ является $\sigma$-алгеброй.
+\end{proof}
+\subsubsection{Хвостовые алгебры и остаточные события. Закон <<0-1>> Колмогорова для остаточных событий.}
+Рассмотрим некоторую последовательность событий $\{A_n\}_{n = 1}^\infty \subset \mathcal{F}$. \\
+Определим $\mathcal{A}_n = \mathcal{A}(\{A_k\}_{k = n}^\infty)$ и $\sigma_n = \sigma(\mathcal{A}_n)$. 
+\begin{definition}
+    Хвостовой будем называть $\sigma$-алгебру $\mathcal{X} = \bigcap\limits_{n = 1}^{\infty} \sigma_n$.    
+\end{definition}
+Заметим, что $\forall N \in \N \hookrightarrow \mathcal{X} = \bigcap\limits_{n = N}^\infty \sigma_n$ -- это и является причиной называния <<хвостовая>>. \\
+Возникает вопрос: а содержит ли $\mathcal{X}$ нетривиальные события? Нетрудно заметить, что $\limsup A_n \in \mathcal{X}$. И действительно:
+\[
+    \limsup A_n = \bigcap\limits_{n = 1}^{\infty} \bigcup\limits_{k = n}^{\infty} A_k.
+\]
+А значит для достаточно больших $N$ он определяется только $A_n$ с $n \geq N$ и, следовательно, лежит в $\sigma_N$ -- поэтому он лежит и в $\mathcal{X}$. \\
+\begin{lemma}
+    Пусть $\{A_n\}_{n = 1}^\infty$ и $\{B_m\}_{m = 1}^{\infty}$ -- последовательности дизъюнктивных множеств, такие, что $\forall n, m \in \N \hookrightarrow \P(A_n B_m) = \P(A_n)\P(B_m)$. Тогда
+    \[
+        \P\biggr(\sum\limits_{n = 1}^\infty A_n \sum\limits_{m = 1}^\infty B_m\biggr) = \P\biggr(\sum\limits_{n = 1}^\infty A_n\biggr) \P\biggr(\sum\limits_{m = 1}^\infty B_m\biggr).
+    \]
+\end{lemma}
+\begin{proof}
+    И действительно:
+    \begin{multline*}
+        \P\biggr(\sum\limits_{n = 1}^\infty A_n \sum\limits_{m = 1}^\infty B_m\biggr) = \P\biggr(\sum\limits_{n = 1}^\infty \sum\limits_{m = 1}^\infty A_n B_m \biggr) = \\ = \sum\limits_{n = 1}^\infty \sum\limits_{m = 1}^{\infty}\P(A_n B_m) = \sum\limits_{n = 1}^{\infty}\sum\limits_{m = 1}^{\infty}\P(A_n)\P(B_m) =  \\ = \sum\limits_{n = 1}^{\infty}\P(A_n)\sum\limits_{m = 1}^{\infty} \P(B_m) = \P\biggr(\sum\limits_{n = 1}^\infty A_n\biggr)\P\biggr(\sum\limits_{m = 1}^\infty B_m\biggr).
+    \end{multline*}
+\end{proof}
+\begin{definition}
+    Пусть $\{A_n\}_{n = 1}^{\infty}$ -- независимая в совокупности система событий. Хвостовую $\sigma$-алгебру, ей порождённую, будем называть остаточной $\sigma$-алгеброй $\mathcal{X}_O$.    
+\end{definition}
+Рассмотрим $\varkappa \in \mathcal{X}_O$. Поскольку она принадлежит $\sigma_1$, то, по теореме об аппроксимации, $\exists \{a_n\} \subset \mathcal{A}_1$ такая, что $a_n \ra \varkappa, n \ra \infty$.
+\begin{lemma}
+    Последовательность $\{a_n\}$ не зависит от $\varkappa$:
+    \[
+        \forall n \in \N \hookrightarrow \P(a_n\varkappa) = \P(a_n)\P(\varkappa).
+    \]
+\end{lemma}
+\begin{proof}
+    Поскольку $a_n$ -- элемент алгебры, то $\forall a_n \ \exists N(n)$ такой, что $a_n \in \mathcal{A}(\{A_k\}_{k = 1}^N)$. \\
+    С другой стороны, по определению хвостовой $\sigma$-алгебры, $\varkappa \in \sigma(\mathcal{A}_{N + 1})$. \\
+    Теперь достаточно показать независимость $\mathcal{A}(\{A_k\}_{k = 1}^{n})$ и $\mathcal{A}(\{A_k\}_{k = N + 1}^\infty)$, а дальше мы можем продолжить независимость с алгебр на $\sigma$-алгебры и получить независимость $\varkappa$ от $a_n$. \\
+    Поскольку алгебры замкнуты лишь относительно конечных теоретико-множественных операций, то элемент алгебры, порождённой некоторой системой множеств $\mathcal{C}$ является объединением конечного числа дизъюнктивных <<атомов>> вида $\bigcap\limits_{i = 1}^M C_i^{\alpha_i}$, где $\alpha_i \in \{-1, 1\}$ и $C_i^1 = C_i, C_i^{-1} = \overline{C}_i$, где $\{C_i\}_{i = 1}^M \subset \mathcal{C}$ -- некоторая конечная подсистема $\mathcal{C}$. \\
+    Заметим, что так как последовательность $\{A_i\}$ состоит из независимых в совокупности событий, то и пересечения <<атомов>> из $\mathcal{A}(\{A_k\}_{k = 1}^N)$ и $\mathcal{A}(\{A_k\}_{k = N + 1}^\infty)$ не зависят друг от друга. \\
+    Поскольку в построении элемента $B \in \mathcal{A}(\{A_k\}_{k = N + 1}^\infty)$ участвовало лишь конечное число множеств, то он лежит в некоторой $\mathcal{A}(\{A_k\}_{k = N + 1}^{K(B)})$.
+    Тогда, если мы рассмотрим последовательности $\{A_1^{\alpha_1} \cdot \ldots \cdot A_N^{\alpha_N}\}_{\alpha_1, \ldots, \alpha_N \in \{-1, 1\}}$ и $\{A_{N + 1}^{\alpha_{N+ 1}}, \ldots, A_{K(B)}^{\alpha_{K(B)}}\}_{\alpha_{N+ 1}, \ldots, \alpha_{K(B)} \in \{-1, 1\}}$ то они удовлетворяют условиям предыдущей леммы, а следовательно $B$ не зависит от элементов $\mathcal{A}(\{A_k\}_{k = 1}^{N})$. Поскольку это верно для произвольного элемента $\mathcal{A}(\{A_k\}_{k = N + 1}^{\infty})$, то и алгебры являются независимыми системами множеств, а значит лемма доказана.
+\end{proof}
+\begin{theorem}[Закон <<0 - 1>> Колмогорова]
+    Если $\varkappa \in \mathcal{X}_{O}$, то $\P(\varkappa) = 0$ или $\P(\varkappa) = 1$.
+\end{theorem}
+\begin{proof}
+    Пусть $a_n \ra \varkappa, n \ra \infty$. Тогда
+    \begin{multline*}
+        |\P(\varkappa) - \P^2(\varkappa)| = |\P(\varkappa) - \P(a_n \varkappa) +\P(a_n)\P(\varkappa) - \P^2(\varkappa)| \leq \\ \leq  |\P(\varkappa\varkappa) - \P(a_n\varkappa)| + \P(\varkappa)|\P(a_n) - \P(\varkappa)| \leq d(\varkappa\varkappa, a_n\varkappa) + \P(\varkappa) d(a_n, \varkappa) \leq \\ \leq d(\varkappa, a_n) + \P(\varkappa) d(\varkappa, a_n) \ra 0, n \ra \infty.
+    \end{multline*}
+\end{proof}

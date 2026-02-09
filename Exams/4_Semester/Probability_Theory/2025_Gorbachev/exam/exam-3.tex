@@ -1,0 +1,76 @@
+\subsection{Условная вероятность.}
+\begin{definition}
+    Условной вероятностью или вероятностью события $A$ при условии события $B$ будем называть следующую вероятность $\P(A|B) = \frac{\P(AB)}{\P(B)}, \P(B) > 0.$
+\end{definition}
+
+\noindent Покажем, что $\P(A|B)$ ~---~ действительно вероятность. Заменим: 
+\begin{enumerate}
+    \item $\Omega \mapsto B$, 
+    \item $A \in \mathcal{F} \mapsto AB$,
+    \item $\P(A) \mapsto \P(A|B)$.
+\end{enumerate}
+
+\noindent Теперь проверим свойства из определения вероятности: 
+\begin{enumerate}
+    \item $\P(\cdot|B) \ge 0$ ~---~ выполнено. 
+    \item $\P(B|B) = 1$ ~---~ выполнено. 
+    \item $\P\left(\bigcup\limits_{n = 1}^{\infty} A_n \middle| B \right) = \dfrac{\P(B \left(\bigcup A_n\right))}{\P(B)} = \dfrac{\P\left(\bigcup(A_nB)\right)}{\P(B)} = \sum\limits_{n = 1}^{\infty} \P(A_n|B)$ ~---~ выполнено. 
+\end{enumerate}
+
+\subsubsection{Независимые события, соотношения между независимостью в совокупности и попарной независимостью.}
+\begin{definition}
+    Будем говорить, что событие $A$ не зависит от $B$, если $\P(A|B) = \P(A).$
+\end{definition}
+\noindent Независимость симметрична, то есть если $\P(A|B) = \P(A)$, то $\P(B|A) = \P(B)$. Из этого получаем, что для независимых событий верно: $\P(AB) = \P(A)\P(B).$ Это утверждение тоже может быть использовано, как определение независимых событий.
+
+\noindent Рассмотрим некоторое событие $A$, такое, что $\P(A) = 1$. Покажем, что оно независимо с любым $B$. 
+
+\begin{gather*}
+    B = AB + \overline{A}B \Rightarrow \P(B) = \P(AB) + \P(\overline{A}B) = \P(AB) = \P(A)\P(B).
+\end{gather*}
+\noindent Здесь мы учли, что $\P(A) = 1$, поэтому мы можем домножить на эту величину $\P(B)$ и ничего не изменится. Также, $\P(\overline{A}) = 0$, значит $\P(\overline{A}B) \le 0 \Rightarrow \P(\overline{A}B) = 0$.
+
+\begin{definition}
+    Будем говорить, что последовательность событий (система) $\{A_n\}$ независима в совокупности, если $\forall r, i_1, \dots, i_r \hookrightarrow \P(A_{i_1}A_{i_2}\dots A_{i_r}) = \prod\limits_{k = 1}^{r}\P(A_{i_k})$.
+\end{definition}
+\noindent Заметим, что данное определение независимости (попарной) является частным случаем независимости в совокупности. Обратное неверно, то есть из попарной независимости не следует независимость в совокупности. 
+
+\begin{example}[Попарная независимость, но не в совокупности]
+    Положим $\Omega = \{\omega_1, \omega_2, \omega_3, \omega_4\}, A_1 = \{\omega_1, \omega_2\}, A_2 = \{\omega_2, \omega_4\}, A_3 = \{\omega_3, \omega_4\}.$
+    
+    \noindent Тогда $\P(A_iA_j) = \P(\omega_4) = \frac{1}{4} = \P(A_i)\P(A_j)$. Но при этом $\P(A_1A_2A_3) = \P(\omega_4) = \frac{1}{4} \neq \P(A_1)\P(A_2)\P(A_3).$
+\end{example}
+
+\subsubsection{Независимые алгебры и сигма-алгебры.}
+\begin{definition}
+    Пусть $\mathcal{A}_1, \mathcal{A}_1$~---~ алгебры. Будем называть их независимыми, если $\forall a \in \mathcal{A}_1, b \in \mathcal{A}_2 \hookrightarrow \P(ab) = \P(a)\P(b).$
+\end{definition}
+
+\subsubsection{Теорема о <<продолжении>> отношения независимости с алгебры на минимальную сигма-алгебру.}
+\begin{theorem}
+    Пусть $\mathcal{A}_1, \mathcal{A}_2$~---~ независимые алгебры. Тогда $\forall A \in \sigma_{min}(\mathcal{A}_1), B \in \sigma_{min}(\mathcal{A}_2) \hookrightarrow \P(AB) = \P(A)\P(B).$
+\end{theorem}
+\begin{proof}
+    Положим $\{a_n\} \subset \mathcal{A}_1, \{b_n\} \subset \mathcal{A}_2.$ Рассмотрим следующую разность: 
+
+    \begin{gather*}
+        |\P(AB) - \P(A)\P(B)| = \text{в силу независимости алгебр} = \\ 
+        = |\P(AB) - \P(A)\P(B) + \P(a_nb_n) - \P(a_n)\P(b_n)| \le \\ 
+        \le |\P(AB) - \P(a_nb_n)| + |\P(A)\P(B) - \P(a_n)\P(b_n)|.
+    \end{gather*}
+    \noindent Второй модуль стремится к нулю в силу теоремы об аппроксимации, которая будет далее. Оценим второй модуль: 
+    \begin{gather*}
+        |\P(AB) - \P(a_nb_n)| \le d(AB, a_nb_n) \le d(A, a_n) + d(B, b_n) \rightarrow 0.
+    \end{gather*}
+    Здесь используются свойства аппроксимирующих последовательностей, о которых будет рассказано далее. 
+\end{proof}
+
+\begin{remark}
+    Аналогичное свойство верно для произвольного количества независимых алгебр: $\mathcal{A}_1, \dots, \mathcal{A}_n$ и $\forall a_j \in \mathcal{A}_j, j \in \{1, \dots, n\}$ выполнено $A_j \in \sigma_{min}(\mathcal{A}_j), \P(A_1)\dots \P(A_n) = \P(A_1\dots A_n).$
+\end{remark}
+\begin{proof}
+    \begin{gather*}
+        |\P(A_1) \dots \P(A_n)| - \P(A_1\dots A_n)| \le \\ 
+        \le |\P(A_1 \dots A_n) - \P(a^{(1)}_n \dots a^{(N)}_n)| + |\P(A_1)  \dots \P(A_n) - \P(a^{(1)}_n) \dots \P(a^{(N)}_n)| \rightarrow 0.
+    \end{gather*}
+\end{proof}

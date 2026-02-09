@@ -1,0 +1,134 @@
+\section{Производящие функции. Характеристические функции.}
+\subsection{Теоретическая справка.}
+\subsubsection{Производящие функции.}
+\begin{definition}
+    Пусть случайная величина $\xi$ принимает значения в $\N_0$.
+    Её производящей функцией будем называть 
+    \[
+        G_{\xi}(z) = \sum\limits_{k = 0}^{+\infty} \P(\xi = k)z^k = \Ex z^\xi.
+    \]
+\end{definition}
+\begin{proposition} Производящая функция случайной велиичны имеет такие базовые свойства:
+    \begin{enumerate}
+        \item Ряд абсолютно сходится при $|z| \leq 1$ и $|G_\xi(z)| \leq 1$ при таких $z$.
+        \item Производящая функция однозначно определяет распределение $\xi: G^{(m)}_\xi (0) = \P(\xi = m)\cdot m!$.
+        \item $G^{(m)}_\xi(1) = \Ex(\xi \cdot (\xi - 1) \cdot \ldots (\xi - m + 1))$.
+        \item В частности, $\Ex \xi = G'_\xi(1)$ и $\D \xi = \G''_\xi(1) + G'_\xi(1) - (G'_\xi(1))^2$.
+        \item $G_{a\xi + b}(z) = z^{b}G_\xi(z^a)$.
+        \item Если $\xi$ и $\eta$~---~независимые случайные величины, то $G_{\xi + \eta} = G_{\xi}G_{\eta}$.
+    \end{enumerate}
+\end{proposition}
+\begin{example}
+    Приведём несколько базовых примеров производящих функций:
+    \begin{itemize}
+        \item Производящая функция распределения $Be(p)$ есть
+         \[
+             G_{\xi}(z) = (1 - p)z^0 + pz = 1 - p + pz.
+         \]
+        \item Производящая функция распределения Пуассона $Poiss(\lambda)$:
+        \[
+            G_{\xi}(z) = \sum\limits_{k = 0}^{+\infty}\P(\xi = k)z^k = \sum\limits_{k = 0}^{+\infty}\dfrac{z^k \lambda^k e^{-\lambda}}{k!} = e^{\lambda(z - 1)}.
+        \]
+        \item Производящая функция отрицательного биномиального распределения (количество успехов, предшествующих $r$-ому неуспеху в схеме Бернулли с параметром $p$).
+        Задаётся формулой $\P(\xi = k) = \binom{r + k - 1}{k}p^k(1 - p)^r$.
+        Производящей функцией является
+        \[
+            G_{\xi}(z) = \dfrac{(1 - p)^r}{(1 - pz)^r}.
+        \]
+    \end{itemize}
+\end{example}
+\subsubsection{Производящие функции моментов.}
+\begin{definition}
+    Производящей функцией моментов случайной величины $\xi$ будем называть $h_\xi (t) = \Ex e^{t\xi}, t \in \R$.
+\end{definition}
+\begin{proposition} Заметим следущие базовые свойства производящих функций моментов:
+    \begin{enumerate}
+        \item Производящая функция моментов однозначно определяет распределение $\xi$.
+        \item $h_\xi(0) = 1, h_\xi (t) > 0$ для всех $t$, на которых эта функция определена.
+        \item $h_{a\xi + b}(t) = e^{bt}h_\xi(at)$.
+        \item Все моменты $\Ex \xi^k$ определены, а по полному набору моментов $\xi$ однозначно восстанавливается её распределение.
+        \item $k$-й момент считается дифференцированием: $\Ex \xi^k = h^{(k)}_\xi (0)$.
+        \item Для независимых в совокупности случайных величин производящая функция моментов их суммы равна произведению производящих функций моментов слагаемых.
+    \end{enumerate}
+\end{proposition}
+\begin{example}
+    Для $X \sim N(0, 1)$ производящая функция моментов -- $e^{t^2/2}$.
+\end{example}
+\subsubsection{Характеристические функции.}
+\begin{definition}
+    Комплекснозначной случайной величиной будем называть такую функцию $\xi: \Omega \to \Cm$, что $\re \xi$ и $\im \xi$~---~случайные величины.
+    По определению положим $\Ex \xi = \Ex(\re \xi) + i\Ex(\im \xi)$.
+\end{definition}
+\begin{proposition}
+    $|\Ex \xi| \leq \Ex |\xi|$.
+\end{proposition}
+\begin{definition}
+    Характеристической функцией случайной величины будем называть функцию $\phi_\xi(t) = \Ex e^{it\xi}$.
+\end{definition}
+\begin{note}
+    Для дискретных случайных величин:
+    \[
+        \phi_{\xi}(t) = \sum\limits_{k = 1}^{+\infty} e^{ity_k}\P(\xi = y_k).
+    \]
+    Для абсолютно-непрерывных:
+    \[
+        \phi_{\xi}(t) = \int_{\R} e^{itx}p_{\xi}(x)dx.
+    \]
+\end{note}
+\begin{proposition}
+    Характеристическая функция обладает таким базовым набором свойств:
+    \begin{enumerate}
+        \item $\phi_\xi(0) = 1$, $|\phi_\xi| \leq 1$.
+        \item $\phi_{a \xi + b}(t) = e^{itb}\phi_\xi (at)$.
+        \item Если $\eta$ и $\xi$~---~независимые случайные величины, то $\phi_{\eta + \xi} \phi_\eta \cdot \phi_\xi$.
+        \item $\phi_\xi$~---~равномерно непрерывна на $\R$.
+        \item $\Ex |\xi|^n < +\infty \Ra \Ex \xi^k = (-i)^k \phi_\xi^{(k)}(0)$ при $k \leq n$.
+        \item А значит $\D \xi = -\phi_\xi''(0) + (\phi_\xi'(0))^2$.
+        \item Если $\Ex |\xi|^n < +\infty$, то $\phi_\xi(t) = \sum\limits_{k = 0}^n \dfrac{(it)^k}{k!}\Ex \xi^k + \dfrac{(it)^n}{n!}\epsilon_n(t)$, где $|\epsilon_n(t)| \leq 3\Ex|\xi|^n$ и $\epsilon_n \ra 0, t \ra 0$.
+        \item $f$ неотрицательно определена: $\forall n \in \N$ для всяких двух наборов $z_1, \ldots, z_n \in \mathbb{C}$ и $t_1, \ldots, t_n \in \R$ сумма $\sum\limits_{k, j = 1}^{n} z_k \overline{z}_{j}f(t_k - t_i) \geq 0$ (или, что эквивалентно, $\Ex |\sum\limits_{k = 1}^n (z_ke^{it_k \xi})| \geq 0$).
+    \end{enumerate}
+\end{proposition}
+\begin{theorem}[Бохнер, Хинчин]
+    Функция $f: \R \to \Cm$, непрерывная в окрестности нуля и неотрицательно определённая, для которой $f(0) = 1$, является характеристической функцией некоторого вероятностного распределения на $\R$.
+\end{theorem}
+\begin{example}
+    Характеристической функцией экспоненциального распределения является
+    \[
+        \phi_{\xi}(t) = \dfrac{\lambda}{\lambda - it}.
+    \]
+    Характеристическая функция нормального $N(a, \sigma^2)$ распределения равна
+    \[
+        \phi_{\xi}(t) = e^{ita - \sigma^2t^2/2}.
+    \]
+    Характеристическая функция $\Gamma$-распределения $\Gamma(\alpha, \lambda)$ выражается как
+    \[
+        \phi_{\xi}(t) = \lambda^{\alpha}(\lambda - it)^{-\alpha}.
+    \]
+    Характеристическая функция $U([a, b])$ выражается как
+    \[
+        \phi_{xi}(t) = \dfrac{e^{itb} - e^{ita}}{it(b - a)}.
+    \]
+    Характеристическая функция стандартного распределения Коши выражается как
+    \[
+        \phi_{\xi}(t) = e^{-|t|}.
+    \]
+\end{example}
+\subsubsection{Характеристическая функция случайного вектора.}
+\begin{definition}
+    Характеристическая функция случайного вектора $\vec{X}$~---~это функция, которая определяется как
+    \[
+        \phi_{\vec{X}}(\vec{t}) = \Ex e^{i\langle \vec{X}, \vec{t} \rangle}.
+    \]
+\end{definition}
+\begin{proposition}
+    Свойства во многом аналогичны скалярному случаю:
+    \begin{enumerate}
+        \item $\phi(\vec{0}) = 1, |\phi_{\vec{X}}| \leq 1$.
+        \item $\phi_{A\vec{X} + \vec{b}} = e^{i\langle \vec{t}, \vec{b} \rangle}\phi_{\vec{X}}(A^T \vec{t})$.
+        \item Если $X$ и $Y$~---~независимы, то $\phi_{\vec{X} + \vec{Y}} = \phi_{\vec{X}}\phi_{\vec{Y}}$.
+        \item $\phi_{\vec{X}}$~---~равномерно непрерывная на домене.
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    Случайные величины $X_1, \ldots, X_n$~---~независимы $\Lra$ $\phi_{\vec{X}} = \prod\limits_{k = 1}^n \phi_{X_k}$.
+\end{proposition}

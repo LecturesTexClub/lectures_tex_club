@@ -1,0 +1,222 @@
+\section{Предельные теоремы.}
+\subsection{Последовательности случайных величин.}
+% Где-то здесь (или в ЦПТ) надо доказать теорему Леви о непрерывности
+\subsubsection{Типы сходимости, соотношения между ними.}
+Пусть у нас есть последовательность случайных величин $\{\xi_n\}_{n \in \N}$ на вероятностном пространстве $(\Omega, \mathcal{F}, \P)$.
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{a.s.} \xi$ (сходится почти наверное), если $\P(\{x \in \Omega \mid \  \xi_n(x) \not\ra \xi(x), n \ra +\infty\}) = 0$.
+\end{definition}
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{\P} \xi$, если \[\forall \epsilon > 0 \hookrightarrow \P(\{x \mid |\xi_n(x) - \xi(x)| \geq \epsilon \}) \ra 0, n \ra +\infty.\]
+\end{definition}
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{p} \xi$, если $\|\xi_n - \xi\|_{L_p} \ra 0, n \ra +\infty$.
+\end{definition}
+\begin{definition}
+    Будем говорить что $\xi_n \xrightarrow{d} \xi$, если $F_{\xi_n} \ra F_{\xi}, n \ra +\infty$ во всех точках непрерывности $F_{\xi}$.
+\end{definition}
+\begin{note}
+    Заметим, что слабая сходимость корректно определена в том числе и для случайных величин, заданных на различных вероятностных пространствах -- в отличии от прочих типов сходимости.
+\end{note}
+\begin{theorem}
+    Справедливы следующие соотношения между типами сходимости:
+    \begin{enumerate}
+        \item $a.s. \Ra \P$.
+        \item $p \Ra \P$.
+        \item $\P \Ra d$.
+        \item $d \not\Ra \P$.
+        \item $\P \not\Ra a.s.$
+        \item $\P \not\Ra p$.
+        \item $p \not\Ra a.s.$.
+        \item $a.s. \not\Ra p$.
+        \item Если $a.s.$ + равномерная интегрируемость $p$-го момента величин последовательности, то $p$.
+        \item Если $\xi_n \xrightarrow{d} c$, где $c$ -- некоторая константа, то $\xi_n \xrightarrow{\P} c$.
+        \item Если для последовательности $\xi_n \xrightarrow{\P} \xi$ верно, что $\forall \epsilon > 0 \hookrightarrow \sum\limits_{k = 1}^{+\infty} \P(|\xi_k - \xi| > \epsilon) < +\infty$, то $\xi_n \xrightarrow{a.s.} \xi$.
+        \item Если $\xi_n \xrightarrow{p} \xi$ и $\sum\limits_{k = 1}^{+\infty} \Ex |\xi_n - \xi|^{p} < +\infty$, то $\xi_n \xrightarrow{a.s.} \xi$.
+        \item Если $\xi_n \xrightarrow{\P} \xi$ и $\P(|\xi_n| \leq M) = 1$ то $\xi_n \xrightarrow{p} \xi$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Покажем каждую из посылок.
+    \begin{enumerate}
+        \item Пусть есть сходимость почти наверное $\xi_n \xrightarrow{a.s.} \xi$. По определению, \[\P(\{x \in \Omega \mid \xi_n(x) \not\ra \xi(x)\}) = 0.\]
+        Для начала рассмотрим частный случай. Пусть $\xi_n \xrightarrow{a.s.} 0$, причём -- монотонно убывая, и $\xi_n \geq 0$. Тогда $\forall \epsilon > 0$ множество точек $E_n(\epsilon) = \Omega(\xi_n > \epsilon)$ является убывающей последовательностью множеств: $E_{n + 1}(\epsilon) \subset E_{n}(\epsilon)$, причём $\P(\lim E_n(\epsilon)) = 0$ -- из сходимости почти наверное. Но, в силу непрерывности меры, это и означает сходимость по вероятности $\xi_n$ к 0.
+        Теперь доказательство общего случая заключается в применении первого шага к последовательности $\eta_n = \sup\limits_{k \geq n}|\xi_k - \xi|$ и том, что $|\xi_n - \xi| \leq \eta_n$. \\
+        А значит $\xi_n \xrightarrow{\P} \xi$.
+        \item Пусть есть сходимость в среднем порядка $p$: $\xi_n \xrightarrow{p} \xi$. Согласно неравенству Чебышёва $\P(|\xi_n - \xi| > \epsilon) \leq \dfrac{\Ex|\xi_n - \xi|^p}{\epsilon^p} \ra 0, n \ra +\infty$, что и показывает сходимость по вероятности.
+        \item Пусть $\xi_n \xrightarrow{\P} \xi$. Заметим, что $\P(\xi_n \leq a) \leq \P(\xi \leq a + 2\epsilon) + \P(|\xi_n - \xi| > \epsilon)$.
+        При $n \ra +\infty$ второе слагаемое обращаеся в 0 -- из сходимости по вероятности. А в силу непрерывности функций распределения справа (а левая часть неравенства -- просто $F_{\xi_n}(a)$ и справа -- $F_{\xi}(a + 2\epsilon)$) и в силу непрерывности справа: $F_{\xi_n}(a) \leq F_{\xi}(a), n \ra +\infty$.
+        Теперь сделаем оценку с другой стороны: $\P(\xi \leq a - 2\epsilon) \leq \P(\xi_n \leq a) + \P(|\xi_n - \xi| > \epsilon)$. Таким образом, если $a$ -- точка непрерывности $F_{\xi}$, то предельный переход даёт нам оценку с другой стороны $F_{\xi} \leq F_{\xi_n}, n \ra +\infty$ -- и, тогда, $F_{\xi_n}(a) \ra F_{\xi}(a), n \ra +\infty$ (если $a$ -- точка непрерывности), что и является нашим определением сходимости по распределению.
+        \item Пусть $(\Omega, \mathcal{F}, \P) = ([0, 1], \mathcal{B}([0, 1]), \lambda^1)$. Рассмотрим случайные величины $\xi(w) = w$ и $\eta(w) = 1 - w$. Их функцией распределения является: $F_{\xi}(x) = \P(\xi \leq x) = x \cdot I_{[0, 1]} + I_{(1, +\infty)}$ и $F_{\eta}(x) = \P(\eta \leq x) = x \cdot I_{[0, 1]} + I_{(1, +\infty)}$. Тогда, если мы возьмём последовательность вида $\xi, \eta, \xi, \ldots$ то она очевидно сходится по распределению, но, при этом, сходимости по вероятности нет.
+        \item Очевидно: берём $X^{(i)}_{n} = I_{[i/n, (i + 1)/n]}$ и последовательность, перебирающие все $(i, n) \in \N_0^2$. Она сходится по мере к 0, но расходится во всякой точке.
+        \item Очевидно: берём $X_n = nI_{[0, 1/n]}$. По мере сходимся к 0, но момент любого порядка равен единице -- следовательно сходимости к 0 в среднем произвольного порядка нет.
+        \item Последовательность из 5 пункта сходится к нулю в среднем любого порядка.
+        \item Последовательность из 6 пункта сходится к нулю почти всюду.
+        \item Доказательство заключается в применении теоремы Лебега о мажорируемой сходимости -- а мажоранта у нас есть в силу равномерной интегрируемости.
+        \item Пусть $\xi_n \xrightarrow{d} c$, где $c$ -- некоторая константа. Зафиксируем некоторое $\epsilon$ и рассмотрим $\P(|\xi_n - c| \leq \epsilon) = \P(c - \epsilon \leq \xi_n \leq c + \epsilon) \geq \P(c - \epsilon < \xi_n \leq c + \epsilon) = F_{\xi}(c + \epsilon) - F_{\xi}(c - \epsilon) \ra 1, \epsilon \ra +0$ -- что и завершает доказательство.
+        \item Доказательство заключается в применении следствия из леммы Бореля-Кантелли к подходящей последовательности.
+        \item Доказательство заключается в использовании неравенства Чебышёва и критерия сходимости почти всюду.
+        \item Пусть $\xi_n \xrightarrow{\P} \xi$ и $\xi_n$ -- ограниченная последовательность. Тогда $\Ex |\xi_n - \xi|^p = \int |\xi_n - \xi|^p d\P \leq \epsilon + \int_{|\xi_n - \xi| > \epsilon} |\xi_n - \xi|^p d\P \leq \sup\limits_{\Omega} |\xi_n - \xi|^p \cdot \P(|\xi_n - \xi| > \epsilon) \ra 0, n \ra +\infty$.
+    \end{enumerate}
+\end{proof}
+\subsubsection{Необходимое и достаточное условие сходимости почти наверное.}
+\begin{theorem}[Критерий сходимости почти наверное.]
+    Пусть есть последовательность случайных величин $\xi_n$ и случайная величина $\xi$.
+    Следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\xi_n \xrightarrow{a.s.} \xi$.
+        \item $\forall \epsilon > 0 \hookrightarrow \P(\sup\limits_{k \geq n} |\xi_k - \xi| > \epsilon) \ra 0, n \ra +\infty$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Покажем импликацию $1) \Ra 2)$. \\
+    Для начала рассмотрим частный случай. Пусть $\xi_n \xrightarrow{a.s.} 0$, причём -- монотонно убывая, и $\xi_n \geq 0$. Тогда $\forall \epsilon > 0$ множество точек $E_n(\epsilon) = \Omega(\xi_n > \epsilon)$ является убывающей последовательностью множеств: $E_{n + 1}(\epsilon) \subset E_{n}(\epsilon)$, причём $\P(\lim E_n(\epsilon)) = 0$ -- из сходимости почти наверное. Но, в силу непрерывности меры, это означает сходимость по вероятности $\xi_n$ к 0.
+    Теперь доказательство общего случая заключается в применении первого шага к последовательности $\eta_n = \sup\limits_{k \geq n}|\xi_k - \xi|$ и том, что $|\xi_n - \xi| \leq \eta_n$. \\
+    Покажем имплликацию $2) \Ra 1)$. \\
+    Заметим, что условие $2)$ в точности означает сходимость последовательности $\eta_n = \sup\limits_{k \geq n}|\xi_k - \xi|$ к нулю по вероятности.
+    Пусть \[\eta_n \overset{\text{a.s.}}{\nrightarrow} 0\]
+    Тогда $\exists \epsilon > 0 \wedge \exists A: \P(A) = \delta > 0$ такие, что $\forall w \in A \ \forall n \in \N \hookrightarrow \sup\limits_{k \geq n} \eta_k \geq \epsilon$.
+    В силу монотонности последовательности $\sup\limits_{k \geq n} \eta_k = \eta_n$.
+    Но, тогда, \[\eta_n \overset{\P}{\nrightarrow} 0\] (поскольку мера $A$ -- положительна и не стремится к нулю) -- противоречие.
+\end{proof}
+\subsubsection{Теорема Рисса.}
+\begin{lemma}[Следствие из первой леммы Бореля-Кантелли]
+    Пусть дана последовательность неотрицательных случайных величин $\xi_n$, и последовательность $\epsilon_n \ra 0, n \ra +\infty$, причём все $\epsilon_n \geq 0$.
+    Тогда, если выполнено следующее условие:
+    \[
+        \sum\limits_{n = 1}^{+\infty} \P(\xi_n > \epsilon_n) < +\infty.
+    \]
+    То последовательность $\xi_n \xrightarrow{a.s.} 0$.
+\end{lemma}
+\begin{proof}
+    Введём следующее обозначение: $X_n = \Omega\{\xi_n > \epsilon_n\}$.
+    Зафиксируем $\epsilon > 0$.
+    Поскольку $\epsilon_n \ra 0, n \ra +\infty$, то $\exists N_\epsilon \in \N$ такое, что $\forall n \geq N_\epsilon \hookrightarrow \epsilon_n < \epsilon$.
+    Тогда $E_n(\epsilon) = \Omega\{\xi_n > \epsilon\} \subset X_n$ и ряд $\sum\limits_{N}^{+\infty} \P(E_n) \leq \sum\limits_{N}^{+\infty} \P(X_n) < +\infty$ сходится.
+    А значит, по лемме Бореля-Кантелли, $\P(\limsup E_n(\epsilon)) = 0$.
+    Поскольку $G = \Omega\{\xi_n(x) \not\ra \xi\} \subset \bigcup\limits_{k = 1}^{+\infty} \limsup E_n(1/k)$, то $\P(G) = 0$ -- что и показывает сходимость почти наверное.
+\end{proof}
+\begin{theorem}[Рисс]
+    Пусть $\xi_n \xrightarrow{\P} \xi$.
+    Тогда существует подпоследовательность $\xi_{n_k} \xrightarrow{a.s.} \xi$.
+\end{theorem}
+\begin{proof}
+    По определению сходимости по вероятности:
+    \[
+        \forall \epsilon > 0 \hookrightarrow \P(|\xi_n - \xi| > \epsilon) \ra 0, n \ra \infty.
+    \]
+    Тогда, $\forall k \in \N \exists n_k \in \N$:
+    \[
+        \P(|\xi_{n_k} - \xi| > 1/k) < 2^{-k}.
+    \]
+    Но, тогда,
+    \[
+        \sum\limits_{k = 1}^{+\infty} \P(|\xi_{n_k} - \xi| > 1/k) < +\infty.
+    \]
+    И применение следствия из леммы Бореля-Кантелли завершает доказательство.
+\end{proof}
+\subsubsection{Фундаментальность по Коши различных типов сходимости. Критерий Коши сходимости почти наверное.}
+\begin{definition}
+    Будем называть последовательность случайных величин $\xi_n$ фундаментальной почти наверное, если
+    \[
+        \forall \epsilon > 0 \hookrightarrow \P\biggr(\sup\limits_{n \geq m}|\xi_n - \xi_m| > \epsilon\biggr) \ra 0, m \ra +\infty.
+    \]
+\end{definition}
+\begin{definition}
+    Будем называть последовательность случайных величин $\xi_n$ фундаментальной по вероятности, если
+    \[
+        \forall \epsilon > 0 \hookrightarrow \P(|\xi_n - \xi_m| > \epsilon) \ra 0, m, n \ra +\infty.
+    \]
+\end{definition}
+\begin{definition}
+    Будем называть последовательность случайных величин $\xi_n$ фундаментальной в среднем порядка $p$, если
+    \[
+        \|\xi_n - \xi_m\|_{L_p} \ra 0, n, m \ra +\infty.
+    \]
+\end{definition}
+\begin{theorem}[Критерий Коши. Доказательство только для сходимости п.н.]
+    Для последовательности случайных величин $\{\xi_n\}$ верны следующие утверждения:
+    \begin{enumerate}
+        \item $\exists \xi: \xi_n \xrightarrow{a.s.} \xi \Longleftrightarrow$ последовательность $\{\xi_n\}$ -- фундаментальна почти наверное.
+        \item $\exists \xi: \xi_n \xrightarrow{\P} \xi \Longleftrightarrow$ последовательность $\{\xi_n\}$ -- фундаментальна по вероятности.
+        \item $\exists \xi: \xi_n \xrightarrow{p} \xi \Longleftrightarrow$ последовательность $\{\xi_n\}$ -- фундаментальна в среднем порядка $p$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Фундаментальность следует из сходимости тривиальным образом по неравенству треугольника:
+    \[
+        \sup\limits_{n \geq m}|\xi_n - \xi_m| \leq  \sup\limits_{n \geq m} |\xi_n - \xi| + \sup\limits_{n \geq m} |\xi_m - \xi| \leq 2\sup\limits_{n \geq m}|\xi_m - \xi| \ra 0, m \ra +\infty.
+    \]
+    (предельный переход сделан в силу критерий сходимости почти наверное).
+    Покажем, что из фундаментальности почти наверное следует сходимость почти наверное. \\
+    Пусть $G = \{w \in \Omega \mid \xi_{n}(w) \text{ -- не фундаментальна (в обычном смысле) }\}$.
+    $\forall w \in \Omega \setminus G \hookrightarrow \xi_n(w)$ -- фундаментальна, в обычном смысле, а следовательно -- сходится к некоторому $\xi(w)$.
+    Введём теперь случайную величину $\xi$ следующим образом:
+    \[
+        \xi(w) =
+        \begin{cases}
+            \xi(w), & w \in \Omega \setminus G \\
+            0, & w \in G.
+        \end{cases}
+    \]
+    Поскольку $\xi$ -- корректно определена, и, очевидно, есть поточечная сходимость $\xi_n$ к $\xi$ на $\Omega \setminus G$, то для доказательства $a.s.$ сходимости на всём пространстве достаточно показать то, что $\P(G) = 0$.
+    Но, если $\P(G) = \delta > 0$, то $\exists \epsilon > 0$ такой, что на некотором подмножестве положительной меры $\sup\limits_{n \geq m}|\xi_n - \xi_m| > \epsilon, m \rightarrow +\infty$ -- противоречие и тогда $\P(G) = 0$ и сходимость почти наверное доказана.
+\end{proof}
+\subsubsection{Наследование сходимости.}
+\begin{theorem}[О наследовании сходимости]
+    Пусть $\{\xi_n\}$ -- последовательность случайных величин, $\xi$ -- случайная величина и $g$ -- борелевская функция, непрерывная почти всюду относительно распределения случайной величины (то есть $g$  непрерывна в каждой точке множества $B$ такого, что $\P(\xi(w) \in B) = 1$).
+    Тогда справедливы следующие утверждения:
+    \begin{enumerate}
+        \item Если $\xi_n \xrightarrow{\P} \xi$, то $g(\xi_n) \xrightarrow{\P} g(\xi)$.
+        \item Если $\xi_n \xrightarrow{a.s.} \xi$, то $g(\xi_n) \xrightarrow{a.s.} g(\xi)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof} \leavevmode
+    \begin{enumerate}
+        \item Пусть $\xi_n \xrightarrow{\P} \xi$ и нет сходимости $g(\xi_n) \xrightarrow{\P} g(\xi)$. Тогда найдутся $\epsilon > 0$, $\delta > 0$ и подпоследовательность $\xi_{n_k}$ такие, что $\P(|g(\xi_{n_k}) - g(\xi)| > \epsilon) > \delta, k \ra \infty$. В то же время, $\xi_{n_k} \xrightarrow{\P} \xi$, а значит по теореме Рисса есть подпоследовательность $\xi_{n_{k_j}} \xrightarrow{a.s.} \xi$. Но, тогда, в силу непрерывности $g$, сходятся и $g(\xi_{n_{k_j}}) \xrightarrow{a.s.} g(\xi)$. Таким образом мы приходим к противоречию.
+        \item Пусть $A = \{\xi_n(w) \ra \xi(w)\}$ и $C = \{\xi(w) \in B\}$. Тогда $\P(A) = 1$ -- по условию теоремы и $\P(C) = 1$ -- аналогично, по условию теоремы. Но, тогда, $\P(AC) = \P(A) + \P(C) - \P(A \cup C) = 1$, а значит, так как $\forall w \in AC \hookrightarrow g(\xi_n)(w) \ra g(\xi)$, то у нас есть поточечная сходимость на множестве полной вероятности -- что и требуется показать.
+    \end{enumerate}
+\end{proof}
+\subsubsection{Теорема Слуцкого.}
+\begin{theorem}[Об эквивалентных определениях сходимости по распределению, на лекции доказательства не было]
+    Пусть есть последовательность $\{\xi_n\}$ и случайная величина $\xi$.
+    Следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\xi_n \xrightarrow{d} \xi$.
+        \item Для всякой непрерывной ограниченной функции $g \hookrightarrow \Ex g(\xi_n) \ra \Ex g(\xi)$.
+        \item $\forall t \in \R \phi_{\xi_n}(t) \ra \phi_{\xi}(t)$.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}[Слуцкий]
+    Пусть есть последовательность $\xi_n \xrightarrow{d} \xi$ и $\eta_n \xrightarrow{\P} c$, где $c$ -- некоторая константа.
+    Тогда справедливы следующие утверждения:
+    \begin{enumerate}
+        \item $\xi_n + \eta_n \xrightarrow{d} \xi_n + c$.
+        \item $\xi_n \cdot \eta_n \xrightarrow{d} c\xi_n$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Докажем первое утверждение, доказательство второго -- аналогично. \\
+    Заметим, что $\xi_n + c \xrightarrow{d} \xi + c$. \\
+    Теперь, заметим, что для всяких случайных величин $X$ и $Y$ и произвольного $\epsilon > 0$ справедливо, что
+    \[
+        \{Y \leq a\} \subset \{X < a + \epsilon\} \cup \{ |X - Y| > \epsilon \}.
+    \]
+    Теперь рассмотрим два случая:
+    \[
+        Y = \xi_n + \eta_n, \quad X = \xi_n + c.
+    \]
+    Тогда
+    \[
+        \P(\xi_n + \eta_n < a) \leq \P(\xi_n + c < a + \epsilon) + \P(|\eta_n - c| > \epsilon).
+    \]
+    Устремим $n \ra +\infty$ и $\epsilon \ra +0$ и получим
+    \[
+        F_{\xi_n + \eta_n}(a) \leq F_{\xi_n + c}(a).
+    \]
+    Теперь если мы возьмём в качестве $a$ -- $a - \epsilon$, а $X$ и $Y$ поменяем местами и перейдём к пределу, то мы получим противоположное неравенство (если $a$ -- точка непрерывности $F_{\xi_n + c}$):
+    \[
+        F_{\xi_n + c}(a) \leq F_{\xi_n + \eta_n}(a).
+    \]
+    Это и завершает доказательство первого пункта.
+\end{proof}

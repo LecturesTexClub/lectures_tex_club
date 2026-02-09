@@ -1,0 +1,107 @@
+\subsection{Случайный вектор.}
+\begin{definition}
+    Случайным вектором будем называть $\vec{\xi}(\omega) = \begin{pmatrix}
+        \xi_1(\omega) \\ 
+        \xi_2(\omega) \\ 
+        \vdots \\ 
+        \xi_n(\omega)
+    \end{pmatrix}$ ~---~ отображение $\omega \rightarrow \R^n$. Здесь $\xi_1, \dots, \xi_n$ ~---~ случайные величины. Оно измеримо, так как $B_{\vec{x}} = \{ \bigcap\limits_{k = 1}^n \{\omega : \xi_k(\omega < x_k \}\} \in \mathcal{F}$.
+\end{definition}
+\subsubsection{Функция распределения случайного вектора и её свойства.}
+\begin{definition}
+    Функцией распределения случайного вектора будем называть $F_{\vec{\xi}}(x_1, \dots, x_n) = \P(B_{\vec{x}}).$ Она обладает всеми свойствами функции распределения случайной величины: 
+    \begin{enumerate}
+        \item $0 \le F(\vec{x}) \le 1$
+        \item $\forall j\  F(x_1, \dots, x_j', \dots, x_n) \le F(x_1, \dots, x_j'', \dots, x_n) \ \forall x' < x_j''.$
+        \item $\forall j \ \lim\limits_{x_j^{N} \downarrow -\infty} F(x_1, \dots, x_j^{N}, \dots x_n) = 0$ и $\lim\limits_{\forall x_j^{N} \uparrow + \infty} F(x_1^N, \dots, x_n^N) = 1.$
+        \item $\forall j \ F(x_1, \dots, x_j - 0, \dots, x_n) = F(x_1, \dots, x_j, \dots, x_n).$
+        \item $\forall j \ \lim\limits_{x_j^N \uparrow +\infty} F(x_1, \dots x_{j - 1}, x_j^{N}, x_{j + 1}, x_n) = F(x_1, \dots, x_{j - 1}, x_{j + 1}, \dots, x_n)$ ~---~ свойство согласованности. 
+    \end{enumerate} 
+\end{definition}
+\begin{proof}
+    Покажем справедливость 5-го свойства для $j = n.$
+    \begin{gather*}
+        F(x_1, \dots, x_k^{N}) = \P\left(\bigcap_{j = 1}^{n - 1} \xi_j < x_j \cap \xi_n < \xi_n^{N}\right) \rightarrow \P\left( \left\{ \bigcap_{j = 1}^{n - 1} \xi_j < x_j \right\} \cap \left\{\bigcup_{N} \xi_n < x_n^{N}\right\} \right) = F_{\tilde{\xi}}(x_1, \dots, x_{k - 1}).
+    \end{gather*}
+\end{proof}
+
+\begin{theorem}
+    \begin{gather*}
+        \P\left(\bigcap_{j = 1}^{n} \{a \le \xi_j(\omega) < b_j\} \cap (D \in \mathcal{F})\right) = \sum_{k_1, \dots, k_n \subset \{0, 1\}} (-1)^{\sum k_j} \sum \P\left(\bigcap \{ \xi_j < x_j^{k_j}) \cap D\} \right).
+    \end{gather*}
+    Здесь $\begin{cases}
+        x_j^0 = b_j \\ 
+        x_j^1 = a_j
+    \end{cases}$.
+\end{theorem}
+\begin{proof}
+    Докажем по индукции. Пусть $n = 1$:
+    \begin{gather*}
+        \P(\{\xi_1 < b_1\} \cap D) - \P(\{\xi_1 < a_1\} \cap D) = \P(\{a_1 \le \xi_1 < b_1\} \cap D), \\ 
+        \text{ так как } \P(A) - \P(B) = \P(A\overline{B)}, B \subset A.
+    \end{gather*}
+    Формула верна. 
+    
+    \noindent Пусть формула верна для $n - 1$. Докажем для $n$.
+
+    \noindent Положим $B_n = \bigcup\limits_{j = 1}^{n} \{a_j \le \xi_j < b_j\}.$
+    \begin{gather*}
+        \P(B_nD) = \P(\{a_n \le \xi_n < b_n\} \cap B_{n - 1}D) = \P(\xi_n < b_n \cap B_{n - 1}D) - \P(\xi_1 < a_1 \cap B_nD) = \\ 
+        = \P(B_{n-1} \{\xi_n < b_n\} D) - \P(B_{n - 1} \cap \{\xi_n < a_n\} D) = \\ 
+        = \sum_{k_1, \dots, k_{n - 1}} \in \{0, 1\} (-1)^{\sum k_j} \P\left(\bigcap_{j = 1}^{n - 1} \{\xi_j < x_j^{k_j} \} \cap \{\xi_n < b_n\}D \right) - \\ 
+        - \sum_{k_1, \dots, k_{n - 1}} \in \{0, 1\} (-1)^{\sum k_j} \P\left(\bigcap_{j = 1}^{n - 1} \{\xi_j < x_j^{k_j} \} \cap \{\xi_n < a_n\}D \right).
+    \end{gather*}
+    Присмотревшись к последнему равенству, получаем искомый результат.
+\end{proof}
+\begin{corollary}
+    При $D = \Omega$ получаем следующее равенство: 
+    \begin{gather*}
+        \P\left(\bigcap_{j = 1}^{n} \{a_j \le \xi_j < b_j \} \right) = \sum_{k_1, \dots, k_n \in \{0, 1\} } (-1)^{\sum k_j} F(x_1^{k_1}, \dots, x_n^{k_n}).
+    \end{gather*}
+\end{corollary}
+
+\subsubsection{Понятие независимости случайных величин, функция распределения независимых случайных величин.}
+\begin{definition}
+    Случайные величины $\xi_1, \ldots, \xi_n$ будем называть независимыми если $\sigma(\xi_1), \ldots, \sigma(\xi_n)$ являются независимыми $\sigma$-алгебрами.
+\end{definition}
+\begin{theorem}
+    Следующие условия для случайных величин $\xi_1, \ldots, \xi_n$ эквивалентны:
+    \begin{itemize}
+        \item Случайные величины $\xi_1, \ldots, \xi_n$ -- независимы;
+        \item Функция распределения случайного вектора $\vec{\xi} = (\xi_1, \ldots, \xi_n)$ имеет вид:
+        \[
+            F_{\vec{\xi}}(\vec{x}) = F_{\xi_1}(x_1)\ldots F_{\xi_n}(x_n).
+        \]
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    Импликация $1) \Ra 2)$ является очевидным. \\
+    Покажем $2) \Ra 1)$. Заметим, что для ячеек вида $[a, b) = \prod_{i = 1}^n [a_i, b_i)$ 
+    \[
+        \P(\vec{\xi} \in [a, b]) = \P(\xi_1 \in [a_1, b_1)) \ldots \P(\xi_n \in [a_n, b_n)),
+    \]
+    просто в силу вида совместной функции распределения и теоремы включений-исключений для случайных векторов. \\
+    Заметим, что конечные объединения ячеек образуют алгебру; в силу предыдущего равенства, эти алгебры являются независимыми. По теореме о продолжении отношения независимости с алгебр на $\sigma$-алгебры мы можем утверждать и о независимости $\sigma$-алгебр -- а следовательно получить утверждение теоремы.
+\end{proof}
+\begin{theorem}
+    Пусть случайные величины $\xi_1, \ldots, \xi_n$ имеют плотности $f_1, \ldots, f_n$ соответственно. Тогда следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\xi_1, \ldots, \xi_n$ -- независимы;
+        \item Существует $f(\vec{x})$ -- плотность вектора $\vec{\xi} = (\xi_1, \ldots, \xi_n)$ -- которая имеет вид 
+        \[
+            f(\vec{x}) = f_1(x_1)\ldots f_n(x_n).
+        \]
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Если случайные величины -- независимы, то, так как $\forall i \in \overline{1, n} \hookrightarrow$
+    \[
+        F_{\xi_i}(x) = \int_{-\infty}^x f_i(t)dt,
+    \]
+    и совместная функция распределения имеет вид
+    \[
+        F_{\xi_1, \ldots, \xi_n}(\vec{x})  = F_{\xi_1}(x_1)\ldots F_{\xi_n}(x_n) = \int_{-\infty}^{x_1} f_1(t_1)dt_1 \ldots \int_{-\infty}^{x_n}f_n(t_n)dt_n = \int f_1(t_1)\ldots f_n(t_n)d\vec{t},
+    \]
+    а значит существует плотность указанного вида. \\
+    В обратную сторону доказательство аналогично: функция распределения представляется как произведение функций распределения в случае существования плотности указанного вида.
+\end{proof}

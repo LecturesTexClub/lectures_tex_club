@@ -1,0 +1,101 @@
+\subsection{Функции распределения.}
+\subsubsection{Определения и свойства. Дискретные и непрерывные случайные величины.}
+\begin{definition}
+    Функцией распределения (вероятности) будем называть $F_\xi(x) = \P(\omega : \xi(\omega) \in (-\infty, x) \} = \P(\xi < x).$
+\end{definition}
+\begin{properties}
+    \begin{enumerate}
+        \item $0 \le F_\xi(x) \le 1$.
+        \item $F_\xi(x') \le F_\xi(x'') \ \forall x' < x''$.
+        \item $\lim\limits_{x_n \rightarrow -\infty} F_\xi(x_n) = 0$, $\lim\limits_{x_n \rightarrow \infty} F_{\xi}(x_n) = 1$.
+        \item $F_{\xi}(x - 0) = F_{\xi}(x)$.
+    \end{enumerate}
+\end{properties}
+\begin{problem}
+    $\lim\limits_{x_n \downarrow x} F(x_n) = \ ?$.
+\end{problem}
+\begin{solution}
+    \begin{gather*}
+        F(x_n) - F(x) = \P(\omega : \xi(\omega) \subset [x, x_n)) \Rightarrow \\
+        F(x + 0) - F(x) = \P\left(\bigcap_{n} \{\omega : \xi(\omega) \in [x, x_n)\}\right) = \P(\{\omega : \xi(\omega) = x\}) = \P(\xi = x)
+    \end{gather*}
+    
+    Кроме того, таких скачков не более, чем счётно. 
+\end{solution}
+\subsubsection{Функции распределения дискретных, абсолютно непрерывных и сингулярных случайных величин.}
+\begin{definition}
+    Введем функции: $F_d(x) = \sum\limits_{x_k < x}(F(x_k + 0) - F(x_k)) = \sum\limits_{x_k < x}\P(\xi = x_k)$ и $F_c(x) = F(x) - F_d(x)$. Здесь $x_k$ ~---~ точки <<скачков>> функции $F(x)$. Назовем $F_d(x)$ дискретной составляющей, а $F_c(x)$ ~----~ непрерывной. 
+\end{definition}
+
+\begin{theorem}
+    $F(x) = F_c(x) + F_d(x) + F_s(x)$ ~---~ функция ограниченной вариации ($F(x)$) может быть представлена как сумма абсолютно непрерывной, дискретной и сингулярных функций. 
+
+    \noindent Далее мы будем считать, что $F_s(x) = 0$. 
+\end{theorem}
+\subsubsection{Функция плотности вероятности и её свойства.}
+\begin{definition}
+    Для абсолютно непрерывных случайных величин мы можем ввести функцию плотности вероятности $f(x)$ такую, что:
+    \begin{equation*}
+        F_c(x) = \int\limits_{-\infty}^{x} f(u) du \Rightarrow f(x) = F_c'(x)
+    \end{equation*}
+\end{definition}
+Разберем случайные величины и их распределения, которые понадобятся нам далее. 
+Приведем примеры случайных величин: 
+\begin{itemize}
+    \item $Be(p)$ ~---~ Бернулливская случайная величина. $\P(Be(p) = 1) = p, \P(Be(p) = 0) = 1 - p$.
+    \item $Poi(\lambda)$ ~---~ Пуассоновская случайная величина. $\P(Poi(\lambda) = k) = \dfrac{\lambda^k}{k!}e^{-\lambda}.$
+    \item $\xi \in U(a, b)$ ~---~ равномерное распределение, бросание точки на удачу в отрезок $[a, b]$.
+    \item $Geo(p)$~--- геометрическая случайная величина. $P(Geo(p) = k) = q^kp.$
+    \item $Bi(n, p)$ ~---~ биномиальная случайная величина. $P(Bi(n, p) = k) = C_n^kp^kq^{n - k}$.
+\end{itemize}
+
+\noindent <<Мысленный эксперимент>>, связанный с биномиальной случайной величиной, имеет собственное название ~---~ схема испытаний Бернулли. В ней ищется вероятность $k$ успехов в серии из $n$ испытаний, где каждое испытание заканчивается успехом или провалом. 
+
+\noindent Можем сказать, что $Bi(n, p) = \sum\limits_{j = 1}^{b} Be_j(p)$ ~--- повторение эксперимента с Бернуллиевской случайной величиной. 
+
+\begin{itemize}
+    \item $NB(p, k)$ ~---~ отрицательное биномиальное распределение. \newline $\P(NB(p, k) = n) = C_{n + k - 1}^{k - 1}q^np^k$. Проведение эксперимента с геометрической случайной величиной до $k$-го успеха. 
+    \item $N(m, \sigma^2)$ ~---~ нормальное распределение. $f_{N(m, \sigma^2)}(x) = \dfrac{1}{\sigma \sqrt{2\pi}} e^{-\frac{-(x-m)^2}{2\sigma^2}}$
+    \item $N(0, 1)$ ~---~ стандартное нормальное распределение. 
+    \item Определим $\log N(m, \sigma^2) = e^{N(m, \sigma^2)}$. Тогда функция распределения будет выглядеть как:
+    \begin{gather*}
+        F_{\log N(m, \sigma^2)}(x) = \P(e^{N(m, \sigma^2)} < x) = \P(N(m, \sigma^2) < \ln x) = F_{N(m, \sigma^2)}(\ln x) \\ 
+        f_{\log N(m, \sigma^2)}(x) = \dfrac{1}{x \sigma \sqrt{2\pi}} e^{\frac{-(\ln x - m)^2}{2\sigma^2}}
+    \end{gather*}
+    Данное распределение будем называть лог-нормальным. 
+    \item $Gamma(\alpha, \lambda)$ ~---~ гамма-распределение. Определено для $\alpha, \lambda, x > 0.$ Плотность распределения записывается как $f_{G(\alpha, \lambda)}(x) = \dfrac{\lambda^{\alpha}}{\Gamma(\alpha)}x^{\alpha - 1}e^{-\lambda x}.$
+    \item $Gamma(1, \lambda) = Exp(\lambda)$ ~---~ показательное распределение.  $f_{Exp(\lambda)}(x) = \lambda e^{-\lambda x}, \ F_{Exp(\lambda)}(x) = 1 - e^{-\lambda x}, \P(Exp(\lambda) > t) = e^{-\lambda t}.$
+    \item $Gamma(\frac{n}{2}, \frac{1}{2}) = \chi^2(n)$ ~---~ хи-квадрат с $n$ степенями свободы.
+    \item $Beta(\alpha, \beta)$ ~---~ бета-распределение. $f_{Beta(\alpha, \beta)}(x) = \dfrac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha - 1}(1 - x)^{\beta - 1}$. При этом $0 < x \le 1$.
+    \item $K(a, \sigma)$ ~---~ распределение Коши. $f_{K(a, \sigma)}(x) = \dfrac{1}{\pi\sigma\left(1 + \left(\frac{x - a}{\sigma}\right)^2\right)}$.
+    
+\end{itemize}
+\subsubsection{Условная функция распределения и её свойства.}
+\begin{definition}
+    Условной функцией распределения случайной величины будем называть $F_{\xi}(x | A) = \P(\omega: \xi(\omega) < x | \omega \in A) = \dfrac{\P(\omega : \{\xi(\omega) < x \} \cap \{\omega \in A\})}{\P(\omega \in A)}$.
+
+    \noindent Также можем записать $F_{\xi |\eta}(x | y) = \dfrac{\P(\xi < x \cap \eta = y)}{\P(\eta = y)}$.
+\end{definition}
+\begin{remark}
+    Для случаев $\P(\omega \in A) = 0$ строится следующее решение: 
+    \begin{gather*}
+        F_{\xi}(x | A) = \lim_{n \to \infty} \dfrac{\P(\omega : \{ \xi(\omega) < x\} \cap \omega \in A_n )}{\P(\omega \in A_n)}, \ \bigcap A_n = A.
+    \end{gather*}
+    Но такое построение будет зависеть от выбора $\{A_n\}.$ Положим $\Delta_n = [a_n, b_n), a_n \uparrow y, b_n \downarrow y.$
+    \begin{gather*}
+        \lim_{n \to \infty} \dfrac{\P(\xi < x \cap \eta \in \Delta_n)}{\P(\eta \in \Delta_n)} = \lim_{n \to \infty} \dfrac{\int\limits_{\Delta_n} dy \int\limits_{-\infty}^{x} f_{\xi\eta} (v, y) dv}{\int\limits_{\Delta_n} f_{\eta} (y) dy} = \int\limits_{-\infty}^{x} \dfrac{f_{\xi\eta}(v, y)}{f_{\eta}(y)}dv.
+    \end{gather*}
+    Отсюда получаем функцию плотности: 
+    \begin{gather*}
+        f_{\xi |\eta}(x|y) = \dfrac{f_{\xi\eta}(x, y)}{f_{\eta}(y)}.
+    \end{gather*}
+\end{remark}
+
+
+\subsubsection{Функция распределения смеси.}
+Введем функцию $F_{mix}(x) = \sum\limits_{j = 1}^{k}p_jF_j(x)$. При этом, $\sum p_j = 1, p_j > 0, F_j(x) = F_{\xi_j}(x).$ Заметим, что эта функция удовлетворяет свойствам функции распределения. 
+
+\noindent Кроме того, можем сопоставить некоторый мысленный эксперимент, что $\P(\eta = j) = p_j.$ Тогда функцию распределения смеси можем записать как:  
+\begin{gather*}
+    \P(\xi_{mix} < x) = \sum\limits_{j = 1}^{k}p_jF_j(x).
+\end{gather*}

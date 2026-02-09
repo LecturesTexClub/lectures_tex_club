@@ -1,0 +1,120 @@
+\subsection{Аксиоматическое определение вероятности.}
+\subsubsection{Вероятностное пространство, основные свойства.}
+\noindent Данная терминология была введена Колмогоровым в XX веке. Далее эти определения будут считаться центральными, в отличие от приведенных ранее. 
+
+\begin{definition}
+    Вероятностным пространством будем называть тройку объектов ~---~ $\{\Omega, \mathcal{F}, \P\}$, где $\Omega$ ~---~ множество элементарных исходов, $\mathcal{F}$ ~---~ сигма-алгебра подмножеств $\Omega$, $\P$ ~---~ вероятностная мера на $\mathcal{F}$.
+\end{definition}
+
+\begin{definition}
+    Сигма-алгеброй $\mathcal{F}$ подмножеств множества $\Omega$ будем называть систему множеств, удовлетворяющую свойствам: 
+    \begin{enumerate}
+        \item $\Omega \in \mathcal{F}$, 
+        \item $\forall A \in \mathcal{F} \hookrightarrow \overline{A} \in \mathcal{F}$, 
+        \item $\forall A, B \in \mathcal{F} \hookrightarrow A \cup B \in \mathcal{F}$, 
+        \item $\forall \{A_i\}_{i = 1}^{\infty} \subset \mathcal{F} \hookrightarrow \bigcup\limits_{i = 1}^{\infty} A_i \in \mathcal{F}$.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    Оставив только первые три свойства, получим алгебру. 
+\end{remark}
+
+\noindent Простейшие сигма-алгебры: $\{\Omega, \varnothing\}, 2^{\Omega}$.
+
+\subsubsection{Минимальная сигма-алгебра, основные свойства. Борелевская сигма-алгебра.}
+
+\begin{definition}
+    Сигма-алгеброй, порожденной системой множеств $\mathcal{M}$, будем называть некоторую сигма-алгебру, которая содержит в себе каждое множество из $\mathcal{M}$, и записывать $\sigma(\mathcal{M})$.
+\end{definition}
+
+\begin{definition}
+    Минимальной сигма-алгеброй, порожденной системой множеств $\mathcal{M}$ мы будем называть следующую сигма-алгебру: $\sigma_{min}(\mathcal{M}) = \bigcap\limits_{\alpha}\sigma_{\alpha}(\mathcal{M})$ (факт доказывался в курсе математического анализа). 
+\end{definition}
+
+\begin{definition}
+    Борелевской сигма-алгеброй будем называть минимальную сигма-алгебру, порожденную всеми открытыми множествами. 
+\end{definition}
+\begin{remark}
+    Борелевские сигма-алгебры равны между собой, независимо от того, как мы задаем открытые множества: $\mathcal{B}((a, b)) = \mathcal{B}((-\infty, c))$. Это следует из того, что любое открытое множество в $\R^n$ может быть представлено как объединение интервалов, что доказывалось в курсе математического анализа. 
+    \noindent Далее нам будет удобнее использовать в рассуждениях борелевскую сигма-алгебру, как минимальную сигма-алгебру, порожденную как $\mathcal{B}((-\infty, c))$.
+\end{remark}
+
+\begin{definition}
+    Вероятностная мерой будем называть отображение $\P : \mathcal{F} \to [0, 1]$, обладающее следующими свойствами: 
+    \begin{enumerate}
+        \item $\forall A \in \mathcal{F} \hookrightarrow \P(A) \ge 0,$
+        \item $\P(\Omega) = 1, $
+        \item $\{A_n\} \subset \mathcal{F}, A_i \cap A_j = \varnothing, i \neq j \hookrightarrow \P\left(\bigcup\limits_{n = 1}^{\infty} A_n \right) = \sum\limits_{n = 1}^{\infty}\P(A_n)$.
+    \end{enumerate}
+\end{definition}
+
+\noindent Опишем свойства вероятностной меры: 
+
+\begin{itemize}
+    \item $1 = \P(\Omega) = \P(A + \overline{A}) = \P(A) + \P(\overline{A}) \Rightarrow \P(\overline{A}) = 1 - \P(A).$
+\end{itemize}
+
+\begin{itemize}
+    \item Из предыдущего пункта и $\P(\Omega) = 1 \Rightarrow \P(\varnothing) = 0.$
+    \item $\forall A, B, A \subset B \hookrightarrow \P(A) \le \P(B).$
+    \item $\forall \{A_n\} \subset \mathcal{F} \hookrightarrow \P\left(\bigcup\limits_{n = 1}^{\infty} A_n\right) \le \sum\limits_{n = 1}^{\infty}(\P(A_n)).$
+\end{itemize}
+
+
+\subsubsection{Построение вероятностного пространства на примере простейшего потока событий.}
+Пусть есть некоторая скачкообразная функция $N(t)$, т.н. <<поток событий>>, такая, что $N(0) = 0$ и в момент $t_i$ функция увеличивает своё значение на 1: $N(t) = k, t \in (t_k, t_{k + 1}]$. 
+Мы хотим найти $\P(A_k) = \P(N(t) = k)$ и при фиксированном $t$ построить вероятностное пространство.  \\
+Множеством элементарных исходов можно считать $\{A_k\}_{k = 0}^{\infty}$: 0 событий за $t$, 1 событие за $t$, etc. Сигма-алгебру введём как $\sigma(\{A_k\}_{k = 0}^{\infty})$. \\
+Обозначим за $\{p_k(t)\}_{k = 0}^{\infty}$ искомые вероятности. \\
+Будем считать, что $N(t)$ -- поток событий -- обладает следующими свойствами:
+\begin{enumerate}
+    \item Условие стационарности: $\P(N(t + \tau) - N(t) = k) = p_k(\tau)$.
+    \item Условие ординарности: $\P(N(\tau) > 1) = o(\tau)$.
+    \item Условие отсутствия последействия: пусть есть система дизъюнктивных $\{[t_j, t_j + \tau_j)\}_{j = 1}^{n}$. Тогда события $\{N(t_j  + \tau_j) - N(t_j) = k_j\}_{j = 1}^n$ являются независимыми событиями.
+\end{enumerate}
+Рассмотрим отрезок $[0, 1)$ и разобъём его на $n$ равных полуинтервалов. \\
+Пусть $\frac{m - 1}{n} \leq t \leq \frac{m}{n}$. Заметим, что
+\[
+    p_0\left(\frac{m}{n}\right) \leq p_0(t) \leq p_0\left(\frac{m - 1}{n}\right).
+\]
+В силу условия отсутствия последействия 
+\[
+    p_0\left(\frac{m}{n}\right) = p_0\left(\dfrac{1}{n}\right)^m = \left(p_0\left(\dfrac{1}{n}\right)^n\right)^{m/n}.
+\]
+И, тогда:
+\[
+    \left(p_0\left(\dfrac{1}{n}\right)^n\right)^{m/n} \leq p_0(t) \leq \left(p_0\left(\dfrac{1}{n}\right)^n\right)^{(m - 1)/n}.
+\]
+Поскольку $p_0\left(\frac{1}{n}\right)^n = p_0(1) = e^{-\lambda}, \lambda > 0$, то 
+\[
+    e^{-\lambda \frac{m}{n}} \leq p_0(t) \leq e^{-\lambda \frac{m - 1}{n}}.
+\]
+В силу плотности $\Q$ в $\R$ мы можем устремить $m, n$ к бесконечности так, чтобы $\frac{m - 1}{n} \leq t \leq \frac{m}{n}$ и, при этом, $\frac{m}{n} \ra t, m, n \ra \infty$. А значит $p_0(t) = e^{-\lambda t}$. \\
+Поскольку 
+\[
+1 = p_0(\tau) + p_1(\tau) + \P(N(\tau) > 1).
+\]
+и из условия $\P(N(\tau) > 1) = o(\tau)$, а $e^{-\lambda \tau} = 1 - \lambda \tau + o(\tau)$, то
+\[
+    p_1(\tau) = \lambda\tau + o(\tau).
+\]
+Заметим, что
+\[
+    p_k(t + \tau) = \sum\limits_{j = 0}^{k} p_{k - j}(t)p_{j}(\tau).
+\]
+по определению и в силу свойства отсутствия последействия. Распишем несколько первых членов:
+\[
+    p_k(t + \tau) = p_k(t)p_0(\tau) + p_{k - 1}(t)p_1(\tau) + \sum\limits_{j = 2}^{k}p_{k - j}(t)p_j(\tau) = p_k(t)p_0(\tau) + p_{k - 1}(t)p_1(\tau) + o(\tau).
+\]
+Подставим ранее полученные выражения для $p_0$ и $p_1$:
+\[
+    p_k(t + \tau) = p_k(t)(1 - \lambda \tau) + p_{k - 1}(t)\cdot \lambda \tau + o(\tau).
+\]
+А следовательно, при $\tau \ra 0$:
+\[
+    \dfrac{dp_k(t)}{dt} = -\lambda p_k(t) + \lambda p_{k - 1}(t).
+\]
+После подстановки $p_k(t) = w_k(t) e^{-\lambda t}$ данное уравнение решается и его решением будет
+\[
+    p_k(t) = \dfrac{(\lambda t)^k}{k!}e^{-\lambda t}.
+\]

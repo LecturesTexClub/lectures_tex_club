@@ -1,0 +1,129 @@
+\section{Вторая часть курса.}
+\subsection{Домашние задачи на седьмую неделю}
+\begin{problem}
+    Каким линейным преобразованием гауссовский вектор $\vec{\xi} = (X, Y)^T$ с математическим ожиданием $\vec{m} = \begin{pmatrix*} 0 \\ 1
+    \end{pmatrix*}$ и ковариационной матрицей
+    $R = \begin{pmatrix*} 5 & 11 \\ 11 & 25
+    \end{pmatrix*}$ приводится к вектору с нулевым математическим ожиданием и единичной ковариационной матрицей?
+\end{problem}
+\begin{solution}
+    Пусть $\vec{\eta} = A\vec{\xi} + \vec{b}$, где $A$~---~постоянная квадратная матрица, а $\vec{b}$~---~двумерный вектор.
+    Тогда $\vec{\eta} \sim N(A\vec{m} + \vec{b}, ARA^T)$.
+    Мы хотим, чтобы $\vec{\eta} \sim N(0, I)$, то есть
+    \begin{equation*}
+        \begin{cases}
+            A\vec{m} + \vec{b} = 0, \\
+            ARA^T = I.
+        \end{cases}
+    \end{equation*}
+    Пусть \[S = \begin{pmatrix*} 1 & 0 \\ -11/5 & 1
+    \end{pmatrix*}.\] Тогда \[R' = SRS^T = \begin{pmatrix*} 5 & 0 \\ 0 & 4/5
+    \end{pmatrix*}.\] Теперь можно привести к $I$ просто домножив на \[S' = \begin{pmatrix*} 1/\sqrt{5} & 0 \\ 0 & \sqrt{5}/2
+    \end{pmatrix*}.\] и тогда матрица \[A = S'S = \begin{pmatrix*} 1/\sqrt{5} & 0 \\ -11/2\sqrt{5} & \sqrt{5}/2.
+    \end{pmatrix*}.\]
+    Поскольку $\vec{m} = \begin{pmatrix*} 0 \\ 1
+    \end{pmatrix*}$, то $\vec{b}$ равен второму столбцу матрицы $A$, взятому с минусом, то есть $\vec{b} = \begin{pmatrix*} 0 \\ -\sqrt{5}/2
+    \end{pmatrix*}.$
+\end{solution}
+\begin{problem}
+    Найти распределение случайной величины $\eta = X - 3Y + 1$, где $X$ и $Y$ из предыдущей задачи.
+\end{problem}
+\begin{solution}
+    Поскольку $\vec{\xi}$ из прошлой задачи -- гауссовский вектор, то по определению $\langle \vec{\xi}, \vec{d} \rangle$~---~гауссовская случайная величина.
+    Пусть $\vec{d} = \begin{pmatrix*} 1 \\ -3
+    \end{pmatrix*}.$
+    Тогда $\eta_0 = \langle \vec{\xi}, \vec{d} \rangle = X - 3Y$.
+    И, значит, для $\eta_0$ матожиданием будет просто $\langle \vec{m}, \vec{d} \rangle = -3$, а дисперсией \[\sigma^2 = \langle R\vec{d}, \vec{d} \rangle = \biggr\langle \begin{pmatrix*} -28 \\ -64
+    \end{pmatrix*}, \begin{pmatrix*} 1 \\ -3
+    \end{pmatrix*} \biggr\rangle = 164.\]
+    После сдвига $\eta = \eta_0 + 1$ изменится только матожидание на единицу и $\eta \sim N(-2, 164)$.
+\end{solution}
+\begin{problem}
+    Найти математическое ожидание и корреляционную матрицу гауссовского случайного вектора $(X, Y)^T$ с плотностью
+    \[
+        f(x, y) = \dfrac{\sqrt{3}}{\pi \sqrt {2}}\exp \biggr(-\dfrac{1}{2}x^2 - \dfrac{7}{2}y^2 - xy - x - 13y - \dfrac{25}{2}\biggr).
+    \]
+\end{problem}
+\begin{solution}
+    Известно, что плотность гауссовского случайного вектора (в конкретном двумерном случае) имеет вид
+    \[
+        f(x, y) = \dfrac{1}{2\pi \sqrt{|\det R|}}\exp \biggr(-\dfrac{1}{2}\langle R^{-1}(\vec{x} - \vec{m}), \vec{x} - \vec{m} \rangle\biggr).
+    \]
+    Раскрывая $\langle R^{-1}(\vec{x} - \vec{m}), \vec{x} - \vec{m} \rangle$ мы получаем
+    \[
+        (\vec{x} - \vec{m})^T (R^{-1})^T (\vec{x} - \vec{m}) = \vec{x}^T (R^{-1})^T \vec{x} - (\vec{m}^T (R^{-1})^T \vec{x} + \vec{x}^T (R^{-1})^T \vec{m}) + \vec{m}^T (R^{-1})^T \vec{m}.
+    \]
+    Пусть $R = \begin{pmatrix*} a & b \\ c & d
+    \end{pmatrix*}.$
+    Тогда $R^{-1} = \dfrac{1}{\det R}\begin{pmatrix*} d & -c \\ -b & a
+    \end{pmatrix*}.$
+    Рассмотрим квадратичную часть экспоненты:
+    \[
+        6(dx^2 - (b + c)xy + ay^2) = x^2 + 2xy + 7y^2.
+    \]
+    Тогда $a = 7/6, d = 1/6, b + c = -1/3$.
+    Поскольку $|\det R| = 1/6 \Ra |7/36 - bc| = 1/6$, то $|7 - 36(-c - 1/3)c| = 6$ и $b = c = -1/6$.
+    Значит \[ R =
+               \begin{pmatrix*}
+                   7/6 & -1/6 \\ -1/6 & 1/6
+               \end{pmatrix*}.
+    \]
+    В математическом ожидании функция под экспонентой имеет экстремум, а значит
+    \[
+        \begin{cases}
+            \dfrac{\partial}{\partial x} (x^2 + 2xy + 7y^2 + 2x + 26y + 25) = 0 \\ \\
+            \dfrac{\partial}{\partial y} (x^2 + 2xy + 7y^2 + 2x + 26y + 25) = 0
+        \end{cases}
+    \]
+    Получаются таким условия на компоненты математического ожидания:
+    \[
+        \begin{cases}
+            x + y + 1 = 0 \\
+            x + 7y + 13 = 0
+        \end{cases}
+    \]
+    Значит $y = -2, x = 1$ и $\vec{m} = \begin{pmatrix*} 1 \\ -2
+    \end{pmatrix*}$.
+\end{solution}
+\begin{problem}
+    Пусть $X$ и $Y$~---~независимые и имеют $N(0, 1)$ распределение.
+    Пусть $\rho \in (-1, 1)$~---~<<желаемый>> коэффициент корреляции.
+    Определим $Z = \rho \cdot X + \sqrt{1 - \rho^2}\cdot Y$.
+    \begin{itemize}
+        \item Докажите, что $X$ и $Z$ имеют совместную плотность
+            \[
+                f(x, z) = \dfrac{1}{2\pi \sqrt {1 - \rho^2}}\exp \biggr(- \dfrac{x^2 - 2\rho x z + z^2}{2(1 - \rho^2)} \biggr).
+            \]
+            Использовать линейное преобразование случайного вектора $(X, Y)^T$ в $(X, Z)^T$ с помощью подходящей матрицы преобразования $A$.
+        \item Доказать, что $Z \sim N(0, 1)$ и $\cov(X, Z) = \rho$.
+    \end{itemize}
+    Итак, построены две $N(0, 1)$--случайные величины с заданным коэффициентом корреляции.
+\end{problem}
+\begin{solution}
+    Поскольку $X$ и $Y$~---~независимые гауссовские случайные величины, то случайный вектор, составленный из них, является гауссовским с распределением $N(\vec{0}, I)$.
+    Мы переходим к случайному вектору $\begin{pmatrix*} X \\ Z
+    \end{pmatrix*}$ при помощи вот такого линейного преобразования $A$:
+    \[
+        A = \begin{pmatrix*} 1 & 0 \\ \rho & \sqrt {1- \rho^2}
+        \end{pmatrix*}.
+    \]
+    Тогда $\vec{m}' = A\vec{m} = 0$ и матрица корреляции изменяется как $R = AIA^T$, то есть
+    \[
+        R = \begin{pmatrix*} 1 & 0 \\ \rho & \sqrt {1 - \rho^2}
+        \end{pmatrix*} \begin{pmatrix*} 1 & \rho \\ 0 & \sqrt {1 - \rho^2}
+        \end{pmatrix*} = \begin{pmatrix*}
+                             1 & \rho \\ \rho & 1
+        \end{pmatrix*}.
+    \]
+    Совместная плотность $f(x, z)$, то есть плотность двумерного гауссовского вектора, записывается как
+    \[
+        f(x, z) = \dfrac{1}{2\pi \sqrt {|\det R|}} \exp \biggr(-\dfrac{1}{2} \vec{x}^T R^{-1} \vec{x} \biggr) = \dfrac{1}{2\pi \sqrt {1 - \rho^2}} \exp \biggr(-\dfrac{x^2 - 2\rho xz + z^2}{2(1 - \rho^2)}\biggr).
+    \]
+    Поскольку $(X, Z)^T$~---~гауссовский вектор, то и $\langle (X, Z)^T, \vec{d} \rangle$~---~гауссовская случайная величина и \[\vec{d} = \begin{pmatrix*} 0 \\ 1
+    \end{pmatrix*}.\]
+    Тогда $a = \langle \vec{m}, \vec{d} \rangle = 0$, а \[\sigma^2 = \vec{d}^T R \vec{d} = \begin{pmatrix*} 0 & 1
+    \end{pmatrix*} \begin{pmatrix*} 1 & \rho \\ \rho & 1
+    \end{pmatrix*} \begin{pmatrix*} 0 \\ 1
+    \end{pmatrix*} = 1.\]
+    А значит $Z \sim N(0, 1)$. То, что $\cov(X, Z) = \rho$ очевидно из матрицы ковариации.
+\end{solution}

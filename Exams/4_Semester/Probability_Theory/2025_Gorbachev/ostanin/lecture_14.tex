@@ -1,0 +1,240 @@
+% Тут я пришёл поздно.
+\begin{theorem}[ЦПТ]
+    Пусть задана последовательность $\{\xi_n\}$ $i.i.d$ случайных величин таких, что $\D \xi = \sigma^2 < +\infty$.
+    Тогда последовательность
+    \[
+        \eta_n = \dfrac{S_n - \Ex S_n}{\sqrt {\D S_n}}
+    \]
+    является асимптотически нормальной.
+\end{theorem}
+\begin{proof}
+    Воспользуемся условием Линдберга:
+    \[
+        \dfrac{n}{n\sigma^2} \int_{|x - a| > \tau \sigma \sqrt {n}} (x - a)^2 dF_{\xi} \ra 0, n \ra +\infty.
+    \]
+    Это и показывает корректность теоремы.
+\end{proof}
+\begin{theorem}[ЦПТ в форме Ляпунова]
+    Если $\exists \delta > 0$ такая, что
+    \[
+        \dfrac{\sum\limits_{k = 1}^n \Ex |\overset{\circ}{\xi_k}|^{2 + \delta}}{B_n^{2 + \delta}} \ra 0.
+    \]
+    То случайная величина как в предыдущей теореме асимптотически нормальна.
+\end{theorem}
+\begin{proof}
+    Докажем с использованием условия Линдберга:
+    \[
+        \sum\limits_{k = 1}^{n} \int_{1/\tau |x - a_k/B_n| < 1} |\dfrac{x - a_k}{B_n}|^2 dF_{k} \leq \sum\limits_{k = 1}^n \int |\dfrac{x - a_k}{B_n}|^{2 + \delta}dF_{k}.
+    \]
+    Условие теоремы показывает нам корректность теоремы.
+\end{proof}
+\begin{note}
+    Особенно удобный вид имеет условие Ляпунова при $\delta = 1$:
+    \[
+        \sum\limits_{k = 1}^{n} \Ex |\overset{\circ}{\xi_k}|^3 /(\sum \D \xi_k)^{3/2} = L_3 \ra 0.
+    \]
+    Число $L_3$ называется дробью Ляпунова. \\
+    Особое внимание уделяется $L_2$, поскольку с её помощью можно оценить скорость сходимости:
+    \[
+        \sup\limits_{x} |F_{\eta_n} - \Phi| \leq c L_3.
+    \]
+    Где $c \approx 0.8$. \\
+    Если все $\xi_k$ -- $i.i.d$ случайные величины, то $L_3$ имеет следующий вид:
+    \[
+        L_3 = \dfrac{\Ex |\overset{\circ }{\xi}|^3}{\sqrt {n}\sigma^3}.
+    \]
+    Этот частный случай называется неравенством Берри-Эссена.
+\end{note}
+\begin{theorem}[Натан]
+    Пусть дана  асимптотически нормальная серия $\{\eta_{nk}\}$, то есть
+    \[
+        \eta_n = \sum \eta_{nk} \xrightarrow{d} N(0, 1), n \ra \infty.
+    \]
+    Пусть $N$ -- дискретная случайная величина такая, что $F_{N}(x, \lambda) \ra 0, \lambda +\infty$. \\
+    Тогда последовательность $\eta_N = \sum\limits_{k = 1}^{N} \eta_{Nk} \xrightarrow{d} N(0, 1), \lambda \ra \infty$.
+\end{theorem}
+
+Пусть есть вероятностное пространство $(\Omega, \mathcal{F}, \P)$. \\
+Ранее ставилась
+\[
+    w \ra \{\xi_n(w)\}_{n = 1} (i.i.d) \ra \{ F_{n}(x )\}_{n = 1}^{+\infty}.
+\]
+где функции $F_n$ определяются следующими свойствами:
+\[
+    F_{n}(x) = \dfrac{1}{n} \sum\limits_{j = 1}^{n} I_{\xi_j < x}.
+\]
+Заметим, что $F_j$ обладают всеми свойствами функций распределения.
+Посмотрим на их математическое ожидание:
+\[
+    \Ex F_n(x) = \Ex I_{\xi < x} = \P(\xi < x) = F_{\xi}(x).
+\]
+Функции $F_{n}$ называются эмпирическими функциями распределения. \\
+По второй теореме (или по первой теореме) Колмогорова у нас есть сходимость почти наверное эмпирических функций распределения к $F_{\xi}$, то есть
+\[
+    \forall x \hookrightarrow F_{n}(x) \xrightarrow{a.s.} F_{\xi}(x), n \ra +\infty.
+\]
+Пусть, пока, $\xi$ -- абсолютно непрерывная случайная величина.
+\begin{theorem}[Гливенко, основная теорема математической статистики]
+    Для случайных величин определённых выше справедливо следующее:
+    \[
+        d_n = \sum\limits_{x \in \R} |F_{n}(x) - F_{\xi}(x)| \xrightarrow{a.s.} 0.
+    \]
+\end{theorem}
+\begin{proof}
+    Заметим, что
+    \[
+        d_n = \sup\limits_{x \in \Q}|F_{n}(x) - F_{\xi}(x)|.
+    \]
+    Пусть
+    \[
+        \mathcal{L}_k = \{w \mid |F_n{x_k} - F_{\xi}(x_k)| \ra 0, n \ra +\infty\}.
+    \]
+    ЗАметим, что $\forall k \hookrightarrow \mathcal{L}_k = 1$. \\
+    Теперь $\mathcal{L} = \bigcap\limits_{k = 1}^{+\infty} \mathcal{L}_k = \{w \mid |F_{n}(x_k) - F_{\xi}(x)| \ra 0 \forall x_k \in \Q\}$.
+    А значит у нас есть поточечная сходимость на множестве полной меры и, следовательно, теоремы доказана.
+\end{proof}
+% Ремарка про d_n.
+Заметим, что $\sqrt {n}d_n \xrightarrow{d} Z$, где $Z$ -- функция Колмогорова. Это тоже теорема Колмогорова. \\
+\begin{definition}
+    Некоторая случайная величина $X$ называется суб-гауссовой, если существует детерминатор $D > 0$ такой, что
+    \[
+        \Ex e^{t \overset{\circ}{X}} \leq e^{(tD)^2/2}.
+    \]
+    Такое название -- суб-нормальная -- дано поскольку $\Ex e^{t N(0, \sigma^2)} = e^{(t\sigma)^2/2}$. \\
+    Нетрудно заметить, что если $X$ -- суб-гауссова, то и $-X$ -- суб-гауссова.
+\end{definition}
+Рассмотрим серию субнормальных случайных величин $\{\eta_{nk}\}_{k = 1}^n$ ($\exists \{D_{nk}\}$). \\
+Тогда справедливо неравенство:
+\[
+    \P(\overset{\circ}{\eta_n} > \epsilon) \leq e^{-\frac{\epsilon^2}{2D^2_n}}, \quad D_n^2 = \sum\limits_{k = 1}^{n} D^2_{nk}.
+\]
+\begin{theorem}[Неравенство Хёфдинга]
+    Пусть случайная величина $X$ такая, что
+    \[
+        a \leq \overset{\circ}{X} \leq b (a.s.).
+    \]
+    Пусть $c = b - a$.
+    Тогда
+    \[
+        \Ex^{t \overset{\circ}{X}} \leq e^{(tc)^2/8} = e^{t^2/2 \cdot (c/2)^2}.
+    \]
+\end{theorem}
+\begin{proof}
+    Для экспоненты справедливо следующее неравенство:
+    \[
+        e^{tx} = e^{t(\frac{x - a}{b - a}b + \frac{b - x}{b - a}a)} \leq \dfrac{x - a}{b - 1}e^{tb} + \dfrac{b - x}{b - a}e^{ta} \quad \forall x \in [a, b].
+    \]
+    Мы можем вместо $x$ поставить нашё центрированную величину $X$.
+    Тогда
+    % Введение функции \phi
+    Поработаем над функцией $\phi(t)$:
+    \[
+        \phi(t) = \ln (A - B) = \phi(0) + \phi'(0)t + \phi''(0)\cdot t^2/2,
+    \]
+    Посчитаем значения $\phi$:
+    \[
+        \phi(0) = 0, \quad \phi'(0) = \dfrac{aA - bB}{A - B}\bigr|_{t = 0} = 0.
+    \]
+    И вторая производная:
+    \[
+        \phi''(a) = ((a^2 A - b^2 B)(A - B) - (a A - b B)^2)^2 \dfrac{1}{(A - B)^2} = -\dfrac{AB}{(A - B)^2}(b - a)^2 \leq \dfrac{(b - a)^2}{4} \Ra \phi(t) \leq \dfrac{(b - a)^2}{4} \cdot \dfrac{t^2}{2}.
+    \]
+    Поскольку
+    \[\Ex e^{t \overset{\circ}{X}} \leq A - B = ...\]
+    Вместо ... -- искомое неравенство.
+\end{proof}
+Докажем неравенство:
+\[
+    \P(\overset{\circ}{\eta_n} > \epsilon) \leq e^{-\frac{\epsilon^2}{2D^2_n}}, \quad D_n^2 = \sum\limits_{k = 1}^{n} D^2_{nk}.
+\]
+По неравенству Чернова:
+\[
+    \P(\overset{\circ}{\eta_n} < \epsilon) \leq \min\limits_{t > 0} e^{-t \epsilon} e^{t^2/2 \cdot D_n^2}|_{t = \epsilon/D_n^2} = e^{-\epsilon^2/2D_n^2}.
+\]
+\begin{theorem}[Хёфтинг]
+    Пусть есть серия $\{\eta_{nk}\}_{k = 1}^{n}$ такая, что $a_{nk} \leq \eta_{nk} \leq b_{nk}$. Обозначая $c_{nk} = b_{nk} - a_{nk}$ и $c^2_n = \sum\limits_{k = 1}^{n} c_{nk}^2$.
+    Тогда, подставим в предыдущее неравенство оценку и получим:
+    \[
+        \P(\overset{\circ}{\eta_n} \leq e^{-\frac{\epsilon^2}{2 \sum (c_{nk}/2)^2}} = e^{-2\frac{\epsilon^2}{c_n^2}}.
+    \]
+\end{theorem}
+Рассмотрим последовательность
+\[
+    \P(\overset{\circ}{\eta_n} > n \epsilon) = \P(\overline{\overset{\circ}{\eta_n}} > \epsilon) \leq \ldots
+\]
+Считая $\eta_{nk} \sim Be(p)$ каждая, получим оценку
+\[
+    \ldots \leq e^{-\frac{2\epsilon^2 n^2}{n}} = e^{-2\epsilon^2 n}.
+\]
+\begin{theorem}[Обобщённое неравенство Хёфдинга.]
+    Справедливо следующее неравенство:
+    \[
+        \Ex (e^{t \overset{\circ}{X}}|\mathcal{F}_0) \leq e^{t^2/2 \cdot (c/2)^2}.
+    \]
+    где $\mathcal{F}_0 \subset \mathcal{F}$, а $a(w) \leq X(w) \leq b(w)$ п.н. и $\Ex (X |\mathcal{F}_0)$ и, кроме того,
+    $a$ и $b$ -- $\mathcal{F}_0$-измеримые случайные величины такие, что $b - a \leq C = const$ п.н.
+\end{theorem}
+\begin{proof}
+    Так как
+    \[
+        \Ex (e^{t X}|\mathcal{F}_0) \leq \Ex (\dfrac{x - a}{b - a}e^{tb}|\mathcal{F}_0) + \Ex (\dfrac{b - x}{b - a}e^{ta}|\mathcal{F}_0) = (*)
+    \]
+    Поскольку мы можем выносить $\mathcal{F}_0$-измеримые случайные величины за УМО, то
+    \[
+        (*) = \dfrac{e^{ta}b}{b - a} - \dfrac{a e^{tb}}{b - a} + \ldots
+    \]
+    Повторение доказательства неравенства Хёфдинга приводит нас к успеху.
+\end{proof}
+\begin{theorem}[Азума, Хёфдинг]
+    Пусть дан мартингал $\{X_k, \mathcal{F}_k\}_{k = 0}^n$ со следующим свойством:
+    \[
+        a_{k - 1} \leq \Delta_k = X_k - X_{k - 1} \leq b_{k - 1}
+    \]
+    где $a_{k - 1}$ и $b_{k - 1}$ являются $\mathcal{F}_{k - 1}$ измеримыми.
+    И, более того, $b_{k - 1} - a_{k - 1} \leq c_{k}$ (const). \\
+    Тогда справедливо следующее неравенство:
+    \[
+        \P(X_n - X_0 > \epsilon) \leq e^{-\frac{2\epsilon^2}{\sum\limits_{k = 1}^n} c^2_k}.
+    \]
+\end{theorem}
+\begin{proof}
+    Для начала заметим, что \[
+                                \Ex(\Delta_k | \mathcal{F}_{k - 1}) = \Ex (X_{k}|\mathcal{F}_{k - 1}) - \Ex(X_{k - 1}|\mathcal{F}_{k - 1}) = 0.
+    \]
+    по свойству мартингала и $\mathcal{F}_{k - 1}$-измеримости $X_{k - 1}$.
+    По определению последовательности $\Delta_k$:
+    \[
+        X_t - X_0 = \sum\limits_{k = 1}^{t} \Delta_k.
+    \]
+    Применим неравенство Чернова:
+    \[
+        \P(X_t - X_0 > \epsilon) \leq \min\limits_{t \geq 0} e^{-\epsilon t} \Ex e^{t(X_k - X_0)}.
+    \]
+    Так как
+    \[
+        \Ex e^{t(X_n - X_0)} = \Ex \Ex (e^{t \Delta_n}e^{t(X_{n - 1} - X_0)}|\mathcal{F}_{n - 1}).
+    \]
+    В силу свойств УМО мы можем вынести величину и применить обобщённое неравенство Хёфдинга к $\Delta_n$:
+    \[
+        (*) \leq e^{t^2/2 \cdot c_n^2} \Ex (e^{t(X_{n - 1} - X_0)}) \leq \ldots \leq e^{t^2/2 \cdot \sum\limits_{k = 1}^n}.
+    \]
+\end{proof}
+Наиболее общий вид имеет следующее теорема:
+\begin{theorem}[Мак-Диармид]
+    Пусть задана измеримая функция от $n$ переменных $Z = Z(x_1, \ldots x_n)$.
+    Пусть она обладает свойством конечных разностей:
+    \[
+        \forall k \hookrightarrow \sup\limits_{x \in \R^n, x_k' \in \R} |z(x_1, \ldots, x_k, \ldots, x_n) - z(x_1, \ldots, x_k', \ldots x_k)| \leq c_k
+    \]
+    Пусть теперь $\xi_1, \ldots, x_n$ -- независимые случайные величины. \\
+    Тогда существуют условные вероятности:
+    \[
+        X_k = \Ex(Z|\mathcal{F}_k),
+    \]
+    где $\mathcal{F}_{k} = \sigma(\xi_1, \ldots \xi_k)$, а $\mathcal{F}_0 = \{\emptyset, \Omega\}$.
+    Известно, что $\{X_k, \mathcal{F}_k\}$ -- мартингал Дуба. \\
+    Утверждение теоремы следующее:
+    \[
+        \P(Z - \Ex Z > \epsilon) \leq e^{-\frac{2 \epsilon^2}{\sum c_k^2}}.
+    \]
+\end{theorem}

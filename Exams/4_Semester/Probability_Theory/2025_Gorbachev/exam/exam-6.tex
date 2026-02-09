@@ -1,0 +1,79 @@
+\subsection{Случайные величины.}
+\subsubsection{Определение случайной величины, измеримые и борелевские функции.}
+
+Зафиксируем измеримое пространство $(\Omega, \mathcal{F}, \P)$ и отображение $f: \omega \xrightarrow{f}\R$.
+
+\begin{definition}
+    Отображение $\xi = f(\omega)$ или просто $\xi(\omega)$ будем называть случайной величиной при cледующего условия:
+    \begin{gather*}
+        \forall x \ D_x = \{\omega : \xi(\omega) < x \} \equiv \{ \omega : \xi(\omega) \in (-\infty, x) \} \in \mathcal{F}.
+    \end{gather*}
+    Другими словами, случайная величина есть измеримое отображение из $\Omega$ в $\R$.
+\end{definition}
+\begin{remark}
+    Множество $\overline{D}_x = \{\omega : \xi(\omega) \in [x, + \infty) \} \in \mathcal{F}$.
+
+    \noindent Пусть $x < y$. Тогда $D_y\overline{D}_x = \{\omega : \xi(\omega) \in [x, y) \} \in \mathcal{F}$.
+
+    \noindent Следовательно, $\{\omega : \xi(\omega) \in B \in \mathcal{B} \} \in \mathcal{F}$.
+\end{remark}
+\begin{definition}
+    Сигма-алгеброй, порожденной случайной величиной $\xi$ будем называть следующую сигма-алгебру $\sigma(\xi) = \sigma_{min}(\{D_x \}_{x \in \R})$.
+\end{definition}
+
+\begin{definition}
+    Функцию $\xi$ будем называть измеримой, если $\forall B \in \mathcal{B} \hookrightarrow \xi^{-1}(B) \in \mathcal{F}$.
+\end{definition}
+\begin{example}
+    Рассмотрим $\xi(\omega) \equiv C.$ Тогда $D_x = \{\varnothing, \Omega\} \equiv \sigma(\xi).$
+\end{example}
+
+\begin{property}
+    Перечислим свойства случайных величин:
+    \begin{enumerate}
+        \item $\eta = \phi(\xi)$ тоже является случайной величиной, если $\phi : \R \rightarrow \R$ и $\phi^{-1}(B) \in \mathcal{B}$.
+        \item Если $\xi$~--- случайная величина, то $a\xi + b, |\xi|, \xi^{\alpha} (\alpha > 0), e^{\xi}$~--- случайные величины. 
+    \end{enumerate}
+\end{property}
+\subsubsection{Измеримость \texorpdfstring{$\sup$}{sup} и \texorpdfstring{$\inf$}{inf}, суммы и произведения случайных величин.}
+\begin{property}
+    Пусть $\xi_1(x), \xi_2(\omega)$ ~---~ случайные величины. Покажем, что $\xi_1(\omega ) + \xi_2(\omega)$~--- случайная величина.
+\end{property}
+\begin{proof}
+    Хотим показать, что $\{\omega : \xi_1(\omega) + \xi_2(\omega) < x \} \in \mathcal{F}$.
+
+    \noindent Рассмотрим множество $\{ \omega : \xi_1(\omega) < \xi_2(\omega) \} = \bigcup\limits_{k} \{ \omega : \xi_1(\omega) < r_k \} \cap \{\omega: \xi_2(\omega) \ge r_k \}$, где $r_k = \Q$.
+
+    \noindent Оба множества в объединении измеримы. Тогда верно следующее: 
+    \begin{gather*}
+        \{\omega : \xi_1(\omega) + \xi_2(\omega) < x \} = \{ \omega : \xi_1(\omega) < x - \xi_2(\omega) \} \in \mathcal{F}.
+    \end{gather*}
+\end{proof}
+
+\begin{property}
+    Умножать случайные величины тоже можно, так как $\xi_1 + \xi_2 = \frac{1}{4}((\xi_1 + \xi_2)^2 + (\xi_1 - \xi_2)^2)$.
+\end{property}
+
+\begin{property}
+    Поймем можно ли делить. $\dfrac{\xi_1}{\xi_2} = \xi_1 \cdot \frac{1}{\xi_2}$, если $\xi_2(\omega) \neq 0, \forall \omega$.
+\end{property}
+
+\subsubsection{Критерий существований функциональной зависимости случайных величин.}
+\begin{theorem}
+    Пусть заданы две случайные величины $\xi$ и $\eta$.
+    Тогда следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\sigma(\xi) \subset \sigma(\eta)$;
+        \item Существует такая борелевская $g$, что $\xi = g(\eta)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Импликация $2) \Ra 1)$ очевидна. \\
+    Покажем справедливость $1) \Ra 2)$. 
+    Определим последовательность $A_{k, n}$ как
+    \[
+        A_{k, n} = \left\{\xi \in \left[\dfrac{k}{2^n}, \dfrac{k + 1 }{2^{n}}\right]\right\}.
+    \]
+    В силу измеримости $\xi$ относительно $\eta$ справедливо, что $A_{k, n} \in \sigma(\eta)$.
+    Пусть $B_{k, n} = \{\eta(w) \mid w \in A_{k, n}\}$ и функция $g_n(x) = \sum\limits_{k, n} \dfrac{k}{n}\Ind_{B_{k, n}}$. Заметим, что $g_n$ -- возрастающая последовательность простых функций и $|g_n(\eta) - \xi| \ra 0, n \ra \infty$, что и показывает существование борелевской $g$ такой, что $g(\eta) = \xi$.
+\end{proof}

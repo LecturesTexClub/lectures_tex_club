@@ -1,0 +1,229 @@
+\subsection{Непараметрические неравенства концентрации меры.}
+\subsubsection{Мартингалы.}
+Пусть задано вероятностное пространство $(\Omega, \mathcal{F}, \P)$.
+
+\begin{definition}
+    Последовательность $\sigma$-алгебр $\{\mathcal{F}_n\}_{n = 1}^{\infty}$, где $\forall n \in \N\colon \mathcal{F}_n \subset \mathcal{F}$, будем называть фильтрацией, если $\forall n \in \mathbb{N} \colon \mathcal{F}_n \subset \mathcal{F}_{n + 1}$.
+\end{definition}
+\begin{definition}
+    Последовательность случайных величин $\{X_n\}_{n = 1}^{\infty}$ будем называть подчинённой фильтрации $\{\mathcal{F}_n\}_{n = 1}^{\infty}$, если $\forall n \in \mathbb{N}$ случайная величина $X_n$ является $\mathcal{F}_n$-измеримой.
+\end{definition}
+\begin{definition}
+    Для данной фильтрации $\{\mathcal{F}_n\}_{n = 1}^{\infty}$ и последовательность случайных величин $\{X_n\}_{n = 1}^{\infty}$ будем называть семейство $\{(X_n, \mathcal{F}_n)\}_{n = 1}^{\infty}$ мартингалом если выполнены следующие условия:
+    \begin{enumerate}
+        \item Последовательность $\{X_n\}$ подчинена фильтрации $\{\mathcal{F}_n\}$.
+        \item $\forall n \in \mathbb{N} \hookrightarrow \Ex |X_n| < +\infty$.
+        \item $\forall n \in \mathbb{N} \hookrightarrow \Ex(X_{n + 1} \mid \mathcal{F}_n) = X_n$ почти наверное.
+    \end{enumerate}
+\end{definition}
+\begin{note}
+    Если равенство в третьем условии заменить на <<$\geq$>> (соответственно, на <<$\leq$>>) то такой объект называется субмартингалом (соответственно, супермартингалом).
+\end{note}
+\begin{lemma}
+    Третье условие в определении мартингала допускает эквивалентную переформулировку.
+    \begin{itemize}
+        \item[3] $\forall n \in \mathbb{N} \hookrightarrow \Ex(X_{n + 1} \mid \mathcal{F}_n) = X_n$ почти наверное.
+        \item[3'] $\forall n \in \mathbb{N} \  \forall m > n \hookrightarrow \Ex(X_{m} \mid \mathcal{F}_n) = X_n$ с вероятностью единица.
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+    Условие 3 тривиально следует из условия 3'. \\
+    Пусть выполнено условие 3. Пусть $m > n$. \\
+    Заметим, что 
+    \[
+        \Ex(X_m \mid \mathcal{F}_n) = \Ex(\Ex(X_m \mid \mathcal{F}_{m - 1}) \mid \mathcal{F}_n) = \Ex(X_{m - 1} \mid \mathcal{F}_n),
+    \]
+    в силу телескопического свойства условного математического ожидания. Поскольку $m$ -- конечно, то рано или поздно <<спуск>> закончится и будет получено выполнение условия 3'.
+\end{proof}
+\begin{example}
+    Пусть $\{\xi_j\}_{j = 1}^{\infty}$ -- i.i.d. последовательность случайных величин с $\Ex \xi_1 = 0$. Определим $\{X_n\}_{n = 1}^{\infty}$ как 
+    \[
+        X_n = \sum\limits_{j = 1}^n \xi_j.
+    \]
+    И фильтрацию $\{\mathcal{F}_n\}_{n = 1}^{\infty}$ как 
+    \[
+        \mathcal{F}_n = \sigma(\xi_1, \ldots, \xi_n).
+    \]
+    Поскольку подчинённость $\{X_n\}$ фильтрации $\{\mathcal{F}_n\}$ очевидна, также как и конечность математических ожиданий $X_n$, то достаточно проверить выполнение условия $3)$:
+    \[
+        \Ex(X_{n + 1}\mid \mathcal{F}_n) = X_n + \Ex(\xi_{n + 1}\mid \sigma(\xi_1, \ldots, \xi_n)) = X_n + \Ex \xi_{n + 1} = X_n.
+    \]
+    Значит $\{(X_n, \mathcal{F}_n)\}_{n = 1}^\infty$ является мартингалом.
+\end{example}
+\begin{example}[Мартингал Дуба]
+    Пусть $Z$ -- случайная величина с конечным первым моментом и $\{\mathcal{F}_n\}_{n = 1}^{\infty}$ -- какая-то фильтрация на вероятностном пространстве $(\Omega, \mathcal{F}, \P)$. \\
+    Определим $X_n$ как 
+    \[
+        X_n = \Ex(Z \mid \mathcal{F}_n).
+    \]
+    Очевидно, что $X_n$ -- интегрируемо и $\mathcal{F}_n$-измеримо при любом $n$. \\
+    Проверим выполнение третьего свойства:
+    \[
+        \Ex(X_{n + 1}\mid \mathcal{F}_n) = \Ex(\Ex(Z \mid \mathcal{F}_{n + 1}) \mid \mathcal{F}_n) = \Ex(Z \mid \mathcal{F}_n) = X_n,
+    \]
+    в силу телескопического свойства условного математического ожидания. \\
+    Таким образом $\{(X_n, \mathcal{F}_n)\}$ является мартингалом.
+\end{example}
+\subsubsection{Неравенство Хёфдинга. Теорема Хёфдинга.}
+\begin{lemma}[Неравенство Хёфдинга]
+    Пусть случайная величина $X$ распределена с вероятностью 1 в отрезке $[a, b]$ и $\Ex(X) = 0$. Пусть $c = b - a$. Тогда $\forall t \in \R$ справедливо следующее неравенство:
+    \[
+        \Ex e^{tX} \leq \exp\biggr({\frac{(tc)^2}{8}}\biggr).
+    \]
+\end{lemma}
+\begin{proof}
+    Заметим, что в силу выпуклости экспоненты $\forall x \in [a, b]$:
+    \[
+        e^{tx} \leq \dfrac{b - x}{b - a}e^{ta} + \dfrac{x- a}{b- a}e^{tb}.
+    \]
+    А значит и 
+    \[
+        \Ex e^{tX} \leq \dfrac{b - \Ex X}{b - a}e^{ta} + \dfrac{\Ex X - a}{b - a}e^{tb} = \dfrac{be^{ta}}{b - a} - \dfrac{ae^{tb}}{b - a} = \dfrac{be^{ta} - ae^{tb}}{b - a} = e^{\phi(t)},
+    \]
+    где $\phi(t) = \ln\biggr(\frac{be^{ta}}{b - a} + \frac{-ae^{tb}}{b - a}\biggr) = ta + \ln\biggr(\frac{b}{b - a} + \frac{-a}{b - a}e^{t(b - a)}\biggr)$. \\ Заметим, что $\phi(0) = 0$. Найдём первую производную $\phi$:
+    \[
+        \phi'(t) = a - \dfrac{ae^{t(b - a)}}{\frac{b}{b - a} - \frac{a}{b - a}e^{t(b - a)}} = a - \dfrac{a}{\frac{b}{b - a}e^{-t(b - a)} - \frac{a}{b - a}}.
+    \]
+    И $\phi'(0) = 0$. Теперь посчитаем вторую производную $\phi$:
+    \begin{multline*}
+        \phi''(t) = -\dfrac{abe^{-t(b - a)}}{\big(\frac{b}{b - a}e^{-t(b - a)} - \frac{a}{b - a}\big)^2} = \\ = \dfrac{\alpha}{(1 - \alpha)e^{-t(b - a)} + \alpha} \cdot \dfrac{(1 - \alpha)e^{-t(b - a)}}{(1 - \alpha)e^{-t(b - a)} + \alpha}(b - a)^2 = \\ = u(1 - u)(b - a)^2,
+    \end{multline*}
+    где $\alpha = -\frac{a}{b - a}$, а $u = \frac{\alpha}{(1 - \alpha)e^{-t(b - a)} + \alpha}$. Поскольку $u \in [0, 1]$, то $u(1 - u) \leq \frac{1}{4}$ и, следовательно:
+    \[
+        \phi(t) = \phi(0) + t\phi'(0) + \dfrac{t^2}{2}\phi''(\theta) \leq \dfrac{(tc)^2}{8}.
+    \]
+    где $\theta(t) \in [0, t]$, что и завершает доказательство.
+\end{proof}
+\begin{theorem}[Теорема Хёфдинга]
+    Рассмотрим серию случайных величин $\{\eta_{nk}\}_{k = 1}^n$ таких, что $a_{nk} \leq \eta_{nk} \leq b_{nk}$. Пусть $c_{nk} = b_{nk} - a_{nk}$ и $c_n^2 = \sum_{k = 1}^n c_{nk}^2$. Тогда $\forall \epsilon > 0$ справедлива следующая оценка на $\eta_n = \sum_{k = 1}^n \eta_{nk}$:
+    \[
+        \P\bigr(\eta_n - \Ex\eta_n \geq \epsilon\bigr) \leq \exp({-{2\epsilon^2}/{c_n^2}}).
+    \]
+\end{theorem}
+\begin{proof}
+    К каждому из $\eta_{nk} - \Ex \eta_{nk}$ мы можем применить лемму Хёфдинга и получить следующую оценку:
+    \[
+        \Ex \exp({t(\eta_{nk} - \Ex\eta_{nk})}) \leq \exp\biggr({\frac{(tc_n)^2}{8}}\biggr).
+    \]
+    Заметим, что из независимости случайных величин внутри одной последовательности в серии следует
+    \[
+        \Ex \exp({t(\eta_n - \Ex \eta_n)}) = \prod_{k = 1}^n \Ex \exp({t(\eta_{nk} - \Ex\eta_{nk})}).
+    \]
+    С учётом неравенства Хёфдинга:
+    \[
+        \Ex \exp({t(\eta_n - \Ex \eta_n)}) \leq \prod\limits_{k = 1}^n \exp\biggr({\frac{(tc_{nk})^2}{8}}\biggr) = \exp\biggr({\frac{(tc_n)^2}{8}}\biggr).
+    \]
+    Применим неравенство Чернова к $\eta_n - \Ex\eta_n$:
+    \begin{equation*}
+        \P(\eta_n - \Ex\eta_n \geq \epsilon) \leq \inf\limits_{t > 0} \exp({-t\epsilon})\Ex \exp({t(\eta_n - \Ex \eta_n)}) \leq \inf\limits_{t > 0} \exp\biggr({-t\epsilon} + \frac{(tc_n)^2}{8}\biggr).
+    \end{equation*}
+    Поскольку $\frac{t^2c_n^2}{8} - t\epsilon$ принимает минимальное значение в точке $t_0 = \frac{\epsilon}{c_n^2/4}$, и оно равно $-2\epsilon^2/c_n^2$, то утверждение теоремы доказано.
+\end{proof}
+\begin{corollary}[Применение теоремы Хёфдинга к бернуллиевским случайным величинам]
+    Пусть $\eta_{nk} \sim Be(p)$. Тогда $c_{nk} = 1$ и $c_n^2 = n$. Поэтому для $S_n = \frac{1}{n}\sum_{k = 1}^n (\eta_{nk} - p)$ справедлива следующая оценка:
+    \[
+        \P(S_n \geq \epsilon) \leq e^{-2n\epsilon^2}.
+    \]
+\end{corollary}
+\begin{proof}
+    Доказательство заключается в применении теоремы Хёфдинга к данной серии.
+\end{proof}
+\subsubsection{Субнормальные случайные величины, определение и основные свойства.}
+\begin{definition}[Субгауссовы случайные величины]
+    Случайная величина  $X$ называется субгауссовой если существует $D > 0$ такое, что 
+    \[
+        \Ex \exp\bigr({t\overset{\circ}{X}}\bigr) \leq \exp\biggr({\frac{(tD)^2}{2}}\biggr).
+    \]
+\end{definition}
+\begin{note}
+    Отметим несколько свойств:
+    \begin{itemize}
+        \item Всякая гауссова случайная величина -- субгауссова, поскольку 
+        \[
+            \Ex \exp({tN(0, \sigma^2)}) = \exp\biggr({\frac{(t\sigma)^2}{2}}\biggr).
+        \]
+        \item Если $X$ -- субгауссова, то и $-X$ -- субгауссова.
+    \end{itemize}
+\end{note}
+\begin{lemma}
+    Пусть $\{\eta_{nk}\}_{k = 1}^n$ -- серия субгауссовых случайных величин с показателями $\{D_{nk}\}_{k = 1}^n$. Тогда справедливо неравенство:
+    \[
+        \P(\eta_n - \Ex\eta_n \geq \epsilon) \leq \exp({-\epsilon^2/2D_n^2}), \quad D_n^2 = \sum\limits_{k = 1}^n D_{nk}^2.
+    \] 
+\end{lemma}
+\begin{proof}
+    Из определения субгауссовой случайной величины:
+    \[
+        \Ex \exp({t(\eta_{nk} - \Ex \eta_{nk})}) \leq \exp\biggr({\frac{(tD)^2}{2}}\biggr).
+    \]
+    Действуя аналогично доказательству теоремы Хёфдинга мы придём к успеху.
+\end{proof}
+\begin{note}[прим. техающего]
+    На самом деле лемма Хёфдинга показывает, что каждая существенно ограниченная случайная величина является субгауссовой и даёт хорошую оценку на её показатель.
+\end{note}
+\subsubsection{Неравенства концентрации меры.}
+\begin{lemma}[Обобщённое неравенство Хёфдинга]
+    Пусть даны $\mathcal{F}_0 \subset \mathcal{F}$ -- $\sigma$-подалгебра и $\mathcal{F}_0$-измеримые случайные величины $a, b$ такие, что $\exists C > 0$ -- константа $\hookrightarrow 0 \leq b - a \leq C$ (почти наверное). Пусть дана случайная величина $X$ такая, что $a \leq X \leq b$ (с вероятностью 1) и $\Ex(X \mid \mathcal{F}_0) = 0$. Тогда $\forall t \in \R \hookrightarrow$
+    \[
+        \Ex(e^{tX}\mid \mathcal{F}_0) \leq \exp\biggr({\frac{(tC)^2}{8}}\biggr).
+    \]
+\end{lemma}
+\begin{proof}
+    Из выпуклости экспоненты при $x \in [a(w), b(w)]$ (для некоторого фиксированного $w$) мы получаем, аналогично неравенству Хёфдинга:
+    \[
+        e^{tx} \leq \dfrac{x - a}{b - a}e^{tb} + \frac{b- x}{b - a}e^{ta}.
+    \]
+    Пусть $x = X(w)$. Возьмём условное математическое ожидание от обеих частей и получим 
+    \[
+        \Ex(e^{tX}\mid \mathcal{F}_0) \leq \Ex\biggr(\dfrac{X - a}{b - a}e^{tb} + \dfrac{b - X}{b - a}e^{ta}\mid \mathcal{F}_0\biggr) = (*)
+    \]
+    Поскольку мы можем выносить $\mathcal{F}_0$-измеримые случайные величины за условное математическое ожидание и $\Ex(X \mid \mathcal{F}_0)=  0$, то 
+    \[
+        (*) = \frac{-a}{b - a}e^{tb} + \frac{b}{b - a}e^{ta}.
+    \]
+    Далее мы можем действовать абсолютно аналогично доказательству обычного неравенства Хёфдинга и получить утверждение теоремы.
+\end{proof}
+\begin{theorem}[Неравенство Азумы-Хёфдинга]
+    Пусть дан мартингал $\{(X_n, \mathcal{F}_n)\}_{k = 0}^n$ со следующим свойством:
+    \[
+        a_{k - 1} \leq \Delta_k = X_k - X_{k - 1} \leq b_{k - 1},
+    \]
+    где $a_{k - 1}, b_{k - 1}$ -- $\mathcal{F}_{k - 1}$-измеримые случайные величины при $k = \overline{1, n}$. И, более того, для некоторой числовой последовательности $c_k$ верно, что $b_{k - 1} - a_{k - 1} \leq c_k$ с вероятностью 1. Тогда справедливо следующее неравенство:
+    \[
+        \P\bigr(X_n - X_0 > \epsilon\bigr) \leq \exp\biggr({-2\epsilon^2/\biggr(\sum_{k = 1}^n c_k^2\biggr)}\biggr).
+    \]
+\end{theorem}
+\begin{proof}
+    Заметим, что в силу определения мартингала 
+    \[\Ex(\Delta_k \mid \mathcal{F}_{k - 1}) = \Ex(X_k \mid \mathcal{F}_{k - 1}) - \Ex(X_{k - 1}\mid \mathcal{F}_{k - 1}) = X_{k - 1} - X_{k - 1} = 0.\]
+    Из определения $\Delta_k$: $X_t - X_0 = \sum_{k = 1}^t \Delta_k$. Распишем вид производящей функции моментов для $X_t - X_0$:
+    \begin{multline*}
+        \Ex \exp({t(X_i - X_0)}) = \Ex \exp({t\Delta_t})\exp({t(X_{t - 1} - X_0)}) = \\ = \Ex(\Ex(\exp({t\Delta_t})\exp({t(X_{t - 1} - X_0)}) \mid \mathcal{F}_{t - 1})) =  \Ex(\exp({t(X_{t - 1}- X_0)})\Ex(\exp({t\Delta_t})\mid \mathcal{F}_{t - 1})) \leq \\ \leq
+        \exp\biggr({\frac{(tc_k)^2}{8}}\biggr)\Ex(\exp({t(X_{t - 1} - X_0)})).
+    \end{multline*}
+    Действуя далее аналогично, мы получаем 
+    \[
+        \Ex \exp({t(X_n - X_0)}) \leq \exp\biggr({\frac{t^2}{8}\sum_{k = 1}^n c_k^2}\biggr).
+    \]
+    Применим неравенство Чернова и получим при $t_0 = {4\epsilon}/{\sum_{k = 1}^n c_k^2}$ искомую оценку.
+\end{proof}
+\begin{definition}
+    Будем говорить что измеримая функция $Z = Z(x_1, \ldots, x_n)$ обладает свойством конечных разностей, если $\forall k = \overline{1, n}\  \exists c_k > 0$ такая, что
+    \[
+        \sup\limits_{x \in \R^n, x'_k \in \R}|Z(x_1, \ldots, x_k, \ldots, x_n) - Z(x_1, \ldots, x_k', \ldots, x_n)| \leq c_k.
+    \]
+\end{definition}
+\begin{theorem}[Неравенство Мак-Диармида]
+    Пусть $Z$ обладает свойством конечных разностей с константами $\{c_k\}_{k = 1}^n$ и заданы независимые случайные величины $\xi_1, \ldots, \xi_n$. Пусть $Z(\xi) = Z(\xi_1, \ldots, \xi_n)$. Тогда $\forall \epsilon > 0 \hookrightarrow$
+    \[
+        \P(Z(\xi) - \Ex Z(\xi) \geq \epsilon) \leq e^{-{2\epsilon^2}/\sum_{i = 1}^n c_i^2}.
+    \]
+\end{theorem}
+\begin{proof}
+    Заметим, что $Z$ -- ограниченная функция. Значит, она интегрируема.
+    Определим $X_k = \Ex(Z(\xi)\mid\mathcal{F}_k)$, где $\mathcal{F}_k = \sigma(\xi_1, \ldots, \xi_k)$ и $\mathcal{F}_0 = \{\emptyset, \Omega\}$. Последовательность $\{X_k, \mathcal{F}_k\}$ образует мартингал Дуба. Пусть $\Delta_k = X_k - X_{k - 1}$. Определим верхние и нижние границы $\Delta_k$ как 
+    \begin{multline*}
+        W_k = \sup\limits_{\xi_k} \Ex(Z(\xi)\mid \xi_1, \ldots, \xi_k) - \Ex(Z(\xi) \mid \xi_1, \ldots, \xi_{k - 1}) \geq \Delta_k \\ \Delta_k \geq \inf\limits_{\xi_k} \Ex(Z(\xi)\mid \xi_1, \ldots, \xi_k) - \Ex(Z(\xi) \mid \xi_1, \ldots, \xi_{k - 1}) = U_k.
+    \end{multline*}
+    И, в силу свойства конечных разностей, $W_k - U_k \leq c_k$. Применение неравенства Азума-Хёфдинга звершает доказательство.
+\end{proof}
