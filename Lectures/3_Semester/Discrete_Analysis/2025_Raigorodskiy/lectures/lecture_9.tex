@@ -1,0 +1,72 @@
+
+
+\begin{lemma}
+    Пусть \(p = n^{-\alpha}, \alpha \in \left( \frac{5}{6}, 1 \right)\). Тогда
+    \[P\left(\forall S \subset V, |S| \le \sqrt{n}\ln n: \chi\left( G|_S \right)\le 3 \right) \ge 1 - \frac{1}{\ln n}\]
+\end{lemma}
+\begin{proof}
+    \[P\left( \exists S \subset V, |S| \le \sqrt{n}\ln n: \chi\left( G|_S \right) \ge 4\right) = \]
+    \[ = P\left( \exists S \subset V, 4 \le |S| \le \sqrt{n}\ln n: \chi\left( G|_S \right) \ge 4\right) = \]
+    \[P\left( \exists S \subset V, |S| \le \sqrt{n}\ln n: \chi\left( G|_S \right) \ge 4, \forall x \in S: \chi\left( S|_{S\setminus \{x\}} \right) \le 3\right)\]
+    \[\le P\left( \exists s \in [4, \sqrt{n}\ln n] \exists S, |S| = s : \left| E\left( G|_S \right) \right| \ge \frac{3s}{2} \right) \le\]
+    \[\le \sum_{s = 4}^{\sqrt{n}\ln n}\sum_{S \subset V, |S| = s} P\left( \left| E\left( G|_S \right) \right| \ge \frac{3s}{2} \right) \le \]
+    \[ \le \sum_{s}\sum_S C_{C_s^2}^{\frac{3s}{2}}p^{\frac{3s}{2}} = \sum_sC_n^sC_{C_s^2}^{\frac{3s}{2}}p^{\frac{3s}{2}} \le \sum_s\left( \frac{en}{s} \right)^s\left( \frac{eC_s^2}{3s/2} \right)^{\frac{3s}{2}}p^{\frac{3s}{2}} \le\sum_s \left( \frac{en}{s} \right)^s s^{\frac{3s}{2}}p^{\frac{3s}{2}} = \]
+    \[ = \sum_s \left( \frac{en}{s}s^{\frac{3}{2}}p^{\frac{3}{2}} \right)^s = \sum_s\left( en\sqrt{s}p^{\frac{3}{2}} \right)^s \le \sum_s (en\sqrt[4]{n}\sqrt{\ln n}p^{\frac{3}{2}}) \sum_s \left( e\sqrt{\ln n}n^{\frac{5}{4} - \frac{3}{2}\alpha} \right)^s \le_{n \ge n_0}\]
+    \[\le_{n \ge n_0} \sum_s\left( n^{-\frac{\beta}{2}} \right)^s < \frac{n^{-2\beta}}{1 - n^{-\frac{\beta}{2}}} <_{n \ge n_1} \frac{1}{\ln n}\]
+\end{proof}
+
+\begin{definition}
+    Пусть \(f = f(G)\), в графе \(G\) на \(n\) вершинах. Тогда \(f\) липшицева по ребрам, если \(\forall G, G'\), таких, что \(G\) и \(G'\) отличаются одним ребром, \(|f(G) - f(G')| \le 1\).
+\end{definition}
+
+\begin{definition}
+    Пусть \(f = f(G)\), в графе \(G\) на \(n\) вершинах. Тогда \(f\) липшицева по вершинам, если \(\forall G, G'\), таких, что \(G\) и \(G'\) отличаются, быть может, только набором ребер, которые исходят из одной вершины, \(|f(G) - f(G')| \le 1\).
+\end{definition}
+
+\begin{example}
+    Число рёбер графа является липшицевым по рёбрам, а хроматическое число графа — липшицево по вершинам. Количество треугольников в графе не является лип- шицевым по рёбрам.
+\end{example}
+
+\begin{theorem}[б/д]
+    Пусть \(f\) липшицева по ребрам. Тогда
+    \[\forall a > 0: P(f - \E f \ge a) \le e^{-\frac{a^2}{2C_n^2}}\]
+    \[\forall a > 0: P(f - \E f \le -a) \le e^{-\frac{a^2}{2C_n^2}}\]
+
+\end{theorem}
+\begin{theorem}[б/д]
+    Пусть \(f\) липшицева по вершинам. Тогда
+    \[\forall a > 0: P(f - \E f \ge a) \le e^{-\frac{a^2}{2(n - 1)}}\]
+    \[\forall a > 0: P(f - \E f \le -a) \le e^{-\frac{a^2}{2(n - 1)}}\]
+\end{theorem}
+\begin{theorem}[Боллобаш]
+    Пусть \(p = n^{-\alpha}, \alpha \in \left( \frac{5}{6}, 1 \right)\). Тогда \(\exists u(n, \alpha):\) а.п.н. \(u \le \chi(G) \le u + 3\)
+\end{theorem}
+\begin{proof}[Доказательство теоремы Боллобаша]
+    Зафиксируем \(\alpha, n\). Пусть \(u\) --- минимальное число, такое, что:
+    \[P(\chi(G) \le u) > \frac{1}{\ln n}, P(\chi(G) \le u - 1) \le \frac{1}{\ln n}\]
+    \[P(\chi(G) \ge u) \ge 1 - \frac{1}{\ln n}\]
+    Положим \(Y(G) = \min \{k: \exists S \subset V, |S| = k: \chi(G_{V \setminus S}) \le u\}\). Эта функция является липшицевой по вершинам. Тогда:
+    \[P(Y - \E Y \ge a) \le e^{-\frac{a^2}{2(n - 1)}} \le \frac{1}{\ln n}\]
+    \[P(Y - \E Y \le -a) \le e^{-\frac{a^2}{2(n - 1)}} \le \frac{1}{\ln n}\]
+    Положим \(a = \sqrt{2(n - 1)\ln\ln n}\). Предположим, что \(\E Y > a\). Тогда
+    \[\frac{1}{\ln n} \ge P(Y \le \E Y - a) \ge P(Y \le 0) = P(\chi(G) \le u) > \frac{1}{\ln n}\]
+    Получили противоречие, тогда \(\E Y \le a\). Но тогда:
+    \[\frac{1}{\ln n} \ge P(Y \ge \E Y + a) \ge P(Y \ge 2a) \Ra P(Y < 2a) \ge 1 - \frac{1}{\ln n}\]
+    \[P(Y < \sqrt{n}\ln n) \ge 1 - \frac{1}{\ln n}\]
+    Пололжим за \(A = \{\chi(G) \ge u\}, B = \{\forall S \subset V, |S| \le \sqrt{n}\ln n: \chi\left( G|_S \right)\le 3\}, C = \{Y < \sqrt{n}\ln n\}\). Тогда:
+    \[P(A \cap B \cap C) = P(\overline{\overline{A} \cup \overline{B} \cup \overline{C}}) \ge 1 - \frac{3}{\ln n}\]
+    Тогда утвеждение доказано, т.к. графы из \(A \cap B \cap C\) нам подходят.
+\end{proof}
+
+\begin{exercise}
+    Докажите, что \(u(n, \alpha) \ra \infty, n \ra \infty\).
+\end{exercise}
+
+\begin{theorem}[Боллобаш]
+    Пусть \(p = \frac{1}{2}\). Тогда \(\exists \phi = o\left( \frac{n}{\ln n} \right):\) а.п.н. \(\left| \chi(G) - \frac{n}{2\log_2 n} \right| \le \phi(n)\)
+\end{theorem}
+\noindent\textit{Доказательство} 
+\begin{enumerate}
+    \item \(\chi(G) \ge \frac{n}{\alpha(G)}\), а.п.н. \(\alpha(G) \le 2\log_2 n \Ra\) а.п.н. \(\chi(G) \ge \frac{n}{2\log_2 n}\)
+    \item а.п.н. \(\chi(G) \le \frac{n}{2\log_2 n} + \phi(n)\), \(\phi(n) = ?\). Рассмотрим \(m = \left[ \frac{n}{\ln^2n} \right]\) --- количество вершин в \(G\) и положим \(X_k(G)\) --- число независимых множеств на \(k\) вершинах. Рассмотрим \(f_k(n) = \E X_k = C_n^k 2^{-C_k^2}, k = k(n) = [2\log_2n] \Ra f_k(n) \ra 0\).
+\end{enumerate}

@@ -1,0 +1,123 @@
+
+
+\section{Уравнения, не разрешенные относительно производной}
+
+\begin{theorem}[О неявной функции]
+    Даны \(\Omega \subset \R^n \times \R^m, F: \Omega \ra \R^n, (v_0, \sigma_0) \in \Omega, F(v, \sigma) = 0, v\) --- неизвестная, \(\sigma\) --- параметр. Пусть также \(F(x_0, \sigma_0) = 0\). Тогда, если \(F\) непрерывно дифференцируема и \(\det\frac{\partial F}{\partial V}(v_0, \sigma_0) \ne 0\), то \(\exists \) окрестность \(V\) точки \(v_0\), окрестность \(\Sigma\) точки \(\sigma_0\), непрерывно дифференцируемая функция \(g: \Sigma \ra \R^n\), такая, что \(F(g(\sigma), \sigma) 
+    \equiv 0\), \(\forall \sigma \in \Sigma \forall v \in V: F(v, \sigma) = 0 \Ra v = g(\sigma)\).
+\end{theorem}
+
+\begin{definition}
+    Пусть даны \(\Omega \subset \R^3\) --- открыто, \(F: \Omega \ra \R\) --- непрерывно дифференцируема. Уравнение
+    \[F(t, x', x'') = 0\]
+    Называется уравнением, не разрешенным относительно производной.
+\end{definition}
+
+\begin{definition}[Задача Коши]
+    Система
+    \begin{equation}
+        \begin{cases}
+            F(t, x', x'') = 0 \\
+            x(t_0) = x_0
+        \end{cases}
+    \end{equation}
+    С дополнительными условиями \((t_0, x_0, v_0) \in \R^3\) называется задачей коши для данного вида уравнений.
+\end{definition}
+
+\begin{example}
+    \[\left\{\begin{array}{l}
+        x'^2 + x^2 = 0 \\
+        x(0) = 1
+    \end{array}\right.\]
+    Не имеет решений.
+\end{example}
+
+\begin{example}
+    \[\left\{\begin{array}{l}
+        x'^2 - x^2 = 0 \\
+        x(0) = 1
+    \end{array}\right.\]
+    Имеет решение \(x(t) = e^{\pm t}\)
+\end{example}
+
+\begin{theorem}
+    Пусть \(F(t_0, x_0, v_0) = 0\) и \(\frac{\partial F}{\partial v}(t_0, x_0, v_0) \ne 0 \Ra \exists\) интервал \(I \subset \R, x: I \ra \R\), такие, что 
+    \begin{enumerate}
+        \item \(x\) является решением задачи коши, \(x'(t_0) = v_0\)
+        \item \(\forall\) решения \(y: J \ra \R\) задачи коши, \(y'(t_0) = v_0\), \(x(t) \equiv y(t), t \in I \cap J\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Рассмотрим уравнение \(F(t, x, v) = 0\) с неизвестным \(v\) и параметром \(\sigma = (t, x)\). По теореме о неявной функции следует, что существуют окрестность \(\Sigma\) точки \((t_0, x_0)\), окрестность \(V\) точки \(v_0\), непрерывно дифференцируемая \(g: \Sigma \ra \R\), такие, что:
+    \begin{enumerate}
+        \item \(F(t, x, g(t, x)) \equiv 0\)
+        \item \(\forall v \in V \forall (t, x) \in \Sigma: F(t, x, v) = 0 \Ra v = g(t, x)\).
+    \end{enumerate}
+    Решим следующую задачу коши для нормального уравнения:
+    \begin{equation}
+        \begin{cases}
+            x' = g(t, x) \\
+            x(t_0) = x_0
+        \end{cases}
+    \end{equation}
+
+    По теореме о решениях задачи коши для нормального уравнения, \(\exists I \subset \R\) --- интервал, \(x: I \ra \R\), такая, что:
+    \begin{enumerate}
+        \item \(x\) --- решение задачи Коши (5.2)
+        \item \(\forall y: J \ra \R\) --- решения задачи Коши (5.2) \(x(t) \equiv y(t), t \in I \cap J\).
+    \end{enumerate}
+    Тогда \(x\) является решением (5.2), т.к. \(F(t, x(t), x'(t)) \equiv F(t, x(t), g(t, x(t))) \equiv 0\). Но \(x(t_0) = x_0\), поэтому \(x'(t_0) = g(t_0, x(t_0) = g(t_0, x_0)) = v_0\).
+
+    Рассмотрим \(y: J \ra \R\) --- произвольное другое решение (5.1). Пусть \(\exists t \in I \cap J, t > t_0: x(t) \ne y(t)\). Положим \(\tau = \inf\{t \in I \cap J, t > t_0, x(t) \ne y(t)\}\). Имеем:
+    \begin{enumerate}
+        \item \(x(\tau) = y(\tau)\) (в силу непрерывности и определения \(\tau\))
+        \item \(\exists \epsilon > 0: [\tau, \tau + \epsilon \subset I \cap J]\) и \((t, y(t), y'(t)) \in \Sigma \times V\).
+    \end{enumerate}
+    Тогда \(y'(t) = g(t, y(y)), t \in [\tau, \tau + \epsilon) \Ra y\) является решением задачи Коши (5.2) при \(t \in [t_0, \tau + \epsilon) \Ra x(t) = y(t), t \in [t_0, \tau + \epsilon)\), получили противоречие с тем, что \(\tau = \inf\{t \in I \cap J, t > t_0, x(t) \ne y(t)\}\), противоречие.
+\end{proof}
+
+Рассмотрим уравнение:
+\begin{equation}
+    F(t, x, x') = 0
+\end{equation}
+
+\begin{definition}
+    Функция \(x: I \ra \R\) называется особым решением уравнения (5.3), если \(x\) является решением и \(\forall y\) --- решения (5.3) верно, что \(\forall t_0 \in I: y(t_0) = x(t_0) \Ra y'(t_0) = x'(t_0)\).
+\end{definition}
+
+\begin{definition}
+    Множество точек \(D = \left\{(t, x, v): F(t, x, v) = 0, \frac{\partial F}{\partial v}(t, x, v) = 0\right\}\) называется дискриминантной кривой.
+\end{definition}
+
+\begin{note}
+    По предыдущей теореме, если \(x\) является особым решением, то \((t, x(t), x'(t)) \in D \forall t\).
+\end{note}
+
+\begin{example}
+    \[x'^2 - 4x^3(1 - x) = 0\]
+    Тогда:
+    \[x(t) = \left[\begin{array}{l}
+        0 \\
+        1 \text{ --- особое решение}\\
+        \frac{1}{(t - c)^2 + 1}
+    \end{array}\right.\]
+    Причем дискриминантная кривая имеет вид: \(D = \{(t, x, v): x = 0 \vee x = 1\}\). Таким образом, не все решения являются особыми, не все точки из дискриминантной кривой являются точками особого решения.
+\end{example}
+
+\begin{lemma}[О дифференцируемом неравенстве]
+    Пусть \(I\) --- интервал или отрезок, \(t_0 \in I, k > 0, m \in \R, r_0 \ge 0, z \in C^1: \forall t \in I: |z'(t)| \le k|z(t)| + m, |z(t_0)| \le r_0\). Тогда 
+    \[\forall t \in I: |z(t)| \le r_0e^{k|t - t_0|} + \frac{m}{k}\left( e^{k|t - t_0|} - 1\right)\]
+\end{lemma}
+\begin{proof}
+    Будем рассматривать только такие \(t\), что \(|z(t)| \ne 0\). Рассмотрим 
+    \[\frac{d}{dt}|z(t)|^2 = \frac{d}{dt}(z(t), z(t)) = \frac{d}{dt}\left( z_1^2(t) + z_2^2(t) + \dots + z_n^2(t) \right)\]
+    \[= 2\left( z_1z_1' + z_2z_2' + \dots + z_nz_n' \right) = 2(z(t), z'(t))\]
+    \[\frac{d}{dt}|z(t)|^2 = 2|z(t)|\frac{d}{dt}|z(t)|\]
+    \[|z(t)|\frac{d}{dt}|z(t)| = (z(t), z'(t)) \le |z(t)||z'(t)|\]
+    \[\frac{d}{dt}|z(t)| \le |z'(t)|\]
+    Пусть \(\exists \tilde{t} > t_0: |z(\tilde{t})| > r_0e^{k|\tilde{t} - t_0|} + \frac{m}{k}\left( e^{k|\tilde{t} - t_0|} - 1 \right)\). Положим \(\tau = \max\{s \in [t_0, \tilde{t}]: |z(s)| = |z(t_0)|\}\). \(|z(t)| > 0\) при \(t \in (\tau, \tilde{t}]\). Имеем: \(\frac{d}{dt}|z(t)| \le |z'(t)| \le k|z(t)| + m\) при \(t \in (\tau, \tilde{t}]\).
+    \[\frac{d}{dt}|z(t)|e^{-kt} - ke^{-kt}|z(t)| \le me^{-kt}\]
+    \[\frac{d}{dt}\left( |z(t)|e^{-kt} \right) \le me^{-kt}\]
+    \[|z(t)e^{-kt}| - |z(\tau)|e^{-k\tau} \le -\frac{m}{k}e^{-kt} + \frac{m}{k}e^{-k\tau}\]
+    \[|z(t)| \le |z(\tau)|e^{k(t - \tau)} + \frac{m}{k}\left( e^{k(t - \tau)} - 1 \right) \le r_0e^{k(\tilde{t} - t_0)} + \frac{m}{k}e^{k(\tilde{t} - t_0)}\]
+\end{proof}

@@ -1,0 +1,87 @@
+
+
+\section{Зависимоть решения задачи Коши от параметра}
+
+Рассмотрим задачу Коши: пусть даны \(\Gamma \subset \R \times \R^n\) --- открытое и \(f: \Gamma \ra \R^n\) --- непрерывна, \(\frac{\partial f_i}{\partial x_j}\) существуют и непрерывны, \((t_0, x_0) \in \Gamma\)
+\begin{equation}
+    \begin{cases}
+        x' = f(t, x) \\
+        x(t_0) = x_0
+    \end{cases}
+\end{equation}
+
+Пусть \(\tilde{x}: I \ra \R^n\) --- решение (12.1) и \(t_1, t_2 \in \R, t_0 \subset [t_1, t_2] \subset I\). Рассмотрим \(d > 0\) и положим 
+\[V = \{(t, x): t \in [t_1, t_2], x \in \R^n, |x - \tilde{x}(t)| \le d\} \subset \Gamma\]
+
+\begin{lemma}
+    \(\forall \epsilon > 0 \exists \delta > 0:\) если \(g: \Gamma \ra \R^n\) непрерывна, а \(\frac{\partial g_i}{\partial x_j}\) существуют и непрерывны, \(|g(t, x) - f(t, x)| \le \delta \forall (t, x) \in V, y_0 \in \R^n: |y_0 - x_0| < \delta\), то непродолжаемое решение \(y\) задачи Коши 
+    \begin{equation}
+        \begin{cases}
+            y' = g(t, y) \\
+            y(t_0) = y_0
+        \end{cases}
+    \end{equation}
+    Существует, определена на \([t_1, t_2]\) и
+    \[|\tilde{x}(t) - y(t)| < \epsilon \forall t \in [t_1, t_2]\]
+\end{lemma}
+\begin{proof}
+    \(\forall \epsilon > 0\) возьмем \(\delta > 0\) так, что
+
+    \(V\) --- компакт \(\Ra \exists l: \left|\frac{\partial f_i}{\partial x_j}(t, x)\right| \le l \forall (t, x) \in V\).
+    \[\Ra \left\|\frac{\partial f_i}{\partial x_j}(t, x)\right\| \le ln^2 =: L \forall (t, x) \in V\]
+    \[\Ra |f(t, x) - f(t, y)| \le L|x - y| \forall (t, x), (t, y) \in V\]
+    Возьмем \(g, y_0\) из условия леммы. По теореме о единственности решения, \(\exists !\) решение \(y\) задачи Коши (12.2). Пусть \(T\) --- отрезок, содержащий \(t_0, y(t) \in V \forall t \in T\).
+    \[|\tilde{x}'(t) - y'(t)| = |f(t, \tilde{x}(t)) - g(t, y)| \le |f(t, \tilde{x}(t)) - f(t, y(t))| + |f(t, y(t)) - g(t, y(t))| \le\]
+    \[L|\tilde{x}(t) - y(t)| + \delta \forall t \in T\]
+    Положим \(z(t) = \tilde{x}(t) - y(t)\). Тогда \(|z'(t)| \le L(z(t)) + \delta \Ra\) по лемме о дифференцируемом неравенстве:
+    \[|z(t)| \le \delta e^{L|t - t_0|} + \frac{\delta}{L}\left( e^{L|t - t_0|} - 1\right) < \min\{\epsilon, d\} \forall t \in T\]
+    Тогда \(y\) определена на \([t_1, t_2]\).
+\end{proof}
+
+Теперь рассмотрим задачу Коши: пусть \(\Sigma \subset \R \times \R^n \times \R^m\) --- открыто, \(f: \Sigma \ra \R^n\) непрерывна, \(\frac{\partial f_i}{\partial x_j}\) существуют и непрерывны, \(M \subset \R^m\) --- открыто, \(a: M \ra \R^n\) --- непрерывна, \((t_0, a(\mu), \mu) \in \Sigma \forall \mu \in M\).
+\begin{equation}
+    \begin{cases}
+        x' = f(t, x, \mu) \\
+        x(t_0) = a(\mu)
+    \end{cases}
+\end{equation}
+
+Пусть \(\phi(\cdot, \mu)\) --- непродолжаемое решение задачи Коши (12.3) \(\forall \mu \in M\). Положим \(\Omega = \{(t, \mu): \phi(t, \mu)\text{ определено}\}\).
+
+\begin{theorem}
+    \(\Omega\) открыто, \(\phi\) непрерывно
+\end{theorem}
+\begin{proof}
+    \(\forall (\tilde{t}, \tilde{\mu}) \in \Omega: \tilde{x} = \phi(t, \tilde{\mu})\). \(\tilde{x}\) определена на \([t_0, \tilde{t}] \Ra \exists t_2 > \tilde{t}: \tilde{x}\)определена на \([t_0, t_2]\). Тогда существует \(d > 0\), такое, что для \(V = \{(t, x) \in [t_0, t_2] \times \R^n: |\tilde{x}(t) - x| < d\}\) будет верно: \(V \times \{\tilde{\mu}\} \subset \Sigma\) (предоставляется читателю в качестве нетрудного упражнения).
+    
+    \(\forall \epsilon > 0 \exists \delta > 0:\) выполняется утверждение Леммы при \(f(t, x) = f(t, x, \tilde{\mu}), x_0 = a(\tilde{\mu})\). Тогда \(\exists O(\tilde{\mu}) \subset M: |f(t, x, \mu) - f(t, x, \tilde{\mu})| < \delta \forall (t, x) \in V\), \(|a(\tilde{\mu}) - a(\mu)| < \delta \forall \mu \in O(\tilde{\mu})\). Первое неравенство является утверждением о равномерной непрерывности непрерывной функции на компакте (теорема Кантора), второе --- непрерывность функции \(a\) в точке \(\tilde{\mu}\). Тогда из Леммы следует, что \(\phi(\cdot, \mu)\) определена на \([t_1, t_2]\) и \(|\phi(t, \tilde{\mu}) - \phi(t, \mu)| < \epsilon \forall t \in [t_1, t_2] \forall \mu \in O(\tilde{\mu})\). Но тогда \(\Omega\) открыто. 
+    \[|\phi(t, \mu) - \phi(\tilde{t}, \tilde{\mu})| \le |\phi(t, \mu) - \phi(t, \tilde{\mu})| + |\phi(t, \tilde{\mu}) - \phi(\tilde{t}, \tilde{\mu})| < \epsilon + \epsilon, \forall t \in (\tilde{t} - \tau, \tilde{t} + \tau)\]
+    Это верно при достаточно малых \(\tau\), т.к. \(\phi\) непрерывна.
+\end{proof}
+
+Теперь будем рассматривать одномерный параметр. Пусть \(\Sigma \subset \R \times \R^n \times \R\) --- открыто, \(f: \Sigma \ra \R^n\) непрерывна, \(\frac{\partial f_i}{\partial x_j}\) существуют и непрерывны, \(M \subset \R\) --- открыто, \(a: M \ra \R^n\) --- непрерывно дифференцируема, \((t_0, a(\mu), \mu) \in \Sigma \forall \mu \in M\).
+\begin{equation}
+    \begin{cases}
+        x' = f(t, x, \mu) \\
+        x(t_0) = a(\mu)
+    \end{cases}
+\end{equation}
+
+\begin{theorem}
+    \(\phi\) непрерывно дифференцируемо, смешаные производные \(\frac{\partial^2 \phi}{\partial t \partial \mu} \exists\) существуют и непрерывны и \(\frac{\partial \phi}{\partial \mu}(\cdot, \tilde{\mu})\) является решением уравнения в вариациях:
+    \begin{equation}
+        \begin{cases}
+            v' = \frac{\partial f}{\partial x}(t, \phi(t, \tilde{\mu}), \tilde{\mu})v + \frac{\partial f}{\partial \mu}(t, \phi(t, \tilde{\mu}), \tilde{\mu})
+            v(t_0) = a'(\tilde{\mu})
+        \end{cases}
+    \end{equation} 
+\end{theorem}
+\begin{proof}
+    \[\frac{\partial \phi}{\partial t}(t, \mu) = f(t, \phi(t, \mu), \mu), (t, \mu) \in \Omega\]
+    \[\frac{\partial}{\partial t}\left( \underbrace{\frac{\partial \phi}{\partial \mu}(t, \tilde{\mu})}_{v(t)} \right) = \underbrace{\frac{\partial f}{\partial x}(t, \phi(t, \tilde{\mu}), \tilde{\mu})}_{A(t)}\cdot \underbrace{\frac{\partial \phi}{\partial \mu}(t, \tilde{\mu})}_{v(t)} + \underbrace{\frac{\partial f}{\partial \mu}(t, \phi(t, \tilde{\mu}, \tilde{\mu}))}_{b(t)}\]
+    \[v'(t) = A(t)v(t) + b(t)\]
+
+    Также: \(\phi(t_0, \mu) = a(\mu)\). Тогда: 
+    \[\frac{\partial \phi}{\partial \mu}(t_0, \tilde{\mu}) = a'(\tilde{\mu})\]
+    \[v(t_0) = a'(\tilde{\mu})\]
+\end{proof}
