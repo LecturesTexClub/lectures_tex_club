@@ -1,0 +1,121 @@
+
+
+\subsection{Системы линейных однородных дифференциальных уравнений с постоянными коэффициентами}
+Рассмотрим уравнение:
+\begin{equation}
+    x' = Ax
+\end{equation}
+Где \(A \in \Cm^{n \times n}\).
+
+\begin{reminder}
+    \(\forall A \in \Cm^{n \times m} \exists C \in \Cm^{n \times n}: \det C \ne 0\) и \(B = C^{-1}AC\) является жордановой матрицей, т.е. \(\exists s \in \N, n_j \in N, \lambda_j \in \Cm\), такие что:
+    \[B = \left( \begin{array}{cccc}
+        K_1 & 0 & \dots & 0 \\
+        0 & K_2 & \dots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \dots & K_s \\
+    \end{array} \right), K_j =\left( \begin{array}{ccccc}
+        \lambda_j & 1 & 0 & \dots & 0 \\
+        0 & \lambda_j & 1 & \dots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \dots & 1 \\
+        0 & 0 & 0 & \dots & \lambda_j \\
+    \end{array} \right) \in \Cm^{n \times n}\]
+\end{reminder}
+
+\begin{note}
+    \[\det(E - \lambda B) = \det(C^{-1}C - \lambda C^{-1}AC) = \det C^{-1} \det(E - \lambda A) \det C = \det(E - \lambda A)\]
+\end{note}
+
+\begin{theorem}
+    Каждое решение (8.7) представимо в виде
+    \begin{equation}
+        x(t) = P_1(t)e^{\lambda_1t} + \dots + P_m(t)e^{\lambda_mt}
+    \end{equation}
+    Где \(\lambda_1, \dots \lambda_m\) --- попарно различные собственные числа \(A\), где \(P_j(t) = (P_{j1}(t), P_{j2}(t), \dots P_{jn}(t))\) причем \(\deg P_{jk} \le \) размера соответствующей Жордановой клетки.
+\end{theorem}
+\begin{proof}
+    Рассмотрим замену: \(x(t) = Cy(t), t \in \R\). Тогда (8.7) равносильно:
+    \[Cy' = ACy \Lra y' = By \Lra \]
+    \[\Lra \left\{\begin{array}{l}
+        \left\{
+            \begin{array}{l}
+                y_1' = \lambda_1y_1 + y_2 \\
+                y_2' = \lambda_1y_2 + y_3 \\
+                \vdots \\
+                y_{n_1}' = \lambda_1y_{n_1} \\
+            \end{array}
+        \right.\\
+        y'_{n_1 + 1} = \lambda_2y_{n_1 + 1} + y_{n_1 + 2} \\
+        \vdots \\
+        y'_{n_s} = \lambda_s y_s
+    \end{array}\right.\]
+
+    Сделаем еще одну замену: \(y_j(t) = e^{\lambda_1 t}z_j(t), j = 1, \dots n_1\). Тогда \(y_j' = \lambda_1e^{\lambda_1 t}z_1 + e^{\lambda_1 t}z_1'\). Тогда система превращается в следующую:
+    \begin{equation*}
+        \begin{cases*}
+            z_1' = z_2 \\
+            z_2' = z_3 \\
+            \vdots \\
+            z_{n_1}' = 0
+        \end{cases*}
+    \end{equation*}
+
+    Тогда получаем:
+
+    \begin{equation*}
+        \begin{cases*}
+            z_{n_1} = C_{n_1} \\
+            z_{n_1 - 1} = C_{n_1}x + C_{n_1} - 1 \\
+            \vdots \\
+            z_1' = C_{n_1}\frac{t^{n_1 - 1}}{(n_1 - 1)!} +  C_{n_1 - 1}\frac{t^{n_1 - 2}}{(n_1 - 2)!} + \dots + C_1\\
+        \end{cases*}
+    \end{equation*}
+
+    И, наконец, получаем:
+
+    \begin{equation*}
+        \begin{cases*}
+            y_1 = e^{\lambda_1t}\left( C_{n_1}\frac{t^{n_1 - 1}}{(n_1 - 1)!} +  C_{n_1 - 1}\frac{t^{n_1 - 2}}{(n_1 - 2)!} + \dots + C_1 \right) \\
+            \vdots \\
+            y_{n_1} = C_{n_1}e^{\lambda_1 t}
+        \end{cases*}
+    \end{equation*}
+    Откуда получаем желаемое.
+\end{proof}
+
+Пусть теперь \(A \in \R^{n \times n}\). Пусть \(x(\cdot)\) --- решение (8.7). Тогда найдем решение в виде \(x(t) = u(t) + iv(t), u(t), v(t) \in \R^n, t \in \R\). Тогда \(u(t), v(t)\) являются решением (8.7).
+
+\[x'(t) = A(t)x(t) \Lra u'(t) + iv'(t) = A(u(t) + iv(t)) \Ra u'(t) = Au(t), v'(t) = Av(t)\]
+
+Перенумеруем собственные числа следующим образом:
+\[\left\{\begin{array}{l}
+    \lambda_j = \alpha_j + i\beta_j\\
+    \lambda_{j + r} = \alpha_j - i\beta_j \\
+    \lambda_{2r + 1}, \dots \lambda_m \in \R \\
+\end{array}\right., \beta_j \ne 0\]
+Пусть \(x(t), t \in \R\) --- решение (8.7) в виде (8.8), \(P_j(t) = U_j(t) + iV_j(t)\).
+\[\Re x(t) = \Re \left( \sum_{j = 1}^n (U_j(t) + iV_j(t))(\cos(\beta_jt) + i\sin(\beta_jt))e^{\alpha_jt} \right. +\]
+\[\left.+ \sum_{j = 1}^r(U_{j + r}(t) + iV_{j + r}(t))(\cos (\beta_jt) - i\sin(\beta_jt))e^{\alpha_jt} + \sum_{j = 2r + 1}^m e^{\lambda_jt}(U_j(t) + iV_j(t))\right) = \]
+\[= \sum_{j = 1}^re^{\alpha_jt}\left( \tilde{U}_j(t) \cos(\beta_jt) + \tilde{V}_j(t)\sin(\beta_jt) \right) + \sum_{j = 2r + 1}^ne^{\lambda_jt}\tilde{U}_j(t)\]
+
+\begin{corollary}
+    Каждое решение (8.7) представимо в виде:
+    \[x(t) = \sum_{j = 1}^re^{\alpha_jt}\left( \tilde{U}_j(t)s\cos(\beta_jt) + \tilde{V}\sin(\beta_jt) +  \right) + \sum_{j = 2r + 1}^m e^{\lambda_jt}\tilde{U}_j(t)\]
+    Причем 
+    \[\tilde{U}(t) = (U_{j1}(t), \dots U_{jn}(t))^T\]
+    \[\tilde{V}(t) = (V_{j1}(t), \dots V_{jn}(t))^T\]
+    И \(\deg U_{jk}, \deg V_{jk} \le\) размер наибольшей соответствующей Жордановой клетки.
+\end{corollary}
+
+\subsection{Системы линейных неоднородных дифференциальных уравнений с постоянными коэффициентами}
+Рассмотрим уравнение:
+\begin{equation}
+    x' = Ax + b(t), b \in C(\R, \Cm^n)
+\end{equation}
+Пусть \(b(t) \equiv e^{\mu t}P(t), t \in \R\).
+\begin{proposition}[(б/д)]
+    \(\exists\) решение (8.9), имеющее вид \(x(t) = e^{\mu t}Q(t), t \in \R\), где \(\deg Q \le \deg P + l\), где \(l\) --- размер Жордановой клетки, соответствующей собственному числу \(\mu\) (если \(\mu\) --- не собственное число, подагаем \(l = 0\)).
+\end{proposition}
+
+Если \(b(t) = \sum_{i = 1}^d e^{\mu_it}P_i(t)\) --- сумма квазиполиномов, то можно рассмотреть несколько систем \(x' = Ax + b_j(t)\), где \(b_j = e^{\mu_jt}P_j(t)\). Тогда по утверждению выше, для каждой из них \(\exists\) решение \(x_j(t) = Q_j(t)e^{\mu_j t}, t \in \R\). Тогда \(x(t) = \sum_{i = 1}^d x_i(t)\) --- решение (8.9)

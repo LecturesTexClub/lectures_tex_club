@@ -1,0 +1,84 @@
+
+
+\section{Хроматическое число пространства}
+\begin{definition}
+    \(\chi(\R^n) = \min\{\chi: \R^n = V_1 \sqcup \dots \sqcup V_{\chi}: \forall i, \forall x, y \in V_i: |x - y| \ne 1\}\)
+\end{definition}
+
+\begin{note}
+    \(\chi(\R^1) = 2\). Красим все полуинтервалы вида \([n, n+1)\).
+\end{note}
+
+\begin{note}
+    \(\chi(R^2) \ge 4\)
+    \begin{center}
+        \includegraphics[scale=0.3]{images/IMG_4605.jpeg}
+    \end{center}
+\end{note}
+
+В 2018 году Обри ди Грей доказал, что \(\chi(\R^2) \ge 5\) (придумал очень очень большой граф). До этого (приблизительно за 40 лет было известно, что это верно, в случае, когда \(V_i\) измеримы). Известна верхняя оценка на \(7\):
+\begin{center}
+    \includegraphics[scale=0.3]{images/IMG_4606.jpeg}
+\end{center}
+
+Кроме того, доказано, что если запретить длины \([1, 1 + \epsilon]\), то оценка на 7 точна.
+
+\begin{proposition}
+    \(\chi(\R^3) \in 6, \dots 15\)
+\end{proposition}
+
+\begin{proposition}
+    \(\chi(\R^4) \in 10, \dots 49\)
+\end{proposition}
+
+\begin{proposition}
+    \(\chi(\R^n) \le (c\sqrt{n})^n\)
+\end{proposition}
+
+\begin{theorem}[Эрдеш-др Брёйна]
+    Если \(\chi(G) < \infty\), то \(\exists\) конечный подграф \(H\), такой, что \(\chi(H) = \chi(G)\).
+\end{theorem}
+
+\begin{definition}
+    \(G = (V, E)\) --- дистанционный граф, если в \(\R^n\), если \(V \subset \R^n, E = \{(x, y) \in V^2: |x - y| = a\}\)
+\end{definition}
+
+\begin{note}
+    \(G(n, r, s)\) --- дистанционный граф.
+\end{note}
+\begin{proof}
+    Мы сопоставляли каждому множеству, являющемуся вершиной, вектор из 0 и 1. Но тогда: \((x, y) = s \forall x, y \in V \Ra |x - y| = \sqrt{2(r - s)} = a\), т.е. он дистанционный.
+\end{proof}
+
+Тогда получаем, что \(\chi(\R^n) \ge \chi(G(n, r, s)) \ge \frac{|V(n, r, s)|}{\alpha(G(n, r, s))} = \frac{C_n^r}{m(n, r, s)}\)
+Вспомним, что на отрезке \([x, x + Cx^{0.525\dots}]\) существует простое число. Для произовльного \(r' \in \left( 0, \frac{1}{2} \right)\) положим \(r \sim r'n\). И выберем \(p\) --- простое минимально так, чтобы \(r - s = p, p > \frac{r}{2}\). Тогда \(r - 2p < 0\). Тогда \(p \sim \frac{r'}{2}n\)
+
+Выберем \(r, s\) так, что \(r - s = p, r - 2p < 0, p > \frac{r}{2}\).
+\[\chi(\R^n) \ge \chi(G(n, r, s)) \ge \frac{|V(n, r, s)|}{\alpha(G(n, r, s))} = \frac{C_n^r}{m(n, r, s)} \ge \frac{C_n^r}{\sum_{k = 0}^{p - 1}C_n^k}\]
+
+\[C_n^r = \left( \frac{1}{(r')^{r'}(1 - r')^{1 - r'}}  + o(1)\right)^n\]
+\[C_n^{p - 1} = \left( \frac{1}{\left( \frac{r'}{2} \right)^{\frac{r'}{2}}\left( 1 - \frac{r'}{2} \right)^{1 - \frac{r'}{2}}} + o(1) \right)^n \sim \sum_{k = 0}^{p - 1}C_n^k\]
+
+Тогда подставляем в \(\chi(\R^n) \ge \chi(G(n, r, s))\):
+\[\chi(\R^n) \ge \frac{\left( \frac{r'}{2} \right)^{\frac{r'}{2}}\left( 1 - \frac{r'}{2} \right)^{1 - \frac{r'}{2}}}{(r')^{r'}(1 - r')^{1 - r'}} + o(1)\]
+
+Прологарифмируем:
+\[\frac{r'}{2}\ln \frac{r'}{2} + \left( 1 - \frac{r'}{2} \right)\ln \left( 1 - \frac{r'}{2} \right) - r'\ln r' - (1 - r')\ln (1 - r')\]
+И возьмем производную:
+\[\frac{1}{2}\ln \frac{r'}{2} + \frac{1}{2} - \frac{1}{2}\ln\left( 1 - \frac{r'}{2} \right) - \frac{1}{2} - \ln r' - 1 + \ln(1 - r') + 1 = 0\]
+
+\[\ln \frac{r'}{2} - \ln\left( 1 - \frac{r'}{2} \right) - 2\ln r' + 2\ln(1 - r') = 0\]
+\[\frac{r'}{2}(1 - r')^2 = \left( 1 - \frac{r'}{2} \right)r'^2\]
+
+\[1 - 2r' + (r')^2 = 2r' - (r')^2\]
+
+\[2(r')^2 - 4r' + 1 = 0\]
+\[r' = \frac{2 \pm \sqrt{2}}{2} \Ra r' = \frac{2 - \sqrt{2}}{2}\]
+
+Подставляя в исходное неравенство, получаем:
+\[\chi(\R^n) \ge (1.239\dots + o(1))^n\]
+
+\begin{theorem}[1972, Ларман-Роджерс]
+    \[\chi(\R^n) \le (3 + o(1))^n\]
+\end{theorem}
+

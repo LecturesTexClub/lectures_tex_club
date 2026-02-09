@@ -1,0 +1,44 @@
+
+
+\begin{theorem}[Эрдеш, Реньи, 1959]
+    Пусть \(p = p(n) = \frac{c \ln n}{n}, c > 0\). Тогда если \(c > 1\), то а.п.н. \(G(n, p)\) связен, а если \(c < 1\), то а.п.н. \(G(n, p)\) несвязен.
+    \begin{enumerate}
+        \item Если \(c > 1\), то а.п.н. \(G(n, p)\) связен
+        \item Если \(c < 1\), то а.п.н. \(G(n, p)\) несвязен
+        \item[3 (б/д).] Если \(c = 1\), то \(P(G(n, p)\text{ связен}) \ra \frac{1}{e}\) 
+    \end{enumerate}
+\end{theorem}
+\begin{proof}[Идея доказательства]
+    Положим \(X(G)\) --- число изолированных вершин графа \(G\). Тогда
+    \[\E X = nq^{n - 1} = n(1 - p)^{n - 1} = ne^{(n - 1)\ln(1 - p)} = ne^{-(1 + o(1))np} =\]
+    \[= ne^{-(1 + o(1))n\frac{c\ln n}{n}} = n\cdot n^{-(1 + o(1))c} \ra \left\{\begin{array}{l}
+        0, c > 1 \\
+        +\infty, c < 1
+    \end{array}\right.\]
+\end{proof}
+\begin{proof}\indent
+    \begin{enumerate}
+        \item \(c < 1\).
+        \[P(X \ge 1) = 1 - P(X \le 0) = 1 - P(-X \ge 0) =\]
+        \[= 1 - P(\E X - X \ge \E X) \ge 1 - P(|X - \E X| \ge \E X) \ge 1 - \frac{\Variance X}{(\E X)^2}\]
+        \[\Variance X = \E X^2 - (\E X)^2\]
+        \[\E X^2 = E(X_1 + X_2 + \dots + X_n)^2 = E\left( X_1^2 + \dots + X_n^2 + \sum_{i \ne j}X_iX_j \right) = \E X + \E \left( \sum_{i \ne j} X_iX_j \right) =\]
+        \[= \E X + n(n - 1)(1 - p)^{2n - 3}\]
+        Итого:
+        \[\frac{\Variance X}{(\E X)^2} = \frac{\E X + n(n - 1)(1 - p)^{2n - 3} - (\E X)^2}{(\E X)^2} = o(1) - 1 + \underbrace{\frac{n(n - 1)(1 - p)^{2n - 3}}{n^2(1 - p)^{2n - 2}}}_{\sim 1} \ra 0\]
+        \item \(c > 1\). Положим теперь \(X(G)\) --- количество компонент связности \(G\) на \(1, 2, \dots n - 1\) вершинах.
+        \[P(X \ge 1) \le \E X = \sum_{k = 1}^n \sum_{j = 1}^{C_n^k} P(\text{\(j\)-е \(k\)-элементное множество является компонентой}) \le\]
+        \[\le \sum_{k = 1}^{n - 1}\sum_{j = 1}^{C_n^k}(1 - p)^{k(n - k)} = \sum_{k = 1}^{n - 1}C_n^k\]
+        Для доказательства, что данная сумма \(\ra 0\), докажем, что \(\sum_{k = 1}^{n/2}C_n^k \ra 0\) (сумма до \(n - 1\) симметрична относитнельно \(n/2\)).
+        Положим \(a_k(n) = C_n^k(1 - p)^{k(n - k)}\). Тогда
+        \[\frac{a_{k + 1}(n)}{a_k(n)} = \frac{C_n^{k + 1}(1 - p)^{(k + 1)(n - k - 1)}}{C_n^k(1 - p)^{k(n - k)}} = \frac{n - k}{k + 1}(1 - p)^{-k + n - k + 1} < n(1 - p)^{n - 1 - 2k}\]
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[б/д]
+    Если \(p(n) = \frac{\ln n + \gamma}{n}, \gamma \in \R\), то \(P(G(n, p)\text{ связен}) \ra e^{-e^{-\gamma}}\)
+\end{theorem}
+
+\begin{corollary}[б/д]
+    Если \(c = 3, n \ge 100\), то \(P(G(n, p)\text{ связен}) \ge 1 - \frac{1}{n}\)
+\end{corollary}
