@@ -1,0 +1,140 @@
+\section{Преобразования случайных величин.}
+\subsection{Характеристические функции.}
+\begin{definition}
+    Характеристической функцией случайной величины $\xi$ будет называть преобразование Фурье меры $\P_\xi$, то есть
+    \[
+        \phi_{\xi}(t) = \Ex e^{it \xi}.
+    \]
+\end{definition}
+Таким образом, для абсолютно непрерывных случайных величин характеристические функции имеют вид
+\[
+    \phi_{\xi}(t) = \int_{\R} f_{\xi}(x)e^{itx}dx.
+\]
+А для дискретных случайных величин характеристические функции имеют вид
+\[
+    \phi_{\xi}(t) = \sum\limits_{k} \P(\xi = y_k)\cdot e^{ity_k}.
+\]
+Характеристические функции обладают следующим набором свойств:
+\begin{enumerate}
+    \item $|\phi(t)| \leq 1$. И действительно: $|\phi(t)| = |\Ex e^{it \xi}| \leq \Ex |e^{it \xi}| = \Ex 1 = 1$.
+    \item Характеристическая функция является равномерно непрерывной на всей числовой прямой: $\forall h \in \R \hookrightarrow |\phi_\xi(t + h) - \phi_\xi(t)| \leq \Ex |e^{i(t + h)\xi} - e^{it \xi}| = \Ex |e^{ih} - 1| \ra 0, h \ra 0$ по теореме Лебега о мажорируемой сходимости.
+    \item Если $\eta = a \xi + b$, то $\phi_{\eta}(t) = \Ex e^{it \eta} = \Ex e^{it (a \xi + b)} =e^{itb} \Ex e^{i\xi (ta)} = e^{itb}\phi_\xi (ta) $.
+    \item $\phi^{(k)}_\xi(t)\big|_{t = 0} = i^k \int x^k e^{it \xi} dF_\xi \big|_{t = 0} = i^k\Ex \xi^k$
+    \item Если $\xi$ и $\eta$ -- независимые случайные величины, то и функции $e^{it\xi}$ и $e^{it \eta}$ -- независимы, а следовательно $\phi_{\xi + \eta}(t) = \Ex e^{it (\xi + \eta)} = \Ex e^{it\xi}\cdot \Ex e^{it \eta} = \phi_\xi(t)\phi_\eta(t)$.
+\end{enumerate}
+\begin{example}
+    Посчитаем характеристические функции некоторых известных распределений:
+    \begin{itemize}
+        \item Для $\xi \sim Be(p)$ очевидно, что $\phi_\xi(t) = q + pe^{it}$.
+        \item Для $\xi \sim Binom(n, p)$ в силу того, что $\xi = \sum\limits_{k = 1}^n y_k$ -- i.i.d. распределённых $Be(p)$, то $\phi_\xi(t) = (p + qe^{it})^n$.
+        \item Для $\xi \sim N(0, 1)$:
+        \[
+            \phi_{\xi}(t) = \int \dfrac{1}{\sqrt {2\pi}} e^{-x^2/2} e^{itx}dx.
+        \]
+        Так как $\phi'(t) = \dfrac{-i}{\sqrt {2\pi}} \int e^{itx}de^{-x^2/2} = \dfrac{i}{\sqrt {2\pi}} \int e^{-x^2/2}de^{itx} = -t \phi(t)$.
+        Очевидно, что $\phi(t) = Ce^{-t^2/2}$. Из нормировки в нуле $\phi(0) = 1$ мы получаем искомую функцию:
+        \[
+            \phi_{xi}(t) = e^{-t^2/2}.
+        \]
+        \item Таким образом, если $\xi \sim N(m, \sigma^2) = m + \sigma N(0, 1)$, то $\phi_\xi(t) = e^{itm - \dfrac{(\sigma t)^2}{2}}$.
+    \end{itemize}
+\end{example}
+\begin{note}
+    Также можно заметить, что сумма независимых нормальных распределений также распределена нормально.
+\end{note}
+% Формулу обращения и заебись.
+\begin{theorem}[О единственности, на лекции доказательство не присутствовало]
+    Для случайных величин $\xi$ и $\eta$ следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\phi_\xi = \phi_\eta$.
+        \item $F_{\xi} = F_{\eta}$.
+    \end{enumerate}
+\end{theorem}
+\begin{note}
+    Слабая сходимость распределений эквивалентна поточечной сходимости их характеристических функций.
+\end{note}
+\begin{note}
+    Последовательность характеристических функций, в общем случае, может сходится не к характеристической функции -- например $\phi_{U(-n, n)} \ra \phi_{I_{\{0\}}}$.
+\end{note}
+\subsection{Производящие функции.}
+\begin{definition}
+    Пусть $\xi$ -- натурально-значная случайная величина (то есть в $\N_0$).
+    Тогда производящей функцией $\xi$ будем называть
+    \[
+        G_{\xi}(z) = \Ex z^{\xi} = \sum\limits_{k = 0}^{+\infty} \P(\xi = k)z^k.
+    \]
+\end{definition}
+Производящая функция случайной величины имеет следующие свойства:
+\begin{enumerate}
+    \item Ряд равномерно сходится при $|z| < 1$, поскольку $G(1) = 1$ (это просто мера вероятностного пространства).
+    \item Производящая функция однозначно определяет распределение: $\P(\xi = k)\cdot k! = G^{(k)}(0)$.
+    \item $G^{m}(1) = \Ex (\xi \cdot \ldots (\xi - m + 1))$.
+    \item $\Ex \xi = G'(1)$ и $\D \xi = G''(1) + G'(1) - G'(1)^2$.
+    \item $G_{a\xi + b}(z) = \Ex z^{a\xi + b} = z^b G_{\xi}(z^a)$.
+    \item Если $\xi$ и $\eta$ -- независимые случайные величины, то $G_{\xi + \eta} = G_{\xi}G_{\eta}$.
+\end{enumerate}
+\begin{example}
+    Приведём несколько примеров производящих функций:
+    \begin{itemize}
+        \item Для распределения Бернулли с параметром $p$ справедливо $G_{Be(p)} = q + pz$.
+        \item Для распределения Пуассона c параметром $\lambda$:
+        \[
+            G(z) = \sum\limits_{k = 0}^{+\infty} z^k \cdot \dfrac{\lambda^k e^{-\lambda}}{k!} = e^{-\lambda} \sum\limits_{k = 0}^{+\infty} \dfrac{(\lambda z)^k}{k!} = e^{\lambda(z - 1)}.
+        \]
+    \end{itemize}
+\end{example}
+\subsection{Характеристические функции моментов.}
+\begin{definition}
+    Производящей функцией моментов для случайной величины $\xi$ будем называть
+    \[
+        H_{\xi}(t) = \Ex e^{t\xi}.
+    \]
+\end{definition}
+Она обладает следующими базовыми свойствами:
+\begin{enumerate}
+    \item Она однозначно определяет распределение $\xi$.
+    \item $H_{\xi}(0) = 0, H_{\xi}(t) > 0$ при всех $t$, где эта функция определена.
+    \item $H_{a\xi + b}(t) = e^{bt}H_{\xi}(at)$.
+    \item Все моменты $\Ex \xi^k$ определены и по ним однозначно восстанавливается распределение.
+    \item $\Ex \xi^k = H^{(k)}_\xi(0)$.
+    \item Аналогично, для независимых случайных величин характеристическая функция моментов суммы равна произведению характеристических функций моментов элементов суммы.
+\end{enumerate}
+\begin{example}
+    Приведём несколько примеров характеристических функций моментов.
+    \begin{itemize}
+        \item Для $\xi \sim N(0, 1)$ она равна $H_\xi(t) = e^{t^2/2}$.
+        \item Для гамма-распределения $\Gamma(\alpha, \lambda)$ она равна $H_{\xi}(t) = (\lambda/\lambda - t)^\alpha$.
+        Пусть $X \sim \Gamma(\alpha, \lambda)$. Тогда у $X$ есть плотность $f_X (x) = \dfrac{\lambda^\alpha}{\Gamma(\alpha)}x^{\alpha - 1}e^{-\lambda x} \cdot I_{x > 0}$.
+        Характеристическая функция моментов:
+        \[
+            H_X(t) = \int_0^{+\infty} e^{tx} \cdot \dfrac{\lambda^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\lambda x} dx = \dfrac{\lambda^\alpha}{(\lambda - t)^\alpha} \int_0^{\infty} \dfrac{(\lambda - t)^\alpha}{\Gamma(\alpha)}x^{\alpha - 1} e^{-x(\lambda - t)}dx.
+        \]
+        Отсюда видно, что характеристическая функция моментов для гамма-распределения существует при $\lambda > t$.
+        Поскольку это, по сути, интеграл от плотности по всему пространству, то
+        \[
+            H_X(t) = \dfrac{\lambda^\alpha}{(\lambda - t)^\alpha}.
+        \]
+    \end{itemize}
+    \begin{note}
+        Из этого можно найти характеристическую функцию гамма-распределения $\phi_X(t) = \dfrac{\lambda^\alpha}{(\lambda - it)^\alpha}$, так как $\phi_X(t) = H_X(it)$ (формально).
+    \end{note}
+\end{example}
+\subsection{Интегральная теорема Муавра-Лапласа.}
+\begin{theorem}[Муавр, Лаплас, интегральная версия]
+    Пусть $\mu_n \sim Binom(n, p)$.
+    Тогда $\Ex \mu_n = np, \D \mu_n = npq$.
+    Рассмотрим случайную величину $\eta_n = \dfrac{\mu_n - \Ex \mu_n}{\sqrt {\D \mu_n}} = \dfrac{\mu_n - np}{\sqrt {npq}}$.
+    Для функции распределения $\eta_n$ справедливо следующее утверждение: \[\P(\eta_n \leq x) = F_{\eta_n}(x) \rr F_{N(0, 1)}(x) = \dfrac{1}{\sqrt {2\pi}}\int_{-\infty}^x e^{-t^2/2}dt.\]
+\end{theorem}
+\begin{proof}
+    По сути, утверждение теоремы состоит в $\eta_n \xrightarrow{d} N(0, 1), n \ra +\infty$.
+    По теореме Леви о непрерывности, это эквивалентно поточечной сходимости характеристических функций всюду на $\R$.
+    Рассмотрим характеристическую функцию $\eta_n$:
+    \begin{multline*}
+        \phi_{\eta_n}(t) = \phi_{\frac{\mu_n}{\sqrt {npq}} - \frac{np}{\sqrt {npq}}}(t) = \exp\biggr({-\frac{itnp}{\sqrt {npq}}}\biggr)\cdot \phi_{\mu_n}\big(\frac{t}{\sqrt {npq}}\big) = \\ = \exp\biggr({-\frac{itnp}{\sqrt {npq}}}\biggr)(q + p\exp\biggr({\frac{it}{\sqrt {npq}}}\biggr)\biggr)^n
+        = (q\exp\biggr({-\frac{itp}{\sqrt {npq}}}\biggr) + p\exp\biggr({\frac{it(1 - p)}{\sqrt {npq}}}\biggr)\biggr)^n = \\ = (q(1 - itp/\sqrt {npq} - (pt)^2/2npq) + p(1 - qt/\sqrt {npq} - (qt)^2/2npq) + o(1/n))^n = \\ =
+        (1 - t^2/2n + o(1/n))^n \ra e^{-t^2/2}, n \ra +\infty.
+    \end{multline*}
+    Что и доказывает утверждение теоремы.
+    Сходимость равномерная, поскольку функция распределения нормальной случайной величины -- непрерывна.
+\end{proof}

@@ -1,0 +1,111 @@
+\subsection{Теорема непрерывности вероятности}
+\begin{property}[Непрерывность вероятности]
+    Пусть $\{A_n\} \subset \mathcal{F}$, $A_iA_j = \varnothing.$ Кроме того, пусть выполняется $\P\left(\sum\limits_{i = 1}^{n} A_i\right) = \sum\limits_{i = 1}^{n} \P(A_i)$~--- счётная аддитивность. Покажем, что тогда вероятностная мера~--- счетно-аддитивна.
+\end{property}
+\begin{proof}
+    Положим $B_n = \bigcup\limits_{k = n}^{\infty}A_k.$ Тогда очевидно вложение $B_1 \supset B_2 \supset \dots$ и \newline $\bigcap\limits_{k = 1}^{\infty}B_n = \varnothing$. Верно следующее: 
+    \begin{gather*}
+        \P(B_1) = \P\left(\bigcup_{k = 1}^{\infty} A_k\right) = \P\left(\sum_{i = 1}^{n - 1} A_k + \sum_{i = n}^{\infty} A_k \right) = \sum_{i = 1}^{n - 1} \P(A_k) + \P(B_n).
+    \end{gather*} 
+    Перейдем к пределу в обеих частях. Так как $\P(B_n) \rightarrow 0$ получаем: 
+    \begin{gather*}
+        \P(B_1) = \lim_{n \rightarrow \infty} \sum_{k = 1}^{n - 1} \P(A_k) = \sum_{k = 1}^{\infty} \P(A_k).
+    \end{gather*}
+\end{proof}
+
+Из счетной аддитивности всегда следует конечная аддитивность. Обратное неверно, так как конечно-аддитивной мере не хватает непрерывности. 
+
+\begin{property}
+    Покажем еще одну формулировку непрерывности меры. Пусть $B_1 \supset B_2 \dots$ и $\bigcap\limits_{i = 1}^{\infty} B_i = B.$ Тогда $\P(B_n) \rightarrow \P(B), n \rightarrow \infty.$
+\end{property}
+\begin{proof}
+    Положим $C_n = B_n\overline{B}$. Очевидно, что $C_n \supset C_{n+1} \ \forall n \in \N$. Кроме того: 
+    \begin{gather*}
+        \bigcap_{n = 1}^{\infty} C_n = \bigcap_{n = 1}^{\infty}B_n\overline{B} = \overline{B} \bigcap_{n = 1}^{\infty}B_n = \overline{B} B = \varnothing.
+    \end{gather*}
+    Тогла выполнено:
+    \begin{gather*}
+        0 \xleftarrow{n \rightarrow \infty} \P(C_n) = \P(B_n\overline{B}) = 1 - \P(B + \overline{B_n}) = \P(B_n) - \P(B).
+    \end{gather*}
+    Получаем требуемое.
+\end{proof}
+
+\begin{property}[Непрерывность сверху]
+    Пусть $A_1 \subset A_2 \subset \dots$ и $A = \bigcup\limits_{k = 1}^{\infty}A_k$. Тогда $\P(A_k) \rightarrow \P(A)$
+\end{property}
+\begin{proof}
+    Положим $B_n = \overline{A_n}$. Получим стягивающуются последовательность множеств $B_1 \supset B_2 \supset \dots$ и $\bigcap B_n = \bigcap \overline{A_n} = \overline{\bigcup A_n} = \overline{A}.$ Тогда: 
+    \begin{gather*}
+        1 - \P(A) = \P\left(\bigcap_{n = 1}^{\infty}B_n\right) \xleftarrow{n \rightarrow \infty} \P(B_n) = 1 - \P(A_n).
+    \end{gather*}
+    Получаем требуемое.
+\end{proof}    
+
+\subsubsection{Леммы Бореля-Кантелли.}
+\begin{lemma}[Бореля-Кантелли]
+    Пусть $\{A_n\} \subset \mathcal{F}$. Рассмотрим $B = \bigcap\limits_{n = 1}^{\infty} \bigcup\limits_{k \ge n} A_k$.
+    \begin{enumerate}
+        \item Если $\sum\limits_{k = 1}^{\infty} \P(A_n) < +\infty$, то $\P(B) = 0$.
+        \item Если $\sum\limits_{k = 1}^{\infty} \P(A_n) = \infty$ и $\{A_n\}$~---~ независимы в совокупности, то $\P(B) = 1$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Обозначим $B_n = \bigcup\limits_{k \le n} A_n$ ~---~ вложенная система и по теореме о непрерывности вероятности $\P(B) = \lim\limits_{n \rightarrow \infty} \P(B_n).$ Заметим: 
+    \begin{gather*}
+        \P(B_n) = \P\left(\bigcup_{k \ge n} A_k \right) \le \sum_{k = n}^{\infty} \P(A_n) \rightarrow 0.
+    \end{gather*}
+    Тем самым, доказываем первый пункт леммы.
+
+    \noindent Для доказательства второго пункта рассмотрим $\overline{B} = \bigcup\limits_{n = 1}^{\infty} \bigcap\limits_{k \ge n} A_k$. Обозначим $B_n = \bigcap\limits_{k \ge n} A_k$ ~---~ расширяющаяся последовательность. Тогда: 
+    \begin{gather*}
+        \P(\overline{B}) = \lim_{n \rightarrow \infty} \P(B_n), \text{ где } \P(B_n) = \P\left(\bigcap_{k \ge n} \overline{A_k} \right) \le [{\forall N}] \le \P \left(\bigcap\limits_{k = n}^{N + n} \overline{A_k} \right) = \\
+        = \prod_{k = n}^{N + n}(1 - \P(A_k)) < e^{-\sum\limits_{k = n}^{N + n} \P(A_k)} = 0.
+    \end{gather*}
+    Тогда $\P(\overline{B}) = 0.$
+\end{proof}
+
+\subsubsection{Формулы полной вероятности и Байеса.}
+\begin{property}
+    Рассмотрим событие $B$ и систему событий $\{A_n\}$ такие, что $B \subset \bigcup A_n$, то есть $\{A_n\}$ ~---~ покрытие $B$ и $A_iA_j = \varnothing$. Тогда верна формула полной вероятности: 
+    \begin{gather*}
+        \P(B) = \P\left(B\left(\bigcup\limits_{n = 1}^{\infty} A_n\right)\right) = \sum\limits_{n = 1}^{\infty} (A_nB) = \sum\limits_{n = 1}^{\infty}\P(B|A_n)\P(A_n).
+    \end{gather*}
+\end{property}
+
+\begin{property}
+    Заметим, что $\P(A_k|B)\P(B) = \P(A_kB) = \P(B|A_k)\P(A_k)$. Тогда можем перегруппировать, обобщить то, что называется формулой Байеса:
+    \begin{gather*}
+        \P(A_k|B) = \dfrac{\P(B|A_k)\P(A_k)}{\sum\limits_{l} \P(B|A_l)\P(A_l)}. 
+    \end{gather*}
+
+    
+\end{property}
+\subsubsection{Формула включений-исключений для системы событий.}
+\begin{theorem}
+    Пусть $(\Omega, \mathcal{F}, \P)$ ~---~ вероятностное пространство. Пусть $\{A_n\} \subset \mathcal{F}$ ~---~ последовательность событий. Тогда верно формула включений-исключений: 
+    \begin{equation*}
+        \P\left(\bigcup\limits_{k = 1}^{\infty}A_n\right) = \sum\limits_{k = 1}^{\infty} (-1)^{k + 1} \sum\limits_{1 \le i_1 \le \dots \le i_k \le n} \P(A_{i_1}\dots A_{i_k}).
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+\noindent Докажем по индукции. Возьмем $n = 2$, получим: $\P(A + B) = \P(A) + \P(B) - \P(AB).$
+
+\noindent Пусть для $n - 1$ формула верна. Докажем переход к $n$:
+\begin{gather*}
+    \P\left(\bigcup\limits_{k = 1}^{n} A_k\right) = \P\left(A_n \cup \bigcup\limits_{k = 1}^{n - 1}A_k\right) = \P(A_n) + \P\left(\bigcup\limits_{k = 1}^{n - 1}A_n\right) - \P\left(A_n\bigcup\limits_{k = 1}^{n - 1}A_k\right) =  \\ 
+    = \P(A_n) + \sum\limits_{k = 1}^{n - 1} \P(A_k) + \sum\limits_{k = 1}^{n - 1}(-1)^{(k + 1)}\sum\limits_{1 \le i_1 \le \dots \le i_k \le n - 1} \P(A_{i_1} \dots A_{i_1}) - \\ 
+    - \sum\limits_{k = 1}^{n - 1}(-1)^{k + 1}\sum\limits_{1 \le i_1 \le \dots \le i_k \le n - 1} \P(A_{i_1} \dots A_{i_k} A_n).
+\end{gather*}
+\noindent Преобразуем последний член суммы: 
+\begin{gather*}
+    \sum\limits_{i = 2}^{n}(-1)^{k + 1}\sum\limits_{1 \le i_{1} \le \dots \le i_k = n} \P(A_{i_1}\dots A_{i_k}).
+\end{gather*}
+Тогда исходное выражение можно переписать как: 
+\begin{gather*}
+    \sum\limits_{k = 1}^{n} \P(A_k) + \sum\limits_{k = 2}^{n - 1} (-1)^{k + 1}\sum\limits_{1 \le i_1 \le \dots \le i_k \le n - 1} \P(A_{i_1}\dots A_{i_k}) + \sum\limits_{k = 2}^{n}(-1)^{k + 1} \sum\limits_{1 \le i_1 \le \dots \le i_k = n} \P(A_{i_1} \dots A_{i_k}).
+\end{gather*}
+Получаем требуемое.
+\end{proof}
+
+

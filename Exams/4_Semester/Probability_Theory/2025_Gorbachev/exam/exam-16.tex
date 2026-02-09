@@ -1,0 +1,228 @@
+\subsection{Асимптотическая сходимость.}
+\begin{definition}
+    Серией будем называть двух-индексную последовательность случайных величин
+    \[
+        \{\eta_{n, k}\}_{k = 1}^{n}
+    \]
+    Будем считать, что случайные величины внутри серии независимы (между сериями случайные величины могут быть зависимы).
+\end{definition}
+\subsubsection{Теорема об асимптотической сходимости к распределению Пуассона.}
+\begin{theorem}[Пуассон]
+    Пусть есть некоторая серия $\{\eta_{nk}\}_{k = 1}^n, \eta_{nk} \sim Be(p_n)$.
+    Будем считать что $np_n \ra \lambda > 0, n \ra \infty$.
+    Определим случайную величину $\eta_n = \sum\limits_{k = 1}^{n} \eta_{nk} \sim Binom(n, p_n)$.
+    Тогда $\eta_n \xrightarrow{d} Poisson(\lambda)$.
+\end{theorem}
+\begin{proof}
+    Воспользуемся методом характеристических функций.
+    Для $\eta_n$ характеристическая функция имеет вид:
+    \[
+        \phi_{\eta_n}(t) = (q_n + e^{it}p_n)^n = (1 + \frac{n p_n}{n}(e^{it} - 1))^n \ra e^{\lambda(e^{it} - 1)}, n \ra +\infty.
+    \]
+    Что и является характеристической функцией распределения Пуассона.
+    В силу эквивалентности слабой сходимости сходимости характеристический функций поточечно, утверждение теоремы доказано.
+\end{proof}
+\subsubsection{Критерий асимптотической нормальности. Теорема Линдберга-Леви.}
+\begin{theorem}[Линдберг, Леви]
+    Пусть есть серия случайных величин $\{\eta_{nk}\}_{k = 1}^n$ (стандартно -- случайные величины внутри одной серии являются независимыми).
+    Пусть $ \forall n \in \N \hookrightarrow \Ex \eta_{nk} = 0, k = \overline{1, n}$ и $\sum\limits_{k = 1}^{n} \D \eta_{nk} = 1$.
+    Тогда следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $\forall \tau > 0 \hookrightarrow \sum\limits_{k = 1}^{n} \int_{|x| > \tau} x^2 dF_{nk} \ra 0, n \ra \infty$ (это условие называется условием Линдберга).
+        \item \begin{itemize}
+                  \item $\forall \epsilon > 0 \hookrightarrow \max\limits_{k = \overline{1, n}} \P(|\eta_{nk}| > \epsilon) \ra 0, n \ra \infty$ (будем называть это условие (*)).
+                  \item $\eta_n = \sum\limits_{k = 1}^{n} \eta_{nk} \xrightarrow{d} N(0, 1)$.
+        \end{itemize}
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Для начала, запишем некоторые технические факты, необходимые для доказательства теоремы:
+    \begin{itemize}
+        \item Так как $e^{i \alpha} = 1 + i \alpha + (i\alpha)^2/2 + (i \alpha)^3/6 + \ldots$, то справедливы следующие три неравенства:
+        \[
+            |e^{i\alpha} - 1| \leq |\alpha|, \quad |e^{i\alpha} - 1 - i \alpha| \leq \alpha^2/2, \quad |e^{i\alpha} - 1 - i\alpha + \alpha^2/2| \leq |\alpha|^3/6.
+        \]
+        \item И ряд Меркатора для логарифма:
+        \[
+            \ln 1 + z = \sum\limits_{s = 1}^{+\infty} (-1)^{s - 1}\dfrac{z^s}{s}.
+        \]
+        Ряд сходится при $|z| < 1$.
+    \end{itemize}
+    Теперь покажем, что $1) \Ra 2)$.
+    Поскольку
+    \[
+        \P(|\eta_{nk}| > \epsilon) = \int_{|x| > \epsilon} dF_{nk} \leq \dfrac{1}{\epsilon^2} \int_{|x| > \epsilon}x^2 dF_{nk}.
+    \]
+    Если мы возьмём максимум по $k$ слева, а справа оценим всё суммой, то мы получим
+    \[
+        \max\limits_{k = \overline{1, n}} \P(|\eta_{nk}| > \epsilon) \leq \sum\limits_{k = 1}^{n} \int_{|x| > \epsilon} x^2 dF_{nk} \ra 0, n \ra +\infty.
+    \]
+    с использованием условия Линдберга. \\
+    Покажем теперь слабую сходимость к стандартному нормальному распределению.
+    Заметим, что
+    \[
+        |\phi_{nk}(t) - 1| = \biggr|\int_\R e^{itx} - 1 - itx dF_{nk}\biggr| \leq \int_\R \dfrac{(tx)^2}{2}dF_{nk} = \dfrac{t^2}{2}\D \eta_{nk}.
+    \]
+    (здесь использовано что $\int_\R xdF_{nk} = 0$). 
+    Просуммируем по $k$ и получим:
+    \[
+        \forall t \in \R \hookrightarrow \sum\limits_{k = 1}^{n} |\phi_{nk}(t) - 1| \leq \dfrac{t^2}{2}\sum\limits_{k = 1}^{n} \D\eta_{nk} = \dfrac{t^2}{2}.
+    \]
+    А теперь оценим другим образом:
+    \begin{multline*}
+        |\phi_{nk} - 1| \leq \int_\R |e^{itx} - 1|dF_{nk} = \int_{|x| \leq \epsilon} |e^{itx} - 1|dF_{nk} + \int_{|x| > \epsilon} |e^{itx} - 1|dF_{nk} \leq \\ \leq 2\int_{|x| > \epsilon}dF_{nk} + |t|\int_{|x| \leq \epsilon} |x|F_{nk}(x) \leq 2\P(\eta_{nk} > \epsilon) + |t|\epsilon.
+    \end{multline*}
+    В силу условия Линденберга и, уже доказанного, условия (*) возьмём максимум $|\phi_{nk} - 1|$ слева и просуммируем по $k$ справа и получим
+    \[
+        \max\limits_{k = \overline{1, n}}|\phi_{nk} - 1| \ra 0, n \ra \infty.
+    \]
+    Будем доказывать утверждение используя метод характеристических функций.
+    Рассмотрим следующую величину:
+    \[
+        \ln \phi_{\eta_n}(t) = \sum\limits_{k = 1}^{n} \ln \phi_{\eta_{nk}}(t) = (**).
+    \]
+    (в силу независимости случайных величин внутри серии характеристическая функция их суммы является произведением их характеристических функций, и логарифм переводит это в сумму).
+    Добавим и вычтем единицу внутри логарифма:
+    \[
+        (**) = \sum\limits_{k = 1}^{n} \ln (1 + (\phi_{\eta_{nk}}(t) - 1)) = (**).
+    \]
+    Без ограничения общности будем считать, что $\max |\phi_{\eta_{nk}} - 1| \leq 1/2$ -- поскольку он стремится к нулю.
+    Тогда мы можем разложить в ряд и получить
+    \begin{multline*}
+        (**) = \sum\limits_{k = 1}^{n} \sum\limits_{s = 1}^{+\infty} (-1)^{s - 1} \dfrac{(\phi_{\eta_{nk}} - 1)^s}{s} = \\ = \sum\limits_{k = 1}^{n} (\phi_{\eta_{nk}} - 1) + \sum\limits_{k = 1}^{+\infty} \sum\limits_{s = 2}^{+\infty} (-1)^{s - 1} \dfrac{(\phi_{\eta_{nk}} - 1)^s}{s} = \\ = \sum\limits_{k = 1}^{n} (\phi_{\eta_{nk}} - 1) + R_n = (**).
+    \end{multline*}
+    Оценим остаток ряда. Поскольку $s \geq 2$, то $1/s \leq 1/2$ и
+    \begin{multline*}
+        |R_n| \leq \sum\limits_{k = 1}^{n} \dfrac{1}{2} \sum\limits_{s = 2}^{+\infty} |\phi_{\eta_{nk}} - 1|^s = \sum\limits_{k = 1}^{n} \dfrac{|\phi_{\eta_{nk}} - 1|^2}{2(1 - |\phi_{\eta_{nk}} - 1|)} \leq \\ \leq \sum\limits_{k = 1}^{n} |\phi_{\eta_{nk}} - 1|^2 \leq \max\limits_{k = \overline{1, n}} |\phi_{\eta_{nk}} - 1| \sum\limits_{k = 1}^{n}|\phi_{\eta_{nk}} - 1| \ra 0.
+    \end{multline*}
+    Добавим и вычтем $\frac{t^2}{2}$:
+    \[
+        \ln \phi_{\eta_n} = -\dfrac{t^2}{2} + \biggr(\dfrac{t^2}{2} - \sum\limits_{k = 1}^n (\phi_{\eta_{nk}} - 1)\biggr) + R_n = -\dfrac{t^2}{2} + \rho_n + R_n.
+    \]
+    Представим $\rho_n$ в немного другом виде:
+    \begin{multline*}
+        \rho_n = \sum\limits_{k = 1}^{n} \int_\R \dfrac{(tx)^2}{2}dF_{nk} + \sum\limits_{k = 1}^{n} \int_\R (e^{itx} - 1 - itx)dF_{nk} = \\
+        = \sum\limits_{k = 1}^{n} \int_{|x| \leq \epsilon} \dfrac{(tx)^2}{2}dF_{nk} + \int_{|x| \leq \epsilon} (e^{itx} - 1 - itx)dF_{nk} + \\
+        + \sum\limits_{k = 1}^{n} \dfrac{t^2}{2} \int_{|x| > \epsilon} x^2 dF_{nk} + \int_{|x| > \epsilon} (e^{itx} - 1 - itx)dF_{nk}  = \rho_n' + \rho_n''.
+    \end{multline*}
+
+    (где $\rho_n'$ -- первая пара слагаемых, а $\rho_n''$ -- вторая). \\
+    В силу кубической оценки из разложения экспоненты в ряд
+    \[
+        |\rho_n'| \leq \sum\limits_{k = 1}^{n}\int_{|x| \leq \epsilon} \dfrac{|tx|^3}{6}dF_{nk} \leq \dfrac{|t|^3\epsilon}{6}\sum\limits_{k = 1}^{n} \int_{|x| \leq \epsilon} x^2 dF_{nk} \leq \dfrac{|t|^3 \epsilon}{6}.
+    \]
+    Оценим $\rho_n''$:
+    \[
+        |\rho_n''| \leq \sum\limits_{k = 1}^{n} \dfrac{t^2}{2} \int_{|x| > \epsilon} dF_{nk} + \int_{|x| > \epsilon} \dfrac{(tx)^2}{2}dF_{nk} = t^2 \sum\limits_{k = 1}^{n}\int_{|x| > \epsilon} x^2 dF_{nk}.
+    \]
+    Как видно из полученных оценок, $\ln \phi_{\eta_n} \ra -\frac{t^2}{2}, n \ra +\infty$ -- что и показывает искомую сходимость по распределению. \\
+    Докажем в обратную сторону.
+    $\ln \phi_{\eta_n}$ может быть представлен в следующем виде:
+    \[
+        \ln \phi_{\eta_n} = \sum\limits_{k = 1}^{n} (\phi_{\eta_{nk}} - 1) + R_n \ra -\dfrac{t^2}{2}, n \ra \infty.
+    \]
+    где $R_n \ra 0, n \ra +\infty$.
+    А значит
+    \[
+        \sum\limits_{k = 1}^{n} \phi_{\eta_{nk}} - 1 + \dfrac{t^2}{2} \ra 0, n \ra \infty.
+    \]
+    То есть
+    \[
+        \Delta_n = \sum\limits_{k = 1}^{n} \int e^{itx} - 1 + \dfrac{(tx)^2}{2} dF_{nk} \ra 0, n \ra {\infty}.
+    \]
+    Заметим, что $\forall \tau > 0 \ \exists K(\tau): \cos x - 1 + \dfrac{x^2}{2} \geq K(\tau)x^2$ на $|x| > \tau$.
+    Поскольку стремление к нулю комплекснозначной функции означает стремление к нули и её действительной части, то при $t = 1$ верно следующее:
+    \[
+        (**) =\sum\limits_{k = 1}^{n} \int \cos x - 1 + \dfrac{x^2}{2} dF_{nk} \ra 0, n \ra \infty.
+    \]
+    В тоже время, верна следующая оценка:
+    \[
+        (**) \geq \sum\limits_{k = 1}^{n} \int_{|x| > \tau} \cos x - 1 + \dfrac{x^2}{2} dF_{nk} \geq K(\tau) \sum\limits_{k = 1}^{n} \int_{|x| > \tau} x^2 dF_{nk}.
+    \]
+    Переход к пределу завершает доказательство.
+\end{proof}
+\begin{note}
+    Серии, к которым мы будем применять теорему Линдберга-Леви (и прочие предельные теоремы) строятся следующим образом.
+    Пусть $\{\xi_n\}$ -- последовательность независимых случайных величин.
+    Определим $\eta_{nk}$ как
+    \[
+        \eta_{nk} = \dfrac{\xi_k - a_k}{B_n}.
+    \]
+    где $B_n^2 = \sum\limits_{k = 1}^{n} \D \xi_k, \ a_k = \Ex\xi_k$. \\
+    По определению функции распределения:
+    \[
+        F_{nk}(x) = \P(\eta_{nk} < x) = \P(\xi_k < B_n x + a_k) = F_{k}(B_n x + a_k).
+    \]
+    Поэтому условие Линдберга примет вид
+    \[
+        \int_{|x| > \tau} x^2 dF_{k}(B_n x + a_k)\biggr|_{y = B_n x + a_k} = \dfrac{1}{B_n^2} \int_{|y - a_k| > \tau B_n} (y - a_k)^2 dF_k(y).
+    \]
+    И теорема Линдберга-Леви в <<ретро>> форме формулируется как:
+    \begin{theorem}[Линдберг, Леви, <<ретро>>]
+        Если $\{\xi_n\}$ -- последовательность независимых случайных величин, таких, что $\forall \tau > 0 \hookrightarrow$
+        \[
+            \dfrac{1}{B_n^2}\sum\limits_{k = 1}^{n} \int_{|x - a_k| > \tau B_n} (x - a_k)^{2}dF_k  \ra 0, n \ra +\infty.
+        \]
+        То 
+        \[
+            \dfrac{1}{B_n}{\sum_{k = 1}^n (\xi_k - a_k)} \xrightarrow{d} N(0, 1), n \ra \infty.
+        \]
+    \end{theorem}
+\end{note}
+\subsubsection{Достаточные условия асимптотической нормальности: ЦПТ, условие Ляпунова, теорема Натана.}
+\begin{theorem}[ЦПТ]
+    Пусть дана последовательность $i.i.d.$ случайных величин $\{\xi_n\}$ и $0 < \D \xi < +\infty$.
+    Тогда последовательность $S_n = \frac{1}{B_n}\sum\limits_{k = 1}^n \xi_k - a_k$ асимптотически нормальна.
+\end{theorem}
+\begin{proof}
+    Проверим выполнений условие Линдберга. \\
+    Последовательность $B_n^2 = n \D \xi_k$, $a = \Ex \xi$.
+    Тогда
+    \[
+        \Delta_n  =\dfrac{1}{n \D \xi_k} \sum\limits_{k = 1}^{n} \int_{|x - a| > \tau \sqrt {n \D \xi}} (x - a)^2 dF_k = \dfrac{1}{\D \xi} \int_{|x - a| > \tau \sqrt {n \D \xi}} (x - a)^2 dF_k \ra 0, n \ra \infty.
+    \]
+    Значит условие Линдберга выполнено и $\{\xi_n\}$ асимптотически нормальна по теореме Линдберга-Леви.
+\end{proof}
+\begin{theorem}[ЦПТ в форме Ляпунова]
+    Пусть есть последовательность независимых случайных величин $\{\xi_n\}$ и $\exists \delta > 0$ такое, что 
+    \[
+        \dfrac{1}{B_n^{2 + \delta}}\sum\limits_{k = 1}^{n} \Ex|\xi_k - a_k|^{2 + \delta} \ra 0, n \ra +\infty.
+    \]
+    Тогда есть асимптотическая нормальность.
+\end{theorem}
+\begin{proof}
+    Проверим выполнение условия Линдберга. \\
+    Запишем его и оценим сверху:
+    \[
+        \dfrac{1}{B_n^2}\sum\limits_{k = 1}^{n} \int_{|x - a_k| > \tau B_n} (x - a_k)^{2}dF_k \leq \dfrac{1}{B_n^2}\sum\limits_{k = 1}^{n} \int_{|x - a_k| < \tau B_n} \dfrac{|x - a_k|^{2 + \delta}}{\tau^\delta B_n^{\delta}} \leq \dfrac{1}{\tau^\delta} \Delta_n \ra 0, n \ra  +\infty
+    \]
+\end{proof}
+\begin{note}
+    Заметим, что при $\delta = 1$ условие Ляпунова принимает особенно простой вид:
+    \[
+        L_3 = \dfrac{\sum\limits_{k = 1}^{n} \Ex |\xi_k - a_k|^3}{(\sum \D \xi_k)^{3/2}} \ra 0, n \ra \infty.
+    \]
+    Справедлива следующая оценка на скорость сходимости:
+    \[
+        \sup\limits_{x} |F_{\eta_n}(x) - F_{N(0, 1)}(x)| \leq cL_3(n).
+    \]
+    Частный случай этой оценки для $i.i.d.$-последовательности случайных величин имеет собственное название -- неравенство Берри-Эссеена и константа $L_3$ имеет вид:
+    \[
+        L_3 = \dfrac{\Ex |\xi - a|^3}{\sqrt {n} (\D \xi)^{3/2}}.
+    \]
+\end{note}
+\begin{theorem}[теорема Натана, на лекции приведена не была]
+    Пусть $\{X_n\}_{n = 1}^\infty$ -- последовательность $i.i.d.$ случайных величин с математическим ожиданием $m = \Ex X_1$ и дисперсией $\sigma^2 = \D X_1$. Пусть функция распределения случайной величины $N$ зависит от управляющего параметра $r: F_N(n) = F_N(n, r)$, причём $\forall n \in \N \hookrightarrow$
+    \[
+        \lim\limits_{r \ra \infty} F_N(n, r) = 0.
+    \]
+    Тогда для функции распределения $F_{S_N}$ суммы
+    \[
+        S_n = \dfrac{1}{\sigma\sqrt{N}}\sum\limits_{k = 1}^N X_k - mN.
+    \]
+    имеет место сходимость 
+    \[
+        \forall s: F_{S_N}(s, r) \ra F_{N(0, 1)}(s), r \ra \infty.
+    \]
+\end{theorem}
+

@@ -1,0 +1,119 @@
+\subsection{Домашние задачу на восьмую неделю.}
+\begin{problem}
+    Вычислите условные математические ожидания:
+    \begin{itemize}
+        \item $\Ex(X|X^3), X \sim \mathcal{N}(0, 1)$.
+        \item $\Ex(Y|X^2 + X)$, где $X$ и $Y$ -- независимы и $X \sim \mathcal{N}(0, 1), Y \sim U(0, 1)$.
+        \item $\Ex((\xi + 2\eta)^2 |\eta)$ при независимых $\xi \sim N(1, 2)$ и $\eta \sim N(0, 1)$.
+    \end{itemize}
+\end{problem}
+\begin{solution} \leavevmode
+    \begin{itemize}
+        \item $\Ex(X|X^3) = X$, так как $\sigma(X) = \sigma(X^3)$.
+        \item Так как $Y$ и $X$ -- независимы, то и $Y$ с $X^2 + X$ -- независимы. Тогда $\Ex(Y|X^2 + X) = \Ex(Y) = 0.5$.
+        \item $\Ex((\xi + 2\eta)^2|\eta) = \Ex(\xi^2 + 4\xi\eta + 4\eta^2 | \eta) = \Ex(\xi^2|\eta) + 4\Ex(\xi\eta|\eta) + \Ex(\eta^2|\eta) = 3 + 4\eta \cdot 1  +4\eta^2 = 4\eta^2 + 4\eta + 3$.
+    \end{itemize}
+\end{solution}
+\begin{problem}
+    Пусть $\xi$ -- число подбрасываний кубика до первого выпадения $6$-ки, а $\eta$ -- число троек, выпавших в процессе.
+    \begin{itemize}
+        \item Вычислите $\Ex(\eta |\xi = n)$.
+        \item Вычислите $\Ex(\eta^2 |\xi = n)$.
+    \end{itemize}
+\end{problem}
+\begin{solution} \leavevmode
+    \begin{itemize}
+        \item Поскольку $\xi = n$, то до этого было $n - 1$ бросок (на каждом из которых не выпадала шестёрка) и, значит, там выпало $\dfrac{n - 1}{5}$ троек.
+        Тогда $\Ex(\eta|\xi) = \dfrac{\xi - 1}{5} \sim Binom(n - 1, 1/5)$.
+        \item $\Ex(\eta^2 |\xi = n) = \D(\eta|\xi = n) + \Ex(\eta|\xi = n)^2 = \dfrac{4(n - 1)}{25} + \dfrac{(n - 1)^2}{25} = \dfrac{(n - 1)(n + 3)}{25}$, то есть $\Ex(\eta^2|\xi) = \dfrac{(\xi - 1)(\xi + 3)}{25}$.
+    \end{itemize}
+\end{solution}
+\begin{problem}
+    Пусть $(\xi, \eta)$ -- случайный вектор с дискретным распределением
+    \[
+        \P(\xi = k, \eta = l) = p^2(1 - p)^{k + l - 2}.
+    \]
+    где $k, l \in \N$ и $p \in (0, 1)$.
+    Найдите $\Ex(\xi | \eta)$.
+\end{problem}
+\begin{solution}
+    По определению:
+    \[
+        \Ex(\xi|\eta = l) = \sum\limits_{k = 1}^{+\infty} k \P(\xi = k | \eta = l) = \sum\limits_{k = 1}^{+\infty} k \dfrac{\P(\xi = k, \eta = l)}{\P(\eta = l)} = \sum\limits_{k = 1}^{+\infty} \dfrac{kp^2 (1 - p)^{k + l - 2}}{\P(\eta = l)}.
+    \]
+    Найдём теперь маргинальное распределение $\eta$:
+    \[
+        \P(\eta = l) = \sum\limits_{k = 1}^{+\infty} p^2 (1 - p)^{k + l - 2} = p^2(1 - p)^{l - 1}\sum\limits_{k = 1}^{+\infty} (1 - p)^{k - 1} = p(1 - p)^{l - 1}.
+    \]
+    С учётом этого выражения УМО выражается как:
+    \[
+        \Ex(\xi|\eta = l) = \sum\limits_{k = 1}^{+\infty} \dfrac{k p^2 (1 - p)^{k + l - 2}}{p (1 - p)^{l - 1}} = \sum\limits_{k = 1}^{+\infty}kp(1 - p)^{k - 1} = \dfrac{1}{p}.
+    \]
+\end{solution}
+\begin{problem}
+    По аналогии с задачей 9 конспекта рассмотрите в $\Omega = [0, 1]$ с борелевской $\sigma$-алгеброй и мерой Лебега следующие случайные величины:
+    $\xi(x) = 2x^2$ и $\eta(x) = 1 - |2x - 1|$.
+    \begin{itemize}
+        \item Опишите $\sigma$-алгебру, порождённую $\eta(x)$.
+        \item Вычислите $\Ex(\xi|\eta)$.
+    \end{itemize}
+\end{problem}
+\begin{solution} \leavevmode
+    \begin{itemize}
+        \item $\sigma$-алгебра, порождённая $\eta$ -- эта $\sigma$-подалгебра $\mathcal{B}([0, 1])$, которая состоит из симметричных относительно $1/2$ борелевских множеств.
+        \item $\Ex(\xi|\eta) = \Ex(\xi|\eta = y)|_{y = \eta}$.
+        Поскольку $\eta = y \Longleftrightarrow x = y/2 \vee x = (1 - y)/2$, то
+        \[
+            \Ex(\xi|\eta = y) = \dfrac{1}{2})(\xi(y/2) + \xi((1 - y)/2)) = \dfrac{1}{2}(y^2/2 + (1 - y)^2/2) = \dfrac{y^2 + (1 - y)^2}{4}.
+        \]
+        А значит $\Ex(\xi|\eta) = \dfrac{\eta^2 + (1 - \eta)^2}{4}$.
+    \end{itemize}
+\end{solution}
+\begin{problem} \leavevmode
+    \begin{itemize}
+        \item Пусть $X$ и $Y$ -- независимые случайные величины, а $f$ -- борелевская функция.
+        Докажите по определению $\Ex(f(X, Y)|Y = y)$, что $\Ex(f(X, Y)|Y = y) = \Ex f(X, y)$.
+        \item Пусть $X$ и $Y$ -- независимы, $X \sim U(0, 1), Y \in Exp(1)$.
+        Вычислите $\Ex(e^{XY}|Y)$.
+    \end{itemize}
+\end{problem}
+\begin{solution} \leavevmode
+    \begin{itemize}
+        \item По определению, $\Ex(f(X, Y)|Y = y)$, это случайная величина $\phi(y)$, которая удовлетворяет интегральному свойству, то есть
+        \[
+            \forall B \in \mathcal{B} \hookrightarrow \Ex(f(X, Y) \cdot I_B) = \int_B \phi(y)d\P_Y(y).
+        \]
+        Нетрудно заметить, что $\Ex f(X, y)$ -- подходит по теореме Фубини.
+        \item По предыдущему пункту: \[\Ex(e^{XY}|Y) = \Ex f(X, y)\biggr|_{y = Y} = \int_{0}^{1}e^{xy}dx\biggr|_{y = Y} = \dfrac{e^y - 1}{y}\biggr|_{y = Y} = \dfrac{e^{Y} - 1}{Y}.\]
+    \end{itemize}
+\end{solution}
+\begin{problem}
+    Найдиет коэффициенты $a$ и $b$ в равенстве $\Ex(\xi |\eta) = a + b \eta$, если совместное распределение случайных величин задано таблицей:
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{|c|c|c|} \hline
+            & $\xi = 1$ & $\xi = 2$ \\ \hline
+            $\eta = 3$ & 1/6 & 1/3 \\ \hline
+            $\eta = 4$ & 1/3 & 1/6 \\ \hline
+        \end{tabular}
+    \end{table}
+\end{problem}
+\begin{solution}
+    Посчитаем $\Ex(\xi |\eta = y)$ для каждого из случаев:
+    \begin{multline*}
+        \Ex(\xi|\eta = 3) = 1 \cdot \P(\xi = 1 |\eta = 3) + 2 \cdot \P(\xi = 2 |\eta = 3) = 1 \cdot \dfrac{1/6}{1/2} + 2 \cdot \dfrac{1/3}{1/2} = \dfrac{5}{3}, \\
+        \Ex(\xi|\eta = 4) = 1 \cdot \P(\xi = 1 |\eta = 4) + 2 \cdot \P(\xi = 2 |\eta = 4) = 1 \cdot \dfrac{1/3}{1/2} + 2 \cdot \dfrac{1/6}{1/2} = \dfrac{4}{3}.
+    \end{multline*}
+    Поскольку мы предполагаем, что $\Ex(\xi|\eta)$ распределена как $a + b \eta$, то просто подставим получившиеся величины:
+    \[
+        \begin{cases}
+            a + 3b = \dfrac{5}{3} \\
+            a + 4b = \dfrac{4}{3}.
+        \end{cases} \Ra
+        \begin{cases}
+            b = -\dfrac{1}{3} \\
+            a = \dfrac{8}{3}.
+        \end{cases}
+    \]
+    И, тогда, $\Ex(\xi |\eta) = \dfrac{8}{3} - \dfrac{\eta}{3}$.
+\end{solution}

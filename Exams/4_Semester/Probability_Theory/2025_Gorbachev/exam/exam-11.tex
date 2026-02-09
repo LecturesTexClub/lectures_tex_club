@@ -1,0 +1,421 @@
+\subsection{Условное математическое ожидание}
+\begin{note}
+    Здесь и далее (в этой секции) предполагается существование математического ожидания у всех случайных величин там, где это используется -- явно или неявно. \\
+    Равенство (или $\leq$) случайных величин стоит понимать в смысле <<почти наверное>>.
+\end{note}
+\begin{definition}
+    Пусть $(\Omega, \mathcal{F}, \mathbb{P})$  --  вероятностное пространство. Пусть $\mathcal{C}$ -- $\sigma$-подалгебра и $\xi$ -- случайная величина. \\
+    Будем называть условным математическим ожиданием $\xi$ относительно $\sigma$-алгебры $\mathcal{C}$ случайную величину $\eta = \Ex(\xi \mid \mathcal{C})$, для которой выполнены следующие условия:
+    \begin{enumerate}
+        \item $\eta$ измерима относительно $\mathcal{C}$.
+        \item Выполнено так называемое <<интегральное свойство>>, то есть $\forall A \in \mathcal{C} \hookrightarrow$
+        \[
+            \Ex(\xi \cdot \Ind_{A}) = \Ex(\eta \cdot \Ind_A).
+        \]
+    \end{enumerate}
+\end{definition}
+\begin{reminder}
+    Случайная величина $\eta$ называется $\mathcal{C}$-измеримой, если $\sigma(\eta) = \eta^{-1}(\mathcal{B}) \subset \mathcal{C}$, где $\mathcal{B} = \mathcal{B}(\R)$ -- борелевская $\sigma$-алгебра на числовой прямой.
+\end{reminder}
+
+Теперь докажем некоторые свойства условного математического ожидания.
+\begin{property}
+    Если $\xi$ является $\mathcal{C}$-измеримой случайной величиной, то $\Ex(\xi \mid \mathcal{C}) = \xi$ почти наверное.
+\end{property}
+\begin{proof}
+    Очевидно, что $\Ex(\xi \mid \mathcal{C})$ для $\xi$ является сама $\xi$ -- просто по определению.
+\end{proof}
+\begin{property}
+    Пусть $c$ -- постоянная случайная величина. Тогда $\Ex(c \mid \mathcal{C}) = c$.
+\end{property}
+\begin{proof}
+    Константа измерима относительно любой $\sigma$-алгебры, а следовательно, по предыдущему свойству, $\Ex(c \mid \mathcal{C}) = c$.
+\end{proof}
+\begin{property}
+    Пусть $\mathcal{C} = \{\emptyset, \Omega\}$ и $\Ex |\xi| < +\infty$. Тогда
+    \[
+    \Ex(\xi \mid \mathcal{C}) = \Ex \xi.
+    \]
+\end{property}
+\begin{proof}
+    Измеримыми относительно тривиальной $\sigma$-алгебры случайными величинами являются только константы. Пусть $c = \Ex(\xi \mid \mathcal{C})$. Поскольку $\Ex (\xi \mid \mathcal{C})$ должно удовлетворять интегральному свойству, то $\Ex (\xi \cdot \Ind_\Omega) = \Ex (c \cdot \Ind_{\Omega})$ и $c = \Ex\xi$.
+\end{proof}
+\begin{property}[Формула полного математического ожидания]
+    Пусть у случайной величины $\xi$ существует математическое ожидание, то есть $\Ex |\xi| < +\infty$. Тогда верна следующая формула:
+    \[\Ex \xi = \Ex(\Ex(\xi \mid \mathcal{C})).\]
+\end{property}
+\begin{proof}
+    Достаточно взять в интегральном свойстве $A = \Omega$ и получить искомое утверждение:
+    \[
+        \Ex \xi = \Ex (\xi \cdot \Ind_{\Omega}) = \Ex(\Ex(\xi \mid \mathcal{C}) \cdot \Ind_{\Omega}) = \Ex(\Ex(\xi \mid \mathcal{C})).
+    \]
+\end{proof}
+
+В общем случае нет методов для получения явного вида условного математического ожидания. 
+Но если $\sigma$-алгебра -- дискретна, то есть порождена некоторым не более чем счётным разбиением $\Omega$, то мы можем в явном виде получить формулу для $\Ex (\xi \mid \mathcal{C})$.
+
+\begin{lemma}
+    Пусть $\Omega = \bigsqcup\limits_{i = 1}^{\infty} D_i$, где $\{D_i\}_{i = 1}^\infty \subset \mathcal{F}$. Тогда любая $\mathcal{C} = \sigma(\{D_i\}_{i = 1}^{\infty})$-измеримая случайная величина $\eta$ имеет вид $\eta = \sum\limits_{i = 1}^\infty c_i\cdot \Ind_{D_i}$.
+\end{lemma}
+\begin{proof}
+    Докажем от противного. Пусть $\eta$ -- $\mathcal{C}$-измерима, но $\exists w_1, w_2 \in D_n$ для некоторого $n$ такие, что $a_1 = \eta(w_1) \neq \eta(w_2) = a_2$. Тогда, с одной стороны, $\eta^{-1}(a_1) \cap D_n \subsetneq D_n$ и, поскольку $\eta$ -- $\mathcal{C}$-измерима, то $\eta^{-1}(a_1) \cap D_n \in \mathcal{C}$. В тоже время, из структуры $\mathcal{C}$ (то есть её порождённости разбиением $\Omega$) следует, что единственным $\mathcal{C}$-измеримым подмножеством $D_n$ (кроме него самого) является $\emptyset$, а значит $\eta^{-1}(a_1) \cap D_n = \emptyset$ и $w_1 \notin D_n$. Приходим к противоречию.
+\end{proof}
+\begin{theorem}
+    Пусть $\mathcal{C} = \sigma(\{D_i\}_{i = 1}^{\infty})$. Пусть $\Ex|\xi| < +\infty$. 
+    Тогда $\Ex(\xi \mid \mathcal{C})$ имеет следующий вид:
+    \[
+        \Ex(\xi \mid \mathcal{C}) = \sum\limits_{i = 1}^\infty c_i \cdot \Ind_{D_i},
+    \]
+    где $c_i$ определяются как
+    \[
+        c_i = 
+        \begin{cases}
+            \dfrac{\Ex(\xi \cdot \Ind_{D_i})}{\Pr(D_i)}, & \Pr(D_i) \neq 0, \\
+            0, & \Pr(D_i) = 0.
+        \end{cases}
+    \]
+\end{theorem}
+\begin{proof}
+    Согласно лемме, $\eta = \Ex(\xi \mid \mathcal{C})$ должно иметь вид
+    \[
+        \eta = \sum\limits_{i = 1}^{\infty} c_i \cdot \Ind_{D_i}
+    \]
+    Определим значения коэффициентов $c_i$. Для этого подставим в интегральное свойство индикатор $D_i$ и получим:
+    \[
+        \Ex(\xi \cdot \Ind_{D_i}) = \Ex(\eta \cdot \Ind_{D_i}) = \Ex(c_i \cdot \Ind_{D_i}) = c_i \Pr(D_i).
+    \]
+    Видно, что если $\Pr(D_i) \neq 0$, то $c_i$ действительно выражаются как $c_i = \frac{\Ex(\xi \cdot \Ind_{D_i})}{\Pr(D_i)}$. Если же $\Pr(D_i) = 0$, то значение $c_i$ не имеет никакого значения: интеграл по множеству меры нуль равен нулю.
+\end{proof}
+\begin{property}
+    Пусть $\alpha, \beta \in \R$ и $\xi, \eta$ -- случайные величины. 
+    Тогда верно следующее равенство:
+    \[
+        \Ex(\alpha \xi + \beta \eta \mid \mathcal{C}) = \alpha \Ex(\xi \mid \mathcal{C}) + \beta \Ex(\eta \mid \mathcal{C}).
+    \]
+\end{property}
+\begin{proof}
+    Пусть $A \in \mathcal{C}$. 
+    Запишем интегральное свойство для $\alpha \xi + \beta \eta$:
+    \begin{multline*}
+        \Ex(\Ex(\alpha \xi + \beta \eta \mid \mathcal{C}) \cdot \Ind_{A}) = \Ex((\alpha \xi + \beta \eta) \cdot \Ind_{A}) = \alpha \Ex(\xi \cdot \Ind_{A}) + \beta \Ex(\eta \cdot \Ind_{A}) = \\ = \alpha \Ex(\Ex(\xi \mid \mathcal{C}) \cdot \Ind_{A}) + \beta \Ex(\Ex(\eta \mid \mathcal{C}) \cdot \Ind_{A}).
+    \end{multline*}
+    Поскольку это верно $\forall A \in \mathcal{C}$, и $\Ex(\alpha\xi + \beta \eta \mid \mathcal{C}), \alpha\Ex(\xi \mid \mathcal{C}), \beta\Ex(\eta \mid \mathcal{C})$ -- $\mathcal{C}$-измеримые случайные величины, то
+    \[
+        \Ex(\alpha \xi + \beta \eta \mid \mathcal{C}) = \alpha \Ex(\xi \mid \mathcal{C}) + \beta \Ex(\eta \mid \mathcal{C}).
+    \]
+\end{proof}
+\begin{property}
+    Если $\xi \geq 0$, то и $\Ex(\xi \mid \mathcal{C}) \geq 0$.
+\end{property}
+\begin{proof}
+    Поскольку для $\eta = \Ex(\xi \mid \mathcal{C})$ множество $\eta^{-1}((-\infty, 0)) \in \mathcal{C}$, то мы можем для него записать интегральное свойство:
+    \[
+        \Ex(\xi \cdot \Ind_{A}) = \Ex(\eta \cdot \Ind_{A}).
+    \]
+    Пусть $\Pr(A) > 0$. Тогда $\Ex(\eta \cdot \Ind_{A}) < 0$. В тоже время, поскольку $\xi$ -- неотрицательна, то $\Ex(\xi \cdot \Ind_{A}) \geq 0$. Противоречие. Следовательно $\Pr(A) = 0$ и $\eta \geq 0$ почти наверное.
+\end{proof}
+\begin{corollary}[Сохранение границ]
+    Если $a \leq \xi \leq b$ почти наверное для $\alpha, \beta \in \R$ и $\mathcal{C}$-измеримых случайных величин $a$ и $b$, то и для $\Ex(\xi \mid \mathcal{C})$ это тоже верно:
+    \[
+        a \leq \Ex(\xi \mid \mathcal{C}) \leq b.
+    \]
+\end{corollary}
+\begin{proof}
+    Заметим, что $\xi - a \geq 0$ почти наверное. По предыдущему свойству 
+    \[
+        \Ex(\xi - a \mid \mathcal{C}) \geq 0.
+    \]
+    С другой стороны, по линейности 
+    \[
+        \Ex(\xi \mid \mathcal{C}) \geq \Ex(a \mid \mathcal{C}).
+    \]    
+    Поскольку $a$ -- $\mathcal{C}$-измеримая случайная величина, то $\Ex(a \mid \mathcal{C}) = a$ и 
+    \[
+        \Ex(\xi \mid \mathcal{C}) \geq a.
+    \]
+    Неравенство для второй границы показывается аналогично.
+\end{proof}
+\begin{property}[Ортогональность остатка]
+    Для всякой случайной величины $\xi$ верно, что
+    \[
+        \Ex(\xi - \Ex(\xi \mid \mathcal{C}) \mid \mathcal{C}) = 0.
+    \]
+    Где <<0>> понимается как случайная величина, почти наверное равная 0.
+\end{property}
+\begin{proof}
+    Поскольку $\Ex(\xi \mid \mathcal{C})$ -- $\mathcal{C}$-измеримая случайная величина, то \[\Ex((\Ex(\xi \mid \mathcal{C}) \mid \mathcal{C}) = \Ex(\xi \mid \mathcal{C}).\]
+    Воспользуемся линейностью и получим искомое утверждение.
+\end{proof}
+\begin{property}
+    Справедливо следующее неравенство:
+    \[
+        |\Ex(\xi \mid \mathcal{C})| \leq \Ex(|\xi| \mid \mathcal{C}).
+    \]  
+\end{property}
+\begin{proof}
+    Поскольку 
+    \[
+        -|\xi| \leq \xi \leq |\xi|.
+    \]
+    То 
+    \[
+        \Ex(|\xi| - \xi \mid \mathcal{C}) \geq 0, \quad \Ex(|\xi| + \xi \mid \mathcal{C} ) \geq 0.
+    \]
+    Из чего и следует нужное нам неравенство.
+\end{proof}
+\begin{property}
+    Если $\xi$ -- независимая с $\mathcal{C}$ случайная величина, то $\Ex(\xi \mid \mathcal{C}) = \Ex \xi$.
+\end{property}
+\begin{reminder}
+    Случайная величина $\xi$ называется независимой относительно $\sigma$-алгебры $\mathcal{C}$ если $\sigma(\xi)$ независима с $\mathcal{C}$. \\
+    Две системы множеств $\mathcal{A} \subset \mathcal{F}$ и $\mathcal{B} \subset \mathcal{F}$ называются независимыми, если 
+    \[
+        \forall A \in \mathcal{A}, \forall B \in \mathcal{B} \hookrightarrow \Pr(AB) = \Pr(A)\Pr(B).
+    \]
+\end{reminder}
+\begin{proof}
+    Заметим, что $\forall A \in \mathcal{C}$ случайная величина $\Ind_{A}$ независима с $\xi$. Тогда 
+    \[
+        \Ex(\xi \cdot \Ind_{A}) = \Ex \xi \cdot \Ex \Ind_{A}.
+    \]
+    Но 
+    \[
+        \Ex \xi \cdot \Ex \Ind_{A} = \Ex (\Ex \xi \cdot \Ind_{A}).
+    \]
+    Таким образом для $\Ex \xi$ выполнено интегральное свойство:
+    \[
+        \Ex(\xi \cdot \Ind_{A}) = \Ex (\Ex \xi \cdot \Ind_{A}).
+    \]
+    А следовательно $\Ex(\xi \mid \mathcal{C}) = \Ex \xi$.
+\end{proof}
+\begin{property}[Телескопическое свойство]
+    Пусть $\mathcal{C}_0 \subset \mathcal{C} \subset \mathcal{F}$, где $\mathcal{C}_0$ и $\mathcal{C}$ -- $\sigma$-алгебры. Тогда верно следующее соотношение:
+    \[
+        \Ex(\Ex(\xi \mid \mathcal{C}_0)\mid \mathcal{C}) = \Ex(\Ex(\xi \mid \mathcal{C}) \mid \mathcal{C}_0) = \Ex(\xi \mid \mathcal{C}_0).
+    \]
+\end{property}
+\begin{proof}
+    Заметим, что всякая $\mathcal{C}_0$ измеримая величина является и $\mathcal{C}$-измеримой случайной величиной. Значит 
+    \[
+        \Ex(\Ex(\xi \mid \mathcal{C}_0) \mid \mathcal{C}) = \Ex(\xi \mid \mathcal{C}_0).
+    \]
+    Покажем второе равенство. В силу линейности для этого достаточно проверить, что 
+    \[
+        \Ex((\Ex(\xi \mid \mathcal{C}) - \xi) \mid \mathcal{C}_0) = 0.
+    \]
+    Но, из выполнения интегрального свойства для $\Ex(\xi \mid \mathcal{C})$ мы получаем 
+    \[
+        \Ex(\Ex(\xi \mid \mathcal{C} ) \cdot \Ind_{A}) = \Ex(\xi \cdot \Ind_{A}).
+    \]
+    для всякой $A \in \mathcal{C}$, а значит и для всякой $A \in \mathcal{C}_0$:
+    \[
+        \Ex((\Ex(\xi \mid \mathcal{C}) - \xi) \cdot \Ind_{A}) = 0 = \Ex(0 \cdot \Ind_{A}).
+    \]
+    И утверждение теоремы доказано.
+\end{proof}
+\begin{theorem}[Теорема Леви для УМО]
+    Пусть дана неубывающая последовательность неотрицательных случайных величин $\{\xi_n\}_{n = 1}^{\infty}$ таких, что $\xi_n \xrightarrow{a.s.} \xi, n \rightarrow \infty$. \\
+    Тогда 
+    \[
+        \Ex(\xi_n \mid \mathcal{C}) \xrightarrow{a.s.} \Ex(\xi \mid \mathcal{C}), n \rightarrow \infty.
+    \]
+\end{theorem}
+\begin{proof}
+    По предыдущим свойствам, последовательность $\Ex(\xi_n \mid \mathcal{C})$ -- монотонная последовательность неотрицательных случайных величин. Значит существует некоторый предел $\eta = \lim\limits_{n \rightarrow \infty} \xi_n$ почти наверное. \\
+    С другой стороны, по теореме Леви $\forall A \in \mathcal{C} \hookrightarrow$ 
+    \begin{multline*}
+        \Ex(\Ex(\xi \mid \mathcal{C}) \cdot \Ind_{A}) = \Ex(\xi \cdot \Ind_{A}) = \Ex(\lim\limits_{n \rightarrow \infty} \xi_n \cdot \Ind_{A}) = \lim\limits_{n \rightarrow \infty} \Ex(\xi_n \cdot \Ind_{A}) = \\ =
+        \lim\limits_{n \rightarrow \infty} \Ex(\Ex(\xi_n \mid \mathcal{C}) \cdot \Ind_{A}) = \Ex(\lim\limits_{n \rightarrow \infty} \Ex(\xi_n \mid \mathcal{C}) \cdot \Ind_{A}) = \Ex(\eta \cdot \Ind_{A}).
+    \end{multline*}
+    А значит $\eta = \Ex(\xi \mid \mathcal{C})$ почти наверное.
+\end{proof}
+\begin{lemma}[Лемма Фату для УМО]
+    Пусть $\{\xi_n\}_{n = 1}^{\infty}$ -- последовательность неотрицательных случайных величин. Тогда
+    \[
+        \liminf\limits_{n \rightarrow \infty} \Ex(\xi_n \mid \mathcal{C}) \geq \Ex(\liminf\limits_{n \rightarrow \infty} \xi_n \mid \mathcal{C}).
+    \]
+\end{lemma}
+\begin{proof}
+    Пусть $\eta_n = \inf\limits_{k \geq n} \xi_k$. Тогда $\eta_n$ -- неубывающая последовательность неотрицательных случайных величин, а значит по теореме Леви
+    \[
+        \lim\limits_{n \rightarrow \infty} \Ex(\eta_n \mid \mathcal{C}) = \Ex(\liminf\limits_{n \rightarrow \infty} \xi_n \mid \mathcal{C}).
+    \]
+    Поскольку $\forall k \geq n \hookrightarrow \xi_k \geq \eta_n$, то 
+    \[
+        \Ex(\xi_k\mid \mathcal{C}) \geq \Ex(\eta_n \mid \mathcal{C}), \forall k \geq n.
+    \]
+    А значит и 
+    \[
+        \inf\limits_{k \geq n} \Ex(\xi_k \mid \mathcal{C}) \geq \Ex(\eta_n \mid \mathcal{C}).
+    \]
+    Переход к пределу завершает доказательство леммы.
+\end{proof}
+\begin{theorem}[Теорема Лебега для УМО]
+    Пусть $\{\xi_n\}_{n = 1}^\infty$ -- последовательность случайных величин, почти наверное сходящаяся к случайной величине $\xi$. Пусть существует случайная величина $\zeta$ с конечным первым моментом: $\Ex |\zeta| < \infty$ такая, что $\forall n \in \mathbb{N} \hookrightarrow |\xi_n| \leq \zeta$. Тогда, с вероятностью единица, верно следующее:
+    \[
+        \lim\limits_{n \rightarrow \infty} \Ex(\xi_n \mid \mathcal{C}) = \Ex(\xi \mid \mathcal{C}).
+    \]
+\end{theorem}
+\begin{proof}
+    Пусть $\eta_n = \sup\limits_{k \geq n} |\xi_k - \xi|$. Заметим, что $\eta_n \leq 2\zeta$, а значит $2\zeta - \eta_n$ -- неубывающая последовательность неотрицательных случайных величин. Перейдём к пределу и воспользуемся теоремой Леви о монотонной сходимости:
+    \[
+        \lim\limits_{n \rightarrow \infty} \Ex( 2\zeta - \eta_n \mid \mathcal{C}) = \Ex(\lim\limits_{n \rightarrow \infty} 2 \zeta - \eta_n \mid \mathcal{C}) = \Ex (2 \zeta \mid \mathcal{C}),
+    \]
+    а значит 
+    \[
+        \lim\limits_{n \rightarrow \infty} \Ex( \eta_n \mid \mathcal{C}) = 0.
+    \]
+    Поскольку $|\xi_n - \xi| \leq \eta_n$, то
+    \[
+        \Ex(|\xi_n - \xi| \mid\mathcal{C}) \leq \Ex (\eta_n \mid \mathcal{C}).
+    \]
+    И существует предел 
+    \[
+        \lim\limits_{n \rightarrow \infty} \Ex(|\xi_n - \xi| \mid \mathcal{C}) = 0.
+    \]
+    А значит существует и такой предел:
+    \[
+        \lim\limits_{n \rightarrow \infty} \Ex(\xi_n \mid \mathcal{C}) = \Ex(\xi \mid \mathcal{C}).
+    \]
+\end{proof}
+\begin{property}[Умножение на $\mathcal{C}$-измеримую величину]
+    Пусть $\eta$ -- $\mathcal{C}$-измеримая случайная величина и $\Ex|\xi\eta| < +\infty$. Тогда справедливо следующее равенство:
+    \[
+        \Ex(\xi \eta \mid \mathcal{C}) = \eta \Ex(\xi \mid \mathcal{C})
+    \]
+\end{property}
+\begin{proof}
+    Пусть $B \in \mathcal{C}$ и $\eta = \Ind_{B}$. Проверим выполнение интегрального свойства. Пусть $A \in \mathcal{C}$:
+    \[
+        \Ex(\xi \eta \cdot \Ind_{A}) = \Ex(\xi \cdot \Ind_{AB}) = \Ex(\Ex(\xi \mid \mathcal{C}) \cdot \Ind_{AB}) = \Ex(\eta \Ex(\xi \mid \mathcal{C}) \cdot \Ind_{A}).
+    \]
+    Значит для индикаторов $\mathcal{C}$-измеримых множеств это верно. \\
+    По линейности утверждение легко продолжается на произвольные $\mathcal{C}$-измеримые простые функции. \\
+    Пусть теперь $\eta$ -- произвольная $\mathcal{C}$-измеримая. Существует последовательность простых $\{\eta_n\}_{n = 1}^\infty$ такая, что $\eta_n \rightarrow \eta, n \rightarrow \infty$ и $|\eta_n| \leq |\eta|$. Теперь мы используем теорему Лебега о мажорируемой сходимости и получаем
+    \[
+        \Ex(\eta_n \xi \mid \mathcal{C}) \xrightarrow{a.s.} \Ex(\eta \xi \mid \mathcal{C}), n \rightarrow \infty.
+    \]
+    С другой стороны $\forall n \in \mathbb{N} \hookrightarrow$
+    \[
+        \Ex(\eta_n \xi \mid \mathcal{C}) = \eta_n \Ex(\xi \mid \mathcal{C}).
+    \]
+    И 
+    \[
+        \eta_n \Ex(\xi \mid \mathcal{C}) \xrightarrow{a.s.} \eta \Ex(\xi \mid \mathcal{C}), n \rightarrow \infty.
+    \]
+    Что и завершает доказательство:
+    \[
+        \Ex(\xi \eta \mid \mathcal{C}) = \eta \Ex(\xi \mid \mathcal{C}).
+    \]
+\end{proof}
+\begin{property}[Неравенство Йенсена для УМО]
+    Пусть $g: \R \to \R$ -- выпуклая вниз функция и $\Ex|g(\xi)| < +\infty$. 
+    Тогда справедливо следующее неравенство:
+    \[
+        \Ex(g(\xi)\mid \mathcal{C}) \geq g\biggr(\Ex(\xi\mid \mathcal{C})\biggr).
+    \]
+\end{property}
+\begin{note}[прим. техающего]
+    Функция $g$ может быть выпуклой лишь на некотором интервале $(a, b)$, если $\xi$ принимает значения только из него с вероятностью 1. Доказательство от этого не меняется.
+\end{note}
+\begin{proof}
+    Из выпуклости $g$ следует существование функции $d(x)$ такой, что 
+    \[
+        g(y) \geq g(x) + d(x) (y - x).
+    \]
+    Пусть $y = \xi$, и $x = \Ex(\xi \mid \mathcal{C})$. Возьмём условное математическое ожидание от обеих частей неравенства:
+    \[
+        \Ex(g(\xi)\mid \mathcal{C}) \geq \Ex(g(\Ex (\xi \mid \mathcal{C})) \mid \mathcal{C}) + \Ex(d(\Ex(\xi\mid \mathcal{C}))(\xi - \Ex(\xi \mid \mathcal{C})) \mid \mathcal{C}).
+    \]
+    Поскольку $g(\Ex (\xi \mid \mathcal{C}))$ и $d(\Ex (\xi \mid \mathcal{C}))$ -- $\mathcal{C}$-измеримые, то их можно вынести за условное математическое ожидание. Из ортогональности остатка \[d(\Ex(\xi \mid \mathcal{C}))\Ex(\xi - \Ex(\xi \mid \mathcal{C}) \mid \mathcal{C}) = 0.\] И полученное неравенство является искомым:
+    \[
+        \Ex(g(\xi)\mid \mathcal{C}) \geq g\biggr(\Ex(\xi\mid \mathcal{C})\biggr).
+    \]
+\end{proof}
+\begin{note}[прим. техающего]
+    Функция $d(x)$ -- это просто производная $g$ слева: $d(x) = g'_{-}(x)$. Она существует на всей области определения всякой выпуклой функции.
+\end{note}
+\begin{definition}
+    Определим условное математическое ожидание случайной величины $\xi$ относительно $\eta$ как 
+    \[
+        \Ex(\xi \mid \eta) = \Ex(\xi \mid \sigma(\eta)).
+    \]
+\end{definition}
+\begin{example}[УМО при наличии плотности]
+    Пусть $\xi$ и $\eta$ имеют совместную плотность $f_{\xi,\eta}(x, y)$ и $\eta$ имеет плотность $f_{\eta}(y)$. Определим условную плотность $f_{\xi \mid \eta}(x \mid y)$ как
+    \[f_{\xi\mid\eta}(x\mid y) = \begin{cases}
+        \dfrac{f_{\xi, \eta}(x, y)}{f_{\eta}(y)}, & f_{\eta}(y) \neq 0, \\
+        0, & f_{\eta}(y) = 0.
+    \end{cases}\]
+    Тогда $\Ex(\xi \mid \eta)$ задаётся функцией $g(y)$, которая равна 
+    \[
+        g(y) = \int_{-\infty}^{+\infty} x f_{\xi\mid \eta}(x \mid y)dx.
+    \]
+\end{example}
+\subsubsection{Достаточное условие существования и единственности условного математического ожидания.}
+До этого момента мы не задавались вопросом существования (и единственности) условного математического ожидания. 
+\begin{theorem}[Достаточное условие существования УМО]
+    Пусть $\Ex|\xi| < +\infty$. Тогда для любой $\sigma$-подалгебры $\mathcal{C} \subset\mathcal{F}$ условное математическое ожидание $\Ex(\xi \mid \mathcal{C})$ существует и единственно с точностью до множества меры нуль.
+\end{theorem}
+Для доказательства этой теоремы сформулируем известный факт из теории меры:
+\begin{theorem}[Радон, Никодим. б/д]
+    Пусть $(\Omega, \mathcal{F}, \Pr)$ -- вероятностное пространство и $\nu$ -- конечная мера, абсолютно непрерыная относительно $\Pr$. Тогда существует и единственна (с точностью до равенства почти наверное) неотрицательная функция $f \in L^1(\Omega, \mathcal{F}, \Pr)$ такая, что $\forall A \in \mathcal{F}$ выполнено
+    \[
+        \nu(A) = \int_{A} f d\Pr = \Ex(f \cdot \Ind_{A}).
+    \]
+\end{theorem}
+\begin{reminder}
+    Мера $\nu$ абсолютно непрерывна относительно меры $\Pr$ в том случае, если $\forall A \in \mathcal{F} \hookrightarrow \Pr(A) = 0 \Rightarrow \nu(A) = 0$.
+\end{reminder}
+\begin{note}
+    Величина $f = \frac{d\nu}{d\Pr}$ называется производной Радона-Никодима.
+\end{note}
+
+Докажем теорему.
+\begin{proof}
+    Определим конечную меру $\nu$ на $\mathcal{C}$ следующим образом:
+    \[
+        \forall A \in \mathcal{C} \  \nu(A) = \Ex(\xi \cdot \Ind_{A}).
+    \]
+    Это действительно мера в силу счётной аддитивности интеграла Лебега.
+    Она конечна, поскольку у $\xi$ существует первый момент. По теореме Радона-Никодима существует $\eta \in L^1(\Omega, \mathcal{C}, \Pr)$ такая, что 
+    \[
+        \forall A \in \mathcal{C} \ \nu(A) = \int_{A} \eta d\Pr.
+    \]
+    Но это в точности означает выполнение интегрального свойства для $\eta$:
+    \[
+        \forall A \in A \ \Ex(\xi \cdot \Ind_{A}) = \nu(A) = \int_{A} \eta d\Pr = \Ex(\eta \cdot \Ind_{A}).
+    \]
+    Поскольку $\eta$ -- $\mathcal{C}$-измеримая случайная величина, то она является $\Ex(\xi \mid \mathcal{C})$ по определению.
+    Единственность следует из теоремы Радона-Никодима.
+\end{proof}
+\subsubsection{Теорема о наилучшем квадратичном прогнозе.}
+\begin{theorem}[Теорема о наилучшем квадратичном прогнозе]
+    Пусть $\xi \in L_2(\Omega, \mathcal{F}, \Pr)$ и $\eta \in L_2(\Omega, \mathcal{C}, \Pr)$. Тогда справедливо следующее равенство:
+    \[
+        \Ex(\xi - \eta)^2 = \Ex(\xi - \Ex(\xi \mid \mathcal{C}))^2 + \Ex(\Ex(\xi \mid \mathcal{C}) - \eta)^2.
+    \]
+    Таким образом, условное математическое ожидание 
+    \[
+        \Ex(\xi \mid \mathcal{C}) = \argmin\limits_{\eta \in L_2(\Omega, \mathcal{C}, \Pr)} \Ex(\xi - \eta)^2.
+    \]
+\end{theorem}
+\begin{proof}
+    Добавим и вычтем $\Ex(\xi \mid \mathcal{C})$:
+    \[
+        \Ex(\xi - \eta)^2 = \Ex((\xi - \Ex(\xi\mid \mathcal{C}) + \Ex(\xi \mid \mathcal{C}) - \eta)^2).
+    \]
+    Раскроем скобки и получим:
+    \[
+        \Ex(\xi - \eta)^2 = \Ex(\xi - \Ex(\xi \mid \mathcal{C}))^2 + 2 \Ex((\xi - \Ex(\xi \mid \mathcal{C}))(\Ex(\xi \mid \mathcal{C}) - \eta)) +  \Ex(\Ex(\xi \mid \mathcal{C}) - \eta)^2.
+    \]
+    Распишем второе слагаемое. По формуле полного математического ожидания:
+    \[
+        \Ex((\xi - \Ex(\xi \mid \mathcal{C}))(\Ex(\xi \mid \mathcal{C}) - \eta)) = \Ex(\Ex((\xi - \Ex(\xi \mid \mathcal{C}))(\Ex(\xi \mid \mathcal{C}) - \eta) \mid \mathcal{C})) = (*)
+    \]
+    Вынесем за условное математическое ожидание $\Ex(\xi \mid \mathcal{C}) - \eta$ -- как $\mathcal{C}$-измеримую случайную величину:
+    \[
+        (*) = \Ex((\Ex(\xi \mid \mathcal{C}) - \eta)\Ex((\xi - \Ex(\xi \mid \mathcal{C}))\mid \mathcal{C})) = 0,
+    \]
+    из ортогональности остатка. Теорема доказана.
+\end{proof}

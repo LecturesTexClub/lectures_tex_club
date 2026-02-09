@@ -1,11 +1,10 @@
-\documentclass[a4paper,12pt]{article}
-
 %%% Работа с русским языком
 \usepackage{cmap}					% поиск в PDF
-\usepackage{mathtext} 				% русские буквы в формулах
+%\usepackage{mathtext} 				% русские буквы в формулах
 \usepackage[T2A]{fontenc}			% кодировка
 \usepackage[utf8]{inputenc}			% кодировка исходного текста
-\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage[english,russian]{babel} % локализация и переносы
+\usepackage{tempora}
 \usepackage{indentfirst}            % красная строка в первом абзаце
 \frenchspacing                      % равные пробелы между словами и предложениями
 \usepackage{epigraph}
@@ -14,6 +13,14 @@
 %\DeclareMathOperator{\arcctg}{arcctg}
 \usepackage{icomma}                                    % "Умная" запятая
 \usepackage{nccfloats}
+\usepackage{dsfont}
+\usepackage{siunitx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+
+
 
 %%% Свои символы и команды
 \usepackage{centernot} % центрированное зачеркивание символа
@@ -66,9 +73,13 @@
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\Ex}{\mathbb{E}}
 \renewcommand{\D}{\mathbb{D}}
-
+\newcommand{\Def}{\stackrel{\rm{def}}{=}}
 
 % привееет
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Ind}{\mathds{1}}
+\DeclareMathOperator*{\argmin}{argmin}
+\renewcommand{\Pr}{\mathbb{P}}
 
 
 
@@ -119,6 +130,7 @@
 \newtheorem{theorem}{Теорема}[section]
 \newtheorem{theoremdefinition}{Теорема-определение}[section]
 \newtheorem{lemma}{Лемма}[section]
+\newtheorem{property}{Свойство}[section]
 \newtheorem{proposition}{Утверждение}[section]
 \newtheorem*{exercise}{Упражнение}
 \newtheorem*{problem}{Задача}
@@ -144,7 +156,7 @@
 
 %%% Оформление страницы
 \usepackage{vmargin}
-\usepackage{extsizes}     % Возможность сделать 14-й шрифт
+%\usepackage{extsizes}     % Возможность сделать 14-й шрифт
 %\usepackage{geometry}     % Простой способ задавать поля
 \usepackage{setspace}     % Интерлиньяж
 \usepackage{enumitem}     % Настройка окружений itemize и enumerate
@@ -179,7 +191,7 @@
 %%% Шаблонная информация для титульного листа
 \newcommand{\CourseName}{Теорвер}
 \newcommand{\FullCourseNameFirstPart}{\so{Теория вероятностей}}
-\newcommand{\SemesterNumber}{-}
+\newcommand{\SemesterNumber}{4}
 \newcommand{\LecturerInitials}{Горбачёв О. Г.}
 \newcommand{\CourseDate}{-}
 \newcommand{\AuthorInitials}{Бадоля Пётр}
@@ -218,6 +230,13 @@
 	citecolor=green,         % Ссылки на библиографию
 	filecolor=magenta,       % Ссылки на файлы
 	urlcolor=NavyBlue,       % Ссылки на URL
+}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
 }
 
 %%% Графика

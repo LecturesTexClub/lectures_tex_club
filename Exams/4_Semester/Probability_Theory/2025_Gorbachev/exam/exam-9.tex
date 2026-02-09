@@ -1,0 +1,269 @@
+\section{Числовые характеристики случайных величин.}
+Пускай у нас всюду в этой секции задано некоторое вероятностное пространство $(\Omega, \mathcal{F}, \P)$.
+\subsection{Математическое ожидание как интеграл Лебега.}
+\subsubsection{Основные свойства.}
+\begin{definition}
+    Пусть $\xi: \Omega \to \R$ -- случайная величина.
+    Будем называть математическим ожиданием случайной величины (и обозначать $\Ex \xi$) интеграл Лебега по $\P$ на $\Omega$:
+    \[
+        \Ex \xi = \int_{\Omega} \xi d\P.
+    \]
+    (естественно, математического ожидания может не существовать).
+\end{definition}
+Назовём несколько основных свойств математического ожидания:
+\begin{enumerate}
+    \item $\Ex c = c, \Ex{\Ind_A} = \P(A)$.
+    \item $\Ex \alpha \xi + \beta \eta = \alpha \Ex \xi + \beta \Ex \eta$.
+    \item Если две случайные величины $\xi$ и $\eta$ совпадают почти всюду, то $\Ex \xi = \Ex \eta$.
+    \item Если $\xi \leq \eta$ почти всюду, то и $\Ex \xi \leq \Ex \eta$.
+    \item Если $\xi \geq 0$ почти всюду, но $\Ex \xi = 0$, то $\xi = 0$ почти всюду.
+    \item Пусть $\eta = \phi(\xi)$, где $\xi$ -- случайная величина, а $\phi$ -- борелевская функция.
+    Тогда $\Ex \eta = \int_{\Omega} \phi(\xi)d\P = \Ex \phi(\xi)$.
+    \item $|\Ex \xi| \leq \Ex |\xi|$.
+\end{enumerate}
+\subsubsection{Неравенства Йенсена и Ляпунова.}
+\begin{theorem}[Неравенство Минковского]
+    Для случайных величин $\xi$ и $\eta$ и некоторого $r > 1$ верно следующее:
+    \[
+        \|f + g\|_{r} \leq \|f\|_{r} + \|g\|_{r}.
+    \]
+\end{theorem}
+\begin{theorem}[Неравенство Гёльдера]
+    Для случайных величин $f \in L_p$ и $g \in L_{p'}$ справедливо следующее неравенство:
+    \[
+        \|f \cdot g\|_{1} \leq \|f\|_{p} \cdot \|g\|_{p'}.
+    \]
+\end{theorem}
+\begin{theorem}[Неравенство Ляпунова]
+    Для случайной величины $\xi$ и $u > v > 0$ справедливо следующее:
+    \[
+        \|\xi\|_{u} \geq \|\xi\|_{v}.
+    \]
+\end{theorem}
+\begin{proof}
+    Применим неравенство Гёльдера к $|\xi|^v \cdot 1$ и $u/v$. Тогда мы получим:
+    \[
+        \|\xi^v \cdot 1\|_1 \leq \|\xi^v\|_{u/v} \cdot  \cdot \|1\|_{p'} = \|\xi^v\|_{u/v}.
+    \]
+    Теперь возведём обе части неравенства в степень $1/v$ и получим:
+    \[
+        \|\xi\|_v = \biggr(\int |\xi|^v d\P\biggr)^{1/v} = (\|\xi^v\|_1)^{1/v} \leq \|\xi^v\|_{u/v}^{1/v} = \biggr(\int |\xi|^{u}\biggr)^{1/u} = \|\xi\|_u.
+    \]
+    Что и требовалось доказать.
+\end{proof}
+\begin{theorem}[Неравенство Йенсена]
+    Для выпуклой вниз борелевской функции $g$ и случайной величины $\xi$ справедливо следующее неравенство:
+    \[
+        \Ex g(\xi) \geq g\bigr(\Ex \xi \bigr).
+    \]
+    (Если, естественно существуют $\Ex|g(\xi)|$ и $\Ex|\xi|$)
+\end{theorem}
+\begin{proof}
+    Из выпуклости функции $g$ следует существование функции $d(x)$ такой, что
+    \[
+        g(y) \geq g(x) + d(x)(y - x).
+    \]
+    Пусть теперь $y = \xi$ и $x = \Ex \xi$. Возьмём математическое ожидание от обеих частей неравенства:
+    \[
+        \Ex g(\xi) \geq \Ex g(\Ex \xi) + \Ex \biggr( d(\Ex \xi)(\xi - \Ex \xi) \biggr) = g(\Ex \xi) + d(\Ex \xi) (\Ex \xi - \Ex \xi) = g(\Ex \xi).
+    \]
+\end{proof}
+\subsubsection{Математическое ожидание независимых и некоррелированых случайных величин.}
+\begin{theorem}
+    Пусть $\xi$ и $\eta$ -- независимые случайные величины.
+    Тогда, в случае существования у них первого момента, справедливо следующее равенство:
+    \[
+        \Ex \xi \eta = \Ex \xi \Ex \eta.
+    \]
+\end{theorem}
+\begin{proof}
+    Для простых функций данное утверждение очевидно.
+    И действительно, если $\xi = \sum\limits_{k = 1}^{n} x_k I_{A_k}$ и $\eta = \sum\limits_{r = 1}^{m} y_k I_{B_r}$, то
+    \[
+        \Ex \xi \eta = \sum\limits_{k, r = 1, 1}^{n, m} x_k y_r \P(A_k B_r) = \sum\limits_{k, r = 1, 1}^{n, m} x_k y_r \P(A_k) \P(B_r) = \sum\limits_{k = 1}^n x_k \P(A_k) \cdot \sum\limits_{r = 1}^m y_r \P(B_r) = \Ex \xi \cdot \Ex \eta.
+    \]
+    В общем случае, для каждой неотрицательной случайной величины существуют последовательности $\xi_n$ и $\eta_n$, которые поточечно сходятся к $\xi$ и $\eta$ (без ограничения общности можно считать сходимость монотонной).
+    Тогда, $\Ex \xi_n \eta_n =  \Ex \xi_n \Ex \eta_n$ -- по предыдущему пункту, и, совершая предельный переход по теореме Леви, получаем утверждение для неотрицательных функций. \\
+    В общем случае для интегрируемых функций можно воспользоваться теоремой Лебега о мажорируемой сходимости и получить тот же результат или просто разбить на части $\xi$ и $\eta$ по знакам и для каждой из частей применить утверждение для неотрицательных случайных величин.
+\end{proof}
+\subsubsection{Экспоненциальное неравенство Маркова, неравенство Чернова.}
+\begin{theorem}[Неравенство Маркова]
+    Пусть $X$ -- неотрицательная случайная величина и $\epsilon > 0$. Тогда
+    \[
+        \P(X \geq \epsilon) \leq \dfrac{\Ex X}{\epsilon}.
+    \]
+\end{theorem}
+\begin{proof}
+    \[
+        \P(X \geq \epsilon) = \int_{\{w \mid X(w) \geq \epsilon\}} d\P = \dfrac{1}{\epsilon} \int_{\{w \mid X(w) \geq \epsilon\}} \epsilon d\P \leq \dfrac{1}{\epsilon} \int_{\{w \mid X(w) \geq \epsilon\}} Xd\P \leq \dfrac{\Ex X}{\epsilon}.
+    \]
+\end{proof}
+\begin{theorem}[Обобщённое неравенство Маркова]
+    Пусть $\phi: \R \to (0, +\infty)$ -- строго возрастающая функция и $\epsilon \in \R$. Пусть $X$ -- случайная величина. Тогда
+    \[
+        \P(X \geq \epsilon) \leq \dfrac{\Ex \phi(X)}{\phi(\epsilon)}.
+    \]
+\end{theorem}
+\begin{proof}
+    Заметим, что так как $\phi$ -- строго возрастающая функция, то 
+    \[
+        X \geq \epsilon \Longleftrightarrow \phi(X) \geq \phi(\epsilon).
+    \]
+    А значит и 
+    \[
+        \P(X \geq \epsilon) = \P(\phi(X) \geq \phi(\epsilon)).
+    \]
+    Применим неравенство Маркова к $\phi(X)$ и получим искомую оценку:
+    \[
+        \P(X \geq \epsilon) \leq \dfrac{\Ex \phi(X)}{\phi(\epsilon)}.
+    \]
+\end{proof}
+\begin{corollary}[Экспоненциальное неравенство Маркова]
+    Пусть $X$ -- случайная величина, $\epsilon \in \R$ и $t > 0$. Тогда
+    \[
+        \P(X \geq \epsilon) \leq \dfrac{\Ex \exp(tX)}{\exp(t\epsilon)}.
+    \]
+\end{corollary}
+\begin{proof}
+    Применим обобщённое неравенство Маркова при $\phi(x) = e^{tx}$.
+\end{proof}
+\begin{corollary}[Неравенство Чернова]
+    Пусть $X$ -- случайная величина и $a \in \R$. Тогда справедливо следующее неравенство:
+    \[
+        \P(X \geq a) \leq \inf\limits_{t > 0} e^{-ta}\Ex e^{tX}.
+    \]
+\end{corollary}
+\begin{proof}
+    Поскольку экспоненциальное неравенство Маркова для $X$ и $a \in \R$ справедливо при произвольном $t > 0$, то взятие $\inf$ по $t > 0$ завершает доказательство теоремы.
+\end{proof}
+\subsubsection{Неравенство Чебышёва для i.i.d.-последовательности.}
+\begin{theorem}[Неравенство Чебышёва]
+    Пусть $X$ -- случайная величина такая, что $\Ex |X| < +\infty$ и $\epsilon > 0$. Тогда верно следующее неравенство:
+    \[
+        \P(|X - \Ex X| \geq \epsilon) \leq \dfrac{\D X}{\epsilon^2}.
+    \]
+\end{theorem}
+\begin{proof}
+    Применим обобщённое неравенство Маркова при $\phi(x) = x^2$ и заметим, что $\Ex(X - \Ex X)^2 = \D X$.
+\end{proof}
+\begin{corollary}[Неравенство Чебышёва для i.i.d.-последовательности]
+    Пусть $\{X_n\}$ -- последовательность независимых одинаково распределённых случайных величин с конечным первым моментом. Тогда для $S_n = \dfrac{1}{n}\sum\limits_{j = 1}^n X_j - \Ex X_j$ справедлива следующая оценка:
+    \[
+        \P(|S_n| \geq \epsilon) \leq \dfrac{\D X}{n\epsilon^2}.
+    \]
+\end{corollary}
+\begin{proof}
+    Применим неравенство Чебышёва к $S_n$ и $\epsilon$:
+    \[
+        \P(|S_n| \geq \epsilon) \leq \dfrac{\D S_n}{\epsilon^2}.
+    \]
+    Поскольку члены последовательности $S_n$ -- независимы, то 
+    \[
+        \D S_n = \dfrac{1}{n^2}\D\biggr(\sum\limits_{j = 1}^n X_j\biggr) = \dfrac{n}{n^2}\D X = \dfrac{\D X}{n}.
+    \]
+    Что и завершает доказательство теоремы.
+\end{proof}
+\subsubsection{Функции моментов, дисперсия, ковариация.}
+\begin{definition}
+    Для случайных величин $\xi$ и $\eta$ с конечным вторым моментом можно определить скалярное произведение следующим образом:
+    \[
+        (\xi, \eta) = \Ex \xi \eta.
+    \]
+\end{definition}
+\begin{reminder}
+    Пространство $L_2(\P)$ является гильбертовым пространство со скалярным произведением, определённым выше.
+\end{reminder}
+\begin{definition}
+    Пусть $\xi$ -- случайная величина.
+    Будем обозначать $\overset{\circ}{\xi}$ центрированную $\xi$, то есть $\overset{\circ}{\xi} = \xi - \Ex \xi$.
+\end{definition}
+\begin{definition}
+    Будем называть $k$-м моментов математическое ожидание $\xi^k$, то есть $\Ex \xi^k$.
+\end{definition}
+\begin{definition}
+    Будем называть $k$-м центральным моментом величину $\Ex \overset{\circ}{\xi} ^k$.
+\end{definition}
+\begin{definition}
+    Будем называть $k$-м абсолютным моментом величину $\Ex |\xi|^k$
+\end{definition}
+\begin{definition}
+    Второй центральный момент будем называть дисперсией и для случайной величины $\xi$ обозначать как
+    \[
+        \D \xi = \Ex (\xi - \Ex \xi)^2.
+    \]
+\end{definition}
+\begin{property}
+    Дисперсию можно переписать в немного другой форме:
+    \[
+        \D \xi = \Ex(\xi - \Ex \xi)^2 = \Ex \xi^2 - 2 \Ex (\xi \Ex \xi) + (\Ex \xi)^2 = \Ex \xi^2 - (\Ex \xi)^2.
+    \]
+\end{property}
+\begin{property}
+    Если $\eta = a\xi + b$, то 
+    \[
+        \D \eta = \Ex(\eta - \Ex \eta)^2 = \Ex(a\xi + b - a\Ex \xi - b)^2 = a^2 \Ex(\xi - \Ex \xi)^2 = a^2 \D \xi.
+    \]
+\end{property}
+\begin{definition}
+    Ковариацией случайных величин $\xi$ и $\eta$ будем называть 
+    \[
+        \cov(\xi, \eta) = \Ex(\overset{\circ}{\xi}\overset{\circ}{\eta}).
+    \]
+\end{definition}
+\begin{property}
+    Для случайных величин $\xi$ и $\eta$ ковариация выражается как
+    \[
+        \cov(\xi, \eta) = \Ex(\xi\eta) - \Ex\xi\Ex\eta.
+    \]  
+\end{property}
+\begin{property}
+    \[
+        \cov(\xi, \xi) = \D\xi.
+    \]
+\end{property}
+\begin{property}
+    В силу неравенства Коши-Буняковского
+    \[
+        \cov^2(\xi, \eta) \leq \D\xi\D\eta.
+    \]
+\end{property}
+\begin{property}
+    Дисперсия суммы независимых случайных величин $\xi$ и $\eta$ равна сумме дисперсий:
+    \[
+        \D(\xi + \eta) = \D \xi + \D \eta.
+    \]
+\end{property}
+\begin{proof}
+    Распишем дисперсию по определению:
+    \[
+        \D(\xi + \eta) = \Ex\biggr(\overset{\circ}{\xi} + \overset{\circ}{\eta}\biggr)^2 = \Ex \overset{\circ}{\xi}^2  + 2\Ex \overset{\circ}{\xi}\overset{\circ}{\eta} + \Ex\overset{\circ}{\eta}^2 = \D \xi + 2 \cov(\xi, \eta) + \D \eta = \D \xi + \D \eta,
+    \]
+    где $\cov(\xi, \eta) = \Ex \overset{\circ}{\xi}\overset{\circ}{\eta} = \Ex \overset{\circ}{\xi}\Ex \overset{\circ}{\eta} = 0$ в силу независимости $\xi$ и $\eta$.
+\end{proof}
+\begin{property}
+    Дисперсия суммы некоррелированных случайных величин также равно сумме дисперсий.
+\end{property}
+\subsubsection{Корреляция и её свойства.}
+\begin{definition}
+    Определим коэффициент корреляции для случайных величин $\xi$ и $\eta$ как 
+    \[
+        \rho(\xi, \eta) = \dfrac{\cov(\xi, \eta)}{\sqrt{\D \xi \D\eta}}.
+    \]
+\end{definition}
+\begin{property}
+    \[
+    |\rho(\xi, \eta)| \leq 1.
+    \]
+\end{property}
+\begin{property}
+    Если $\xi$ и $\eta$ -- независимые случайные величины, то
+    \[
+        \rho(\xi, \eta) = 0.
+    \]
+\end{property}
+\begin{property}
+    Если $\eta = a \xi + b$, то
+    \[
+        \rho(\xi, \eta) = \dfrac{\cov(\xi, a \xi + b)}{\sqrt{\D\xi \D(a\xi + b)}} = \dfrac{a\cov(\xi, \xi)}{\sqrt{a^2\D \xi \D \xi}} = \sign a.
+    \]
+\end{property}

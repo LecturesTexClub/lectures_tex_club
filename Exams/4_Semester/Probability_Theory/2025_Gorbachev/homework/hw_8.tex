@@ -1,0 +1,122 @@
+\subsection{Домашние задачи на девятую неделю.}
+\begin{problem}
+    Используя неравенство Маркова, вывести показательную форму неравенства Чебышёва:
+    \[
+        \P(X \geq a) \leq \dfrac{\Ex e^{tX}}{e^{ta}}, t > 0, a \in \R.
+    \]
+\end{problem}
+\begin{solution}
+    Заметим, что в силу строгой монотонности экспоненты следует $X \geq a \Longleftrightarrow e^{tX} \geq e^{ta}$ при положительных $t$.
+    Из этого следует
+    \[
+        \P(X \geq a) = \P(e^{tX} \geq e^{ta}).
+    \]
+    Применим неравенство Маркова и получим утверждение задачи:
+    \[
+        \P(X \geq a) = \P(e^{tX} \geq e^{ta}) \leq \dfrac{\Ex e^{tX}}{e^{ta}}.
+    \]
+\end{solution}
+\begin{problem}
+    Оказывается, что ЗБЧ может быть выполнен и в случае, когда $X_n$ не обязательно независимы и одинаково распределены.
+    Доказать, что если $\cov(X_i, X_j) \leq 0$ при $i \neq j$ и $\Ex X_n \ra m$, $\sigma^2_{n} = \D X_n = o(n)$, то $S_n/n \ra m$ по вероятности.
+\end{problem}
+\begin{solution}
+    Для начала, заметим, что так как $\Ex(X_n) \ra m, n \ra +\infty$, то и $\Ex(S_n)/n \ra m, n \ra +\infty$ -- поскольку если у последовательности существует предел в обычном смысле, то он существует и в смысле Чезаро и они равны. \\
+    Пусть $Y_n = S_n/n - \Ex(S_n)/n$.
+    Зафиксируем произвольное $\epsilon > 0$.
+    Согласно неравенству Чебышёва:
+    \[
+        \P(|Y_n| \geq \epsilon) \leq \dfrac{\D Y_n}{\epsilon^2}.
+    \]
+    Заметим, что $\Ex Y_n = 0$.
+    Распишем дисперсию $Y_n$:
+    \[
+        DY_n = \Ex Y_n^2 = \Ex \biggr( \sum\limits_{k = 1}^n \dfrac{\overset{\circ}{X_n}}{n} \biggr)^2 = \dfrac{1}{n^2}\biggr(\sum\limits_{k = 1}^n \sigma_k^2 + \sum\limits_{i, j = 1, 1; i \neq j}^{n, n} \cov (X_i, X_j) \biggr) \leq \dfrac{1}{n^2}\sum\limits_{k = 1}^n \sigma^2_k \ra 0, n \ra +\infty.
+    \]
+    Переход в неравенстве сделан в силу того, что $X_i$ и $X_j$ имеют отрицательную корреляцию при $i \neq j$; предельный переход корректен, поскольку $\sum\limits_{k = 1}^n \sigma^2_k = o(n^2)$ -- а снизу у нас как раз $n^2$.
+    Таким образом $Y_n \xrightarrow{\P} 0$, а следовательно, с учётом того, что $\Ex S_n/n \ra m$, то и $S_n/n \xrightarrow{\P} m$ -- что и требовалось доказать.
+\end{solution}
+\begin{problem}
+    Пусть $X_1, X_2, \ldots$~---~независимые случайные величины и $X_n \ra X$ по вероятности.
+    Доказать, что $X = const$ п.н.
+\end{problem}
+\begin{solution}
+    Является следствием закона <<0-1>>.
+\end{solution}
+\begin{problem}
+    Рассмотрим случайные величины $X_n \sim U(-n, n)$.
+    Найти их характеристические функции $\phi_{X_n}$.
+    Сходятся ли эти случайные величины по распределению?
+\end{problem}
+\begin{solution}
+    Вычислим $\phi_n(t) = \Ex e^{it X_n}$:
+    \[
+        \phi_n(t) = \int_{-n}^{n} \dfrac{e^{itx}}{2n}dx = \dfrac{1}{2int}\big(e^{int} - e^{-int}\big) = \dfrac{\sin nt}{nt}.
+    \]
+    Если $t \neq 0$, то $\phi_n(t) \ra 0, n \ra  +\infty$; если же $t = 0$, то $\phi_n(0) = 1$ и $\phi_n(0) \ra 1, n \ra +\infty$.
+    Таким образом $\phi_n \ra I_{\{0\}}, n \ra 0$.
+    По теореме Бохнера-Хинчина $I_{\{0\}}$ не является характеристической функцией распределения (поскольку нет непрерывности в окрестности нуля), а следовательно $\phi_n$ не сходятся по распределению.
+\end{solution}
+\begin{problem}
+    Доказать, что если $X_n$ сходится по распределению к константе, то $X_n$ сходится к ней и по вероятности.
+\end{problem}
+\begin{solution}
+    Пусть $X_n \xrightarrow{d} c$.
+    По определению $F_{X_n} \ra F_c, n \ra +\infty$ во всех точках непрерывности.
+    Поскольку $F_c = I_{[c, +\infty)}$, то $F_c$ непрерывна всюду, кроме $c$.
+    Таким образом:
+    \[
+        F_{X_n}(t) \ra \begin{cases} 0, & t < c \\
+                           1, & t > c.
+        \end{cases}, n \ra +\infty.
+    \]
+    Поскольку
+    \[
+        \P(|X_n - c| \geq \epsilon) = \P(X_n \leq c - \epsilon) + \P(X_n \geq c + \epsilon).
+    \]
+    И
+    \begin{multline*}\P(X_n \leq c - \epsilon) = \int_{-\infty}^{c - \epsilon}dF_{X_n} = F_{X_n}(c - \epsilon) - F_{X_n}(-\infty) = F_{X_n}(c - \epsilon), \\ \P(X_n \geq c + \epsilon) = \int_{c + \epsilon}^{+\infty} dF_{X_n} = F_{X_n}(+\infty) - F_{X_n}(c + \epsilon) = 1 - F_{X_n}(c + \epsilon).
+    \end{multline*}
+    То в силу уже отмеченных поточечных сходимостей мы получаем сходимость по вероятности для $X_n$ к $c$.
+\end{solution}
+\begin{problem}
+    Исследуйте на сходимость в среднеквадратичном среднего геометрического независимых случайных величин $\{X_n\}_{n \in \N}$, каждая из которых $\sim U(0, 1)$.
+\end{problem}
+\begin{solution}
+    Средним геометрическим $X_1, \ldots, X_n$ является:
+    \[
+        \sqrt[n]{\prod_{k = 1}^n X_k} = \exp\biggr(-{\dfrac{1}{n}\sum\limits_{k = 1}^n -\ln X_k}\biggr).
+    \]
+    Нетрудно заметить, что $Y_k = -\ln X_k \sim Exp(1)$.
+    Поскольку $Y_k$ все -- независимо одинаково распределённые случайные величины с $\Ex Y_k = 1$, то по УЗБЧ в форме Колмогорова
+    \[
+        \dfrac{1}{n}\sum\limits_{k = 1}^n Y_k \xrightarrow{a.s.} 1, n \ra +\infty.
+    \]
+    Из непрерывности экспоненты следует
+    \[
+        \exp\biggr(-\dfrac{1}{n}\sum\limits_{k = 1}^n Y_k\biggr) \xrightarrow{a.s.} e^{-1}, n \ra +\infty.
+    \]
+    Пусть $Z_n = \biggr(\exp\biggr(-\dfrac{1}{n}\sum\limits_{k = 1}^n Y_k\biggr) - e^{-1}\biggr)^2$; $Z_n \xrightarrow{a.s.} 0, n \ra +\infty$. \\
+    Поскольку
+    \[
+        \int Z_{n}d\P \leq \int \exp \biggr(-\dfrac{2}{n}\sum\limits_{k = 1}^n Y_k\biggr)d\P + 2e^{-1}\int \exp \biggr(-\dfrac{1}{n}\sum\limits_{k = 1}^n Y_k\biggr)d\P + e^{-2} < +\infty.
+    \]
+    То у нас есть интегрируемая мажоранта и по теореме Лебега $\int Z_n \ra 0, n \ra +\infty$ -- что и показывает сходимость по $L_2$-норме для среднего геометрического равномерно распределённых случайных величин.
+\end{solution}
+\begin{note}
+    Мне не нравится доказательство того, что здесь из a.s. следует $L_2$; кажется, это не совсем верно. Надо переделать.
+\end{note}
+\begin{problem}
+    Следует ли из сходимости случайных величин п.н. сходимость их математических ожиданий?
+    А из сходимости случайных величин по вероятности?
+    Считайте, что все рассматриваемые случайные величины последовательности имеют конечное математическое ожидание.
+\end{problem}
+\begin{solution} \leavevmode
+    \begin{itemize}
+        \item Покажем, что $X_n \xrightarrow{a.s.} X, n \ra +\infty \not\Ra X_n \xrightarrow{L_1} X, n \ra +\infty$.
+        Пусть $X_n = n I_{[0, 1/n)}$.
+        Тогда $X_n \xrightarrow{a.s.} 0, n \ra +\infty$, а значит если $X_n \xrightarrow{L_1} X$, то $X = 0$ (п.н.).
+        Но $\int X_n d\P = 1 \not\ra 0, n \ra +\infty$ -- следовательно, нет сходимости математических ожиданий.
+        \item Заметим, что если из сходимости по вероятности следует сходимость в $L_1$, то так как из сходимости п.н. следует сходимость по $\P$, то из сходимости п.н. следует сходимость по $L_1$ -- что неверно по предыдущему пункту.
+    \end{itemize}
+\end{solution}
