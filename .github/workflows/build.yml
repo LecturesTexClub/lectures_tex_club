@@ -12,25 +12,35 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Find pdf files
+      - name: Collect pdf files
         id: files
         run: |
-          FILES=$(find pdf -name "*.pdf" | sed 's|^pdf/||')
+          set -e
+          FILES=$(find pdf -type f -name "*.pdf" | sed 's|^pdf/||')
+          echo "Found files:"
           printf "%s\n" "$FILES"
-          echo "files<<EOF" >> $GITHUB_OUTPUT
-          printf "%s\n" "$FILES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "files<<EOF"
+            printf "%s\n" "$FILES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Upload to Yandex Disk
         run: |
-          while read FILE; do
+          set -euo pipefail
 
-            TYPE=$(echo $FILE | cut -d/ -f1)
-            SEM=$(echo $FILE | cut -d/ -f2)
-            SUBJECT=$(echo $FILE | cut -d/ -f3)
+          TOKEN="${{ secrets.YANDEX_OAUTH_TOKEN }}"
+          API="https://cloud-api.yandex.net/v1/disk/resources"
+
+          while read -r FILE; do
+            [ -z "$FILE" ] && continue
+
+            TYPE=$(echo "$FILE" | cut -d/ -f1)
+            SEM=$(echo "$FILE" | cut -d/ -f2)
+            SUBJECT=$(echo "$FILE" | cut -d/ -f3)
             NAME=$(basename "$FILE" .pdf)
 
-            case $TYPE in
+            case "$TYPE" in
               l) TYPE="Lectures" ;;
               s) TYPE="Seminars" ;;
               e) TYPE="Exams" ;;
@@ -44,19 +54,24 @@ jobs:
 
             echo "Uploading $FILE -> $REMOTE_FILE"
 
-            # создать каталог (если существует — ничего страшного)
-            curl -s -X PUT \
-              --data-urlencode "path=$REMOTE_DIR" \
-              --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
-              https://cloud-api.yandex.net/v1/disk/resources > /dev/null
+            # создать каталог (если уже есть — API вернёт 409, это нормально)
+            curl -sS -X PUT \
+              --get \
+              --data-urlencode "path=${REMOTE_DIR}" \
+              --header "Authorization: ${TOKEN}" \
+              "${API}" \
+              -o /dev/null -w "mkdir status: %{http_code}\n"
 
             # получить upload URL
-            URL=$(curl -s --get \
-              --data-urlencode "path=$REMOTE_FILE" \
+            RESP=$(curl -sS --get \
+              --data-urlencode "path=${REMOTE_FILE}" \
               --data-urlencode "overwrite=true" \
-              --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
-              https://cloud-api.yandex.net/v1/disk/resources/upload \
-              | jq -r '.href')
+              --header "Authorization: ${TOKEN}" \
+              "${API}/upload")
+
+            echo "upload API response: $RESP"
+
+            URL=$(echo "$RESP" | jq -r '.href')
 
             if [ -z "$URL" ] || [ "$URL" = "null" ]; then
               echo "Failed to get upload URL for $FILE"
@@ -64,9 +79,11 @@ jobs:
             fi
 
             # загрузить файл
-            curl -s -X PUT \
+            curl -sS -X PUT \
               --data-binary "@pdf/$FILE" \
-              --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
+              --header "Authorization: ${TOKEN}" \
               "$URL"
+
+            echo "Uploaded $FILE"
 
           done <<< "${{ steps.files.outputs.files }}"
