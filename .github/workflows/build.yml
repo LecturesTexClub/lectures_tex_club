@@ -39,12 +39,20 @@ jobs:
 
             SEM="${SEM}_Semester"
 
-            REMOTE_PATH="Lectures Tex Club/${TYPE}/${SEM}/${SUBJECT}/${NAME}.pdf"
+            REMOTE_DIR="Lectures Tex Club/${TYPE}/${SEM}/${SUBJECT}"
+            REMOTE_FILE="${REMOTE_DIR}/${NAME}.pdf"
 
-            echo "Uploading $FILE -> $REMOTE_PATH"
+            echo "Uploading $FILE -> $REMOTE_FILE"
 
+            # создать каталог (если существует — ничего страшного)
+            curl -s -X PUT \
+              --data-urlencode "path=$REMOTE_DIR" \
+              --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
+              https://cloud-api.yandex.net/v1/disk/resources > /dev/null
+
+            # получить upload URL
             URL=$(curl -s --get \
-              --data-urlencode "path=$REMOTE_PATH" \
+              --data-urlencode "path=$REMOTE_FILE" \
               --data-urlencode "overwrite=true" \
               --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
               https://cloud-api.yandex.net/v1/disk/resources/upload \
@@ -55,6 +63,7 @@ jobs:
               exit 1
             fi
 
+            # загрузить файл
             curl -s -X PUT \
               --data-binary "@pdf/$FILE" \
               --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
