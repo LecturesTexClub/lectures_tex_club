@@ -12,6 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cleanup wrong folders
+        run: |
+          curl -s -X DELETE \
+            --get \
+            --data-urlencode "path=Lectures Tex Club/Lectures/2_Semester/Calsulus" \
+            --data-urlencode "permanently=true" \
+            --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
+            https://cloud-api.yandex.net/v1/disk/resources || true
+
       - name: Collect pdf files
         id: files
         run: |
