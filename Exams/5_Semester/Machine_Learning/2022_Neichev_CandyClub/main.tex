@@ -1,0 +1,151 @@
+\input{style.tex}
+
+\begin{document}
+% ================ ПЕРВАЯ СТРАНИЦА ==========================
+    \thispagestyle{empty}
+    \BgThispage
+    \begin{center}
+        \vspace*{4cm}
+        
+        \Huge
+        \textbf{Машинное обучение } \\
+        \textbf{5 семестр} \\
+        % \textbf{Билеты} \\
+        \textbf{Лектор: Нейчев Р.Г.} \\
+        \textbf{осень 2022} \\
+        
+        \vspace{7cm}
+        \Large
+        \textbf{Авторы билетов (лучшие котики):} \\
+        \href{https://vk.com/spitsynn}{Спицын Николай} \\
+        \href{https://vk.com/dimasav123}{Савичев Дмитрий} \\
+        \href{https://vk.com/id165779384}{Подзорова Полина} \\
+        \href{https://vk.com/poli.dobro}{Чубенко Полина} \\        
+        \href{https://vk.com/meraklim}{Климанова Ирина} \\
+        \href{https://vk.com/artemiy.kliachin}{Клячин Артемий} \\
+        \href{https://vk.com/ulegor}{Сбродов Егор} \\
+        % \href{https://vk.com/alex__roar}{Дремов Александр} \\
+        % \href{https://vk.com/ksinomorph}{Ксения Куринова} \\
+        Special thanks to авторам теормина прошлого года, Даниил Гагаринов и Артур Кулапин
+        
+    \end{center}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+% ===================== НАЧАЛО ======================
+
+% \addcontentsline{toc}{section}{\protect\numberline{}Теормин}
+\include{section/polidobro/teormin.tex}
+
+
+
+\section{Machine Learning problem statement. Regression, Classification, examples.}
+\input{section/polidobro/1.tex}
+
+\section{How to measure quality in classification: accuracy, balanced accuracy, precision, recall, f1-score, ROC-AUC, multiclass extensions}
+\input{section/Polina/2.tex}
+
+\section{How to measure quality in regression: MSE, MAE, R2.}
+\input{section/Polina/3.tex}
+
+\section{ Maximum likelihood estimation, how is it related to regression and classification}
+\input{section/Polina/4.tex}
+
+\section{Naive bayesian classifier, how does it work}
+\input{section/Ira/5.tex}
+
+\section{K-nearest neighbours classifier, how does it work}
+\input{section/Ira/6.tex}
+
+\section{Linear regression. Problem statement for the MSE loss function case. Analytical solution. Gauss-Markov theorem. Gradient approach in linear regression.}
+\input{section/sunpixel/7.tex}
+
+\section{Regularization in linear models: L1 и L2, their properties. Probabilistic interpretation.}
+\input{section/sunpixel/8.tex}
+
+\section{Logistic regression. Equivalence of MLE approach and logistic loss minimization.}
+\input{section/sunpixel/9.tex}
+
+\section{Multiclass classification. One-vs-one, one-vs-all, their properties.}
+\input{section/sunpixel/10.tex}
+
+\section{Support vector machine. Optimization problem for SVM. Kernel trick. Kernel properties.}
+\input{section/Ira/11.tex}
+
+\section{Principal component analysis. Relations to SVD. Eckart-Young theorem. How to apply PCA in practice.}
+\input{section/Ira/12.tex}
+
+\section{Train, validation and test stages of model development. Overfitting problem, ways to detect it.}
+\input{section/artemiy/13.tex}
+
+\section{Validation strategies. Cross validation. Data leaks.} 
+\input{section/artemiy/14.tex}
+
+\section{Bias-variance tradeoff.}
+\input{section/artemiy/15.tex}
+
+\section{Decision tree construction procedure.}
+\input{section/artemiy/16.tex}
+
+\section{Information criteria. Entropy criteria, Giny impurity.}
+\input{section/kubamba/17.tex}
+
+\section{Ensembling methods. Bootstrap. Bagging.}
+\input{section/kubamba/18.tex}
+
+\section{Random Forest, Random subspace method.}
+\input{section/kubamba/19.tex}
+
+\section{Boosting and gradient boosting. Main idea, gradient derivation.}
+\input{section/kubamba/20.tex}
+
+\section{Matrix calculus and matrix derivatives. How to get the derivative of matrix/dot product}
+\input{section/Polina/21.tex}
+\section{Backpropagation, chain rule.}
+\input{section/Polina/22.tex}
+\section{Neural network concept. Fully-Connected layer (FC). Logistic regression as simple NN. XOR problem.}
+\includegraphics[width=400pt]{images/23.JPG}
+\newpage
+
+\section{Losses for NNs: logistic loss, cross-entropy.}
+\includegraphics[]{images/24.JPG}
+\newpage
+
+\section{Activation functions, their impact on the network, \\ computational complexity. Softmax and LogSoftmax \\ activations, numerical stability.}
+\includegraphics[width=350pt]{images/25.JPG}
+\newpage
+
+\section{Optimization methods in Deep Learning. Gradient descent, SGD, it upgrades: \\ Momentum, RMSProp, Adam.}
+\includegraphics[width=400pt]{images/26.JPG}
+\newpage
+
+\section{Regularization in Deep Learning: Dropout, Batch \\ Normalization. Differences in training and evaluation stages.}\label{27}
+\includegraphics[width=400pt]{images/27_1.JPG}
+
+\includegraphics[width=400pt]{images/27_2.JPG}
+\newpage
+
+\section{Vanilla Recursive NN cell. Backpropagation through RNN. Vanishing gradient problem. Potential solutions.}
+\includegraphics[width=400pt]{images/28_1.JPG}
+
+\includegraphics[width=400pt]{images/28_2.JPG}
+\newpage
+
+\section{LSTM/GRU, memory concept, gates ideas.}
+\includegraphics[width=450pt]{images/29.JPG}
+\newpage
+
+\section{Matrix convolution. Convolutional layer, backpropagation \\ through it. Hyperparameters of Convs. 1x1 convolutions, comparison to FC layers. Max/Average Pooling.}
+\includegraphics[width=400pt]{images/30.JPG}
+\newpage
+
+\section{Main ideas of AlexNet, VGG, Inception (GoogLeNet), ResNet architectures.}
+\includegraphics[width=400pt]{images/31.JPG}
+\newpage
+
+\section{Geometrical methods in ML. Clustering problem. IsoMap, LLE, DBSCAN, k-means, t-SNE}
+
+\end{document}
