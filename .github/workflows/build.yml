@@ -13,7 +13,7 @@ jobs:
       matrix: ${{ steps.get-targets.outputs.matrix }}
     steps:
       - uses: actions/checkout@v2
-  
+
       - name: Get targets
         id: get-targets
         run: |
@@ -22,18 +22,19 @@ jobs:
           import json
           import os
           targets = json.load(open("config.json", "r"))[os.environ["BRANCH"]]
-          print("::set-output name=matrix::[", ", ".join(repr(t) for t in targets), "]", sep="")
+          print("::set-output name=matrix::[", ", ".join(repr(t) for t in targets if not t.startswith("!")), "]", sep="")
           '
 
   build:
     needs: prepare
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         course: ${{ fromJson(needs.prepare.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Configure build
         id: configure-build
         run: |
