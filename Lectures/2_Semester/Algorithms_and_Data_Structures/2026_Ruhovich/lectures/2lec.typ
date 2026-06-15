@@ -2,6 +2,8 @@
 
 #import "../preamble/template.typ": *
 
+#import "@preview/fletcher:0.5.8": diagram, edge, node
+
 = Теория игр
 
 == Ретроанализ
@@ -18,77 +20,117 @@
   *Результат игры $A$*: $nu(A) in {#В, #П, #Н}$
 ]
 
-#import "@preview/fletcher:0.5.8": diagram, edge, node
+#proposition[
+  Из $v in X$:
+  1. всегда $exists$ хотя бы один ход в $v' in X$;
+  2. могут быть ходы в $В_i$;
+  3. но нет ходов в $П_i$.
 
-#box(stroke: 1pt + luma(150), inset: 15pt, radius: 4pt)[
-  1. Из $v in X_i$ всегда $exists$ хотя бы один ход в $v' in Y_i$;
-  2. могут быть ходы в $B_j$;
-  3. но нет ходов в $P_k$.
+  Схема алгоритма ретроанализа:
+  #align(center)[
+    #diagram(
+      // ================= СЛОЙ X (Синий, ничейный слой слева) =================
+      node((0.4, 1.5), $circle.filled$, name: <x_1>),
+      node((0, 2), $circle.filled$, name: <x_2>),
+      node((0.4, 2.5), $circle.filled$, name: <x_3>),
+
+      // ================= СЛОЙ B5 (Зеленый) =================
+      node((1, 1), $circle.filled$, name: <b5_1>),
+      node((1, 2), $circle.filled$, name: <b5_2>),
+      node((1, 3), $circle.filled$, name: <b5_3>),
+
+      // ================= СЛОЙ П4 (Красный) =================
+      node((2, 0.5), $circle.filled$, name: <p4_1>),
+      node((2, 1.5), $circle.filled$, name: <p4_2>),
+      node((2, 2.5), $circle.filled$, name: <p4_3>),
+      node((2, 3.5), $circle.filled$, name: <p4_4>),
+
+      // ================= СЛОЙ B3 (Зеленый) =================
+      node((3, 1), $circle.filled$, name: <b3_1>),
+      node((3, 2), $circle.filled$, name: <b3_2>),
+      node((3, 3), $circle.filled$, name: <b3_3>),
+
+      // ================= СЛОЙ П2 (Красный) =================
+      node((4, 0.5), $circle.filled$, name: <p2_1>),
+      node((4, 1.5), $circle.filled$, name: <p2_2>),
+      node((4, 2.5), $circle.filled$, name: <p2_3>),
+      node((4, 3.5), $circle.filled$, name: <p2_4>),
+
+      // ================= СЛОЙ B1 (Зеленый) =================
+      node((5, 1), $circle.filled$, name: <b1_1>),
+      node((5, 2), $circle.filled$, name: <b1_2>),
+      node((5, 3), $circle.filled$, name: <b1_3>),
+
+      // ================= СЛОЙ П0 (Красный терминальный справа) =================
+      node((6, 1.5), $circle.filled$, name: <p0_1>),
+      node((6, 2.5), $circle.filled$, name: <p0_2>),
+
+
+      // ================= СТРЕЛКИ / ПЕРЕХОДЫ (СЛЕВА НАПРАВО) =================
+
+      // Из синего слоя X в X и B5 (Синие стрелки)
+      edge(<x_3>, <b5_1>, "-|>", stroke: red),
+      edge(<x_1>, <b3_2>, "-|>", stroke: red),
+      edge(<x_1>, <x_3>, "-|>", stroke: blue),
+      edge(<x_3>, <x_1>, "-|>", stroke: blue),
+      edge(<x_2>, <x_3>, "-|>", stroke: blue),
+      edge(<x_1>, <x_2>, "-|>", stroke: blue),
+
+      // Из B5 в П4 (Зеленые стрелки)
+      edge(<b5_1>, <p4_1>, "-|>", stroke: green),
+      edge(<b5_1>, <p4_2>, "-|>", stroke: green),
+      edge(<b5_2>, <p4_2>, "-|>", stroke: green),
+      edge(<b5_2>, <p4_3>, "-|>", stroke: green),
+      edge(<b5_3>, <p4_3>, "-|>", stroke: green),
+      edge(<b5_3>, <p4_4>, "-|>", stroke: green),
+
+      // Из П4 в B3 (Красные стрелки)
+      edge(<p4_1>, <b3_1>, "-|>", stroke: red),
+      edge(<p4_2>, <b3_1>, "-|>", stroke: red),
+      edge(<p4_2>, <b3_2>, "-|>", stroke: red),
+      edge(<p4_3>, <b3_2>, "-|>", stroke: red),
+      edge(<p4_3>, <b3_3>, "-|>", stroke: red),
+      edge(<p4_4>, <b3_3>, "-|>", stroke: red),
+
+      // Из B3 в П2 (Зеленые стрелки)
+      edge(<b3_1>, <p2_1>, "-|>", stroke: green),
+      edge(<b3_1>, <p2_2>, "-|>", stroke: green),
+      edge(<b3_2>, <p2_2>, "-|>", stroke: green),
+      edge(<b3_2>, <p2_3>, "-|>", stroke: green),
+      edge(<b3_3>, <p2_3>, "-|>", stroke: green),
+      edge(<b3_3>, <p2_4>, "-|>", stroke: green),
+
+      // Из П2 в B1 (Красные стрелки)
+      edge(<p2_1>, <b1_1>, "-|>", stroke: red),
+      edge(<p2_2>, <b1_1>, "-|>", stroke: red),
+      edge(<p2_2>, <b1_2>, "-|>", stroke: red),
+      edge(<p2_3>, <b1_2>, "-|>", stroke: red),
+      edge(<p2_3>, <b1_3>, "-|>", stroke: red),
+      edge(<p2_4>, <b1_3>, "-|>", stroke: red),
+      edge(<p2_4>, <b1_1>, "-|>", stroke: red),
+      edge(<p2_2>, <b1_3>, "-|>", stroke: red),
+
+      // Из B1 в П0 (Зеленые стрелки)
+      edge(<b1_1>, <p0_1>, "-|>", stroke: green),
+      edge(<b1_2>, <p0_1>, "-|>", stroke: green),
+      edge(<b1_2>, <p0_2>, "-|>", stroke: green),
+      edge(<b1_3>, <p0_2>, "-|>", stroke: green),
+      edge(<b1_3>, <p0_1>, "-|>", stroke: green),
+
+      edge(<b1_3>, <b1_2>, "-|>", stroke: green),
+
+
+      // ================= ПОДПИСИ СЛОЕВ ВНИЗУ =================
+      node((0.2, 4), text(fill: blue, $X$)),
+      node((1, 4), text(fill: green, $B_5$)),
+      node((2, 4), text(fill: red, $П_4$)),
+      node((3, 4), text(fill: green, $B_3$)),
+      node((4, 4), text(fill: red, $П_2$)),
+      node((5, 4), text(fill: green, $B_1$)),
+      node((6, 4), text(fill: red, $П_0$)),
+    )
+  ]
 ]
-
-#diagram(
-  node-stroke: 1pt,
-  node-shape: "circle",
-  spacing: 2cm,
-
-  node((0, 0), [X], name: <X>),
-  node((1, -0.5), [], name: <A>),
-  node((1, 0.5), [], name: <B>),
-  node((2, 0), [], name: <C>),
-
-  edge(<X>, <A>, "-|>"),
-  edge(<X>, <B>, "-|>"),
-  edge(<A>, <C>, "-|>"),
-  edge(<B>, <C>, "-|>"),
-  edge(<C>, <C>, "-|>", bend: 130deg),
-)
-
-#diagram(
-  spacing: (2.5cm, 1.2cm),
-  node-stroke: none,
-
-  // Слой B7
-  node((0, 1), $circle.filled$, name: <b7_1>),
-  node((0, 2), $circle.filled$, name: <b7_2>),
-
-  // Слой П6
-  node((1, 1.5), $circle.filled$, name: <p6_1>),
-
-  // Слой B5
-  node((2, 0.5), $circle.filled$, name: <b5_1>),
-  node((2, 1.5), $circle.filled$, name: <b5_2>),
-  node((2, 2.5), $circle.filled$, name: <b5_3>),
-
-  // Слой П4
-  node((3, 1), $circle.filled$, name: <p4_1>),
-  node((3, 2), $circle.filled$, name: <p4_2>),
-
-  // Слой B3
-  node((4, 1.5), $circle.filled$, name: <b3_1>),
-
-  // Переходы
-  edge(<b7_1>, <p6_1>, "-|>", stroke: green),
-  edge(<b7_2>, <p6_1>, "-|>", stroke: green),
-
-  edge(<p6_1>, <b5_1>, "-|>", stroke: red),
-  edge(<p6_1>, <b5_2>, "-|>", stroke: red),
-  edge(<p6_1>, <b5_3>, "-|>", stroke: red),
-
-  edge(<b5_1>, <p4_1>, "-|>", stroke: green),
-  edge(<b5_2>, <p4_1>, "-|>", stroke: green),
-  edge(<b5_2>, <p4_2>, "-|>", stroke: green),
-  edge(<b5_3>, <p4_2>, "-|>", stroke: green),
-
-  edge(<p4_1>, <b3_1>, "-|>", stroke: red),
-  edge(<p4_2>, <b3_1>, "-|>", stroke: red),
-
-  // Подписи слоев снизу (исправлено: цвет задается через text(fill: ...))
-  node((0, 4), text(fill: green, $B_7$)),
-  node((1, 4), text(fill: red, $П_6$)),
-  node((2, 4), text(fill: green, $B_5$)),
-  node((3, 4), text(fill: red, $П_4$)),
-  node((4, 4), text(fill: green, $B_3$)),
-)
 
 == Сумма игр
 
