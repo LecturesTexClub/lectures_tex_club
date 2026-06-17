@@ -163,7 +163,7 @@
 #let invariant = thmbox("invariant", "Инвариант")
 
 // Без нумерации
-#let corollary = thmplain("corollary", "Следствие").with(numbering: none)
+#let corollary = thmbox("corollary", "Следствие", inset: (bottom: 0em)).with(numbering: none)
 #let note = thmbox("note", "Замечание", inset: (bottom: 0em)).with(numbering: none)
 #let reminder = thmplain("reminder", "Напоминание").with(numbering: none)
 #let example = thmplain("example", "Пример").with(numbering: none)

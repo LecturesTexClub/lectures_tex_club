@@ -17,3 +17,4 @@
 #include "lectures/1lec.typ"
 #include "lectures/2lec.typ"
 #include "lectures/3lec.typ"
+#include "lectures/4lec.typ"
