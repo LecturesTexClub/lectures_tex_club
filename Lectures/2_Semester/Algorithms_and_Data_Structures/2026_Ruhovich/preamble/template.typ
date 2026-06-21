@@ -160,6 +160,7 @@
 
 // --- ОПРЕДЕЛЕНИЯ ---
 #let definition = thmbox("definition", "Определение", base_level: 1, inset: (bottom: 0em))
+#let notation = thmbox("notation", "Обозначение", inset: (bottom: 0em)).with(numbering: none)
 #let invariant = thmbox("invariant", "Инвариант")
 
 // Без нумерации
@@ -179,6 +180,11 @@
 #let Im = math.op("Im")
 #let Re = math.op("Re")
 #let mex = math.op("mex", limits: true)
+#let argmin = math.op("argmin", limits: true)
+#let timeIn = math.op("timeIn")
+#let timeOut = math.op("timeOut")
+#let timeSeg = math.op("timeSeg")
+#let upTime = math.op("upTime")
 
 #let nim = math.class("normal", math.ast)
 

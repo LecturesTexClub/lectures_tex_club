@@ -90,21 +90,21 @@
 ]
 
 #proposition[
-  Пусть ребро $(u, v)$ -- перекрестное, тогда $"timeIn"[u] > "timeIn"[v]$
+  Пусть ребро $(u, v)$ -- перекрестное, тогда $timeIn[u] > timeIn[v]$
 ]
 
 #definition[
-  $"timeSeg"[v] := ["timeIn"[v], "timeOut"[v]]$
+  $timeSeg[v] := [timeIn[v], timeOut[v]]$
 ]
 
 #lemma[
-  $forall u, v in V: "timeSeg"[u]$ и $"timeSeg"[v]$ либо не пересекаются, либо один вложен в другой. Более того, если $(u, v)$ -- ребро, то:
+  $forall u, v in V: timeSeg[u]$ и $timeSeg[v]$ либо не пересекаются, либо один вложен в другой. Более того, если $(u, v)$ -- ребро, то:
   #enum(numbering: "a)")[
-    $(u, v)$ -- #text(blue)[прямое] или дерева DFS $<=> "timeSeg"[v] subset "timeSeg"[u]$
+    $(u, v)$ -- #text(blue)[прямое] или дерева DFS $<=> timeSeg[v] subset timeSeg[u]$
   ][
-    $(u, v)$ -- #text(red)[обратное] $<=> "timeSeg"[u] subset "timeSeg"[v]$
+    $(u, v)$ -- #text(red)[обратное] $<=> timeSeg[u] subset timeSeg[v]$
   ][
-    $(u, v)$ -- #text(green)[перекрестное] $<=> "timeSeg"[u] inter "timeSeg"[v] = diameter$
+    $(u, v)$ -- #text(green)[перекрестное] $<=> timeSeg[u] inter timeSeg[v] = diameter$
   ]
 ]
 
@@ -144,7 +144,7 @@
 
 #proof[
   - $La$: Очевидно
-  - $=>$: Доказательство от противного: пусть обратного ребра нет. Тогда $forall (u, v) in E$ верно: $"timeOut"[u] > "timeOut"[v] =>$ в графе есть топологическая сортировка. #qedhere
+  - $=>$: Доказательство от противного: пусть обратного ребра нет. Тогда $forall (u, v) in E$ верно: $timeOut[u] > timeOut[v] =>$ в графе есть топологическая сортировка. #qedhere
 ]
 
 #lemma[
@@ -189,12 +189,12 @@
 ]
 
 #definition[
-  $ "upTime"[v] := min_(u,w in V) {"timeIn"[w] | (u,w) - "обратное ребро", u - "потомок" v "в дереве DFS"} $
+  $ upTime[v] := min_(u,w in V) {timeIn[w] | (u,w) - "обратное ребро", u - "потомок" v "в дереве DFS"} $
 ]
 
 #proposition[
   Пусть $(u, v)$ -- ребро дерева DFS, $v$ -- ребенок $u$.
-  Тогда $ (u, v) - "мост" <=> "upTime"[v] >= "timeIn"[v] $
+  Тогда $ (u, v) - "мост" <=> upTime[v] >= timeIn[v] $
 ]
 
 #proposition[
