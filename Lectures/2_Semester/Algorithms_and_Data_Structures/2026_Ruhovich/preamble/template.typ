@@ -185,6 +185,7 @@
 #let timeOut = math.op("timeOut")
 #let timeSeg = math.op("timeSeg")
 #let upTime = math.op("upTime")
+#let dp = math.op("dp")
 
 #let nim = math.class("normal", math.ast)
 

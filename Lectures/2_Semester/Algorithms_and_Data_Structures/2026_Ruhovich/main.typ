@@ -20,3 +20,4 @@
 #include "lectures/4lec.typ"
 #include "lectures/5lec.typ"
 #include "lectures/6lec.typ"
+#include "lectures/7lec.typ"
