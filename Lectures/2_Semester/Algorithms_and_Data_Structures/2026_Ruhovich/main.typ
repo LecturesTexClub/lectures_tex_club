@@ -21,3 +21,5 @@
 #include "lectures/5lec.typ"
 #include "lectures/6lec.typ"
 #include "lectures/7lec.typ"
+#include "lectures/8lec.typ"
+#include "lectures/9lec.typ"
