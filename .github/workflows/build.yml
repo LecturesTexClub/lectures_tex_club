@@ -73,8 +73,9 @@ jobs:
         with:
           root_file: main.tex
           working_directory: ${{ env.FULL_PATH }}
-          os: debian
-          extra_system_packages: "fonts-inconsolata"
+          extra_fonts: |
+            ./fonts/*.ttf
+            ./fonts/*.otf
           latexmk_use_xelatex: true
           args: -xelatex -interaction=nonstopmode -file-line-error -outdir=../../../../build
 
