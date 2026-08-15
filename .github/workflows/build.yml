@@ -83,7 +83,38 @@ jobs:
         run: |
           set -euo pipefail
       
+          TOKEN='${{ secrets.YANDEX_OAUTH_TOKEN }}'
           DEST='Lectures Tex Club/${{ env.FULL_PATH }}.pdf'
+      
+          # Создаём родительские директории, если их ещё нет.
+          DIR=$(dirname "$DEST")
+          CURRENT=""
+      
+          IFS='/' read -ra PARTS <<< "$DIR"
+      
+          for PART in "${PARTS[@]}"; do
+            if [[ -z "$CURRENT" ]]; then
+              CURRENT="$PART"
+            else
+              CURRENT="$CURRENT/$PART"
+            fi
+      
+            HTTP_CODE=$(curl --silent --show-error \
+              --output /tmp/yadisk-mkdir-response \
+              --write-out '%{http_code}' \
+              --request PUT \
+              --data-urlencode "path=$CURRENT" \
+              --header "Authorization: OAuth $TOKEN" \
+              'https://cloud-api.yandex.net/v1/disk/resources')
+      
+            # 201 = создана.
+            # 409 = уже существует — для mkdir это нормально.
+            if [[ "$HTTP_CODE" != "201" && "$HTTP_CODE" != "409" ]]; then
+              echo "Failed to create directory: $CURRENT"
+              cat /tmp/yadisk-mkdir-response
+              exit 1
+            fi
+          done
       
           RESPONSE_FILE=$(mktemp)
       
@@ -91,22 +122,20 @@ jobs:
             --output "$RESPONSE_FILE" \
             --write-out '%{http_code}' \
             --get \
-            --data-urlencode "path=${DEST}" \
+            --data-urlencode "path=$DEST" \
             --data-urlencode 'overwrite=true' \
-            --header 'Authorization: OAuth ${{ secrets.YANDEX_OAUTH_TOKEN }}' \
+            --header "Authorization: OAuth $TOKEN" \
             'https://cloud-api.yandex.net/v1/disk/resources/upload')
       
-          echo "HTTP status: $HTTP_CODE"
-          cat "$RESPONSE_FILE"
-          echo
-      
           if [[ "$HTTP_CODE" -lt 200 || "$HTTP_CODE" -ge 300 ]]; then
+            echo "Failed to get upload URL:"
+            cat "$RESPONSE_FILE"
             exit 1
           fi
       
           URL=$(jq -er '.href' "$RESPONSE_FILE")
       
           curl --fail-with-body --silent --show-error \
-            -X PUT \
+            --request PUT \
             --data-binary '@build/main.pdf' \
             "$URL"
