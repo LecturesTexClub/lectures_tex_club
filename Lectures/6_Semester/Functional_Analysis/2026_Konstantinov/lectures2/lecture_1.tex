@@ -1,0 +1,402 @@
+\chapter{Определение слабой топологии.}
+\section{Комплексно-линейные функционалы.}
+\begin{note}
+    Теперь всякое линейное пространство $X$ будем по умолчанию считать заданным над полем комплексных чисел.
+\end{note}
+\begin{definition}
+    Пусть $X$ -- линейное пространство над $\Cm$.
+    
+    Будем называть функционал $f\colon X \to \Cm$ комплексно-линейным, если
+    \[
+        \forall \alpha, \beta \in \Cm\, \forall x, y \in X \hookrightarrow f(\alpha x + \beta y) = \alpha f(x) + \beta f(y).
+    \]
+\end{definition}
+\begin{note}
+    Заметим, что для всякого комплексно-линейного функционала можно выделить вещественную и мнимую части:
+    \[
+        \forall x \in X\colon u(x) = \Re f(x), \, v(x) = \Im f(x).
+    \]
+    Таким образом мы получаем отображения $u, v \colon X \to \R$.
+    Они, очевидно, аддитивны, то есть
+    \[
+        \begin{cases}
+            f(x + y) = u(x + y) + i v(x + y), \\
+            f(x + y) = f(x) + f(y) = u(x) + u(y) + i\left(v(x) + v(y)\right).
+        \end{cases}
+    \]
+
+    Также они являются вещественно-однородными, то есть $\forall \alpha \in \R$
+    \[
+        \begin{cases}
+            f(\alpha x) = u(\alpha x) + i v(\alpha x), \\
+            f(\alpha x) = \alpha f(x) = \alpha u(x) + i \cdot \alpha v(x),
+        \end{cases}
+    \]
+    Подставим теперь $ix$ и заметим, что $u$ и $v$ однозначно определяют друг друга:
+    \[
+        \begin{cases}
+            f(ix) = i f(x) = -v(x) + iu(x), \\
+            f(ix) = u(ix) + i v(ix),
+        \end{cases}
+    \]
+    а значит
+    \[
+        \begin{cases}
+            u(ix) = -v(x), \\
+            u(x) = v(ix).
+        \end{cases}
+    \]
+    И таким образом $f$ однозначно выражается через $u\colon$
+    \[
+        f(x) = u(x) + i v(x) = u(x) - i u(ix).
+    \]
+
+    Верно и обратное.
+    Так, если мы возьмём вещественно-линейный функционал $w\colon X \to \R$, то функционал $g\colon X \to \Cm$, определяемый как
+    \[
+        g(x) = w(x) - i w(ix),
+    \]
+    будет являться комплексно-линейным.
+
+    Покажем, почему это очевидно.
+    Пусть $\alpha \in \Cm\colon \alpha = \mu + i\nu$ и $x, y \in X$.
+    Тогда
+    \[
+        \begin{cases}
+            g(x + y) = w(x + y) - iw(ix + iy) = w(x) - iw(ix) + w(y) - iw(iy) = g(x) + g(y), \\
+            g(\alpha x) = g(\mu x + i \nu x) = g(\mu x) + g(i \nu x) = \mu(w(x) - iw(ix)) + \nu(w(ix) + iw(x)) = \mu g(x) + i \nu g(x) = \alpha g(x).
+        \end{cases}
+    \]
+\end{note}
+\begin{lemma}
+    Пусть $(X, \|\cdot\|)$ -- нормированное пространство (над $\Cm$).
+    Рассмотрим $f\colon X \to \Cm$ -- непрерывный комплексно-линейный функционал.
+    Тогда его вещественная и мнимая части являются непрерывными вещественно-линейными функционалами.
+
+    Верно и обратное: если $w\colon X \to \R$ -- непрерывный вещественно-линейный функционал, то порождаемый им комплексно-линейный функционал непрерывен.
+
+    Более того, нормы $f$ и его вещественной (соответственно, мнимой) части совпадают.
+\end{lemma}
+\begin{proof}
+    По определению операторной нормы:
+    \[
+        \|f\| = \sup_{\|x\| = 1} |f(x)| < +\infty.
+    \]
+    Заметим, что для всякого $x\colon \|x\| = 1$ верно
+    \[
+        |u(x)| \leq |f(x)| \leq  \|f\|\|x\| = \|f\|.
+    \]
+    А значит и
+    \[
+        \|u\| = \sup_{\|x\| = 1} |u(x)| \leq \|f\| < +\infty.
+    \]
+
+    Покажем справедливость обратной импликации.
+    Пусть
+    \[
+        g(x) = w(x) - iw(ix).
+    \]
+    Поскольку
+    \[
+        g(x) = |g(x)|e^{i \phi(x)},\quad \phi(x) \in \Arg g(x).
+    \]
+    То
+    \[
+        |g(x)| = g(x)e^{-i\phi(x)} = g\left(x e^{-i\phi(x)}\right) = u\left(x e^{-i\phi(x)}\right) \leq \|u\|\|x e^{-i\phi(x)}\| = \|u\|.
+    \]
+    А значит
+    \[
+        \|g\| \leq \|u\| < +\infty.
+    \]
+    Таким образом комплексный функционал непрерывен тогда и только тогда, когда его вещественная часть (мнимая часть) непрерывна и, более того, их нормы совпадают.
+\end{proof}
+\begin{definition}
+    Пусть $(X, \|\cdot\|)$ -- нормированное пространство.
+    Сопряжённым к нему будем называть $X^* = \LL(X, \Cm)$ -- пространство всех непрерывных комплексных линейных функционалов на нём.
+\end{definition}
+\begin{corollary}[комплексный вариант теоремы Хана-Банаха]
+    Пусть $(X, \|\cdot\|)$ -- нормированное пространство над комплексными числами, $L \subset X$ -- его подпространство и $f \in L^*$.
+    Тогда существует продолжение $f$ на всё пространство с сохранением нормы.
+\end{corollary}
+\begin{proof}
+    Очевидно в силу того, что мы можем взять вещественную часть, продолжить её с сохранением нормы и построить по ней комплексный функционал (с той же нормой).
+\end{proof}
+\begin{definition}
+    Пусть $X$ -- линейное пространство и $\FF$ -- некоторое семейство линейных функционалов над ним.
+    Будем говорить, что $\FF$ разделяет точки $X$, если
+    \[
+        \forall x, y \in X \colon x \neq y \ \exists f \in \FF\hookrightarrow f(x) \neq f(y).
+    \]
+    Или, что эквивалентно
+    \[
+        \forall x \in X \colon x \neq 0 \ \exists f \in \FF\hookrightarrow f(x) \neq 0.
+    \]
+\end{definition}
+\begin{proposition}
+    Пусть $(X, \|\cdot\|)$ -- нормированное пространство.
+    Тогда $X^*$ разделяет точки $X$.
+\end{proposition}
+\begin{proof}
+    Пусть $z \in X\colon z \neq 0$.
+    Рассмотрим $L = \Lin\{z\}$ и определим на нём функционал $h\colon L \to \Cm$ как
+    \[
+        h\colon tz \mapsto t.
+    \]
+    Он непрерывен на $L$:
+    \[
+        |h(tz)| = \frac{1}{\|z\|} \cdot \|tz\|,
+    \]
+    а значит мы можем продолжить его на всё $X$ с сохранением нормы и получить некоторый $\tilde{h}$.
+    Поскольку $\tilde{h}(z) = 1 \neq 0$ и $z$ -- произвольный ненулевой вектор, то утверждение показано.
+\end{proof}
+\section{Слабая топология.}\label{seq:weak-topology}
+\begin{definition}
+    Пусть $X$ -- некоторое комплексное линейное пространство и $\Phi$ -- некоторое семейство комплексно-линейных функционалов на нём, разделяющее точки $X$.
+    Будем называть $\Phi$-слабой топологией самую слабую топологию $\tau_{\Phi}$, относительно которой все функционалы из $\Phi$ являются непрерывными.
+\end{definition}
+\begin{proposition}
+    $\Phi$-слабая топология на $X$ существует и задаётся предбазой вида
+    \[
+        \sigma_\Phi = \left\{V(x, \phi, \epsilon) \mid x \in X, \epsilon > 0, \phi \in \Phi\right\},
+    \]
+    где
+    \[
+        V(x, \phi, \epsilon) = \phi^{-1}\left(B_\epsilon(\phi(x))\right).
+    \]
+\end{proposition}
+\begin{proof}
+    Очевидно, что данное семейство удовлетворяет критерию предбазы, а значит действительно порождает некоторую топологию $\tau$.
+
+    Зафиксируем некоторый $\phi \in \Phi$.
+    Покажем, что он непрерывен относительно $\tau$.
+    Пусть $x \in X$ -- некоторая точка и $U(\phi(x))$ -- некоторая окрестность.
+    Тогда существует $\epsilon > 0$ такое, что $B_\epsilon(\phi(x)) \subset U(\phi(x))$, а значит, так как $\phi^{-1}(B_\epsilon(\phi(x))) \in \sigma_\Phi$, то $\phi$ непрерывен в точке $x$.
+    В силу произвольного выбора точки $x$ функционал $\phi$ -- непрерывен.
+
+    Покажем, что $\tau$ -- самая слабая такая топология.\footnote{Доказательство Константинова того, что эта самая слабая такая топология немного другое. Я добавлю его позже.}
+    Пусть $\tilde{\tau}$ -- некоторая топология, относительно которой непрерывны все функционалы $\phi \in \Phi$.
+    Тогда для всякого $\phi \in \Phi$, $x \in X$ и $\epsilon > 0$ множество
+    \[
+        V(x, \phi, \epsilon) = \phi^{-1}(B_\epsilon(\phi(x)))
+    \]
+    должно быть открыто в $\tilde{\tau}$, как прообраз открытого при непрерывном отображении.
+    Следовательно, и вся $\sigma_\Phi$ содержится в $\tilde{\tau}$.
+    Но, тогда, очевидно, что и $\tau \subset \tilde{\tau}$, а значит $\tau$ -- самая слабая такая топология.
+\end{proof}
+\begin{proposition}
+    Всякая $\Phi$-слабая топология является хаусдорфовой.
+\end{proposition}
+\begin{proof}
+    Пусть $x, y \in X\colon x \neq y$.
+    Поскольку $\Phi$ разделяет точки $X$, то существует $f \in \Phi$ такой, что
+    \[
+        f(x) \neq f(y).
+    \]
+    Тогда, заметим, что
+    \[
+        V\left(x, f, \frac{|f(x) - f(y)|}{4}\right) \cap V\left(y, f, \frac{|f(x) - f(y)|}{4}\right) = \emptyset,
+    \]
+    и, поскольку они открыты в силу явного вида топологии $\tau_\Phi$, то $\tau_\Phi$ -- хаусдорфова по определению.
+\end{proof}
+\begin{corollary}
+    Всякая последовательность в $(X, \tau_\Phi)$ имеет не более одного предела.
+\end{corollary}
+\begin{proposition}
+    Пусть $(X, \tau_\Phi)$ -- линейное пространство с $\Phi$-слабой топологией.
+    Тогда верен следующий критерий $\Phi$-слабой сходимости последовательности:
+    \[
+        x_n \rightarrow x \Longleftrightarrow \forall \phi \in \Phi \hookrightarrow \phi(x_n) \rightarrow \phi(x).
+    \]
+\end{proposition}
+\begin{proof}
+    Очевидно, что так как всякий $\phi \in \Phi$ -- непрерывен, то он непрерывен и секвенциально.
+    То есть для всякой последовательности $\{x_n\} \subset X$ такой, что $x_n \rightarrow x$ верно, что
+    \[
+        \phi(x_n) \rightarrow \phi(x).
+    \]
+
+    Пусть теперь $\phi(x_n) \rightarrow \phi(x)$ для всякого $\phi \in \Phi$.
+    Заметим, что во всякой окрестности $U(x) \in \tau_\Phi$ лежит некоторое множество из базы, то есть пересечение некоторых элементов предбазы $\{V(y_i, \phi_i, \epsilon_i)\}_{i = 1}^{N}\colon$
+    \[
+        x \in \bigcap_{i = 1}^{N} V(y_i, \phi_i, \epsilon_i) \subset U(x).
+    \]
+    Поскольку при всяком $i$
+    \[
+        V\left(x, \phi_i, \frac{\epsilon_i - |\phi_i(x) - \phi_i(y_i)|}{2}\right) \subset V(y_i, \phi_i, \epsilon_i),
+    \]
+    то, вводя обозначение
+    \[\delta = \min\limits_{i} \frac{\epsilon_i - |\phi_i(y_i) - \phi_i(x)|}{2} > 0,\]
+    мы получаем
+    \[
+        x \in \bigcap_{i = 1}^{N} V(x, \phi_i, \delta) \subset U(x).
+    \]
+    Так как $\phi_i(x_n) \rightarrow \phi_i(x)$, то $\forall i \in \{1, \ldots,  N\}$ существует $N_i\colon \forall n \geq N_{i}\hookrightarrow \phi_i(x_n) \in B_\delta(\phi_i(x))$, а значит все элементы последовательности попадают в $U(x)$ начиная с некоторого $N = \max\limits_{i} N_i$ -- и у нас есть сходимость $x_n$ к $x$ по определению.
+\end{proof}
+\begin{definition}
+    Пусть $(X, \|\cdot\|)$ -- нормированное пространство.
+    Так как $X^*$ разделяет точки на $X$, то корректно определена $X^*$-слабая топология на $X$.
+
+    Она называется просто <<слабой топологией>> на $X$ и обозначается как $\tau_{w}$.
+\end{definition}
+\begin{note}
+    Как показано в критерии сходимости по $\Phi$-слабой топологии, сходимость по $X^*$-слабой топологии эквивалентна сходимости по всем непрерывным функционалам.
+\end{note}
+\begin{proposition}[Зачистка базы слабой топологии]
+    Базой $\Phi$-слабой топологии является
+    \[
+        \tilde{\beta}_{\Phi} = \left\{ \bigcap_{k = 1}^{m} V(x, \phi_k, \epsilon) \mid m\in \N, x \in X, \epsilon > 0, \forall k \ \phi_k \in \Phi\right\}.
+    \]
+\end{proposition}
+\begin{proof}
+    Очевидно, что $\tilde{\beta}_{\Phi}$ вложена в стандартную базу $\beta_{\Phi}$, а значит $\tilde{\tau_{\Phi}} \subset \tau_{\Phi}$:
+    \[
+        \beta_{\Phi} = \left\{\bigcap_{k = 1}^{m} V(y_k, \phi_k, \epsilon_k) \mid \forall k \ y_k \in X, \epsilon_k > 0, \phi_k \in \Phi \right\}.
+    \]
+
+    Покажем обратное включение топологий.
+    Пусть $x \in \bigcap_{k = 1}^{m} V(y_k, \phi_k, \epsilon_k) \neq \emptyset$.
+    Так как это эквивалентно тому, что
+    \[
+        \forall k \hookrightarrow |\phi_k(y_k) - \phi_k(x)| < \epsilon_k,
+    \]
+    то если мы возьмём $\delta = \min\limits_{k} \{\epsilon_k - |\phi_k(y_k) - \phi_k(x)|\}$, то мы придём к успеху и
+    \[
+        x \in \bigcap_{k = 1}^{m} V(x, \phi_k, \delta) \subset \bigcap_{k = 1}^{m} V(y_k, \phi_k, \epsilon_k),
+    \]
+    так как если $z \in \bigcap_{k = 1}^{m} V(x, \phi_k, \delta)$, то
+    \[
+        \forall k \hookrightarrow |\phi_k(z) - \phi_k(x)| < \delta \leq \epsilon_k - |\phi_k(y_k) - \phi_k(x)|,
+    \]
+    а значит и
+    \[
+        |\phi_k(z) - \phi_k(y_k)| \leq |\phi_k(z) - \phi_k(x)| + |\phi_k(x) - \phi_{k}(y_k)| < \epsilon_k.
+    \]
+\end{proof}
+\section{Теорема Рисса-Фреше.}\label{seq:riesz-frechet}
+\begin{theorem}[Рисс, Фреше]
+    Пусть $H$ -- гильбертово пространство.
+    Тогда для всякого $f \in H^*$ существует единственный $z_f \in H\colon $
+    \[
+        \forall x \in H \hookrightarrow f(x) = \langle x, z_f \rangle,
+    \]
+    и, более того,
+    \[
+        \|z_f\| = \|f\|.
+    \]
+\end{theorem}
+\begin{proof}
+    Если $f \equiv 0$, то $z_f = 0$ подойдёт.
+
+    Пусть $f \neq 0$.
+    Так как $\ker f$ -- замкнутое подпространство $H$, то по теореме Рисса о разложении
+    \[
+        H \cong \ker f \oplus \left(\ker f\right)^{\perp}.
+    \]
+    Существует $z_f \in \left(\ker f\right)^{\perp}\colon z_f \neq 0$.
+    Тогда
+    \[
+        \forall x \in H\colon x = \frac{f(x)}{f(z_f)}z_f + y,
+    \]
+    где $y \in \ker f$.
+    А значит
+    \[
+        \langle x, z_f \rangle = \left\langle \frac{f(x)}{f(z_f)}z_f + y, z_f \right\rangle = \frac{\|z_f\|^2}{f(z_f)}f(x).
+    \]
+    Вектор $\tilde{z}_f = \frac{\overline{f(z_f)}}{\|z_f\|^2}z_f$ является искомым, то есть
+    \[
+        f(x) = \langle x, \tilde{z}_f \rangle.
+    \]
+    Пусть
+    \[
+        f(x) = \langle x, \xi_f \rangle.
+    \]
+    Тогда
+    \[
+        \tilde{z}_f - \xi_f \perp H,
+    \]
+    а значит $\tilde{z}_f - \xi_f = 0$.
+    С другой стороны
+    \[
+        |f(x)| \leq \|x\|\|\tilde{z}_f\|,
+    \]
+    а значит $\|f\| \leq \|\tilde{z}_f\|$.
+    Но
+    \[
+        \left|f\left(\frac{\tilde{z}_f}{\|\tilde{z}_f\|}\right)\right| = \|\tilde{z}_f\| \leq \|f\|,
+    \]
+    и таким образом $\|f\| = \|\tilde{z}_f\|$.
+
+    Построенное таким образом отображение $F\colon H^* \to H$, где
+    \[
+        F\colon f \mapsto \tilde{z}_f,
+    \]
+    называется изометрией Рисса.
+\end{proof}
+\begin{example}
+    Следовательно, в гильбертовом пространстве слабая сходимость эквивалентна сходимости по скалярному произведению (в силу теоремы Рисса-Фреше), то есть если $x_n \xrightarrow{w} x$, или, эквивалентно
+    \[
+        \forall f \in H^* \hookrightarrow f(x_n) \rightarrow f(x),
+    \]
+    то
+    \[
+        \forall f \in H^* \hookrightarrow \langle x_n, F(f) \rangle \rightarrow \langle x, F(f) \rangle,
+    \]
+    а значит
+    \[
+        \forall y \in H \hookrightarrow \langle x_n, y \rangle \rightarrow \langle x, y \rangle.
+    \]
+\end{example}
+\begin{example}
+    Пусть у нас есть $\ell^2$ -- сепарабельное гильбертово пространство со стандартным базисом $\{e_n\}$.
+    Тогда
+    \[
+        \forall x \in \ell^2 \hookrightarrow x = \sum_{n = 1}^{\infty} x(n)e_n.
+    \]
+    Так как
+    \[
+        \sum_{n = 1}^{\infty} |x(n)|^2 = \|x\|^2,
+    \]
+    то
+    \[
+        x(n) \rightarrow 0, n \rightarrow \infty.
+    \]
+    Следовательно
+    \[
+        e_n \xrightarrow{w} 0, n \rightarrow \infty.
+    \]
+\end{example}
+
+\section{*-слабая топология.}\label{seq:weak-star-topology}
+\begin{definition}
+    Пусть $X$ -- нормированное пространство, $X^*$ -- его сопряжённое.
+    Рассмотрим отображение $\Phi\colon X \to X^{**}$, которое переводит $x \mapsto \Phi_x$, действующий на $f \in X^*$ как
+    \[
+        \Phi_x(f) = f(x).
+    \]
+    Слабую топологию, порождаемую на $X^*$ семейством $\Phi(X)$ будем называть *-слабой топологией.
+\end{definition}
+\begin{note}
+    $\Phi(X)$ разделяет точки $X^*$ по определению.
+    То есть, если $f \neq g$, то существует $x\colon f(x) \neq g(x)$, а значит
+    \[
+        \Phi_x(f) \neq \Phi_x(g).
+    \]
+\end{note}
+\begin{note}
+    Рассмотрим сходимость последовательностей по *-слабой топологии.
+    Пусть $\{f_n\} \subset X^*$ и $f_n \xrightarrow{w*} f$.
+    В силу критерия $\Phi$-слабой сходимости это эквивалентно
+    \[
+        \forall x \in X \hookrightarrow \Phi_x f_n \rightarrow \Phi_x f \Longleftrightarrow f_n(x) \rightarrow f(x).
+    \]
+    То есть сходимость по *-слабой топологии -- просто поточечная в $X^*$.
+\end{note}
+\begin{note}
+    Заметим, что в силу определения *-слабой топологии как слабейшей, относительно которой отображения
+    \[
+        \forall x \in X\colon f \mapsto f(x)
+    \]
+    являются непрерывными.
+
+    То в силу определения топологии Тихонова, *-слабая топология -- просто сужение топологии Тихонова на $\Cm^{X}$ на $\LL(X, \Cm) = X^*$.
+\end{note}

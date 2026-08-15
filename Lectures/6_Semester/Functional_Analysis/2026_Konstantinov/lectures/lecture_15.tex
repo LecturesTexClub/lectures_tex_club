@@ -1,0 +1,57 @@
+\section{Теорема о замкнутом графике.}
+\begin{notet}
+    Эта секция и следующая не были прочитаны на лекциях, но входят в программу досрочного экзамена.
+\end{notet}
+\begin{definition}
+    Будем называть графиком оператора $A\colon X \to Y$ и обозначать его как $\graph A$ множество
+    \[
+        \graph A = \{(x, Ax) \mid x \in X\} \subset X \times Y.
+    \]
+\end{definition}
+\begin{theorem}[о замкнутом графике]
+    Для оператора $A$ между банаховыми пространствами $X$ и $Y$ следующие эквивалентны:
+    \begin{enumerate}
+        \item $A$ -- непрерывен;
+        \item $\graph A$ замкнут в $X \times Y$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Пусть $A$ -- непрерывен и $\{(x_n, y_n)\} \subset \graph A$, причём $y_n = Ax_n$.
+    Если $(x_n, y_n) \rightarrow (x, y) \in X \times Y$, то, в силу непрерывности оператора,
+    \[
+        y = \lim y_n = \lim A x_n = A \lim x_n = Ax.
+    \]
+    И, следовательно, $(x, y) \in \graph A$.
+    Таким образом $\graph A$ -- замкнут.
+
+    Пусть $\graph A$ -- замкнут в $X \times Y$.
+    Заметим, что $\graph A$ -- замкнутое линейное подпространство $X \times Y$, а следовательно оно является и банаховым.
+    Рассмотрим каноническую проекцию $\pi_X\colon (x, Ax) \mapsto x$.
+    Заметим, что $\pi_X$ -- непрерывная биекция между банаховыми пространствами ($\graph A$ и $X$, соответственно), а следовательно непрерывно обратимо по теореме об обратном операторе.
+    Таким образом
+    \[
+        A = \pi_Y \circ \pi^{-1}_X: x \xrightarrow{\pi^{-1}_X} (x, Ax) \xrightarrow{\pi_Y} Ax.
+    \]
+    и оператор $A$ -- непрерывен как композиция непрерывных отображений.
+\end{proof}
+\section{Теорема Хеллингера-Теплица.}
+\begin{theorem}[Хеллингер, Теплиц]
+    Пусть $H$ -- гильбертово пространство, $A$ -- симметричный линейный оператор на нём, то есть
+    \[
+        \forall x, y \in H \hookrightarrow \langle x, Ay \rangle = \langle Ax, y \rangle.
+    \]
+    Тогда $A$ -- непрерывен.
+\end{theorem}
+\begin{proof}
+    Пусть $x_k \rightarrow x_0$ и $Ax_k \rightarrow y_0$.
+    Тогда
+    \[
+        \langle Ax_{k}, z \rangle \rightarrow \langle y_0, z \rangle.
+    \]
+    С другой стороны
+    \[
+        \langle Ax_{k}, z \rangle = \langle x_{k}, Az \rangle \rightarrow \langle x_0, Az \rangle = \langle Ax_0, z \rangle.
+    \]
+    Поскольку это верно для произвольного $z \in H$, то $Ax_0 = y_0$ и график $A$ -- замкнут.
+    По теореме о замкнутом графике $A$ -- непрерывен.
+\end{proof}

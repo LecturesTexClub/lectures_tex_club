@@ -1,0 +1,261 @@
+\begin{proposition}
+    Пусть $(X, \rho)$ -- метрическое пространство и $\tau_\rho$ -- секвенциальная топология, порождённая сходимостью по метрике.
+    Следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $G \in \tau_{\rho}$.
+        \item $\forall x \in G \ \exists r_x > 0\colon O_r(x) \subset G$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Пусть верно 2).
+    По определению $\tau_{\rho}$ все открытые шары лежат в ней.
+    Но, тогда, $G = \bigcup_{x \in G} \{x\} \subset \bigcup_{x \in G} O_{r_x}(x) \subset G$ и $G \in \tau_{\rho}$ как объединение произвольного семейства открытых множеств из $\tau_{\rho}$.
+
+    Покажем теперь обратную импликацию.
+    Пусть $G \in \tau_{\rho}$ и $x \in G$.
+    Предположим, что $\forall r > 0 \hookrightarrow O_r(x) \not\subset G$.
+    Тогда, в частности, при $\forall n \in \N \ \exists x_n \in O_{\frac{1}{n}}(x)$ такой, что $x_n \notin G$.
+    Заметим, что $\rho(x, x_n) \leq \frac{1}{n} \rightarrow 0, n \rightarrow \infty$, то есть $x_n \xrightarrow{\rho} x$.
+    Поскольку сходимость по метрике эквивалентна сходимости в $\tau_{\rho}$ и $\{x_n\} \subset X \setminus G$, то и $x \in X \setminus G$ -- в силу секвенциальной замкнутости множества $X \setminus G$.
+    Таким образом мы приходим к противоречию: $x \in G$ и $x \in X \setminus G$.
+
+    Значит $\exists r_x > 0\colon O_{r_x}(x) \subset G$ -- что и требовалось показать.
+\end{proof}
+\begin{note}
+    Если $O_r(x) \ni y$, то $O_{r - \rho(x, y)}(y) \subset O_r(x)$.
+    И действительно: если $z \in O_{r - \rho(x, y)}(y)$, то согласно неравенству треугольника
+    \[
+        \rho(z, x) \leq \rho(z, y) + \rho(y, x) < r - \rho(x, y) + \rho(x, y) = r,
+    \]
+    а следовательно $z \in O_r(x)$.
+\end{note}
+\begin{lemma}
+    Метрическое пространство $(X, \rho)$ вместе с метрической топологией $\tau_\rho$ удовлетворяет аксиоме счётности.
+\end{lemma}
+\begin{proof}
+    Для всякого $x \in X$ определим локальную базу $\beta(x)$ как
+    \[
+        \beta(x) = \left\{O_{\frac{1}{n}}(x) \mid n \in \N \right\}.
+    \]
+    Это действительно локальная база, поскольку если $U(x)$ -- некоторая окрестность точки $x$, то по ранее сделанному примечанию $\exists \epsilon > 0 \colon U(x) \supset O_\epsilon(x)$.
+    В тоже время при $n = \lceil \frac{1}{\epsilon} \rceil + 1$ верно, что $\epsilon > \frac{1}{n}$, а следовательно $O_{\epsilon}(x) \supset O_{\frac{1}{n}}(x)$ что и завершает доказательство.
+\end{proof}
+\section{Базы и предбазы топологии.}
+\begin{definition}
+    Пусть $(X, \tau) \in \cat{Top}$ и $\beta \subset \tau$ -- некоторое семейство множеств.
+    Будем говорить что $\beta$ -- база топологии $\tau$, если $\forall G \in \tau \ \exists \phi_G \subset \beta$ такое, что
+    \[
+        G = \bigcup_{A \in \phi_G} A.
+    \]
+    Если $\phi_G = \emptyset$, то, по определению, $\bigcup_{A \in \phi_G} A = \emptyset$.
+\end{definition}
+\begin{example}
+    Заметим, что семейство открытых шаров является базой метрической топологии $\tau_\rho$ пространства $(X, \rho)$ по определению и в силу утверждения.
+\end{example}
+\begin{proposition}[Критерий базы]
+    Пусть $X$ -- непустое множество и $\beta\subset 2^X$ -- некоторое семейство его подмножеств.
+    Тогда $\beta$ является базой некоторой топологии в том и только том случае, когда выполнены следующие два условия:
+    \begin{enumerate}
+        \item $\bigcup_{A \in \beta} A = X$.
+        \item $\forall A_1, A_2 \in \beta \ \forall x \in A_1 \cap A_2 \ \exists A_x \in \beta\colon  x \in A_x \subset A_1 \cap A_2$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Пусть $\beta$ является базой некоторой топологии $\tau$.
+
+    Поскольку $X$ -- открыто, то оно представимо как объединение элементов некоторого семейства $\phi_X \subset \beta$ и, следовательно, $X = \bigcup_{A \in \phi_X} A \subset \bigcup_{A \in \beta} A \subset X$.
+    Значит, условие 1) -- выполнено.
+
+    Покажем теперь выполнение второго условия.
+    Пусть $A_1, A_2 \in \beta \subset \tau$ и $S = A_1 \cap A_2 \in \tau$.
+    Тогда существует $\phi_S \subset \beta$ такой, что
+    \[
+        \bigcup_{A \in \phi_S} A = S.
+    \]
+    Тогда $\forall x \in S \ \exists A_x \subset S\colon x \in A_x \in \phi_S$ и корректность второго условия показана:
+    \[
+        \forall x \in A_1 \cap A_2 \ \exists A_x \in \beta\colon x \in A_x \subset A_1 \cap A_2.
+    \]
+
+    Теперь докажем обратную импликацию.
+    Пусть
+    \[
+        \tau = \left\{\bigcup_{A \in \phi} A \mid \phi \subset \beta\right\}.
+    \]
+    Поскольку объединение по пустому семейству -- пустое, то $\emptyset \in \tau$.
+    По условию 1) всё пространство также лежит в $\tau$, а следовательно первый пункт определения топологии выполнен.
+
+    Пусть $\psi \subset \tau$.
+    Заметим, что всякий $G \in \psi$ представляется как объединение элементов из базы:
+    \[
+        G = \bigcup_{A \in \phi_G} A, \ \phi_G \subset \beta.
+    \]
+    Но, тогда
+    \[
+        \bigcup_{G \in \psi} G = \bigcup_{G \in \psi} \bigcup_{A \in \phi_G} A = \bigcup_{A \in \bigcup_{G \in \psi} \phi_G \subset \beta} A.
+    \]
+    Таким образом объединение элементов $\psi$ представлено как объединение элементов базы и, следовательно, лежит в $\tau$ по определению.
+    Следовательно, $\tau$ замкнуто относительно произвольных объединений и удовлетворяет A2.
+
+    Покажем теперь замкнутость $\tau$ относительно конечных пересечений.
+    Пусть $\{G_i\}_{i = 1}^N \subset \tau$.
+    При всяком $i = \overline{1, N}$ существует $\phi_k \subset \beta\colon G_i = \bigcup_{A_k \in \phi_k} A_k$.
+    Тогда
+    \[
+        \bigcap_{i = 1}^N G_i = \bigcap_{i = 1}^{N}\bigcup_{A_k \in \phi_k} A_k = \bigcup_{A_i \in \phi_i, \  i = \overline{1, N}} A_1 \cap \ldots \cap A_N = \tag{*}
+    \]
+    Пусть $\psi = \{A_1 \cap \ldots \cap A_N \mid A_1 \in \phi_1, \ldots, A_N \in \phi_N\}$.
+    Пересечение принимает следующий вид:
+    \[
+        = \bigcup_{G \in \psi} G. \tag{*}
+    \]
+    Осталось показать что $\psi \subset \tau$.
+    В частности, для этого достаточно чтобы $\forall A_1, \ldots, A_n \in \beta \hookrightarrow A_1 \cap \ldots \cap A_N \in \tau$.
+    Докажем справедливость этого факта по индукции.
+    При $N = 1$ утверждение очевидно, при $N = 2$ утверждение верно в силу второго условия и уже показанной замкнутости относительно произвольных объединений.
+    Пусть $N \geq 2$ и $\{A_i\}_{i = 1}^{N + 1} \subset \beta$.
+    По предположению индукции $S = \cap_{i = 1}^{N} A_i \in \tau$ и, следовательно, $\exists \phi_S \subset \beta \hookrightarrow S = \bigcup_{A \in \phi_S} A$.
+    Тогда
+    \[
+        \bigcap_{i = 1}^{N + 1} A_i = \bigcap_{i = 1}^{N} A_i \cap A_{N + 1} = S \cap A_{N + 1} = \bigcup_{A \in \phi_S} A \cap A_{N + 1}.
+    \]
+    В силу второго условия и замкнутости $\tau$ относительно произвольных объединений $A \cap A_{N + 1} \in  \tau$, а, следовательно, и $\bigcup_{A \in \psi_S} A \cap A_{N + 1} \in \tau$ -- что и завершает доказательство.
+\end{proof}
+\begin{definition}
+    Пусть $(X, \tau) \in \cat{Top}$ и $\sigma \subset \tau$.
+    Будем говорить что $\sigma$ -- предбаза, если
+    \[
+        \beta = \left\{\bigcap_{k = 1}^{N} A_k \mid N \in \N, \ A_1, \ldots, A_N \in \sigma\right\}.
+    \]
+    является базой $\tau$.
+\end{definition}
+\begin{proposition}[Критерий предбазы]
+    Если $X$ -- непустое множество и $\sigma \subset 2^X$ является семейством его подмножеств, то оно является предбазой некоторой топологии в том и только том случае, если $X = \bigcup_{A \in \sigma} A$.
+\end{proposition}
+\begin{proof}
+    Пусть $\sigma$ -- предбаза топологии $\tau$.
+    Тогда $X = \bigcup_{A \in \beta} A$ -- по критерию базы (которой является $\beta$ по определению $\sigma$). Значит $\forall x \in X \ \exists A_x \in \beta\colon x \in A_x$.
+    По построению $\beta$ существуют $A_1, \ldots, A_N \in \sigma\colon A_x = \bigcap_{i = 1}^{N} A_i$.
+    В частности, $A_x \subset A_1$, а следовательно
+    \[
+        \forall x \in X \ \exists A_1 \in \sigma \colon x \in A_1 \Rightarrow X = \bigcup_{A \in \sigma} A.
+    \]
+
+    Пусть теперь верно, что $X = \bigcup_{A \in \sigma} A$.
+    Тогда, заметим, что
+    \[
+        \beta = \left\{\bigcap_{i = 1}^N A_i \mid N \in \N,  A_i \in \sigma, i = \overline{1, N}\right\}.
+    \]
+    является базой топологии.
+    И действительно:
+    \[
+        X \supset \bigcup_{A \in \beta} A \supset \bigcup_{A \in \sigma} A = X,
+    \]
+    и первое условие критерия базы выполнено.
+    С другой стороны, истинность второго условия очевидна:
+    \[
+        \forall M, S \in \beta \hookrightarrow M \cap S \in \beta,
+    \]
+    поскольку $M = \bigcap_{i = 1}^N A_i, \ S = \bigcap_{j = 1}^M B_j \Rightarrow M \cap S = \bigcap_{i = 1}^N A_i \cap  \bigcap_{j = 1}^{M} B_j \in \beta$ по определению.
+    Но тогда $\forall M, S \in \beta \ \exists A_x = M \cap S \in \beta \colon x \in A_x \subset M \cap S$.
+\end{proof}
+\section{Топология поточечной сходимости.}
+\begin{note}
+    Рассмотрим непустые множества $X$ и $T$ и пусть $Y = \{u\colon T \to X\}$ -- множество всех отображений между $T$ и $X$.
+    В дальнейшем будем обозначать $Y$ как $X^T$.
+    Это обозначение имеет некоторую мотивировку.
+
+    В частности, если $T = \{1, \ldots, N\}$ и $X = \R$, то $Y$ это
+    \[
+        Y = \left\{u\colon \{1, \ldots, N\} \to \R\right\} \cong \left\{(u(1), u(2), \ldots, u(N)) \mid \forall k \in \overline{1, N} \hookrightarrow u(k) \in \R \right\} \cong \R^N.
+    \]
+    В будущем мы будем рассматривать такие пространства как $\R^{[0, 1]}$ -- множество всех функций из единичного отрезка, $[0, 1]^{[0, 1]}$ -- тихоновский куб.
+\end{note}
+\begin{example}[Топология поточечной сходимости]
+    Рассмотрим непустое множество $T$ и топологическое пространство $(X, \tau)$.
+    Теперь введём в $X^T$ топологию.
+    Зададим в $X^T$ $T$-сходимость следующим образом:
+    \[X^T \ni u_n \xrightarrow{T} u \in X^T \xLeftrightarrow{def} \forall t \in T \hookrightarrow u_n(t) \xrightarrow{\tau} u(t), n \rightarrow \infty.\]
+    Такая сходимость порождает топологию.
+    Будем обозначать её как $\tau_{seq}(T)$ -- топология поточечной сходимости.
+    В силу процедуры порождения топологии
+    \[
+        X^T \ni u_n \xrightarrow{T} u \in T \Rightarrow u_n \xrightarrow{\tau_{seq}(T)} u.
+    \]
+    Справедлива и обратная импликация.
+    Покажем это.
+
+    Пусть $u_n \xrightarrow{\tau_{seq}(T)} u, n \rightarrow \infty$.
+
+    Тогда $\forall t \in T \ \forall V(u(t)) \in \tau$ рассмотрим множества следующего вида:
+    \[
+        S(t, u, V(u(t))) \coloneq \left\{v \in X^T \mid v(t) \in X \setminus V(u(t))\right\}.
+    \]
+    Тогда, если $\{v_n\} \subset S(t, u, V(u(t)))$ и $v_n \xrightarrow{T} v$, то поскольку при всяком $r \in T \hookrightarrow v_n(r) \xrightarrow{\tau} v(r)$ и $v_n(t) \in X \setminus V(u(t))$ -- замкнутом топологически, а следовательно -- и секвенциально замкнутом множестве, то и $v(t) \in X \setminus V(u(t))$.
+    Но тогда $v \in S(t, u, V(u(t)))$, а значит множества вида $S(t, u, V(u(t))$ -- секвенциально замкнуты.
+    Обозначим дополнения множеств $S(\cdot, \cdot, \cdot)$ следующим образом:
+    \[
+        W(t, u, V(u(t))) = X^T \setminus S(t, u, V(u(t))).
+    \]
+    В силу секвенциальной замкнутости множеств $S(\cdot, \cdot, \cdot)$, мы можем утверждать что \[W(t, u, V(u(t))) \in \tau_{seq}(T).\] и $W$ является открытой окрестностью для $u$.
+
+    Теперь вернёмся к тому, что мы хотим доказать.
+    Если $u_n \xrightarrow{\tau_{seq}(T)} u, n \rightarrow \infty$, то $\forall V(u(t)) \in \tau\colon$
+    \[
+        \forall W(t, u, V(u(t)) \ \exists N \in \N \ \forall n \geq N \hookrightarrow u_n \in W(t, u, V(u(t)).
+    \]
+    Но тогда и $u_n(t) \xrightarrow{\tau} u(t)$ при всяком $t \in T$ -- поскольку для всякой $V(u(t))$ существует $N \in \N$, что $\forall n \geq N \hookrightarrow u_n(t) \in V(u(t))$.
+    По определению это означает $u_n \xrightarrow{T} u, n \rightarrow \infty$ и завершает доказательство.
+\end{example}
+\begin{note}
+    Заметим, что $\sigma$ -- семейство множеств вида $W(t, u, V(t))$ -- является предбазой топологии в $X^T$.
+    И действительно: $\forall u \in X^T \ \exists t \in T \colon \ \exists U(u(t)) \in \tau \Rightarrow u \in W(t, u, U(u(t)))$ и объединение по всем множествам $\sigma$ покрывает $X^T$.
+    Топологию, порождённую $\sigma$ будем обозначать $\tau_T$.
+    Она вложена в $\tau_{seq}(T)$ и это вложение может быть строгим.
+    В частности, если мы рассмотрим пространство $\R^{[0, 1]}$ и множество $\mathfrak{M}[0, 1]$ -- измеримых функций -- как его подпространство, то в топологии $\tau_{seq}(T)$ оно будет секвенциально-замкнутым (а следовательно -- и топологически замкнутым в $\tau_{seq}(T)$), а в $\tau_{T}$ -- оно не будет замкнутым: замыкание измеримых по $\tau_T$ совпадает со всем пространством, поскольку в любой окрестности некоторой $f$ содержится множество из базы, в котором лежит функция, принимающая значения $f$ в этих точках и ноль во всех остальных.
+    Это -- измеримая функция, как конечная линейная комбинация индикаторов.
+    Следовательно, во всякой окрестности $f$ в $\tau_{T}$ есть измеримая функция и, следовательно, замыкание измеримых совпадёт с $\R^{[0, 1]}$ (но при этом само множество измеримых с $\R^{[0, 1]}$, очевидно, не совпадает).
+\end{note}
+
+\begin{proposition}
+    Заметим, что для всякого $G \in \tau_T$ следующее эквивалентно:
+    \begin{multline*}
+        x \in G \in \tau_T \Longleftrightarrow \\
+        \Longleftrightarrow \exists N \in \N \exists \{x_i\}_{i = 1}^{N} \subset X, \ \exists \{t_i\}_{i = 1}^{N} \subset T \ \forall j = \overline{1, N} \ \exists U_j = U(x_j(t_j)) \ni x_k(t_k) \in \tau \hookrightarrow x \in \bigcap_{j = 1}^{N} W(x_j, t_j, U_j) \subset G.
+    \end{multline*}
+\end{proposition}
+\begin{proof}
+    Заметим, что множество $\bigcap_{j = 1}^{N} W(x_j, t_j, U_j)$ -- это просто произвольный элемент базы (которую мы получаем как конечное пересечение элементов предбазы $\sigma_T$).
+    Следовательно, если $G$ -- открытое, то всякая точка в нём содержится в некотором элементе базы, который и имеет вот такой вот вид.
+
+    Если же у нас всякая точка множества $G$ лежит в $G$ вместе с некоторой окрестностью из базы топологии, то, очевидно, что $G$ является открытым.
+\end{proof}
+\begin{note}
+    Заметим, что в $\tau_T$ всё ещё сохраняется эквивалентность сходимости поточечной сходимости.
+    \begin{proposition}
+        То есть если $\{x_n\} \subset X^T$, то
+        \[
+            x_n \xrightarrow{T} x \Longleftrightarrow x_n \xrightarrow{\tau_T} x.
+        \]
+    \end{proposition}
+    \begin{proof}
+        Покажем это.
+        Если $x_n \xrightarrow{x_\tau} x$, то $\forall t \in T \ \forall U = U(x(t)) \in \tau$ точка $x \in W(x, t, U(x(t))) \in \sigma_T$.
+        Следовательно $\exists N \in \N \ \forall n \geq N \hookrightarrow x_n \in W(x, t, U(x(t))) \Rightarrow x_n(t) \in U(x(t))$ и, значит, $x_n(t) \xrightarrow{\tau} x(t)$.
+        Поскольку это верно для всякого $t \in T$, то $x_n \xrightarrow{T} x$.
+
+        Покажем обратную импликацию.
+        Пусть $x_n \xrightarrow{T} x$, то есть $x_n(t) \xrightarrow{\tau} x(t)$ при всяком $t \in T$.
+        Рассмотрим некоторую окрестность $G$ точки $x$ в $\tau_T$.
+        Она содержится в $G$ вместе с некоторым множеством из базы топологии, имеющим вид $\bigcap_{j = 1}^{N} W(y_j, t_j, U_j)$.
+        В силу сходимости к $x(t_k)$ при всяком $k$, у нас имеется $\forall k = \overline{1, N}\colon$
+        \[
+            \exists M_k \in \N \ \forall n \geq M_k \hookrightarrow x_n(t_k) \in U_k.
+        \]
+        Но, тогда
+        \[
+            \forall n \geq \max_{k = \overline{1, N}} M_k \hookrightarrow x_n \in \bigcap_{j = 1}^{N} W(y_j, t_k ,U_j) \subset G.
+        \]
+        А значит $x_n \xrightarrow{\tau_T} x$.
+    \end{proof}
+\end{note}

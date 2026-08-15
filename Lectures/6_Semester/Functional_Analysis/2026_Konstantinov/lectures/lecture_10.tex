@@ -1,0 +1,74 @@
+\part{Функциональный анализ.}
+\chapter{Линейные нормированные пространства.}
+\begin{definition}
+    Пусть $X$ -- вещественное линейное пространство.
+    Отображение $\|\cdot\|\colon X \to \R$ называется нормой, если
+    \begin{enumerate}
+        \item $\forall x \in X \hookrightarrow \|x\| \geq 0 \wedge \|x\| = 0 \Leftrightarrow x = 0$.
+        \item $\forall x \in X \ \forall \alpha \in \R \hookrightarrow \|\alpha x\| = |\alpha|\|x\|$.
+        \item $\forall x, y \in X \hookrightarrow \|x + y\| \leq \|x\| + \|y\|$.
+    \end{enumerate}
+
+    Пара $(X, \|\cdot\|)$ называется нормированным пространством.
+\end{definition}
+\begin{note}
+    Всякая норма порождает метрику как
+    \[
+        \rho(x, y) = \|x - y\|.
+    \]
+\end{note}
+\begin{example}
+    Пусть $(X, \|\cdot\|)$ -- нормированное пространство.
+    Тогда если $B_R(x) \supset B_r(y)$, то $R \geq r$.
+
+    Если вдруг $x = y$, то для всякого вектора единичной нормы $z\colon$ вектор $x + rz \in B_r(y)$, и, в частности лежит в $B_R(x)$, то есть
+    \[
+        \|rz\| \leq R \Rightarrow r \leq R.
+    \]
+
+    Если же вдруг так получилось, что $x \neq y$, то рассмотрим вектор
+    \[
+        y + r \frac{x - y}{\|x - y\|} \in B_r(y) \subset B_R(x).
+    \]
+    Тогда
+    \[
+        \left\|x - y - r \frac{x - y}{\|x - y\|}\right\| \leq R \Rightarrow \left|1 - \frac{r}{\|x - y\|}\right|\|x - y\| \leq R \Rightarrow |\|x - y\| - r| \leq R.
+    \]
+    Аналогичное неравенство верно и для $y - r \frac{x - y}{\|x - y\|}\colon$
+    \[
+        |\|x - y\| + r| \leq R.
+    \]
+    Тогда
+    \[
+        2r = |r - \|x - y\| + r + \|x - y\|| \leq |r - \|x - y\|| + |r + \|x - y\|| \leq 2R,
+    \]
+    что и требовалось показать.
+\end{example}
+\begin{example}
+    В общих метрических пространствах это утверждение неверно: пусть $X = [0, 1] \cup \{2\}$ с евклидовой метрикой.
+    Тогда
+    \[
+        B_{1.5}(0) \subset B_{1}(1).
+    \]
+    И шар большего радиуса содержится в шаре меньшего радиуса.
+\end{example}
+\begin{definition}
+    Пусть $(X, \|\cdot\|)$ -- нормированное пространство.
+    Будем говорить, что оно является банаховым, если оно полно по метрике, порождённой нормой.
+\end{definition}
+\begin{theorem}
+    Пусть $(X, \|\cdot\|)$ -- банахово пространство.
+    Тогда для всякой последовательности вложенных шаров $\{B_{r_n}(x_n)\}$ верно, что
+    \[
+        \bigcap_{n = 1}^{\infty} B_{r_n}(x_n) \neq \emptyset.
+    \]
+\end{theorem}
+\begin{proof}
+    В силу вложенности шаров $r_m \leq r_n$, при $m \leq n$.
+
+    Поскольку все радиусы шаров -- неотрицательны, то существует $r = \lim r_n = \inf r_n \geq 0$.
+
+    Пусть $m \geq n$.
+    Тогда $B_{r_m}(x_n) \subset B_{r_n}(x_n)$, а значит $\|x_n - x_m\| \leq r_n - r_m$.
+    Следовательно, последовательность центров шаров -- фундаментальна, и сходится к некоторой точке $x$, которая и будет лежать в пересечении.
+\end{proof}
