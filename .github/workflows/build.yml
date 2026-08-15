@@ -84,7 +84,7 @@ jobs:
           URL=$(curl -f --silent --get \
           --data-urlencode 'path=Lectures Tex Club/${{ env.FULL_PATH }}.pdf' \
           --data-urlencode 'overwrite=true' \
-          --header 'Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}' \
+          --header 'Authorization: OAuth ${{ secrets.YANDEX_OAUTH_TOKEN }}' \
           'https://cloud-api.yandex.net/v1/disk/resources/upload' | jq -r '.["href"]')
 
           curl -f --silent -X PUT --data-binary '@build/main.pdf' \
