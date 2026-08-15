@@ -98,17 +98,16 @@ jobs:
             else
               CURRENT="$CURRENT/$PART"
             fi
-      
+          
             HTTP_CODE=$(curl --silent --show-error \
               --output /tmp/yadisk-mkdir-response \
               --write-out '%{http_code}' \
               --request PUT \
+              --get \
               --data-urlencode "path=$CURRENT" \
               --header "Authorization: OAuth $TOKEN" \
               'https://cloud-api.yandex.net/v1/disk/resources')
-      
-            # 201 = создана.
-            # 409 = уже существует — для mkdir это нормально.
+          
             if [[ "$HTTP_CODE" != "201" && "$HTTP_CODE" != "409" ]]; then
               echo "Failed to create directory: $CURRENT"
               cat /tmp/yadisk-mkdir-response
