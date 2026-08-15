@@ -1,98 +1,372 @@
-name: upload pdfs to yandex disk
+name: Upload PDFs to Yandex Disk
 
 on:
   push:
     branches:
       - pdf_loader
+  workflow_dispatch:
 
 jobs:
   upload:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Cleanup wrong folders
-        run: |
-          curl -s -X DELETE \
-            --get \
-            --data-urlencode "path=Lectures Tex Club/Lectures/2_Semester/Calsulus" \
-            --data-urlencode "permanently=true" \
-            --header "Authorization: ${{ secrets.YANDEX_OAUTH_TOKEN }}" \
-            https://cloud-api.yandex.net/v1/disk/resources || true
-
-      - name: Collect pdf files
-        id: files
-        run: |
-          set -e
-          FILES=$(find pdf -type f -name "*.pdf" | sed 's|^pdf/||')
-          echo "Found files:"
-          printf "%s\n" "$FILES"
-          {
-            echo "files<<EOF"
-            printf "%s\n" "$FILES"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Upload to Yandex Disk
+        env:
+          YANDEX_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
         run: |
           set -euo pipefail
 
-          TOKEN="${{ secrets.YANDEX_OAUTH_TOKEN }}"
           API="https://cloud-api.yandex.net/v1/disk/resources"
 
-          while read -r FILE; do
-            [ -z "$FILE" ] && continue
+          # Старый ошибочный каталог. Если его уже нет — это нормально.
+          curl -sS -X DELETE \
+            --get \
+            --data-urlencode "path=Lectures Tex Club/Lectures/2_Semester/Calsulus" \
+            --data-urlencode "permanently=true" \
+            --header "Authorization: OAuth ${YANDEX_TOKEN}" \
+            "${API}" \
+            >/dev/null || true
 
-            TYPE=$(echo "$FILE" | cut -d/ -f1)
-            SEM=$(echo "$FILE" | cut -d/ -f2)
-            SUBJECT=$(echo "$FILE" | cut -d/ -f3)
-            NAME=$(basename "$FILE" .pdf)
+      - name: Collect PDF files
+        id: files
+        run: |
+          set -euo pipefail
 
-            case "$TYPE" in
-              l) TYPE="Lectures" ;;
-              s) TYPE="Seminars" ;;
-              e) TYPE="Exams" ;;
-              *) TYPE="Other" ;;
-            esac
+          if [[ ! -d pdf ]]; then
+            echo "Directory 'pdf' does not exist"
+            exit 1
+          fi
 
-            SEM="${SEM}_Semester"
+          FILES="$(find pdf -type f -name '*.pdf' -print \
+            | sed 's|^pdf/||' \
+            | sort)"
 
-            REMOTE_DIR="Lectures Tex Club/${TYPE}/${SEM}/${SUBJECT}"
-            REMOTE_FILE="${REMOTE_DIR}/${NAME}.pdf"
+          if [[ -z "$FILES" ]]; then
+            echo "No PDF files found"
+            exit 0
+          fi
 
-            echo "Uploading $FILE -> $REMOTE_FILE"
+          echo "Found PDF files:"
+          printf '%s\n' "$FILES"
 
-            # создать каталог (если уже есть — API вернёт 409, это нормально)
-            curl -sS -X PUT \
-              --get \
-              --data-urlencode "path=${REMOTE_DIR}" \
-              --header "Authorization: ${TOKEN}" \
-              "${API}" \
-              -o /dev/null -w "mkdir status: %{http_code}\n"
+          {
+            echo "files<<EOF"
+            printf '%s\n' "$FILES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
-            # получить upload URL
-            RESP=$(curl -sS --get \
-              --data-urlencode "path=${REMOTE_FILE}" \
-              --data-urlencode "overwrite=true" \
-              --header "Authorization: ${TOKEN}" \
-              "${API}/upload")
+      - name: Upload PDFs to Yandex Disk
+        env:
+          YANDEX_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
+          FILES: ${{ steps.files.outputs.files }}
+        run: |
+          set -euo pipefail
 
-            echo "upload API response: $RESP"
+          API="https://cloud-api.yandex.net/v1/disk/resources"
 
-            URL=$(echo "$RESP" | jq -r '.href')
+          # ------------------------------------------------------------
+          # Проверить, что путь уже существует и является директорией.
+          # ------------------------------------------------------------
+          is_directory() {
+            local path="$1"
+            local body
+            local status
 
-            if [ -z "$URL" ] || [ "$URL" = "null" ]; then
-              echo "Failed to get upload URL for $FILE"
+            body="$(mktemp)"
+
+            status="$(
+              curl -sS \
+                -o "$body" \
+                -w '%{http_code}' \
+                --get \
+                --data-urlencode "path=${path}" \
+                --header "Authorization: OAuth ${YANDEX_TOKEN}" \
+                "${API}"
+            )"
+
+            if [[ "$status" == "200" ]] && \
+               [[ "$(jq -r '.type // empty' "$body")" == "dir" ]]; then
+              rm -f "$body"
+              return 0
+            fi
+
+            rm -f "$body"
+            return 1
+          }
+
+          # ------------------------------------------------------------
+          # Yandex Disk mkdir не является mkdir -p.
+          #
+          # Поэтому:
+          #
+          #   A/B/C
+          #
+          # создаём как:
+          #
+          #   A
+          #   A/B
+          #   A/B/C
+          # ------------------------------------------------------------
+          mkdir_recursive() {
+            local path="$1"
+            local current=""
+            local part
+            local body
+            local status
+
+            IFS='/' read -ra parts <<< "$path"
+
+            for part in "${parts[@]}"; do
+              [[ -z "$part" ]] && continue
+
+              if [[ -z "$current" ]]; then
+                current="$part"
+              else
+                current="${current}/${part}"
+              fi
+
+              body="$(mktemp)"
+
+              status="$(
+                curl -sS \
+                  -o "$body" \
+                  -w '%{http_code}' \
+                  -X PUT \
+                  --get \
+                  --data-urlencode "path=${current}" \
+                  --header "Authorization: OAuth ${YANDEX_TOKEN}" \
+                  "${API}"
+              )"
+
+              case "$status" in
+                201)
+                  echo "Created directory: ${current}"
+                  ;;
+
+                409)
+                  # Не считаем любой 409 автоматически нормальным:
+                  # дополнительно проверяем, что каталог действительно
+                  # существует.
+                  if is_directory "$current"; then
+                    echo "Directory exists: ${current}"
+                  else
+                    echo "ERROR: mkdir returned HTTP 409, but directory"
+                    echo "does not exist or is not a directory:"
+                    echo "  ${current}"
+                    echo
+                    echo "Yandex Disk response:"
+                    cat "$body"
+                    echo
+
+                    rm -f "$body"
+                    exit 1
+                  fi
+                  ;;
+
+                *)
+                  echo "ERROR: failed to create directory:"
+                  echo "  ${current}"
+                  echo "HTTP status: ${status}"
+                  echo
+                  echo "Yandex Disk response:"
+                  cat "$body"
+                  echo
+
+                  rm -f "$body"
+                  exit 1
+                  ;;
+              esac
+
+              rm -f "$body"
+            done
+          }
+
+          # ------------------------------------------------------------
+          # Upload одного файла.
+          # ------------------------------------------------------------
+          upload_file() {
+            local local_file="$1"
+            local remote_file="$2"
+            local response
+            local upload_url
+            local body
+            local status
+
+            response="$(
+              curl -sS \
+                --get \
+                --data-urlencode "path=${remote_file}" \
+                --data-urlencode "overwrite=true" \
+                --header "Authorization: OAuth ${YANDEX_TOKEN}" \
+                "${API}/upload"
+            )"
+
+            upload_url="$(jq -r '.href // empty' <<< "$response")"
+
+            if [[ -z "$upload_url" ]]; then
+              echo "ERROR: failed to get upload URL"
+              echo "Local file:"
+              echo "  ${local_file}"
+              echo "Remote file:"
+              echo "  ${remote_file}"
+              echo
+              echo "Yandex Disk response:"
+              echo "$response"
               exit 1
             fi
 
-            # загрузить файл
-            curl -sS -X PUT \
-              --data-binary "@pdf/$FILE" \
-              --header "Authorization: ${TOKEN}" \
-              "$URL"
+            body="$(mktemp)"
 
-            echo "Uploaded $FILE"
+            status="$(
+              curl -sS \
+                -o "$body" \
+                -w '%{http_code}' \
+                -X PUT \
+                --data-binary "@${local_file}" \
+                "${upload_url}"
+            )"
 
-          done <<< "${{ steps.files.outputs.files }}"
+            case "$status" in
+              200|201|202|204)
+                ;;
+              *)
+                echo "ERROR: failed to upload:"
+                echo "  ${local_file}"
+                echo
+                echo "HTTP status: ${status}"
+                echo "Upload response:"
+                cat "$body"
+                echo
+
+                rm -f "$body"
+                exit 1
+                ;;
+            esac
+
+            rm -f "$body"
+          }
+
+          # ------------------------------------------------------------
+          # Основной цикл.
+          #
+          # Ожидаем структуру:
+          #
+          #   pdf/l/<semester>/<subject>/<file>.pdf
+          #   pdf/s/<semester>/<subject>/<file>.pdf
+          #   pdf/e/<semester>/<subject>/<file>.pdf
+          #
+          # Например:
+          #
+          #   pdf/l/6/Functional_Analysis/2026_Konstantinov.pdf
+          #   pdf/s/4/Harmonic_Analysis/2026_Malikov.pdf
+          #   pdf/e/4/Probability_Theory/2025_Shabanov.pdf
+          # ------------------------------------------------------------
+
+          if [[ -z "${FILES:-}" ]]; then
+            echo "No PDFs to upload"
+            exit 0
+          fi
+
+          uploaded=0
+
+          while IFS= read -r file; do
+            [[ -z "$file" ]] && continue
+
+            local_file="pdf/${file}"
+
+            if [[ ! -f "$local_file" ]]; then
+              echo "ERROR: local file does not exist:"
+              echo "  ${local_file}"
+              exit 1
+            fi
+
+            # Разбираем ровно четыре логические части:
+            #
+            #   TYPE / SEMESTER / SUBJECT / filename
+            #
+            # filename может содержать любые символы кроме /.
+            IFS='/' read -r kind semester subject filename extra <<< "$file"
+
+            if [[ -z "${kind:-}" || \
+                  -z "${semester:-}" || \
+                  -z "${subject:-}" || \
+                  -z "${filename:-}" ]]; then
+              echo "ERROR: invalid PDF path:"
+              echo "  ${file}"
+              echo
+              echo "Expected:"
+              echo "  <l|s|e>/<semester>/<subject>/<file>.pdf"
+              exit 1
+            fi
+
+            if [[ -n "${extra:-}" ]]; then
+              echo "ERROR: PDF path has unexpected nesting:"
+              echo "  ${file}"
+              echo
+              echo "Expected exactly:"
+              echo "  <l|s|e>/<semester>/<subject>/<file>.pdf"
+              exit 1
+            fi
+
+            if [[ ! "$semester" =~ ^[0-9]+$ ]]; then
+              echo "ERROR: semester must be numeric:"
+              echo "  ${file}"
+              echo "semester=${semester}"
+              exit 1
+            fi
+
+            case "$kind" in
+              l)
+                type="Lectures"
+                ;;
+              s)
+                type="Seminars"
+                ;;
+              e)
+                type="Exams"
+                ;;
+              *)
+                echo "ERROR: unknown PDF type:"
+                echo "  ${kind}"
+                echo
+                echo "File:"
+                echo "  ${file}"
+                echo
+                echo "Allowed types:"
+                echo "  l = Lectures"
+                echo "  s = Seminars"
+                echo "  e = Exams"
+                exit 1
+                ;;
+            esac
+
+            remote_dir="Lectures Tex Club/${type}/${semester}_Semester/${subject}"
+            remote_file="${remote_dir}/${filename}"
+
+            echo
+            echo "============================================================"
+            echo "Uploading"
+            echo "  local:  ${local_file}"
+            echo "  remote: ${remote_file}"
+            echo "============================================================"
+
+            mkdir_recursive "$remote_dir"
+
+            upload_file "$local_file" "$remote_file"
+
+            echo "Uploaded successfully:"
+            echo "  ${file}"
+
+            uploaded=$((uploaded + 1))
+
+          done <<< "$FILES"
+
+          echo
+          echo "============================================================"
+          echo "Upload completed"
+          echo "Uploaded files: ${uploaded}"
+          echo "============================================================"
