@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - pdf_loader
+
   workflow_dispatch:
 
 jobs:
@@ -22,8 +23,10 @@ jobs:
 
           API="https://cloud-api.yandex.net/v1/disk/resources"
 
-          # Старый ошибочный каталог. Если его уже нет — это нормально.
-          curl -sS -X DELETE \
+          # Старый ошибочный каталог.
+          # Ошибку здесь игнорируем: каталога может уже не быть.
+          curl -sS \
+            -X DELETE \
             --get \
             --data-urlencode "path=Lectures Tex Club/Lectures/2_Semester/Calsulus" \
             --data-urlencode "permanently=true" \
@@ -31,92 +34,45 @@ jobs:
             "${API}" \
             >/dev/null || true
 
-      - name: Collect PDF files
-        id: files
-        run: |
-          set -euo pipefail
-
-          if [[ ! -d pdf ]]; then
-            echo "Directory 'pdf' does not exist"
-            exit 1
-          fi
-
-          FILES="$(find pdf -type f -name '*.pdf' -print \
-            | sed 's|^pdf/||' \
-            | sort)"
-
-          if [[ -z "$FILES" ]]; then
-            echo "No PDF files found"
-            exit 0
-          fi
-
-          echo "Found PDF files:"
-          printf '%s\n' "$FILES"
-
-          {
-            echo "files<<EOF"
-            printf '%s\n' "$FILES"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
       - name: Upload PDFs to Yandex Disk
         env:
           YANDEX_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
-          FILES: ${{ steps.files.outputs.files }}
         run: |
           set -euo pipefail
 
           API="https://cloud-api.yandex.net/v1/disk/resources"
 
-          # ------------------------------------------------------------
-          # Проверить, что путь уже существует и является директорией.
-          # ------------------------------------------------------------
-          is_directory() {
-            local path="$1"
-            local body
-            local status
-
-            body="$(mktemp)"
-
-            status="$(
-              curl -sS \
-                -o "$body" \
-                -w '%{http_code}' \
-                --get \
-                --data-urlencode "path=${path}" \
-                --header "Authorization: OAuth ${YANDEX_TOKEN}" \
-                "${API}"
-            )"
-
-            if [[ "$status" == "200" ]] && \
-               [[ "$(jq -r '.type // empty' "$body")" == "dir" ]]; then
-              rm -f "$body"
-              return 0
-            fi
-
-            rm -f "$body"
-            return 1
-          }
-
-          # ------------------------------------------------------------
-          # Yandex Disk mkdir не является mkdir -p.
+          # ============================================================
+          # mkdir -p для Yandex Disk
           #
-          # Поэтому:
+          # Yandex Disk API не создаёт промежуточные директории
+          # автоматически, поэтому:
           #
           #   A/B/C
           #
-          # создаём как:
+          # создаём последовательно:
           #
           #   A
           #   A/B
           #   A/B/C
-          # ------------------------------------------------------------
+          #
+          # HTTP 201:
+          #   каталог создан
+          #
+          # HTTP 409 +
+          # DiskPathPointsToExistentDirectoryError:
+          #   каталог уже существует
+          #
+          # Любой другой ответ считаем ошибкой.
+          # ============================================================
+
           mkdir_recursive() {
             local path="$1"
             local current=""
             local part
             local body
             local status
+            local error
 
             IFS='/' read -ra parts <<< "$path"
 
@@ -148,17 +104,20 @@ jobs:
                   ;;
 
                 409)
-                  # Не считаем любой 409 автоматически нормальным:
-                  # дополнительно проверяем, что каталог действительно
-                  # существует.
-                  if is_directory "$current"; then
+                  error="$(jq -r '.error // empty' "$body")"
+
+                  if [[ "$error" == "DiskPathPointsToExistentDirectoryError" ]]; then
                     echo "Directory exists: ${current}"
                   else
-                    echo "ERROR: mkdir returned HTTP 409, but directory"
-                    echo "does not exist or is not a directory:"
+                    echo
+                    echo "ERROR: Yandex Disk returned HTTP 409"
+                    echo "while creating directory:"
                     echo "  ${current}"
                     echo
-                    echo "Yandex Disk response:"
+                    echo "Error code:"
+                    echo "  ${error}"
+                    echo
+                    echo "Response:"
                     cat "$body"
                     echo
 
@@ -168,11 +127,14 @@ jobs:
                   ;;
 
                 *)
+                  echo
                   echo "ERROR: failed to create directory:"
                   echo "  ${current}"
-                  echo "HTTP status: ${status}"
                   echo
-                  echo "Yandex Disk response:"
+                  echo "HTTP status:"
+                  echo "  ${status}"
+                  echo
+                  echo "Response:"
                   cat "$body"
                   echo
 
@@ -185,17 +147,20 @@ jobs:
             done
           }
 
-          # ------------------------------------------------------------
-          # Upload одного файла.
-          # ------------------------------------------------------------
+          # ============================================================
+          # Загрузка одного файла.
+          # ============================================================
+
           upload_file() {
             local local_file="$1"
             local remote_file="$2"
+
             local response
             local upload_url
             local body
             local status
 
+            # Получаем временный upload URL.
             response="$(
               curl -sS \
                 --get \
@@ -208,19 +173,26 @@ jobs:
             upload_url="$(jq -r '.href // empty' <<< "$response")"
 
             if [[ -z "$upload_url" ]]; then
+              echo
               echo "ERROR: failed to get upload URL"
-              echo "Local file:"
+              echo
+              echo "Local:"
               echo "  ${local_file}"
-              echo "Remote file:"
+              echo
+              echo "Remote:"
               echo "  ${remote_file}"
               echo
               echo "Yandex Disk response:"
-              echo "$response"
+              echo "${response}"
+              echo
+
               exit 1
             fi
 
             body="$(mktemp)"
 
+            # upload_url уже содержит авторизацию, поэтому OAuth-header
+            # при PUT сюда не нужен.
             status="$(
               curl -sS \
                 -o "$body" \
@@ -231,14 +203,22 @@ jobs:
             )"
 
             case "$status" in
-              200|201|202|204)
+              2??)
                 ;;
               *)
-                echo "ERROR: failed to upload:"
+                echo
+                echo "ERROR: failed to upload file"
+                echo
+                echo "Local:"
                 echo "  ${local_file}"
                 echo
-                echo "HTTP status: ${status}"
-                echo "Upload response:"
+                echo "Remote:"
+                echo "  ${remote_file}"
+                echo
+                echo "HTTP status:"
+                echo "  ${status}"
+                echo
+                echo "Response:"
                 cat "$body"
                 echo
 
@@ -250,10 +230,10 @@ jobs:
             rm -f "$body"
           }
 
-          # ------------------------------------------------------------
-          # Основной цикл.
+          # ============================================================
+          # Проверяем структуру pdf/.
           #
-          # Ожидаем структуру:
+          # Поддерживаются ровно:
           #
           #   pdf/l/<semester>/<subject>/<file>.pdf
           #   pdf/s/<semester>/<subject>/<file>.pdf
@@ -264,37 +244,84 @@ jobs:
           #   pdf/l/6/Functional_Analysis/2026_Konstantinov.pdf
           #   pdf/s/4/Harmonic_Analysis/2026_Malikov.pdf
           #   pdf/e/4/Probability_Theory/2025_Shabanov.pdf
-          # ------------------------------------------------------------
+          #
+          # В Yandex Disk:
+          #
+          #   l -> Lectures
+          #   s -> Seminars
+          #   e -> Exams
+          #
+          # Получаем:
+          #
+          # Lectures Tex Club/
+          #   Lectures/
+          #     6_Semester/
+          #       Functional_Analysis/
+          #
+          #   Seminars/
+          #     4_Semester/
+          #       Harmonic_Analysis/
+          #
+          #   Exams/
+          #     4_Semester/
+          #       Probability_Theory/
+          # ============================================================
 
-          if [[ -z "${FILES:-}" ]]; then
-            echo "No PDFs to upload"
+          if [[ ! -d pdf ]]; then
+            echo "ERROR: directory 'pdf' does not exist"
+            exit 1
+          fi
+
+          mapfile -t files < <(
+            find pdf \
+              -type f \
+              -name '*.pdf' \
+              -print \
+              | sed 's|^pdf/||' \
+              | sort
+          )
+
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No PDF files found."
             exit 0
           fi
 
+          echo "Found ${#files[@]} PDF files:"
+          printf '  %s\n' "${files[@]}"
+
           uploaded=0
 
-          while IFS= read -r file; do
+          for file in "${files[@]}"; do
             [[ -z "$file" ]] && continue
 
             local_file="pdf/${file}"
 
-            if [[ ! -f "$local_file" ]]; then
-              echo "ERROR: local file does not exist:"
-              echo "  ${local_file}"
-              exit 1
-            fi
-
-            # Разбираем ровно четыре логические части:
+            # ----------------------------------------------------------
+            # Ожидаем:
             #
-            #   TYPE / SEMESTER / SUBJECT / filename
-            #
-            # filename может содержать любые символы кроме /.
-            IFS='/' read -r kind semester subject filename extra <<< "$file"
+            # kind / semester / subject / filename
+            # ----------------------------------------------------------
 
-            if [[ -z "${kind:-}" || \
-                  -z "${semester:-}" || \
-                  -z "${subject:-}" || \
-                  -z "${filename:-}" ]]; then
+            kind=""
+            semester=""
+            subject=""
+            filename=""
+            extra=""
+
+            IFS='/' read -r \
+              kind \
+              semester \
+              subject \
+              filename \
+              extra \
+              <<< "$file"
+
+            if [[ -z "$kind" || \
+                  -z "$semester" || \
+                  -z "$subject" || \
+                  -z "$filename" ]]; then
+
+              echo
               echo "ERROR: invalid PDF path:"
               echo "  ${file}"
               echo
@@ -303,8 +330,9 @@ jobs:
               exit 1
             fi
 
-            if [[ -n "${extra:-}" ]]; then
-              echo "ERROR: PDF path has unexpected nesting:"
+            if [[ -n "$extra" ]]; then
+              echo
+              echo "ERROR: unexpected directory nesting:"
               echo "  ${file}"
               echo
               echo "Expected exactly:"
@@ -312,10 +340,20 @@ jobs:
               exit 1
             fi
 
+            if [[ "$filename" != *.pdf ]]; then
+              echo
+              echo "ERROR: file does not end in .pdf:"
+              echo "  ${file}"
+              exit 1
+            fi
+
             if [[ ! "$semester" =~ ^[0-9]+$ ]]; then
+              echo
               echo "ERROR: semester must be numeric:"
               echo "  ${file}"
-              echo "semester=${semester}"
+              echo
+              echo "Parsed semester:"
+              echo "  ${semester}"
               exit 1
             fi
 
@@ -323,20 +361,24 @@ jobs:
               l)
                 type="Lectures"
                 ;;
+
               s)
                 type="Seminars"
                 ;;
+
               e)
                 type="Exams"
                 ;;
+
               *)
+                echo
                 echo "ERROR: unknown PDF type:"
                 echo "  ${kind}"
                 echo
                 echo "File:"
                 echo "  ${file}"
                 echo
-                echo "Allowed types:"
+                echo "Allowed:"
                 echo "  l = Lectures"
                 echo "  s = Seminars"
                 echo "  e = Exams"
@@ -350,23 +392,31 @@ jobs:
             echo
             echo "============================================================"
             echo "Uploading"
-            echo "  local:  ${local_file}"
-            echo "  remote: ${remote_file}"
             echo "============================================================"
+            echo
+            echo "Local:"
+            echo "  ${local_file}"
+            echo
+            echo "Remote:"
+            echo "  ${remote_file}"
+            echo
 
             mkdir_recursive "$remote_dir"
 
-            upload_file "$local_file" "$remote_file"
-
-            echo "Uploaded successfully:"
-            echo "  ${file}"
+            upload_file \
+              "$local_file" \
+              "$remote_file"
 
             uploaded=$((uploaded + 1))
 
-          done <<< "$FILES"
+            echo
+            echo "Uploaded successfully:"
+            echo "  ${file}"
+          done
 
           echo
           echo "============================================================"
           echo "Upload completed"
-          echo "Uploaded files: ${uploaded}"
           echo "============================================================"
+          echo
+          echo "Uploaded files: ${uploaded}"
