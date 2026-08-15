@@ -79,18 +79,32 @@ jobs:
           post_compile: "pdflatex -output-dir=${GITHUB_WORKSPACE}/build main.tex"
 
       - name: Upload
-        id: upload
         shell: bash
         run: |
           set -euo pipefail
       
-          RESPONSE=$(curl --fail-with-body --silent --show-error --get \
-            --data-urlencode 'path=Lectures Tex Club/${{ env.FULL_PATH }}.pdf' \
+          DEST='Lectures Tex Club/${{ env.FULL_PATH }}.pdf'
+      
+          RESPONSE_FILE=$(mktemp)
+      
+          HTTP_CODE=$(curl --silent --show-error \
+            --output "$RESPONSE_FILE" \
+            --write-out '%{http_code}' \
+            --get \
+            --data-urlencode "path=${DEST}" \
             --data-urlencode 'overwrite=true' \
             --header 'Authorization: OAuth ${{ secrets.YANDEX_OAUTH_TOKEN }}' \
             'https://cloud-api.yandex.net/v1/disk/resources/upload')
       
-          URL=$(jq -er '.href' <<< "$RESPONSE")
+          echo "HTTP status: $HTTP_CODE"
+          cat "$RESPONSE_FILE"
+          echo
+      
+          if [[ "$HTTP_CODE" -lt 200 || "$HTTP_CODE" -ge 300 ]]; then
+            exit 1
+          fi
+      
+          URL=$(jq -er '.href' "$RESPONSE_FILE")
       
           curl --fail-with-body --silent --show-error \
             -X PUT \
