@@ -1,0 +1,212 @@
+\begin{theorem}\label{th:dim-ker-equality}
+    Пусть $A \in \LL(X)$ -- компактный оператор и $X$ -- банахово пространство.
+    Тогда $\forall \lambda \in \Cm \setminus \{0\}$
+    \[
+        \dim \ker (A_\lambda)^* = \dim \ker A_\lambda.
+    \]
+\end{theorem}
+\begin{proof}
+    Докажем только для того случая, когда $X = H$ -- гильбертово пространство.
+    Рассмотрим гильбертов сопряжённый $A^*\colon H \to H$, определяемый как
+    \[
+        \langle A u, v \rangle = \langle u, A^* v \rangle \quad \forall u, v \in H.
+    \]
+    Тогда
+    \[
+        (A_\lambda)^* = (A^*)_{\overline{\lambda}}.
+    \]
+    В силу аннуляторных соотношений и изометрии Рисса:
+    \[
+        \ker A_\lambda = \left(\im (A_\lambda)^*\right)^\perp, \quad \ker (A_\lambda)^* = \left(\im A_\lambda \right)^\perp.
+    \]
+    С учётом антилинейности эрмитова сопряжения:
+    \[
+        \ker A_\lambda = \left(\im (A^*_{\overline{\lambda}})\right)^\perp, \quad \ker A_{\overline{\lambda}}^* = \left(\im A_\lambda \right)^\perp.
+    \]
+
+    Достаточно показать, что 
+    \[
+        \dim \ker A_\lambda \leq \dim (\im A_\lambda)^\perp.
+    \]
+    Аналогично для компактного $A^*$:
+    \[
+        \dim \ker A^*_{\overline{\lambda}} \leq \dim (\im A^*_{\overline{\lambda}})^\perp.
+    \]
+
+    Тогда мы получим:
+    \[
+        \dim \ker A_\lambda = \left(\im (A^*_{\overline{\lambda}})\right)^\perp \geq \dim \ker A^*_{\overline{\lambda}} = \left(\im A_\lambda \right)^\perp \geq \dim \ker A_\lambda.
+    \]
+
+    Покажем неравенство. 
+    Будем рассуждать от противного.
+    Пусть 
+    \[
+        \dim \ker A_\lambda > \dim (\im A_\lambda)^\perp.
+    \]
+    По уже доказанному, $\dim \ker A_\lambda < +\infty$.
+    Для двух конечномерных пространств -- $\ker A_\lambda$ и $(\im A_\lambda)^\perp$ существует линейная сюръекция $F\colon \ker A_\lambda \to (\im A_\lambda)^\perp$.
+    В силу соотношений между размерностями ядра и ортогонального дополнения образа $\ker F \neq 0$.
+    
+    Так как $\ker A_\lambda$ -- замкнутое подпространство то (например, в силу теоремы Рисса о разложении) существует ортопроектор $P\colon H \to \ker A_\lambda$ (и его норма равна единице).
+    Рассмотрим оператор $T = A + FP$.
+    Это -- непрерывный оператор (просто как сумма непрерывных операторов).
+    Более того, в силу конечномерности $F$ -- оператор $FP$ также конечномерен, а значит $T$ -- компактен.
+
+    Теперь если мы рассмотрим $T_\lambda = A_\lambda + FP$, то так как $\ker F \neq 0$, существует $x_0 \in \ker A_\lambda\colon Fx_0 = 0$.
+    Но, по определению $P$, он оставляет на месте $\ker A_\lambda$, и поэтому $Px_0 = x_0$.
+    Таким образом $T_\lambda x_0 = Ax_0 + FPx_0 = 0$ -- и $\ker T_\lambda \neq 0$.
+
+    Следовательно, в силу компактности $T$ и нетривиальности $\lambda$, $\im T_\lambda \neq H$.
+    Но
+    \begin{multline*}
+        \im T_\lambda = T_\lambda(H) = T_\lambda (\ker A_\lambda \oplus (\ker A_\lambda)^\perp) = \\ = A_\lambda((\ker A_\lambda)^\perp) + FP(\ker A_\lambda) = A_\lambda ((\ker A_\lambda)^\perp) + F(\ker A_\lambda) = \\ = \im A_\lambda \oplus (\im A_\lambda)^\perp = H,
+    \end{multline*}
+    так как $\im A_\lambda$ -- замкнут. 
+    Противоречие.
+    Следовательно, неравенство для размерностей верно и теорема доказана.
+\end{proof}
+
+\begin{corollary}[Альтернатива Фредгольма]
+    Если $A \in \LL(X)$ -- компактный оператор, $X$ -- банахово и $\lambda \in \Cm \setminus \{0\}$, то...
+    \begin{itemize}
+        \item ...либо $\forall v \in X \exists! u \in X\colon A_\lambda u = v$ (эквивалентно, ядро нулевое и образ -- всё $X$),
+        \item ...либо $\exists u_0 \in X \setminus \{0\}\colon A_\lambda u_0 = 0$ (эквивалентно, ядро ненулевое).
+    \end{itemize}
+\end{corollary}
+\begin{proof}
+    Если $\ker A_\lambda = 0$, то и $\ker A_\lambda^* = 0$.
+    Но, тогда
+    \[
+        \im A_\lambda = [\im A_\lambda] = {}^\perp (\ker (A_\lambda)^*) = {}^\perp 0 = X.
+    \]
+
+    Если же $\ker A_\lambda \neq 0$, то и $\ker A_\lambda^* \neq 0$.
+    То есть и $\im A_\lambda \neq X$.
+\end{proof}
+
+\section{Спектр компактного оператора.}\label{seq:compact_spectrum}
+\begin{definition}
+    Пусть $X$ -- банахово пространство, $A \in \LL(X)$ и $A_\lambda = A - \lambda I$.
+    Множество
+    \[
+        \rho(A) = \{\lambda \in \Cm \mid \ker A_\lambda = 0, \ \im A_\lambda = X\}
+    \]
+    будем называть резольвентным, а операторы $A_\lambda^{-1}$ -- резольвентами оператора $A$ (по теореме Банаха об обратном оператора нулевое ядро и полный образ эквивалентны существованию ограниченного обратного).
+
+    Множество $\sigma(A) = \Cm \setminus \rho(A)$ будем называть спектром оператора $A$.
+\end{definition}
+\begin{note}
+    Принадлежность точки спектру эквивалентна одному из трёх условий:
+    \begin{itemize}
+        \item $\ker A_\lambda \neq 0$ -- то есть $\lambda$ является собственным значением. Множество подобных точек будем называть точечным спектром и обозначать $\sigma_p(A)$.
+        \item $\ker A_\lambda = 0$, но $\im A_\lambda \neq X$ и $[\im A_\lambda] = X$. Подобные точки будем называть точками непрерывного спектра и обозначать их множество как $\sigma_c(A)$.
+        \item $\ker A_\lambda = 0, \ \im A_\lambda \neq X$ и $[\im A_\lambda] \neq X$. Эти точки спектра будем называть точками остаточного спектра и обозначать их множество как $\sigma_r(A)$.
+    \end{itemize}
+\end{note}
+\begin{theorem}[Спектр компактного оператора]
+    Пусть $X$ -- банахово, $A \in \LL(X)$ -- компактный оператор.
+    Тогда
+    \begin{enumerate}
+        \item Если $\lambda \neq 0$ и $\lambda \in \sigma(A)$, то $\lambda \in \sigma_p(A)$.
+        \item $\forall r > 0$ множество $\Lambda_r = \{\lambda \in \sigma(A) \mid |\lambda| > r\}$ - конечно или пусто.
+        \item $\sigma(A)$ -- не более чем счётен, а если $\sigma(A)$ -- счётен, то $\lambda_n = \sigma(A) \setminus \{0\} \hookrightarrow \lambda_n \rightarrow 0$. 
+        \item Если $\dim X = \infty$, то $0 \in \sigma(A)$.
+    \end{enumerate}
+\end{theorem}
+% Ебаный оператор Вольтера в качестве примера
+\begin{proof}
+    Покажем первое утверждение.
+    Пусть $\lambda \neq 0$ и $\ker A_\lambda = 0$.
+    Тогда $\ker A_\lambda^* = 0$, а значит $\im A_\lambda = {}^\perp 0 = X$.
+    Поэтому существует $(A_\lambda)^{-1} \in \LL(X)$ и, следовательно, $\lambda \in \rho(A)$.
+
+    Пусть при некотором $r > 0$ множество $\Lambda_r$ -- бесконечно.
+    Рассмотрим последовательность $\{\lambda_n\}$ различных точек спектра из $\Lambda_r$.
+    Все эти точки, очевидно, являются собственными числами оператора $A$.
+    Заметим, что $\forall n \in \N$ семейство векторов $x_i \in \ker A_{\lambda_i}$ образует линейно независимую систему векторов (это показывается по индукции: для одного вектора очевидно, для перехода -- предполагаем противное, действуем от обратного на нетривиальную линейную комбинацию, равную нулю и в силу того, что все собственные числа различны получаем, что у нас есть нетривиальная линейная комбинация, равная нулю, размерности на единицу меньше).
+
+    Рассмотрим $L_n = \Lin\{x_1, \ldots, x_n\}$.
+    Пространства $\{L_n\}$ образуют строго возрастающую последовательность подпространств и, при этом, $A_{\lambda_n} L_n \subset L_{n - 1}$ (при $n \geq 2$) и $AL_n \subset L_n$.
+
+    По лемме Рисса о почти перпендикуляре $\forall n \in \N \ \exists y_n \in L_n\colon \|y_n\| = 1$ и $\rho(y_n, L_{n - 1}) \geq \frac{1}{2}$.
+    Так как $A$ -- компактный оператор, то у $\{Ay_n\}$ существует фундаментальная подпоследовательность $\{A_{y_{n_m}}\}$.
+    Но
+    \[
+        \|A y_n - A y_m\| = \|\lambda_n y_n + A_{\lambda_n} y_n - \lambda_m y_m - A_{\lambda_m} y_m\| \geq |\lambda_n|\cdot \frac{1}{2} \geq \frac{r}{2},
+    \]
+    так как $\lambda_m y_m \in L_{m} \subset L_{n - 1}$, $A_{\lambda_n} y_n \in L_{n - 1}$ и $A_{\lambda_m} y_m \in L_{m - 1} \subset L_{m - 1}$ -- противоречие.
+
+    Покажем справедливость третьего утверждения.
+    Так как
+    \[
+        \sigma(A) \setminus \{0\} = \bigcup_{n = 1}^{\infty} \Lambda_{1/n},
+    \]  
+    и каждое из этих множеств -- конечно или пусто, то и $\sigma(A) \setminus \{0\}$ -- не более чем счётно (а, соответственно, и $\sigma(A)$ -- не более чем счётно).
+    Если спектр счётен, то занумеруем $\sigma(A) \setminus \{0\}$ как $\{\lambda_n\}$.
+    Заметим, что для всякого $r > 0$ множество $\Lambda_r$ -- не более чем конечно, а значит существует некоторый $N_r$ такой, что $\forall n \geq N_r \hookrightarrow |\lambda_n| < r$.
+    А значит $\lambda_n \rightarrow 0$.
+
+    Если $\dim X = \infty$, то $0 \in \sigma(A)$, поскольку иначе $I = AA^{-1}$ -- компактен, и шар $B_1[0]$ резко становится вполне ограниченным -- что не так в силу теорему Рисса.
+\end{proof}
+\begin{note}
+    Если $A \in \LL(X)$ -- компактный оператор, то $\im A$ -- замкнут если и только если $\im A$ -- конечномерен.
+
+    Очевидно, что если $\im A$ -- конечномерен, то $\im A$ -- замкнут.
+
+    Пусть теперь $\im A$ -- замкнут. Тогда $\im A$ -- банахово пространство (как замкнутое подпространство банахова) и, в силу теоремы Банаха, $A\colon X \to \im A$ является открытым отображением. То есть $AO_1(0) \supset O_r(0) \cap \im A$.
+    Но $AO_1(0)$ -- вполне ограничен.
+    Тогда и $O_r(0) \cap \im A$ -- вполне ограничен, а, значит, конечномерен (по теореме Рисса).
+\end{note}
+\begin{note}
+    Рассмотрим $A \in \LL(X)$ такой, что $\dim \im A = n \in \N$.
+    Пусть $\{e_i\}_{i = 1}^{n}$ -- базис в $\im A$.
+    Тогда
+    \[
+        Ax = \sum_{k = 1}^{n} \alpha_k (A x)e_k,
+    \]
+    где $\alpha_k\colon \im A \to \Cm$ -- координатный функционал (непрерывный линейный функционал на образе).
+    Пусть $f_k$ -- продолжение по Хану-Банаху $\alpha_k$ на всё $X$.
+    Теперь мы можем записать $Ax$ как
+    \[
+        Ax = \sum_{k = 1}^{n} f_k(Ax)e_k = \sum_{k = 1}^{n} (A^* f_k)(x)e_k = \sum_{k = 1}^{n} g_k(x)e_k,
+    \]
+    где $g_k = A^* f_k$.
+    То есть всякий оператор с конечномерным образом представляется как
+    \[
+        Ax = \sum_{k = 1}^{n} g_k(x)e_k.
+    \]
+    Исследуем его спектр.
+    Рассмотрим уравнение
+    \[
+        A_\lambda x = y.
+    \]
+    Распишем $A_\lambda:$
+    \[
+        \sum_{k = 1}^{n} g_k(x)e_k - \lambda x = y.
+    \]
+    Если $\lambda \neq 0$, то 
+    \[
+        x = \sum_{k = 1}^{n} \frac{\gamma_k}{\lambda}e_k - \frac{y}{\lambda},  \quad \gamma_k = g_k(x).
+    \]
+    Так как $\{e_k\}$ -- базис в $\im A$, продолженные с координатных функционалов $f_k$ действуют на базис как $f_ke_m = \delta_{km}$.
+
+    Разыскивая $x$ в виде
+    \[
+        x = \sum_{k = 1}^{n} x_k e_k - \frac{y}{\lambda},
+    \]
+    где $x_k = \frac{\gamma_k}{\lambda}$, подействуем $A_\lambda\colon$
+    \[
+        A_\lambda x = \sum_{k = 1}^{n} x_k A(e_k) - \frac{Ay}{\lambda} - \sum_{k = 1}^{n} \lambda x_k e_k + y = y.
+    \]
+    То есть
+    \[
+            \sum_{k = 1}^{n} x_k(A(e_k) - \lambda e_k) = \frac{Ay}{\lambda},
+    \]
+    а $A(e_k) = \sum g_m(e_k)e_m = e_k$, поэтому
+    \[
+        \frac{Ay}{\lambda} = \sum_{s = 1}^n \frac{g_s(y)}{\lambda}e_s.
+    \]
+\end{note}
+
+

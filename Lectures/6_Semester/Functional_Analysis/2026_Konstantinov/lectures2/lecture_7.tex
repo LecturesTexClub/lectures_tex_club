@@ -1,0 +1,143 @@
+\section{Теорема об отделимости.}
+\begin{theorem}[Хан-Банах, общий случай]
+    Пусть $X$ -- вещественное линейное пространство, $L \subset X$ -- его подпространство и $p\colon X \to \R$ -- полуаддитивный положительно однородный функционал, то есть
+    \[
+        \forall x, y \in X \hookrightarrow p(x + y) \leq p(x) + p(y), \quad \forall \lambda > 0\, \forall x \in X \hookrightarrow p(\lambda x) = \lambda p(x).
+    \]
+    Пусть $\phi\colon L \to \R$ -- вещественно-линейный функционал такой, что $\phi(x) \leq p(x)$ при $x \in L$.
+    Тогда существует $\psi\colon X \to \R$ такой, что $\psi|_L = \phi$ и $\psi(x) \leq p(x)$ при всяком $x \in X$.
+\end{theorem}
+\begin{notet}
+    Была доказана в такой форме в прошлом семестре (но Роман Викторович её передоказал -- времени ведь хватает на всё).
+    На экзамене присутствовать не будет.
+\end{notet}
+\begin{definition}\label{def:minkovsky}
+    Пусть $(X, \tau)$ -- топологическое векторное пространство и $G$ -- выпуклая окрестность нуля.
+    Определим функцию Минковского окрестности $G$ как
+    \[
+        \mu_G(x) = \inf\left\{t > 0 \mid \frac{x}{t} \in G\right\}.
+    \]
+
+    Заметим, что для всякого $x \in X$ множество $\left\{t > 0 \mid \frac{x}{t} \in G\right\}$ -- непусто, так как $0 \in G \in \tau$,
+    и в силу непрерывности умножения скаляра на вектор $\forall x \in X$ из $0 \cdot x = 0$ следует $\exists \delta = \delta(x) > 0$ такое, что $\forall \lambda \in \Cm\colon |\lambda| < \delta \hookrightarrow \lambda x \in G$.
+    А значит при $t > \frac{1}{\delta(x)}$ верно, что $\frac{x}{t} \in G$ и $\mu_G(x) \leq \frac{1}{\delta(x)}$.
+\end{definition}
+\begin{note}
+    Очевидно, что $\mu_G(0) = 0$.
+\end{note}
+\begin{note}
+    Очевидно, что если $\lambda x \in G$ при всяком $\lambda > 0$, то $\mu_G(\lambda x) = 0$.
+\end{note}
+\begin{proposition}\label{prop:minkovsky_good}
+    Функция Минковского $\mu_G$ для выпуклой окрестности нуля $G$ является положительно однородным полуаддитивным функционалом.
+\end{proposition}
+\begin{proof}
+    Покажем положительную однородность $\mu_G$.
+    Пусть $x \in X$ и $\lambda > 0$.
+    Тогда
+    \[
+        \mu_G(\lambda x) = \inf \left\{t > 0 \mid \frac{\lambda x}{t} \in G \right\} = \lambda \inf \left\{\frac{t}{\lambda} > 0 \mid \frac{\lambda x}{t} \in G\right\} = \lambda \mu_G(x).
+    \]
+
+    Теперь покажем полуаддитивность $\mu_G$.
+    Пусть $x, y \in X$.
+    Рассмотрим $t > \mu_G(x)$ и $\tau > \mu_G(y)$.
+    В силу определению инфинума
+    \[
+        \exists a \in [\mu_G(x), t)\colon \frac{x}{a} \in G, \quad \exists b \in [\mu_G(y), \tau)\colon \frac{y}{b} \in G.
+    \]
+    Поскольку $G$ -- выпукло, то и $\frac{x}{t} = \frac{x}{a}\frac{a}{t} + 0 \cdot \left(1 - \frac{a}{t}\right)$ лежит в $G$, при $0 \leq \frac{a}{t} \leq 1$.
+    Аналогично получаем $\frac{y}{\tau} \in G$.
+    Рассмотрим точку $z = \frac{x}{t}\cdot \frac{t}{t + \tau} + \frac{y}{\tau}\cdot \frac{\tau}{t + \tau} = \frac{x + y}{t + \tau}$.
+    Как выпуклая комбинация точек из $G$ она лежит в $G$.
+    Поэтому, по определению функции Минковского, верно следующее неравенство:
+    \[
+        \mu_G(x + y) \leq t + \tau.
+    \]
+    Переходя к инфинуму по $t$ и $\tau$ получим искомую полуаддитивность.
+\end{proof}
+\begin{theorem}[Первая теорема об отделимости]\label{th:separability_first}
+    Пусть $(X, \tau)$ -- топологическое векторное пространство и $A, B$ -- два непустых выпуклых подмножества $X$ таких, что
+    \[
+        A \cap B = \emptyset, \quad A \in \tau.
+    \]
+    Тогда существуют $f \in (X, \tau)^*$ и $r \in \R$ такие, что
+    \[
+        \forall a \in A, b \in B \hookrightarrow \Re f(a) < r \leq \Re f(b).
+    \]
+\end{theorem}
+\begin{proof}
+    Рассмотрим множество $C = A - B = \bigcup_{b \in B} A - b$.
+    Так как сложение и умножение на скаляр -- непрерывны, то $A - b \in \tau$, а значит и само $C = A - B \in \tau$.
+
+    В силу непустоты $A$ и $B$ существуют $a_0 \in A$ и $b_0 \in B$ такие, что $c_0 = a_0 - b_0 \in C$.
+    Положим $G = C - c_0$.
+    Оно открыто, выпукло (так как линейная комбинация выпуклый множеств выпукла) и содержит ноль.
+    Заметим, что так как $A \cap B = \emptyset$, то $0 \notin C$, а значит и $-c_0 \notin G$.
+
+    Пусть $p(x) = \mu_G(x)$.
+    Заметим, что $\mu_G$ удовлетворяет условиям теоремы Хана-Банаха.
+    Рассмотрим $L = \Lin\{c_0\}$ (здесь подразумевается вещественная линейная оболочка $c_0$, то есть все такие $\lambda c_0$, где $\lambda \in \R$).
+    Поскольку $\mu_G(-c_0) \geq 1$ (в силу $\forall t > \mu_G(-c_0) \Rightarrow \frac{-c_0}{t} \in G$, а $-c_0 \notin G$)
+    Определим функционал $\phi\colon L \to \R$ как
+    \[
+        \phi(\lambda c_0) = -\lambda, \ \phi(-c_0) = 1.
+    \]
+    Он мажорируется функцией Минковского:
+    \[
+        \forall \lambda \geq 0 \hookrightarrow \phi(\lambda c_0) = -\lambda \leq 0 \leq \mu_G(\lambda c_0), \quad \forall \lambda > 0 \hookrightarrow \phi(-\lambda c_0) = \lambda \cdot 1 \leq \lambda \cdot \mu_G(-c_0) = \mu_G(-\lambda c_0).
+    \]
+    Применим теорему Хана-Банаха и получим $\psi\colon X \to \R$ -- вещественно-линейный функционал, мажорирующийся $G$ и продолжающий $\phi$.
+
+    Пусть $a \in A$ и $b \in B$.
+    Тогда $a - b - c_0 \in G$
+    И поэтому $\mu_G(a - b - c_0) \leq 1$.
+    С другой стороны $\psi(a - b - c_0) \leq \mu_G(a - b - c_0)$, следовательно
+    \[
+        \psi(a) + \psi(-b) + \psi(-c_0) = \psi(a) - \psi(b) + 1 \leq 1.
+    \]
+    То есть
+    \[
+        \psi(a) \leq \psi(b).
+    \]
+
+    Покажем непрерывность $\psi$.
+    Так как $\forall x \in G$, верно, что $\psi(x) \leq \mu_G(x) \leq 1$.
+    Положим $U(0) = G \cap (-G)$.
+    Для всякой $x \in U(0)$ мы получаем что $|\psi(x)| \leq 1$.
+    А значит и $|\psi(x)| \leq \epsilon$ при $x \in \epsilon U(0)$, поэтому $\psi$ -- непрерывен в 0, следовательно, непрерывен и всюду.
+
+    Определим $f$ -- комплексно-линейный функционал -- как $f(x) = \psi(x) - i \psi(ix)$.
+    Он будет непрерывен и $\Re f = \psi$, поэтому $\Re f(a) \leq \Re f(b)$.
+    Покажем, что неравенство на самом деле является строгим.
+
+    Пусть $r = \sup_{a \in A}\psi(a)$.
+    При всяком $a \in A$ верно, что $a + 0 \cdot (-c_0) = a \in A \in \tau$.
+    Поэтому существует $V(0) \in \tau$ такая, что $a + V(0) \subset A$ и $\exists \delta > 0\colon \forall \lambda \in \Cm\colon |\lambda| < \delta$ такое, что $a + \lambda(-c_0) \in A$.
+    Теперь если мы возьмём $\lambda = \frac{\delta}{2}$, то
+    \[
+        \psi\left(a -\frac{\delta}{2}c_0\right) \leq r
+    \]
+    То есть
+    \[
+        \psi(a) + \frac{\delta}{2}\phi(-c_0) = \psi(a) + \frac{\delta}{2} \leq r,
+    \]
+    поэтому
+    \[
+        \psi(a) < r.
+    \]
+    Что и завершает доказательство теоремы.
+\end{proof}
+\begin{theorem}[Вторая теорема об отделимости]\label{th:separability_second}
+    Пусть $(X, \tau)$ -- локально выпуклое топологическое векторное пространство (то есть существует база нуля $\beta_0$, состоящая из выпуклых окрестностей нуля).
+    Пусть $M \subset X$ -- непустое выпуклое и замкнутое и $x_0 \in X \setminus M$.
+    Тогда существуют $f \in (X, \tau)^*$ и $ r \in \R$ такие, что
+    \[
+        \forall x \in M\hookrightarrow \Re f(x_0) > r \geq \Re f(x).
+    \]
+\end{theorem}
+\begin{proof}
+    Так как $X \setminus M \in \tau$, то $X \setminus M - x_0$ -- окрестность нуля, следовательно, так как $X$ -- локально-выпуклое пространство, то существует выпуклая $V(0) \subset X \setminus M - x_0$.
+    А значит у нас есть выпуклая окрестность $x_0$ -- $V(0) + x_0$.
+    Применим к ней и $M$ первую теорему об отделимости и придём к успеху.
+\end{proof}

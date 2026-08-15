@@ -69,14 +69,15 @@ jobs:
           echo "FULL_PATH=$(echo ${FULL_PATH})" >> ${GITHUB_ENV}
 
       - name: Build
-        id: build
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: main.tex
           working_directory: ${{ env.FULL_PATH }}
-          args: -output-dir=../../../../build
-          compiler: pdflatex
-          post_compile: "pdflatex -output-dir=${GITHUB_WORKSPACE}/build main.tex"
+          extra_fonts: |
+            ./fonts/*.ttf
+            ./fonts/*.otf
+          latexmk_use_xelatex: true
+          args: -xelatex -interaction=nonstopmode -file-line-error -outdir=../../../../build
 
       - name: Upload
         shell: bash

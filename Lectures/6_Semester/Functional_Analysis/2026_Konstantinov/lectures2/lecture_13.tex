@@ -1,0 +1,404 @@
+\section{Спектр самосопряжённого оператора.}\label{seq:selfadjoint}
+\begin{theorem}[О спектре самосопряжённого оператора]
+    Пусть $A \in \LL(H)$ -- самосопряжённый оператор.
+    Тогда верно следующее:
+    \begin{enumerate}
+        \item $\Cm \setminus \R \subset \rho(A)$ и $\forall \lambda \in \Cm \setminus \R \hookrightarrow \|R_A(\lambda)\| \leq \frac{1}{|\im \lambda|}$.
+        \item $\sigma(A) \subset \R$
+        \item Если $\lambda \in \R$, то $\lambda \in \sigma(A) \Longleftrightarrow \exists \{x_n\} \subset H\colon \|x_n\| = 1 \hookrightarrow \|A_\lambda x_n\| \rightarrow 0$
+        \item Пусть $m_- = \inf_{\|x\| = 1}\langle Ax, x \rangle$ и $m_+ = \sup_{\|x\| = 1} \langle Ax ,x\rangle$. Тогда $\sigma(A) \subset [m_-(A), m_+(A)]$, причём $m_\pm(A) \in \sigma(A)$.
+        \item Если $A \neq 0$, то $\sigma(A) \setminus \{0\} \neq \emptyset$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Пусть $\lambda = \mu + i \nu$, где $\mu, \nu \in \R$ и $\nu \neq 0$.
+    Тогда
+    \[
+        \|A_\lambda x\|^2 =  \langle A_\mu x - i\nu x, A_\mu x - i \nu x \rangle = \|A_\mu x\|^2 + \nu^2 \|x\|^2 + i \nu \langle x, A_\mu x \rangle - i \nu \langle A_\mu x, x \rangle.
+    \]
+    Заметим, что так как $\mu \in \R$, то $A_\mu^\dagger = A_\mu$ и, следовательно $\langle x, A_\mu x \rangle = \langle A_\mu x, x \rangle$, а значит:
+    \[
+        \|A_\lambda x\|^2 \geq \nu^2 \|x\|^2.
+    \]
+    Это верно при всяком $x \in H$. Следовательно, $\ker A_\lambda = 0$ и определён непрерывный обратный $R_A(\lambda) = (A - \lambda I)^{-1}\colon \im A_\lambda \to H$.
+    Более того, в силу показанного неравенства $\forall y \in \im A_\lambda$
+    \[
+        \|R_A(\lambda)y\| = \|x\| \leq \frac{\|A_\lambda x\|}{|\Im \lambda|} = \frac{\|A_\lambda R_A(\lambda)y\|}{|\Im \lambda|} = \frac{\|y\|}{|\Im \lambda|},
+    \]
+    что и даёт нам искомую оценку на норму обратного оператора. Покажем, что $\im A_\lambda = H$.
+    
+    Заметим, что образ $A_\lambda$ -- замкнут.
+    Пусть $y \in [\im A_\lambda]$ и $A_\lambda x_n = y_n \rightarrow y$.
+    Тогда, очевидно, что $\|x_n - x_m\| = \|R_A(\lambda)(y_n - y_m)\| \leq \|R_A(\lambda)\|\|y_n - y_m\|$ -- то есть последовательность $\{x_n\}$ -- фундаментальна, и сходится к некотрому $x \in H$.
+    А значит $Ax = y$ и $y \in \im A_\lambda$.
+
+    В тоже время, $\ker (A_\lambda)^\dagger = \ker A^\dagger_{\overline{\lambda}} = \ker A_{\overline{\lambda}} = 0$ -- так как для $A_{\overline{\lambda}}$ верна аналогичная оценка на норму снизу.
+    Если $z \in \ker (A_\lambda)^\dagger$, то $\langle A_\lambda x, z \rangle  = \langle x, (A_\lambda)^\dagger z \rangle = 0$ и $z \in (\im A_\lambda)^\perp $ -- то есть $\ker (A_\lambda)^\dagger \subset (\im A_\lambda)^\perp$.
+    Верно и обратное: если $z \in (\im A_\lambda)^\perp$, то есть $\langle A_\lambda x, z \rangle = 0$ при всяком $x \in H$, то $\langle x, (A_\lambda)^\dagger z \rangle = \langle A_\lambda x, z \rangle = 0$ и, следовательно, $(A_\lambda)^\dagger z = 0$.
+    Следовательно, $\ker (A_\lambda)^\dagger = (\im A_\lambda)^\perp$.
+    То есть $\im A_\lambda = [\im A_\lambda] = (\im A_\lambda)^{\perp \perp} = 0^\perp = H$ -- что и требовалось показать.
+    Следовательно, показано и включение $\sigma(A) \subset \R$.
+
+    \begin{note}
+        Если $M$ -- подпространство $H$, то $M^{\perp \perp} = [M]$.
+
+        Так как $M^{\perp \perp}$ -- замкнуто, то $[M] \subset M^{\perp \perp}$, и по теореме Рисса
+        \[
+            [M] \oplus [M]^{\perp} \cap M^{\perp \perp} = M^{\perp \perp}.
+        \]
+        В тоже время, так как $[M]^\perp = M^\perp$ (одно вложение -- очевидно, а второе верно в силу непрерывности скалярного произведения), то $[M]^\perp \cap M^{\perp \perp} = M^\perp \cap M^{\perp \perp} = 0$, что и показывает необходимое нам равенство.
+    \end{note}
+
+    Покажем теперь критерий вложения вещественного числа в спектр.
+    Заметим, что с учётом всего вышесказанного, вещественное число $\lambda$ вложено в резольвенту тогда и только тогда, норма $A_\lambda$ оценивается снизу: $\|A_\lambda x\| \geq k_\lambda \|x\|$.
+    И действительно: если существует непрерывный обратный, то оценка снизу получается из применения обратного оператора, а если выполнена такая оценка снизу в силу самосопряжённости $A_\lambda$ мы получаем что $\ker A_\lambda = \ker A^\dagger_\lambda = 0$, а значит и $\im A_\lambda = H$.
+    Таким образом, если $\lambda \in \R$, то $\lambda \in \sigma(A) \Longleftrightarrow \forall K > 0 \ \exists x_K \in H\colon \|A_\lambda x_K\| < K\|x_K\|$. Очевидно, это эквивалентно существованию последовательности $y_n$ такой, что
+    \[
+        \|A_\lambda y_n\| < \frac{1}{n}\|y_n\|.
+    \]
+    Но, заметим, что тогда для $x_n = \frac{y_n}{\|y_n\|}$ верно 
+    \[
+        \|A_\lambda x_n\| < \frac{1}{n},
+    \]
+    из чего следует сходимость $A_\lambda x_n$ к нулю.
+
+    Теперь покажем локализацию спектра.
+    Пусть $\lambda > m_+(A)$.
+    Тогда, с одной стороны, в силу КБШ:
+    \[
+        \langle -A_\lambda x, x \rangle \leq \|x\|\|A_\lambda x\|,
+    \]
+    а с другой стороны:
+    \[
+        \langle \lambda x - Ax, x \rangle = \|x\|^2 \left(\lambda - \langle Ax, x\rangle\right) \geq \|x\|^2(\lambda - m_+(A)).
+    \]
+    То есть мы получаем оценку снизу на норму $A_\lambda\colon$
+    \[
+        \|A_\lambda x\| \geq (\lambda - m_+(A))\|x\|.
+    \]
+    Как ранее замечено, это эквивалентно принадлежности точки $\lambda$ резольвентному множеству.
+
+    Аналогично получается оценка и для $\lambda < m_-(A)$.
+
+    Покажем, что $m_{\pm}(A) \in \sigma(A)$.
+    Рассмотрим максимизирующую последовательность $x_n$ точек единичной сферы для $m_+(A)$, то есть такую, что
+    \[
+        \langle Ax_n, x_n \rangle \rightarrow m_+(A).
+    \]
+    Заметим, что $m_+(A) = \langle m_+(A) x_n, x_n \rangle$, и, таким образом
+    \[
+        \langle -A_{m_+}x_n, x_n \rangle \rightarrow 0.
+    \]
+    Рассмотрим билинейную форму $\langle x, y \rangle_+ = \langle -A_{m_+}x, y \rangle$.
+    Покажем, что она является (как минимум) псевдоскалярным произведением (то есть возможно, оно вырождено -- но прочим условиям скалярного произведения удовлетворяет)
+    \begin{enumerate}
+        \item Заметим, что $\langle x, x \rangle_+ = \langle -A_{m_+}x, x \rangle \geq 0$ -- по определению $m_+$
+        \item $\langle x, y \rangle_+ = \langle -A_{m_+}x, y \rangle = \langle x, -A_{m_+} y \rangle = \overline{\langle -A_{m_+} y, x \rangle} = \overline{\langle y, x \rangle_+}$.
+        \item Линейность по первому аргументу очевидна.
+    \end{enumerate}
+    Рассмотрим $\langle x + ty, x + ty \rangle_+$.
+    Как показано выше
+    \[
+        \langle x + ty, x + ty \rangle_+ \geq 0.
+    \]
+    То есть
+    \[
+        t^2\langle y, y \rangle_+ + 2t \Re \langle x, y \rangle_+ + \langle x, x \rangle_+ \geq 0.
+    \]
+    Следовательно дискриминант -- неположителен и 
+    \[
+        |\Re \langle x, y \rangle_+|^2 \leq \langle y, y \rangle_+ \langle x, x \rangle_+.
+    \]
+    А значит
+    \[
+        |\langle x, y \rangle_+| = \langle x, y \rangle_+ e^{i\phi} = \langle x e^{i\phi}, y \rangle_+ = \Re \langle xe^{i\phi}, y \rangle_+ \leq \sqrt{\langle xe^{i\phi}, x e^{i\phi} \rangle_+ \langle y, y \rangle_+}.
+    \]
+    Теперь рассмотрим следующее:
+    \[
+        \langle x_n, -A_{m_+} x_n \rangle_+ = \langle -A_{m_+}x_n, -A_{m_+}x_n \rangle = \|A_{m_+}x_n\|^2.
+    \]
+    Но
+    \[
+        \langle x_n, -A_{m_+} x_n \rangle_+ \leq \sqrt{\langle x_n, x_n \rangle_+ \langle A_{m_+} x_n, A_{m_+} x_n \rangle_+}.
+    \]
+    Но $\langle x_n, x_n \rangle_+$ -- бесконечно мала, а $\langle A_{m_+} x_n, A_{m_+} x_n \rangle_+$ -- ограничена кубом нормы $A_{m_+}$ (в силу КБШ, того что $\|x_n\| = 1$ и субмультипликативности нормы).
+    Значит $\|A_{m_+}x_n\| \rightarrow 0$ и, таким образом, $m_+ \in \sigma(A)$.
+
+    Покажем последнее утверждение теоремы.
+    Пусть $\sigma(A) \setminus \{0\} = \emptyset$.
+    Тогда $m_\pm(A) = 0$ и, следовательно, $\langle Ax, x \rangle = 0$.
+    То есть
+    \[ 
+    \langle A(x + y), x + y \rangle = \langle Ax, x \rangle + \langle Ay, y \rangle + 2\Re \langle Ax, y \rangle.
+    \]
+    А значит $\Re \langle Ax, y \rangle = 0$. Если же мы рассмотрим $\langle A(x + iy), (x + iy) \rangle$, то получим $\Im \langle Ax, y \rangle = 0$, и тогда $\im A \perp H$ -- поэтому $\im A = 0$, следовательно $A = 0$.
+\end{proof}
+\begin{notet}[Пустоста спектра самосопряжённого оператора]
+    В спектре самосопряжённого оператора $A$ у нас могут лежать только вещественные числа.
+    Пусть $\lambda \in \R$.
+    Если $\ker A_\lambda = 0$, то и у сопряжённого $(A_\lambda)^*$ ядро нулевое — при вещественном $\lambda$ это просто один и тот же оператор.
+    Но тогда $[\im A_\lambda] = (\ker A_\lambda)^\perp = 0^\perp = H$ — то есть замыкание образа всегда $H$, и у нас точка спектра не может быть остаточной.
+\end{notet}
+
+\section{Теорема Гильберта-Шмидта.*}\label{seq:gilbert-shmidt}
+\begin{theorem}[Гильберт, Шмидт]
+    Пусть $H$ -- бесконечномерное гильбертово пространство и $A \in \LL(H)$ -- самосопряжённый компактный оператор.
+    Тогда в $(\ker A)^\perp$ существует ортонормированный базис из собственных векторов и, более того, справедливо следующее разложение $H$:
+    \[
+        H = \ker A \oplus \bigoplus_{n} L_n,
+    \]
+    где $L_n$ -- собственное подпространство конечной размерности.
+\end{theorem}
+\begin{proof}
+    Так как $A$ -- самосопряжённый оператор, то его спектр лежит на вещественной оси.
+    В силу его компактности, спектр не более чем счётен и (так как $\dim H = \infty$) $\sigma(A) = \{0\} \cup \{\lambda_n\}$, где $\lambda_n$ -- собственное значение и $\lambda_n \rightarrow 0$.
+
+    Заметим, что собственное подпространство, соответствующее $\lambda$ -- $\ker A_{\lambda_n}$ -- конечномерно (по теореме о спектре компактного оператора). Тогда в $\ker A_{\lambda_n}$ можно выбрать ортонормированный базис из собственных векторов, соответствующих $\lambda_n$.
+
+    Заметим, что при $\lambda_n \neq \lambda_m$ пространства $\ker A_{\lambda_n}$ и $\ker A_{\lambda_m}$ -- ортогональны.
+    И действительно:
+    \[
+        \lambda_n \langle x, y \rangle = \langle Ax, y \rangle = \langle x, Ay \rangle = \lambda_m \langle x, y \rangle.
+    \]
+    Таким образом у нас есть счётный ортонормированный базис в $L = \bigoplus_{n} \ker A_{\lambda_n}$.
+    
+    Очевидном, что всякий вектор из $L$ ортогонален ядру $A$: если он -- собственный, то, как показано ранее, $\lambda_n\langle x, y \rangle = 0\langle x, y \rangle = 0$; если он представим как конечная линейная комбинация собственных -- то это верно в силу линейности; если он представим как предел конечных линейных комбинаций, то это так в силу непрерывности скалярного произведения. Следовательно, $L \subset \ker A^\perp$.
+
+    Рассмотрим $M$ -- ортогональное дополнение $L$ в $\ker A^\perp$.
+    По теореме Рисса об ортогональном разложении:
+    \[
+        L \oplus M = (\ker A)^{\perp}.
+    \]
+    Заметим, что в силу определения $L$ верно, что $AL \subset L$.
+    Но, тогда, если $x \in M$ и $y \in L$, то
+    \[
+        \langle Ax, y \rangle = \langle x, Ay \rangle = 0,
+    \]
+    то есть и $Ax \in M$ -- следовательно $AM \subset M$.
+    Таким образом $A|_{M}$ -- самосопряжённый оператор.
+    Если он нетривиален, то там есть некоторое собственное число -- противоречие, поскольку тогда его пересечение с $L$ непусто.
+    Следовательно $A|_{M} = 0$ -- но тогда $M \subset \ker A$.
+    Так как $M \cap \ker A = 0$, то $M = 0$ и утверждение теоремы показано.
+\end{proof}
+
+\begin{note}
+    Утверждение теоремы говорит, по сути, о том, что 
+    \[
+        A = \sum_{n} \lambda_n P_n,
+    \]
+    где $P_n$ -- ортопроектор на $\ker A_{\lambda_n}$.
+\end{note}
+
+\section{Открытость резольвентного множества, непустота и компактность спектра непрерывного оператора в банаховом пространстве.*}\label{seq:spectrum}
+
+\begin{lemma}[Нейман]
+    Пусть $X$ -- банахово пространство, $A \in \LL(X)$ и $\|A\| < 1$
+    Тогда существует $(I - A)^{-1}$ и $(I - A)^{-1} \in \LL(X)$.
+\end{lemma}
+\begin{proof}
+    Рассмотрим оператор $S = \sum_{k = 0}^{\infty} A^k$.
+    Заметим, что ряд из норм сходится:
+    \[
+        \sum_{k = 0}^{\infty} \|A^k\| \leq \sum_{k = 0}^{\infty} \|A\|^k  = \frac{1}{1 - \|A\|}.
+    \]
+    Следовательно, и $\sum_{k = 0}^{\infty} A^k$ сходится к некоторому непрерывному оператору $S$ (в силу банаховости пространства $\LL(X)$).
+
+    Заметим, что последовательность $S^N = \sum_{k = 0}^{N} A^k$ сходится к $S:$
+    \[
+        \|S - S^N\| = \left\|\sum_{k = N + 1}^{\infty} A^k\right\| \leq \sum_{k = N + 1}^{\infty} \|A\|^k = \frac{\|A\|^{N + 1}}{1 - \|A\|} \rightarrow 0.
+    \]
+
+    Так как $S^N(I - A) = (I - A)S^N = I - A^{N + 1} \rightarrow I$, то $S(I - A) = (I - A)S = I$, а значит $S = (I - A)^{-1}$ -- что и требовалось показать.
+\end{proof}
+
+\begin{theorem}
+    Пусть $X$ -- нетривиальное банахово пространство, $A \in \LL(X)$.
+    Тогда верны следующие утверждения про спектр:
+    \begin{enumerate}
+        \item $\sigma(A)$ -- замкнут.
+        \item $\sigma(A)$ -- ограничен.
+        \item $\sigma(A)$ -- непуст.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Покажем открытость резольвентного множества.
+    Пусть $\lambda \in \rho(A)$.
+    Достаточно показать, что при некотором $\delta$ множество $B_\delta(\lambda) \subset \rho(A)$.
+    Рассмотрим $A - (\lambda + \Delta \lambda)I$ (где $|\Delta \lambda| < \delta$).
+    Тогда
+    \[
+        A - (\lambda + \Delta \lambda)I = (A - \lambda I) - \Delta \lambda I = (A - \lambda I)(I - (A - \lambda I)^{-1}\Delta \lambda I).
+    \]
+    Таким образом, если мы выберем $\delta = \frac{1}{2\|(A - \lambda I)^{-1}\|}$, то
+    \[
+        \|\Delta \lambda(A - \lambda I)^{-1}\| = |\Delta \lambda|\|(A - \lambda I)^{-1}\| < \frac{1}{2},
+    \]
+    и, следовательно, существует непрерывный обратный по лемме Неймана -- что и требовалось показать.
+    Следовательно, резольвентное множество -- открыто, и спектр -- замкнут (как дополнение резольвентного множества).
+
+    Покажем ограниченность спектра.
+    Пусть $\lambda\colon \ |\lambda| > \|A\|$.
+    Тогда $\left\|\frac{A}{\lambda}\right\| < 1$ и у оператора $I - \frac{A}{\lambda}$ существует непрерывный обратный по лемме Неймана. Следовательно, оператор $A - \lambda I = -\lambda\left(I - \frac{A}{\lambda}\right)$ -- непрерывно обратим и $\lambda \in \rho(A)$.
+    Таким образом $\sigma(A) \subset B_{\|A\|}[0]$.
+
+    Покажем непустоту спектра.
+    Предположим, что спектр -- пуст и резольвента $R_A$ определена на всей комплексной плоскости.
+    Заметим, что для $\lambda\colon \ |\lambda| > \|A\|$ обратный определяется по лемме Неймана как 
+    \[
+        (A - \lambda I)^{-1} = -\sum_{k = 0}^{\infty} \frac{A^k}{\lambda^{k + 1}}.
+    \]
+    Тогда
+    \[
+        \|R_{A}(\lambda)\| \leq \frac{1}{\lambda - \|A\|} \rightarrow 0, \quad \lambda \rightarrow \infty.
+    \]
+    Заметим, что в окрестности всяком точки $\lambda_0 \in \rho(A)$ резольвента представляется как 
+    \begin{multline*}
+        R_A(\lambda) = (A - \lambda I)^{-1} = \left(A - \lambda_0 I - (\lambda - \lambda_0)I\right)^{-1} = \\ = \left((A - \lambda_0 I)(I - (A - \lambda_0 I)^{-1}(\lambda - \lambda_0))\right)^{-1} = \sum_{k = 0}^{\infty} (A - \lambda_0 I)^{-(k + 1)}(\lambda - \lambda_0)^k = \sum_{k = 0}^{\infty} R_A(\lambda_0)^{k + 1}(\lambda - \lambda_0)^k.
+    \end{multline*}
+
+    Следовательно, если мы рассмотрим точку $x \in X$ и $f \in x^*$, и определим $\phi(\lambda) = f(R_A(\lambda)x)$, то во всякой $\lambda_0 \in \rho(A)$ функция $\phi$ будет дифференцируема:
+    \begin{multline*}
+        \frac{\phi(\lambda) - \phi(\lambda_0)}{\lambda - \lambda_0} = \frac{f(R_A(\lambda)x) - f(R_A(\lambda_0 x))}{\lambda - \lambda_0} = \\ = \frac{f((R_A(\lambda) - R_A(\lambda_0)x))}{\lambda - \lambda_0} = f \left(\frac{R_A(\lambda) - R_A(\lambda_0)}{\lambda - \lambda_0}x\right) = f\left(\frac{\sum_{k = 1}^{\infty} R_A(\lambda_0)^{k + 1}(\lambda - \lambda_0)^k}{\lambda - \lambda_0}x\right) = \\ = f\left(\sum_{k = 1}^{\infty} R_{A}(\lambda_0)^{k + 1}(\lambda - \lambda_0)^{k - 1}x\right) \rightarrow f(R_A(\lambda_0)^2 x), \lambda \rightarrow \lambda_0.
+    \end{multline*}
+    Таким образом $\phi$ -- аналитична на $\rho(A)$.
+    Так как, по предположению, $\rho(A) = \Cm$, то $\phi$ -- целая функция.
+    Но, при этом, $|\phi(\lambda)| \leq \|f\|\|R_A(\lambda)\|\|x\| \rightarrow 0, \lambda \rightarrow \infty$ -- а значит $\phi$ -- целая функция, убывающая к нулю на бесконечности -- то есть тождественный ноль по теореме Лиувилля.
+
+    Так как это верно при произвольном $f \in X^*$, то $\forall x \in X \hookrightarrow R_A(\lambda x) = 0$.
+    Но, тогда, $R_A(\lambda) = 0$ -- чего быть не может.
+    Следовательно спектр -- непуст.
+\end{proof}
+
+\section{Теорема о спектральном радиусе непрерывного оператора в банаховом пространстве. Критерий равенства спектрального радиуса норме непрерывного оператора.*}\label{seq:gelfand}
+Пусть $X$ -- банахово пространство и $A \in \LL(X)$.
+\begin{definition}
+    Спектральным радиусом оператора $A$ будем называть $r(A) = \sup\limits_{\lambda \in \sigma(A)}|\lambda| = \max\limits_{\lambda \in \sigma(A)}|\lambda|$.
+\end{definition}
+
+\begin{lemma}[Фекете]
+    Пусть $\{x_n\}$ -- субаддитивная числовая последовательность (то есть $x_{n + m} \leq x_n + x_m$).
+    Тогда существует предел $\lim\limits_{n} \frac{x_n}{n}$, и он равен $\inf\limits_{n} \frac{x_n}{n}$.
+\end{lemma}
+\begin{proof}
+    Пусть $L = \inf\limits_{n} \frac{x_n}{n}$.
+    Очевидно, что $\forall n \in \N$
+    \[
+        L \leq \frac{x_n}{n}.
+    \]
+    Следовательно
+    \[
+        L \leq \lim\inf \frac{x_n}{n}.
+    \]
+
+    Покажем справедливость обратной оценки:
+    \[
+        \lim\sup \frac{x_n}{n} \leq L.
+    \]
+    Зафиксируем $k \in \N$. Для всякого $n \in \N\colon \ n = qk + r$.
+    Тогда, по субаддитивности:
+    \[
+        x_n = x_{qr + k} \leq qx_k + x_r.
+    \]
+    Поделим на $n\colon$
+    \[
+        \frac{x_n}{n} \leq \frac{qx_k}{qk + r} + \frac{x_r}{qk + r}.
+    \]
+    При $n \rightarrow \infty$ в силу ограниченности $\{x_r\}_{r = 0}^{k - 1}$ слагаемое $\frac{x_r}{qk + r}$ стремится к нулю, а $\frac{qx_k}{qk + r} \rightarrow \frac{x_k}{k}$.
+    Но, тогда
+    \[
+        \lim\sup \frac{x_n}{n} \leq \frac{x_k}{k}.
+    \]
+    Причём это справедливо для произвольного $k \in \N$, а значит
+    \[
+        \lim\sup \frac{x_n}{n} \leq \inf \frac{x_k}{k} = L.
+    \]
+    Что и даёт нам утверждение леммы.
+\end{proof}
+
+\begin{theorem}[Гельфанд]
+    Тогда
+    \[
+        r(A) = \lim \sqrt[n]{\|A^n\|}.
+    \]
+\end{theorem}
+\begin{proof}
+    Если $A^N = 0$ для некоторой степени $A$, то предел, очевидно, существует и равен $0$.
+    С другой стороны, спектр нильпотентного оператора -- нулевой (в силу, например, теоремы об отображении спектра полиномом; достаточно отображения спектра $z \mapsto z^n$). Соответственно, формула Гельфанда верна.
+    
+    Пусть $A^n \neq 0$ при всех $n \in \N$.
+    Рассмотрим последовательность $\{\ln \|A^n\|\}$.
+    Так как $\|A^{n + m}\| \leq \|A^n\|\|A^m\|$, то $\ln \|A^{n + m}\| \leq \ln \|A^n\| + \ln \|A^m\|$, то последовательность логарифмов норм субаддитивна, а, значит в силу леммы Фекете существует предел $\lim \frac{\ln \|A_n\|}{n} = \lim \ln \|A^n\|^{1/n}$ -- а значит существует и $L = \lim \|A^n\|^{1/n} = \inf \|A^n\|^{1/n}$.
+
+    Покажем, что $r(A) \leq L$.
+    Пусть $|\lambda| > L$. Тогда, в частности, $|\lambda| > \|A\|$, а значит $\lambda \in \rho(A)$ (аналогично теореме о компактности и непустоте спектра) и, таким образом, $r(A) \leq L$.
+
+    Покажем, что $r(A) \geq L$.
+    Пусть $R > r(A)$.
+    Окружность $S_R = \{|\lambda| = R\}$ лежит в резольвентном множестве.
+    Поскольку резольвента -- непрерывна как функция $\lambda$ (как показано в доказательстве теоремы о компактности спектра -- она локально представима как сумма степенного ряда), то $\lambda \mapsto \|R_A(\lambda)\|$ достигает своего максимума $M_R$ на $S_R$.
+    Зафиксируем $x \in X$ и $f \in X^*$ и рассмотрим $\phi_{x, f}(\lambda) = f(R_A(\lambda)x)$.
+    Это -- голоморфная на резольвентном множестве функция (и это тоже показано в доказательстве теоремы о компактности спектра... надо было как леммы всё вынести, да).
+    Пусть $T > \max\{R, \|A\|\}$.
+    На окружности $S_T$ резольвента представима как ряд по лемме Неймана и тогда $\phi_{x, f}(\lambda) = \sum_{k = 0}^{\infty}\frac{f(A^k x)}{\lambda^{k + 1}}$.
+    Заметим, что на окружности ряд сходится равномерно и поэтому мы можем интегрировать почленно.
+    Рассмотрим $\lambda^n \phi_{x, f}(\lambda)$ и проинтегрируем по окружности $S_T\colon$
+    \[
+        \frac{1}{2\pi i} \int_{S_T} \lambda^n \phi_{x, f}(\lambda)d\lambda = \sum_{k = 0}^{\infty} f(A^k x)\int_{S_T} \lambda^{n - k - 1}d\lambda = f(A^n x).
+    \]
+
+    Так как функция $\lambda \mapsto \lambda^n \phi_{x, f}$ голоморфна во внешности круга радиуса $r(A)$, то, в частности, она голоморфна в кольце $\{R < |\lambda| < T\}$. В силу теоремы Коши
+    \[
+        \int_{S_R} \lambda^n \phi_{x, f}(\lambda)d\lambda = \int_{S_T} \lambda^n  \phi_{x, f}(\lambda)d\lambda.
+    \]
+    И, тогда:
+    \[
+        f(A^n x) = \frac{1}{2\pi i} \int_{S_R} \lambda^n f(R_A(\lambda)x)d\lambda.
+    \]
+    А значит:
+    \[
+        |f(A^n x)| \leq \frac{1}{2\pi} \int_{S_R} |\lambda|^n |f(R_A(\lambda)x)||d\lambda| \leq M_R R^{n + 1}\|f\|\|x\|.
+    \]
+    Возьмём супремум по $f \in X^*\colon \|f\| \leq 1$ и, по следствию из теоремы Хана-Банаха:
+    \[
+        \|A^n x\| \leq M_R R^{n + 1}\|x\|.
+    \]
+    А теперь возьмём супремум по $x \in X\colon \|x\| \leq 1$ и получим:
+    \[
+        \|A^n\| \leq M_R R^{n + 1},
+    \]
+    то есть
+    \[
+        \|A^n\|^{1/n} \leq M_R^{1/n}R^{1 + 1/n}.
+    \]
+    Переходя к пределу по $n$ получим:
+    \[
+        L \leq R.
+    \]
+    Поскольку $R > r(A)$ -- произвольное, то 
+    \[
+        L \leq r(A).
+    \]
+    Что и заканчивает доказательство формулы.
+\end{proof}
+
+\begin{theorem}
+    Следующие условия эквивалентны:
+    \begin{enumerate}
+        \item $r(A) = \|A\|$.
+        \item $\forall n \in \N \hookrightarrow \|A\|^n = \|A^n\|$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Пусть $r(A) = \|A\|$.
+    Тогда
+    \[
+        \|A\|^n = r(A)^n = r(A^n) = \|A^n\| \leq \|A\|^n,
+    \]
+    где $r(A)^n = r(A^n)$ в силу теоремы отображения спектра полиномом (достаточно отображения спектра $z \mapsto z^n$).
+
+    Пусть $\|A\|^n = \|A^n\|$ при всяком $n \in \N$.
+    В силу теоремы Гельфанда
+    \[
+        r(A) = \lim \sqrt[n]{\|A^n\|} = \lim \sqrt[n]{\|A\|^n} = \|A\|.
+    \]
+\end{proof}
